@@ -90,13 +90,7 @@ Manufacturers produce multiple products. Often, these products require extensive
 
 https://hoppscotch.io/Links
 
-
-
-<p id="gdcalert2" ><span style="color: red; font-weight: bold">>>>>>  gd2md-html alert: inline image link here (to images/image2.png). Store image on your image server and adjust path/filename/extension if necessary. </span><br>(<a href="#">Back to top</a>)(<a href="#gdcalert3">Next alert</a>)<br><span style="color: red; font-weight: bold">>>>>> </span></p>
-
-
-![alt_text](images/image2.png "image_tooltip")
-
+<img width="468" alt="Picture2" src="https://github.com/LatinScribe/CSC207-Project/assets/144297306/5866c281-bd64-42d8-a908-19d12878052e">
 
 Alternative Hosting API: [https://pastebin.com/doc_api](https://pastebin.com/doc_api)
 
