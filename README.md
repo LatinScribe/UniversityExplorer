@@ -6,6 +6,8 @@ Link to our github: [https://github.com/LatinScribe/CSC207-Project](https://gith
 
 Manufacturers produce products (electronics, children's toys, chemicals, you name it). Often, these products require government mandated validation and certification prior to sale. This is where laboratories come into the picture, as they provide services to obtain the necessary product certifications. For our project, we will be building a platform to connect manufacturers and laboratories with each other to facilitate this process. Manufacturers will have a one stop shop to find the laboratory that best suits their needs, or to simply post their service request and allow interested laboratories to connect directly with them. Laboratories will have an opportunity to reach a wider customer base, and to bid on service requests/contracts posted by manufacturers.
 
+--- 
+
 **Break down of how our project works:**
 
 
@@ -43,7 +45,8 @@ Manufacturers produce products (electronics, children's toys, chemicals, you nam
 	- A database storage and retrieval system. Our <span style="text-decoration:underline;">current plan</span> is to use a modified version of the Lab3 API to accomplish the goal (see:[https://github.com/LatinScribe/Custom-Server-API](https://github.com/LatinScribe/Custom-Server-API)) . This custom API will allow access to the web-based database, similar to in Lab 3. The major change will be that we plan on switching the mongolDB implementation to a mySQL based implementation. As a backup plan, we are exploring potentially using the pastebin API to accomplish the task ([https://pastebin.com/doc_api](https://pastebin.com/doc_api)). As a last resort, we will turn to using .txt and .csv files to store data either locally or on the web (depending on what works)
 	- For the news/web scraping component (if time permits), we intend to use the Jsoup API to retrieve relevant data from websites.
 
-		
+
+  ---
 
 **API Documentation and Screenshot:**
 
@@ -61,6 +64,7 @@ Alternative Hosting API: [https://pastebin.com/doc_api](https://pastebin.com/doc
 
 Jsoup (WebScraper) [API Documentation](https://jsoup.org/ )
 
+----
 **Java Code Example:**
 
 Custom API [found in src/main/java/api/MongoGradeDB.java]
@@ -71,7 +75,7 @@ Output
 
 ![Picture5](https://github.com/LatinScribe/CSC207-Project/assets/144297306/47995d47-7992-402a-b145-071225925bdd)
 
-
+----
 **Technical Problems and Other Questions:**
 
 
@@ -80,4 +84,6 @@ Output
 * A potential challenge would be switching from mongoDB to MySQL, but it should not be too difficult as the fundamental idea is still similar. This does not really impact the actual java code since the API interface is still the same, but the behind the scene aspect of the API will have to change.
 * Another note is that much of our project is time dependent, and is flexible so that we should be able to implement the core features (login system + job board) and branch out to implement other features depending on time
 
-
+----
+###Authors:
+Henry "TJ" Chen, Andre Lin, Diego Pachas Ramos, Kanish Sharma, Bora Celebi
