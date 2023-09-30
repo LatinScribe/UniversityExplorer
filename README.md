@@ -50,19 +50,19 @@ Manufacturers produce multiple products. Often, these products require extensive
 
 
 1. Users:
-    a. Laboratories: They will have access to the job board to VIEW job postings. If there is a job posting they are interested in,  they can connect/contact the relevant manufacturer and/or accept the job. They will also have the ability to add their laboratory to our database of laboratories (this feature may be cut depending on time)
-    b. Manufacturers: They will have access to the job board to POST a new job posting (a request for a particular service). They will also have the ability to query our database of laboratories (this feature may be cut depending on time).
+	- Laboratories: They will have access to the job board to VIEW job postings. If there is a job posting they are interested in,  they can connect/contact the relevant manufacturer and/or accept the job. They will also have the ability to add their laboratory to our database of laboratories (this feature may be cut depending on time)
+	- Manufacturers: They will have access to the job board to POST a new job posting (a request for a particular service). They will also have the ability to query our database of laboratories (this feature may be cut depending on time).
 2. Login/Account system:
-    a. This will firstly allow users tsignup/create an account
-    b. It will allow users to login using their credentials (tentatively a username/email and a password)
-    c. When logging in, it will separate users to separate GUIs depending on account type (The job board looks different if you are a laboratory vs. a manufacturer)
-    d. This will require a database which will be connected with an API ([https://henrytchen.com/custom-api/grade](https://henrytchen.com/custom-api/grade))
+	- This will allow users to signup/create an account
+	- It will allow users to login using their credentials (tentatively a username/email and a password)
+	- When logging in, it will separate users to separate GUIs depending on account type (The job board looks different if you are a laboratory vs. a manufacturer)
+	- This will require a database which will be connected with an API ([https://henrytchen.com/custom-api/grade](https://henrytchen.com/custom-api/grade))
 3. Job Board:
-    a. A generalized database where manufacturers can post jobs to be done and laboratories can view jobs to be completed.
-    b. Normally sorted based on time posted
-    c. Can also be sorted based on other methods such as name (if time permits).
+	- A generalized database where manufacturers can post jobs to be done and laboratories can view jobs to be completed.
+	- Normally sorted based on time posted
+	- Can also be sorted based on other methods such as name (if time permits).
 4. Database of Laboratories (If time permits)
-    a. This will allow laboratories to add their laboratory to our database so that manufacturers can search for them. In their posting to our database, they can include a basic description of the services they provide and other pertinent information (such as location, specializations, etc.)
+	- This will allow laboratories to add their laboratory to our database so that manufacturers can search for them. In their posting to our database, they can include a basic description of the services they provide and other pertinent information (such as location, specializations, etc.)
 
     	
 
