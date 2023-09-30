@@ -82,17 +82,17 @@ Manufacturers produce multiple products. Often, these products require extensive
 
 
 
-    11. Allow manufacturer to search for laboratories (ideally with some sort of sorting/categorisation)
+	- Allow manufacturer to search for laboratories (ideally with some sort of sorting/categorisation)
 5. News/information searching (last thing we will do, if time permits)
-    12. This will allow manufacturers/laboratories to view the latest news on changes in certification/requirements made by regulatory bodies (such as the Environmental Protection Agency -EPA). Manufacturers and laboratories will want to stay up to date on changes in the regulatory environment and how it could impact their products/services. 
-    13. This will require the implementation of a web scraper, which we plan on using the Jsoup API to accomplish (see APIs)
+	- This will allow manufacturers/laboratories to view the latest news on changes in certification/requirements made by regulatory bodies (such as the Environmental Protection Agency -EPA). Manufacturers and laboratories will want to stay up to date on changes in the regulatory environment and how it could impact their products/services. 
+	- This will require the implementation of a web scraper, which we plan on using the Jsoup API to accomplish (see APIs)
 6. Databases:
-    14. Database for login system
-    15. Database for job postings
-    16. Database for laboratories (if time permits)
+	- Database for login system
+	- Database for job postings
+	- Database for laboratories (if time permits)
 7. APIs
-    17. A database storage and retrieval system. Our <span style="text-decoration:underline;">current plan</span> is to use a modified version of the Lab3 API to accomplish the goal (see:[https://github.com/LatinScribe/Custom-Server-API](https://github.com/LatinScribe/Custom-Server-API)) . This custom API will allow access to the web-based database, similar to in Lab 3. The major change will be that we plan on switching the mongolDB implementation to a mySQL based implementation. As a backup plan, we are exploring potentially using the pastebin API to accomplish the task ([https://pastebin.com/doc_api](https://pastebin.com/doc_api)). As a last resort, we will turn to using .txt and .csv files to store data either locally or on the web (depending on what works)
-    18. For the news/web scraping component (if time permits), we intend to use the Jsoup API to retrieve relevant data from websites.
+	- A database storage and retrieval system. Our <span style="text-decoration:underline;">current plan</span> is to use a modified version of the Lab3 API to accomplish the goal (see:[https://github.com/LatinScribe/Custom-Server-API](https://github.com/LatinScribe/Custom-Server-API)) . This custom API will allow access to the web-based database, similar to in Lab 3. The major change will be that we plan on switching the mongolDB implementation to a mySQL based implementation. As a backup plan, we are exploring potentially using the pastebin API to accomplish the task ([https://pastebin.com/doc_api](https://pastebin.com/doc_api)). As a last resort, we will turn to using .txt and .csv files to store data either locally or on the web (depending on what works)
+	- For the news/web scraping component (if time permits), we intend to use the Jsoup API to retrieve relevant data from websites.
 
 		
 
