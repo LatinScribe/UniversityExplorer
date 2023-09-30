@@ -194,6 +194,7 @@ public class MongoGradeDB implements GradeDB {
     }
 
     public static void main(String[] args) {
+        // run this to see a basic connection to our API
         MongoGradeDB db = new MongoGradeDB();
 //        db.logGrade("TESTCOUrSE", 207);
         Grade grade = db.getGrade("HENRY", "CSC");
