@@ -85,5 +85,5 @@ Output
 * Another note is that much of our project is time dependent, and is flexible so that we should be able to implement the core features (login system + job board) and branch out to implement other features depending on time
 
 ----
-###Authors:
+### Authors:
 Henry "TJ" Chen, Andre Lin, Diego Pachas Ramos, Kanish Sharma, Bora Celebi
