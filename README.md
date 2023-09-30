@@ -4,7 +4,7 @@ Link to our github: [https://github.com/LatinScribe/CSC207-Project](https://gith
 
 **Description of the Problem Domain:**
 
-Manufacturers produce multiple products. Often, these products require extensive testing and certification to be sold. In this case, these products need to be sent over to laboratories, who will get this testing and certification done. For our project, we will be helping manufacturers to find laboratories to test their products, and laboratories to find manufacturers that can help them get their business. Manufacturers will have the ability to post jobs for products to be tested, and laboratories will be able to view these jobs and fulfill them. 
+Manufacturers produce products (electronics, children's toys, chemicals, you name it). Often, these products require government mandated validation and certification prior to sale. This is where laboratories come into the picture, as they provide services to obtain the necessary product certifications. For our project, we will be building a platform to connect manufacturers and laboratories with each other to facilitate this process. Manufacturers will have a one stop shop to find the laboratory that best suits their needs, or to simply post their service request and allow interested laboratories to connect directly with them. Laboratories will have an opportunity to reach a wider customer base, and to bid on service requests/contracts posted by manufacturers.
 
 **Break down of how our project works:**
 
