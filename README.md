@@ -47,7 +47,9 @@ Manufacturers produce products (electronics, children's toys, chemicals, you nam
 
 **API Documentation and Screenshot:**
 
-[https://henrytchen.com/custom-api/grade](https://henrytchen.com/custom-api/grade)? (see github:[https://github.com/LatinScribe/Custom-Server-API](https://github.com/LatinScribe/Custom-Server-API) )
+[https://henrytchen.com/custom-api/grade](https://henrytchen.com/custom-api/grade)? 
+
+(see github:[https://github.com/LatinScribe/Custom-Server-API](https://github.com/LatinScribe/Custom-Server-API) )
 
 Accessible using [https://hoppscotch.io](https://hoppscotch.io) - just like in lab3 
 
