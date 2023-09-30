@@ -133,7 +133,7 @@ public class MongoGradeDB implements GradeDB {
         requestBody.put("name", name);
         RequestBody body = RequestBody.create(mediaType, requestBody.toString());
         Request request = new Request.Builder()
-                .url("https://grade-logging-api.chenpan.ca/team")
+                .url("https://henrytchen.com/custom-api/team")
                 .method("PUT", body)
                 .addHeader("Authorization", API_TOKEN)
                 .addHeader("Content-Type", "application/json")
