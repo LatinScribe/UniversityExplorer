@@ -71,9 +71,7 @@ Output
 **Technical Problems and Other Questions:**
 
 
-
 * Can we create/edit an existing API and host it using Hoppscotch? Would that count as an API call? 
 * Would using the Lab 3 API be sufficient for the requirement to use an API?
 * Can we use MySQL as our database? An alternative database option would be just having a .txt or .csv application.
 
-Link to our github: [https://github.com/LatinScribe/CSC207-Project](https://github.com/LatinScribe/CSC207-Project)
