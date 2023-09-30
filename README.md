@@ -80,7 +80,7 @@ Output
 
 
 * Can we create/edit an existing API and host it ourselves - it will be accessed via hopscotch.io just like in lab3? Would that count as an API call? 
-* Would using the Lab 3 API be sufficient for the requirement to use an API?
+* Would using a (fairly heavily) modified version of the Lab 3 API be sufficient for the requirement to use an API?
 * A potential challenge would be switching from mongoDB to MySQL, but it should not be too difficult as the fundamental idea is still similar. This does not really impact the actual java code since the API interface is still the same, but the behind the scene aspect of the API will have to change.
 * Another note is that much of our project is time dependent, and is flexible so that we should be able to implement the core features (login system + job board) and branch out to implement other features depending on time
 
