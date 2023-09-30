@@ -64,10 +64,8 @@ Manufacturers produce multiple products. Often, these products require extensive
 4. Database of Laboratories (If time permits)
 	- This will allow laboratories to add their laboratory to our database so that manufacturers can search for them. In their posting to our database, they can include a basic description of the services they provide and other pertinent information (such as location, specializations, etc.)
 
-    	
-
-
-    	Example of a laboratory: ![Picture1](https://github.com/LatinScribe/CSC207-Project/assets/144297306/f4747069-b912-42c4-962f-6064b8bd9e78)
+    	Example of a laboratory:
+   ![Picture1](https://github.com/LatinScribe/CSC207-Project/assets/144297306/f4747069-b912-42c4-962f-6064b8bd9e78)
 
 
 
