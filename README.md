@@ -94,34 +94,17 @@ https://hoppscotch.io/Links
 
 Alternative Hosting API: [https://pastebin.com/doc_api](https://pastebin.com/doc_api)
 
-
-
-<p id="gdcalert3" ><span style="color: red; font-weight: bold">>>>>>  gd2md-html alert: inline image link here (to images/image3.png). Store image on your image server and adjust path/filename/extension if necessary. </span><br>(<a href="#">Back to top</a>)(<a href="#gdcalert4">Next alert</a>)<br><span style="color: red; font-weight: bold">>>>>> </span></p>
-
-
-![alt_text](images/image3.png "image_tooltip")
-
+![Picture3](https://github.com/LatinScribe/CSC207-Project/assets/144297306/84107bac-61f0-4ce0-a31d-c2b529593c6b)
 
 **Java Code Example:**
 
 Custom API
 
-
-
-<p id="gdcalert4" ><span style="color: red; font-weight: bold">>>>>>  gd2md-html alert: inline image link here (to images/image4.png). Store image on your image server and adjust path/filename/extension if necessary. </span><br>(<a href="#">Back to top</a>)(<a href="#gdcalert5">Next alert</a>)<br><span style="color: red; font-weight: bold">>>>>> </span></p>
-
-
-![alt_text](images/image4.png "image_tooltip")
-
+![Picture4](https://github.com/LatinScribe/CSC207-Project/assets/144297306/9a7c24f7-b4a0-4f68-91e9-3ef5e5280e96)
 
 Output
 
-
-
-<p id="gdcalert5" ><span style="color: red; font-weight: bold">>>>>>  gd2md-html alert: inline image link here (to images/image5.png). Store image on your image server and adjust path/filename/extension if necessary. </span><br>(<a href="#">Back to top</a>)(<a href="#gdcalert6">Next alert</a>)<br><span style="color: red; font-weight: bold">>>>>> </span></p>
-
-
-![alt_text](images/image5.png "image_tooltip")
+![Picture5](https://github.com/LatinScribe/CSC207-Project/assets/144297306/47995d47-7992-402a-b145-071225925bdd)
 
 
 **Technical Problems and Other Questions:**
