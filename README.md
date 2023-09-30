@@ -67,18 +67,7 @@ Manufacturers produce multiple products. Often, these products require extensive
     	
 
 
-    	Example: 
-
-
-	
-
-
-
-<p id="gdcalert1" ><span style="color: red; font-weight: bold">>>>>>  gd2md-html alert: inline image link here (to images/image1.png). Store image on your image server and adjust path/filename/extension if necessary. </span><br>(<a href="#">Back to top</a>)(<a href="#gdcalert2">Next alert</a>)<br><span style="color: red; font-weight: bold">>>>>> </span></p>
-
-
-![alt_text](images/image1.png "image_tooltip")
-
+    	Example of a laboratory: ![Picture1](https://github.com/LatinScribe/CSC207-Project/assets/144297306/f4747069-b912-42c4-962f-6064b8bd9e78)
 
 
 
