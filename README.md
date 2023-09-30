@@ -49,7 +49,7 @@ Manufacturers produce products (electronics, children's toys, chemicals, you nam
 
 [https://henrytchen.com/custom-api/grade](https://henrytchen.com/custom-api/grade)? (see github:[https://github.com/LatinScribe/Custom-Server-API](https://github.com/LatinScribe/Custom-Server-API) )
 
-https://hoppscotch.io/Links
+Accessible using [https://hoppscotch.io](https://hoppscotch.io) - just like in lab3 
 
 <img width="468" alt="Picture2" src="https://github.com/LatinScribe/CSC207-Project/assets/144297306/5866c281-bd64-42d8-a908-19d12878052e">
 
