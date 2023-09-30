@@ -11,7 +11,7 @@ Manufacturers produce products (electronics, children's toys, chemicals, you nam
 
 
 1. Users:
-	- Laboratories: They will have access to the job board to VIEW job postings. If there is a job posting they are interested in,  they can connect/contact the relevant manufacturer and/or accept the job. They will also have the ability to add their laboratory to our database of laboratories (this feature may be cut depending on time)
+	- Laboratories: They will have access to the job board to VIEW job postings. If there is a job posting they are interested in, they can connect/contact the relevant manufacturer and/or accept the job. They will also have the ability to add their laboratory to our database of laboratories (this feature may be cut depending on time)
 	- Manufacturers: They will have access to the job board to POST a new job posting (a request for a particular service). They will also have the ability to query our database of laboratories (this feature may be cut depending on time).
 2. Login/Account system:
 	- This will allow users to signup/create an account
@@ -19,8 +19,8 @@ Manufacturers produce products (electronics, children's toys, chemicals, you nam
 	- When logging in, it will separate users to separate GUIs depending on account type (The job board looks different if you are a laboratory vs. a manufacturer)
 	- This will require a database which will be connected with an API ([https://henrytchen.com/custom-api/grade](https://henrytchen.com/custom-api/grade))
 3. Job Board:
-	- A generalized database where manufacturers can post jobs to be done and laboratories can view jobs to be completed.
-	- Normally sorted based on time posted
+	- A generalized database where manufacturers can post jobs they seek a laboratory to fulfill, and laboratories can view available jobs and contact the manufacturers of relevant job postings (either a button to press or just leaving contact information).
+	- Default: sorted based on time posted
 	- Can also be sorted based on other methods such as name (if time permits).
 4. Database of Laboratories (If time permits)
 	- This will allow laboratories to add their laboratory to our database so that manufacturers can search for them. In their posting to our database, they can include a basic description of the services they provide and other pertinent information (such as location, specializations, etc.)
@@ -71,7 +71,9 @@ Output
 **Technical Problems and Other Questions:**
 
 
-* Can we create/edit an existing API and host it using Hoppscotch? Would that count as an API call? 
+* Can we create/edit an existing API and host it ourselves - it will be accessed via hopscotch.io just like in lab3? Would that count as an API call? 
 * Would using the Lab 3 API be sufficient for the requirement to use an API?
-* Can we use MySQL as our database? An alternative database option would be just having a .txt or .csv application.
+* A potential challenge would be switching from mongoDB to MySQL, but it should not be too difficult as the fundamental idea is still similar. This does not really impact the actual java code since the API interface is still the same, but the behind the scene aspect of the API will have to change.
+* Another note is that much of our project is time dependent, and is flexible so that we should be able to implement the core features (login system + job board) and branch out to implement other features depending on time
+
 
