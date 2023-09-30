@@ -57,6 +57,8 @@ Alternative Hosting API: [https://pastebin.com/doc_api](https://pastebin.com/doc
 
 ![Picture3](https://github.com/LatinScribe/CSC207-Project/assets/144297306/84107bac-61f0-4ce0-a31d-c2b529593c6b)
 
+Jsoup (WebScraper) [API Documentation](https://jsoup.org/ )
+
 **Java Code Example:**
 
 Custom API [found in src/main/java/api/MongoGradeDB.java]
