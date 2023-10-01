@@ -63,7 +63,7 @@ Alternative Hosting API: [https://pastebin.com/doc_api](https://pastebin.com/doc
 ![Picture3](https://github.com/LatinScribe/CSC207-Project/assets/144297306/84107bac-61f0-4ce0-a31d-c2b529593c6b)
 
 Jsoup (WebScraper) [API Documentation](https://jsoup.org/ )
-
+![Screenshot 2023-09-30 152652](https://github.com/LatinScribe/CSC207-Project/assets/126996411/8af687ae-b948-432a-96ce-0c634563fcaa)
 ----
 **Java Code Example:**
 
