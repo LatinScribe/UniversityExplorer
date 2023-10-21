@@ -35,7 +35,7 @@ The application will allow a user to search for a university program in the Unit
   ---
 
 **API Documentation and Screenshot:**
-
+- UNI API Documentation [pdf](https://collegescorecard.ed.gov/assets/InstitutionDataDocumentation.pdf)
 ---
 **Java Code Example:**
 
