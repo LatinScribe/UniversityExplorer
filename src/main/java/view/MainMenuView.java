@@ -77,4 +77,23 @@ public class MainMenuView extends JPanel implements ActionListener, PropertyChan
         MainMenuState state = (MainMenuState) evt.getNewValue();
     }
 
+    public static void main(String[] args) {
+        JFrame application = new JFrame("Main Menu Test");
+        application.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+
+        CardLayout cardLayout = new CardLayout();
+        JPanel views = new JPanel(cardLayout);
+        application.add(views);
+
+        MainMenuViewModel mainMenuViewModel1 = new MainMenuViewModel();
+        MainMenuController mainMenuController1 = new MainMenuController();
+        MainMenuView mainMenuView = new MainMenuView(mainMenuViewModel1, mainMenuController1);
+
+        views.add(mainMenuView, mainMenuView.viewName);
+
+        application.pack();
+        application.setVisible(true);
+
+    }
+
 }
