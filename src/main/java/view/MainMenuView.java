@@ -34,7 +34,7 @@ public class MainMenuView extends JPanel implements ActionListener, PropertyChan
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         JPanel buttons = new JPanel();
-        // TODO: check mainMenuViewModel vs MainMenuViewModel
+        // access static member using class
         signUp = new JButton(MainMenuViewModel.SIGNUP_BUTTON_LABEL);
         buttons.add(signUp);
         continueAsGuest = new JButton(MainMenuViewModel.GUEST_BUTTON_LABEL);
