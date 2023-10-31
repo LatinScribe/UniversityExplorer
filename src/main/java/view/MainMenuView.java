@@ -18,18 +18,9 @@ public class MainMenuView extends JPanel implements ActionListener, PropertyChan
 
     public final String viewName = "Main Menu";
     private final MainMenuViewModel mainMenuViewModel;
-
-//    final JTextField usernameInputField = new JTextField(15);
-//    private final JLabel usernameErrorField = new JLabel();
-//
-//    final JPasswordField passwordInputField = new JPasswordField(15);
-//    private final JLabel passwordErrorField = new JLabel();
-
     final JButton signUp;
     final JButton continueAsGuest;
-
     final JButton signIn;
-
     final JButton settings;
     private final MainMenuController mainMenuController;
 
@@ -41,11 +32,6 @@ public class MainMenuView extends JPanel implements ActionListener, PropertyChan
 
         JLabel title = new JLabel("Main Menu Screen");
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
-
-//        LabelTextPanel usernameInfo = new LabelTextPanel(
-//                new JLabel("Username"), usernameInputField);
-//        LabelTextPanel passwordInfo = new LabelTextPanel(
-//                new JLabel("Password"), passwordInputField);
 
         JPanel buttons = new JPanel();
         // TODO: check mainMenuViewModel vs MainMenuViewModel
@@ -75,47 +61,7 @@ public class MainMenuView extends JPanel implements ActionListener, PropertyChan
 //
 //        cancel.addActionListener(this);
 
-//        usernameInputField.addKeyListener(new KeyListener() {
-//            @Override
-//            public void keyTyped(KeyEvent e) {
-//                MainMenuState currentState = mainMenuViewModel.getState();
-//                currentState.setUsername(usernameInputField.getText() + e.getKeyChar());
-//                mainMenuViewModel.setState(currentState);
-//            }
-//
-//            @Override
-//            public void keyPressed(KeyEvent e) {
-//            }
-//
-//            @Override
-//            public void keyReleased(KeyEvent e) {
-//            }
-//        });
-//        this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-//
-//        passwordInputField.addKeyListener(
-//                new KeyListener() {
-//                    @Override
-//                    public void keyTyped(KeyEvent e) {
-//                        MainMenuState currentState = mainMenuViewModel.getState();
-//                        currentState.setPassword(passwordInputField.getText() + e.getKeyChar());
-//                        mainMenuViewModel.setState(currentState);
-//                    }
-//
-//                    @Override
-//                    public void keyPressed(KeyEvent e) {
-//                    }
-//
-//                    @Override
-//                    public void keyReleased(KeyEvent e) {
-//                    }
-//                });
-
         this.add(title);
-//        this.add(usernameInfo);
-//        this.add(usernameErrorField);
-//        this.add(passwordInfo);
-//        this.add(passwordErrorField);
         this.add(buttons);
     }
 
@@ -129,11 +75,6 @@ public class MainMenuView extends JPanel implements ActionListener, PropertyChan
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
         MainMenuState state = (MainMenuState) evt.getNewValue();
-        // setFields(state);
     }
-
-//    private void setFields(MainMenuState state) {
-//        usernameInputField.setText(state.getUsername());
-//    }
 
 }
