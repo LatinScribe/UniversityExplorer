@@ -1,5 +1,8 @@
 package view;
 
+import interface_adapter.apply.ApplyController;
+import interface_adapter.apply.ApplyViewModel;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -14,14 +17,14 @@ public class Applyview extends JPanel implements ActionListener, PropertyChangeL
 
     private final ApplyViewModel applyViewModel;
     private final JTextField usernameInputField = new JTextField(15);
-    private final JTextField gpaInputField = new JTextField()Field(15);
+    private final JTextField gpaInputField = new JTextField(15);
 
     private final ApplyController applyController;
 
     private final JButton submit;
 
 
-    public Applyview(ApplyController controller, ApplyviewViewModel applyViewModel) {
+    public Applyview(ApplyController controller, ApplyViewModel applyViewModel) {
 
         this.applyController = controller;
         this.applyViewModel = applyViewModel;
@@ -33,11 +36,11 @@ public class Applyview extends JPanel implements ActionListener, PropertyChangeL
         LabelTextPanel usernameInfo = new LabelTextPanel(
                 new JLabel(ApplyViewModel.USERNAME_LABEL), usernameInputField);
         LabelTextPanel gpaInfo = new LabelTextPanel(
-                new JLabel(ApplyViewModel.USERNAME_LABEL), gpaInputField);
+                new JLabel(ApplyViewModel.GPA_LABEL), gpaInputField);
 
 
         JPanel buttons = new JPanel();
-        submit = new JButton(ApplyViewModel.SIGNUP_BUTTON_LABEL);
+        submit = new JButton(ApplyViewModel.SUBMIT_BUTTON_LABEL);
         buttons.add(submit);
 
 
@@ -151,6 +154,10 @@ public class Applyview extends JPanel implements ActionListener, PropertyChangeL
         JOptionPane.showConfirmDialog(this, "Cancel not implemented yet.");
     }
 
+    @Override
+    public void propertyChange(PropertyChangeEvent evt) {
+
+    }
 
 
 //    @Override
