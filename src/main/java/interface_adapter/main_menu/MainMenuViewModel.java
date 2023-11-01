@@ -12,13 +12,15 @@ public class MainMenuViewModel extends ViewModel {
     public final String USERNAME_LABEL = "Enter username";
     public final String PASSWORD_LABEL = "Enter password";
 
-    public static final String LOGIN_BUTTON_LABEL = "Log in";
-    public static final String CANCEL_BUTTON_LABEL = "Cancel";
+    public static final String SIGNUP_BUTTON_LABEL = "Sign up";
+    public static final String GUEST_BUTTON_LABEL = "Continue as Guest";
+    public static final String SIGNIN_BUTTON_LABEL = "Sign in";
+    public static final String SETTINGS_BUTTON_LABEL = "Settings";
 
     private MainMenuState state = new MainMenuState();
 
     public MainMenuViewModel() {
-        super("log in");
+        super("Main Menu");
     }
 
     public void setState(MainMenuState state) {
