@@ -45,11 +45,12 @@ public class SearchView extends JPanel implements ActionListener, PropertyChange
                 new ActionListener() {
                     public void actionPerformed(ActionEvent evt) {
                         if (evt.getSource().equals(search)) {
-                            SearchState currentState = searchViewModel.getState();
-
-                            searchController.execute(
-                                    currentState.getSearchCriteria()
-                            );
+                            System.out.println("Search pressed!");
+//                            SearchState currentState = searchViewModel.getState();
+//
+//                            searchController.execute(
+//                                    currentState.getSearchCriteria()
+//                            );
                         }
                     }
                 }
@@ -101,5 +102,23 @@ public class SearchView extends JPanel implements ActionListener, PropertyChange
 //            ClearState state = (ClearState) evt.getNewValue();
 //            JOptionPane.showMessageDialog(this, state.toString());
 //        }
+    }
+
+    public static void main(String[] args) {
+        JFrame application = new JFrame("Search Test");
+        application.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+
+        CardLayout cardLayout = new CardLayout();
+        JPanel views = new JPanel(cardLayout);
+        application.add(views);
+
+        SearchViewModel searchViewModel1 = new SearchViewModel();
+        SearchController searchController1 = new SearchController();
+        SearchView searchView = new SearchView(searchController1, searchViewModel1);
+
+        views.add(searchView, searchView.viewName);
+
+        application.pack();
+        application.setVisible(true);
     }
 }
