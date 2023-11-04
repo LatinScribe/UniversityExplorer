@@ -1,4 +1,4 @@
-// Author: Andre
+// Author: Andre, a test
 
 package view;
 
