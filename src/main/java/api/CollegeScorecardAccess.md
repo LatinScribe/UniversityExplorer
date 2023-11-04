@@ -34,6 +34,8 @@ Each query is expressed as a URL, containing:
 
 Here's an example query URL:
 
+Note: YOU MUST ADD YOUR API KEY
+
 ```
 https://api.data.gov/ed/collegescorecard/v1/schools.json?school.degrees_awarded.predominant=2,3&fields=id,school.name,2013.student.size
 ```
