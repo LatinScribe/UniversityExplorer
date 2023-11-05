@@ -55,13 +55,13 @@ public class UserProfileView extends JPanel implements ActionListener, PropertyC
         editProfile = new JButton(UserProfileViewModel.EDIT_BUTTON_LABEL);
         buttons.add(editProfile);
 
-//        logIn.addActionListener(                // This creates an anonymous subclass of ActionListener and instantiates it.
+//        UserProfileState.addActionListener(                // This creates an anonymous subclass of ActionListener and instantiates it.
 //                new ActionListener() {
 //                    public void actionPerformed(ActionEvent evt) {
-//                        if (evt.getSource().equals(logIn)) {
-//                            MainMenuState currentState = mainMenuViewModel.getState();
+//                        if (evt.getSource().equals("User Profile")) {
+//                            UserProfileState currentState = UserProfileViewModel.getState();
 //
-//                            mainMenuController.execute(
+//                            userProfileController.execute(
 //                                    currentState.getUsername(),
 //                                    currentState.getPassword()
 //                            );
@@ -88,7 +88,7 @@ public class UserProfileView extends JPanel implements ActionListener, PropertyC
     }
 
     public static void main(String[] args) {
-        JFrame application = new JFrame("Main Menu Test");
+        JFrame application = new JFrame("User Profile Test");
         application.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
         CardLayout cardLayout = new CardLayout();
