@@ -232,3 +232,86 @@ With the inclusion of the Department of Education's Field of Study data, there a
 * The field of study data is included as an array of objects nested under a specified key. These objects may be queried just like any other data. However, there is an additional parameters to add to your API call to manage what is returned. By default, if specifying a search parameter, only objects of the array that match that parameter will be returned. You can pass `&all_programs_nested=true` to return all the items in the array instead of just those that match.
 * When specifying specific fields to be returned from the API, the default response is to have a dotted string of the path to the field returned. As of version 1.7, you can pass the parameter `keys_nested=true` get back a true json object instead of the dotted string.
 * Lastly, wildcard fields are now possible with version 1.7. If you want to get back data for just the latest available data, it is now possible to specify a query such as `fields=id,school,latest` which will return the ID field, the School object and the Latest object and all the nested objects contained within each. 
+
+# Useful fields:
+
+For a full breakdown of the possible variables (and there are a lot), see the [official documentation](https://collegescorecard.ed.gov/assets/InstitutionDataDocumentation.pdf)
+
+### Summary of some useful ones: 
+* INSTNM: The name of the institution
+* CITY The city where the institution is located
+* STABBR Abbreviation of the state where the institution is located
+* REGION A categorical variable describing the region of the institution:
+
+  1 New England (CT, ME, MA, NH, RI, VT)
+  2 Mid East (DE, DC, MD, NJ, NY, PA)
+  3 Great Lakes (IL, IN, MI, OH, WI)
+  4 Plains (IA, KS, MN, MO, NE, ND, SD)
+  5 Southeast (AL, AR, FL, GA, KY, LA, MS, NC, SC, TN, VA, WV)
+  6 Southwest (AZ, NM, OK, TX)
+  7 Rocky Mountains (CO, ID, MT, UT, WY)
+  8 Far West (AK, CA, HI, NV, OR, WA)
+  9 Outlying Areas (AS, FM, GU, MH, MP, PR, PW, VI)
+* LOCALE A categorical variable describing the location of the institution:11 City: Large (population of 250,000 or more)
+  
+* 12 City: Midsize (population of at least 100,000 but less than 250,000)
+  13 City: Small (population less than 100,000)
+  21 Suburb: Large (outside principal city, in urbanized area with population of 250,000 or more)
+  22 Suburb: Midsize (outside principal city, in urbanized area with population of at least 100,000 but less than 250,000)
+  23 Suburb: Small (outside principal city, in urbanized area with population less than 100,000)
+  31 Town: Fringe (in urban cluster up to 10 miles from an urbanized area)
+  32 Town: Distant (in urban cluster more than 10 miles and up to 35 miles from an urbanized area)
+  33 Town: Remote (in urban cluster more than 35 miles from an urbanized area)
+  41 Rural: Fringe (rural territory up to 5 miles from an urbanized area or up to 2.5 miles from an urban cluster)
+  42 Rural: Distant (rural territory more than 5 miles but up to 25 miles from an urbanized area or more than 2.5 and up to 10 miles from an urban cluster)
+  43 Rural: Remote (rural territory more than 25 miles from an urbanized area and more than 10 miles from an urban cluster)
+* ADM_RATE Percentage of applicants that are admitted in to the institution
+* ACTCMMID Median cumulative ACT score of enrolled students
+* ACTENMID Median English ACT subscore of enrolled students
+* ACTMTMID Median Math ACT subscore of enrolled students
+* PFTFAC Percent of faculty that are full time
+* COSTT4_A Average yearly cost of attending
+* AVGFACSAL Average faculty salary
+* NUMBRANCH: Number of branch campuses
+* CONTROL: This element is reported directly to IPEDS, and identifies whether the institution’s governance structure is public, private nonprofit, or private for-profit.
+* ADM_RATE_ALL: Colleges report to IPEDS their Fall admissions rate, defined as the number of admitted undergraduates divided by the number of undergraduates who applied. ADM_RATE_ALL represents the admissions rate across all campuses, defined as the total number of admitted undergraduates across all branches divided by the total number of undergraduates who applied across all branches.
+* AVGFACSAL:
+  The average faculty salary produces the average faculty salary per month, by dividing the total salary outlays by the number of months worked for all full-time, nonmedical instructional staff.
+* TUITFTE:
+  The net tuition revenue per full-time equivalent (FTE) student uses tuition revenue minus discounts and allowances, and divides that by the number of FTE undergraduate and graduate students.
+* DISTANCEONLY:
+  Institutions are identified as distance education-only if all their programs are available only via distance education.
+* SATVR25, SATVR75, SATMT25, SATMT75, ACTCM25, ACTCM75:
+  The files include the 25th and 75th percentiles of SAT reading (SATVR* for _25 and _75), writing (SATWR* for _25 and _75), math (SATMT* for _25 and _75)
+  NOTE: Data for SATWR is absent and the corresponding columns should be dropped.
+* UGDS:
+  This element includes the number of degree/certificate-seeking undergraduates enrolled in the fall, as reported in the IPEDS Fall Enrollment component.
+* PCTFLOAN:
+  This element, as reported in the IPEDS Student Financial Aid (SFA) component, shows the share of undergraduate students who received federal loans in a given year.
+* CDR3:
+  Cohort default rates are produced annually as an institutional accountability metric; institutions with high default rates may lose access to federal financial aid. The three-year cohort default rate (CDR3) represents a snapshot in time.
+* URL: Each institution reports the URL of its homepage (INSTURL) and the URL
+  of its net price calculator (NPCURL).
+* MAIN: The main campus column (MAIN4
+  ) identifies whether the institution’s
+  IPEDS-derived data elements represent the main campus of the
+  institution or not, where 1 is a main campus and 0 is not
+
+### Academic Areas offered: Academic Areas Offered Integer
+The Classification of Instructional Programs (CIP) provides a taxonomy
+for different academic disciplines. Two types of CIP data are included in
+these institution-level data files. The first set (PCIP[01-54]) provide the
+percentage of degrees awarded in each two-digit CIP code category of
+academic areas. The second set [CERT1/CERT2/ASSOC/BACHL/CERT4]) identifies which academic
+areas are offered at which levels and whether or not specific offerings
+are available through distance education. 13 These CIP elements within
+each Scorecard data file are derived from the IPEDS Completions
+component. Reported awards cover the 12-month period ending June
+30 prior to the IPEDS collection year. The College Scorecard data files
+that provide information about specific fields of study within institutions
+offer a more granular picture (at the four-digit CIP code level) of what
+fields of study are available at each institution. For more information on
+these data, please see the [technical documentation] (https://collegescorecard.ed.gov/assets/FieldOfStudyDataDocumentation.pdf) for field of study
+data files.
+
+
