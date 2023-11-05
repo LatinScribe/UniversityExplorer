@@ -2,6 +2,8 @@ package api;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+// Author: Henry
+
 public interface CollegeScorecardDB {
     // this version is for full customisation
     JSONObject basicQuery(String endpoint, String fileFormat, String queryParameters, String optionalParameters);
