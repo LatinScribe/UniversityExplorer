@@ -1,13 +1,11 @@
-# Open Data Maker HTTP API
+# Documentation for accessing the College Score Card API
 
-[original](https://github.com/RTICWDT/open-data-maker/blob/master/API.md) retrieved from Open Data Maker by RTICWDT
-
-Open Data Maker exposes a read-only HTTP API for querying available datasets.
 This document explains:
 * How to define and execute queries as URLs
 * Refining query results using option parameters
 * Extracting query results in JSON and CSV format
 * Detecting query errors
+* Potential fields to query
 
 ## API Access for the College Scorecard Data
 Please note: A valid API key is required for those looking to access the API for the [College Scorecard Data](https://collegescorecard.ed.gov/data/documentation/), which is proxied through an API gateway. Developers may register a key at https://api.data.gov/signup for API access.
@@ -314,4 +312,14 @@ fields of study are available at each institution. For more information on
 these data, please see the [technical documentation] (https://collegescorecard.ed.gov/assets/FieldOfStudyDataDocumentation.pdf) for field of study
 data files.
 
+### Aknowledgements:
+Some of this is based off the helpful [documentation](https://github.com/RTICWDT/open-data-maker/blob/master/API.md) retrieved from Open Data Maker by RTICWDT.
+Other resources: 
+[Official documentation provided by the Departement of Education](https://collegescorecard.ed.gov/data/documentation/)
+[rscorecard docmentation](https://cran.r-project.org/web/packages/rscorecard/rscorecard.pdf)
+[US score card analysis project](https://www.kaggle.com/code/hassanshahin/us-colleges-scorecard-analysis) by Hassan Shahir
+[College data dictionary](https://remiller1450.github.io/s230s19/CollegeDataDictionary.html) by R.E Miller
 
+
+Author: 
+Henry "TJ" Chen
