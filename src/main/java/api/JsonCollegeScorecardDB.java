@@ -8,7 +8,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
-//https://api.data.gov/ed/collegescorecard/v1/schools.json?school.degrees_awarded.predominant=2,3&fields=id,school.name,2013.student.size&api_key=AwypPp5bIHx6H4EevsB5sFs4gw5NK1M7SNc4eXwl
+
 public class JsonCollegeScorecardDB implements CollegeScorecardDB{
     String API_TOKEN = "AwypPp5bIHx6H4EevsB5sFs4gw5NK1M7SNc4eXwl";
     String API_ADDRESS = "https://api.data.gov/ed/collegescorecard/v1/";
