@@ -14,7 +14,7 @@ public class JsonCollegeScorecardDB implements CollegeScorecardDB{
     String API_ADDRESS = "https://api.data.gov/ed/collegescorecard/v1/";
     @Override
     public JSONObject basicQuery(String endpoint, String fileFormat, String queryParameters, String optionalParameters) {
-
+        // A more customisable basic query builder
         // create the query url
         String url = API_ADDRESS + endpoint + fileFormat + "?" + queryParameters + "&" + optionalParameters + "&api_key=" + API_TOKEN;
         OkHttpClient client = new OkHttpClient().newBuilder()
@@ -40,6 +40,8 @@ public class JsonCollegeScorecardDB implements CollegeScorecardDB{
 
     @Override
     public JSONObject basicQuery(String queryParameters, String optionalParameters) {
+        // less customisable query, assumes you are querying for schools and returning a json
+        // recommend to use this
         // create the query url
         String url = API_ADDRESS+ "schools.json?" + queryParameters + "&" + optionalParameters + "&api_key=" + API_TOKEN;
         OkHttpClient client = new OkHttpClient().newBuilder()
@@ -65,6 +67,8 @@ public class JsonCollegeScorecardDB implements CollegeScorecardDB{
     }
     @Override
     public JSONObject zipcodeQuery(String zipcode, String radius) {
+        // query a radius around a zip code for institutions
+        // NOTE: Make sure to add "mi" at the end of radius!
         // create the query url
         String url = API_ADDRESS+ "schools.json?" + "zip=" + zipcode + "&" + "distance=" +radius + "&fields=id,school.name,2013.student.size"+ "&api_key=" + API_TOKEN;
         OkHttpClient client = new OkHttpClient().newBuilder()
