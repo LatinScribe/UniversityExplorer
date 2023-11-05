@@ -9,6 +9,14 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 
+// This file contains the methods for accessing data through the College Score Card API
+// All methods return a JSON object
+// To get started, try running main and playing around with the basic query method
+// To proerly understand this file, highly reommended that you read the documentation found at CollegScorecardAccess.md
+
+// Author: Henry
+// Version: 1.0
+
 public class JsonCollegeScorecardDB implements CollegeScorecardDB{
     String API_TOKEN = "AwypPp5bIHx6H4EevsB5sFs4gw5NK1M7SNc4eXwl";
     String API_ADDRESS = "https://api.data.gov/ed/collegescorecard/v1/";
