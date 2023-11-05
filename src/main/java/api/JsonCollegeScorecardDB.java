@@ -16,13 +16,16 @@ import java.io.IOException;
 // To properly understand this file, highly recommended that you read the documentation found at CollegScorecardAccess.md
 
 // Author: Henry
-// Version: 1.0
+// Version: 1.1
 
 public class JsonCollegeScorecardDB implements CollegeScorecardDB{
+
+    // Starting constants
     String API_TOKEN = "AwypPp5bIHx6H4EevsB5sFs4gw5NK1M7SNc4eXwl";
     String API_ADDRESS = "https://api.data.gov/ed/collegescorecard/v1/";
 
 
+    // helper method for making the query with the constructed url
     @NotNull
     private JSONObject getJsonObject(String url) {
         OkHttpClient client = new OkHttpClient().newBuilder()
@@ -33,8 +36,8 @@ public class JsonCollegeScorecardDB implements CollegeScorecardDB{
         try {
             Response response = client.newCall(request).execute();
             System.out.println(response);
-            JSONObject responseBody = new JSONObject(response.body().string());
-            return responseBody;
+            assert response.body() != null;
+            return new JSONObject(response.body().string());
 
 //            if (responseBody.getInt("status_code") == 200) {
 //                JSONObject grade = responseBody.getJSONObject("grade");
@@ -46,7 +49,7 @@ public class JsonCollegeScorecardDB implements CollegeScorecardDB{
             throw new RuntimeException(e);
         }
     }
-    
+
     @Override
     public JSONObject basicQuery(String endpoint, String fileFormat, String queryParameters, String optionalParameters) {
         // A more customisable basic query builder
