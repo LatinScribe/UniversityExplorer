@@ -39,4 +39,3 @@ public class SubViewModel extends ViewModel {
         return state;
     }
 }
-

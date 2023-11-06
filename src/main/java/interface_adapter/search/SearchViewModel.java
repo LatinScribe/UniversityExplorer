@@ -1,3 +1,5 @@
+// Author: André
+
 package interface_adapter.search;
 
 import interface_adapter.ViewModel;
