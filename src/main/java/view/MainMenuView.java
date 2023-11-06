@@ -44,22 +44,48 @@ public class MainMenuView extends JPanel implements ActionListener, PropertyChan
         settings = new JButton(MainMenuViewModel.SETTINGS_BUTTON_LABEL);
         buttons.add(settings);
 
-//        logIn.addActionListener(                // This creates an anonymous subclass of ActionListener and instantiates it.
+        // add action listeners
+        signUp.addActionListener(       // This creates an anonymous subclass of ActionListener and instantiates it.
+                new ActionListener() {
+                    public void actionPerformed(ActionEvent evt) {
+                        if (evt.getSource().equals(signUp)) {
+                            System.out.println("SignUp Button pressed");
+                        }
+                    }
+                }
+        );
+        continueAsGuest.addActionListener(  // This creates an anonymous subclass of ActionListener and instantiates it.
+                new ActionListener() {
+                    public void actionPerformed(ActionEvent evt) {
+                        if (evt.getSource().equals(continueAsGuest)) {
+                            System.out.println("Continue as Guest Button pressed");
+                        }
+                    }
+                }
+        );
+
+        signIn.addActionListener(       // This creates an anonymous subclass of ActionListener and instantiates it.
+                new ActionListener() {
+                    public void actionPerformed(ActionEvent evt) {
+                        if (evt.getSource().equals(signIn)) {
+                            System.out.println("SignIn Button pressed");
+                        }
+                    }
+                }
+        );
+//        settings.addActionListener(        // This creates an anonymous subclass of ActionListener and instantiates it.
 //                new ActionListener() {
 //                    public void actionPerformed(ActionEvent evt) {
-//                        if (evt.getSource().equals(logIn)) {
-//                            MainMenuState currentState = mainMenuViewModel.getState();
-//
-//                            mainMenuController.execute(
-//                                    currentState.getUsername(),
-//                                    currentState.getPassword()
-//                            );
+//                        if (evt.getSource().equals(settings)) {
+//                            System.out.println("SignIn Button pressed");
 //                        }
 //                    }
 //                }
 //        );
-//
-//        cancel.addActionListener(this);
+        // Other way of doing it, which is using the default action performed in the class
+        settings.addActionListener(this);
+
+
 
         this.add(title);
         this.add(buttons);
