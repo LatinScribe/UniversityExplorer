@@ -79,7 +79,7 @@ public class UserProfileView extends JPanel implements ActionListener, PropertyC
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        System.out.println("Button Clicked" + evt.getActionCommand());
+        System.out.println("Button Clicked" + e.getActionCommand());
 
         // need to figure how to properly initialize this event in the listener above - need the use case implemented
     }

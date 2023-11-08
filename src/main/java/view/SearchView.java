@@ -65,13 +65,12 @@ public class SearchView extends JPanel implements ActionListener, PropertyChange
                     public void actionPerformed(ActionEvent evt) {
                         if (evt.getSource().equals(back)) {
                             System.out.println("Back pressed!");
-//                            SearchState currentState = searchViewModel.getState();
-//
-//                            searchController.execute(
-//                                    currentState.getSearchCriteria()
-//                            );
+                            SearchState currentState = searchViewModel.getState();
+
+                            searchController.execute(
+                                    currentState.getSearchCriteria()
+                            );
                         }
-                    }
                 }
         );
 
