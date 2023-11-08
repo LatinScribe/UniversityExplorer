@@ -1,6 +1,7 @@
 package view;
 
 import interface_adapter.apply.ApplyController;
+import interface_adapter.apply.ApplyState;
 import interface_adapter.apply.ApplyViewModel;
 
 import javax.swing.*;
@@ -42,102 +43,17 @@ public class Applyview extends JPanel implements ActionListener, PropertyChangeL
         JPanel buttons = new JPanel();
         submit = new JButton(ApplyViewModel.SUBMIT_BUTTON_LABEL);
         buttons.add(submit);
+        submit.addActionListener(new ActionListener() {
+                                     @Override
+                                     public void actionPerformed(ActionEvent evt) {
+                                         if (evt.getSource().equals(submit)) {
+                                             System.out.println("submit Button pressed");
+                                             applyController.execute();
+                                         }
+                                     }
+                                 });
 
 
-//        submit.addActionListener(
-//                // This creates an anonymous subclass of ActionListener and instantiates it.
-//                new ActionListener() {
-//                    public void actionPerformed(ActionEvent evt) {
-//                        if (evt.getSource().equals(signUp)) {
-//                            SignupState currentState = signupViewModel.getState();
-//
-//                            signupController.execute(
-//                                    currentState.getUsername(),
-//                                    currentState.getPassword(),
-//                                    currentState.getRepeatPassword()
-//                            );
-//                        }
-//                    }
-//                }
-//        );
-//
-//        clear.addActionListener(
-//                new ActionListener() {
-//                    @Override
-//                    public void actionPerformed(ActionEvent e) {
-//                        if (e.getSource().equals(clear)) {
-//                            clearController.execute();
-//                        }
-//                    }
-//                }
-//        );
-
-//
-//
-//        // This makes a new KeyListener implementing class, instantiates it, and
-//        // makes it listen to keystrokes in the usernameInputField.
-//        //
-//        // Notice how it has access to instance variables in the enclosing class!
-//        usernameInputField.addKeyListener(
-//                new KeyListener() {
-//                    @Override
-//                    public void keyTyped(KeyEvent e) {
-//                        SignupState currentState = signupViewModel.getState();
-//                        String text = usernameInputField.getText() + e.getKeyChar();
-//                        currentState.setUsername(text);
-//                        signupViewModel.setState(currentState);
-//                    }
-//
-//                    @Override
-//                    public void keyPressed(KeyEvent e) {
-//                    }
-//
-//                    @Override
-//                    public void keyReleased(KeyEvent e) {
-//                    }
-//                });
-//
-//        passwordInputField.addKeyListener(
-//                new KeyListener() {
-//                    @Override
-//                    public void keyTyped(KeyEvent e) {
-//                        SignupState currentState = signupViewModel.getState();
-//                        currentState.setPassword(passwordInputField.getText() + e.getKeyChar());
-//                        signupViewModel.setState(currentState);
-//                    }
-//
-//                    @Override
-//                    public void keyPressed(KeyEvent e) {
-//
-//                    }
-//
-//                    @Override
-//                    public void keyReleased(KeyEvent e) {
-//
-//                    }
-//                }
-//        );
-//
-//        repeatPasswordInputField.addKeyListener(
-//                new KeyListener() {
-//                    @Override
-//                    public void keyTyped(KeyEvent e) {
-//                        SignupState currentState = signupViewModel.getState();
-//                        currentState.setRepeatPassword(repeatPasswordInputField.getText() + e.getKeyChar());
-//                        signupViewModel.setState(currentState); // Hmm, is this necessary?
-//                    }
-//
-//                    @Override
-//                    public void keyPressed(KeyEvent e) {
-//
-//                    }
-//
-//                    @Override
-//                    public void keyReleased(KeyEvent e) {
-//
-//                    }
-//                }
-//        );
 
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
@@ -150,27 +66,40 @@ public class Applyview extends JPanel implements ActionListener, PropertyChangeL
     /**
      * React to a button click that results in evt.
      */
+    @Override
     public void actionPerformed(ActionEvent evt) {
-        JOptionPane.showConfirmDialog(this, "Cancel not implemented yet.");
+        // Handle any other actions or button clicks as needed
+        if (evt.getSource().equals(submit)) {
+            // This code will be executed when the "Submit" button is clicked
+            System.out.println("Submit Button pressed");
+        }
     }
 
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
+        // Handle property changes if needed
+        if (evt.getPropertyName().equals("state") && evt.getNewValue() instanceof ApplyState) {
+            ApplyState state = (ApplyState) evt.getNewValue();
+            // Handle state changes here
+            // For example, you can update the view based on the new state
+            // You can access the ApplyViewModel and update the UI components
+            // with the latest state information
+        }
+    }
+    public static void main(String[] args) {
+        JFrame application = new JFrame("ApplyView Test");
+        application.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
+        ApplyViewModel applyViewModel = new ApplyViewModel();
+        ApplyController applyController = new ApplyController(applyViewModel);
+        Applyview applyView = new Applyview(applyController, applyViewModel);
+
+        JPanel testPanel = new JPanel();
+        testPanel.add(applyView);
+
+        application.add(testPanel);
+        application.pack();
+        application.setVisible(true);
     }
 
-
-//    @Override
-//    public void propertyChange(PropertyChangeEvent evt) {
-//        if (evt.getNewValue() instanceof ClearState) {
-//            ClearState state = (ClearState) evt.getNewValue();
-//            JOptionPane.showMessageDialog(this, state.getDeletedUserString());
-//        }
-//        else if (evt.getNewValue() instanceof SignupState) {
-//            SignupState state = (SignupState) evt.getNewValue();
-//            if (state.getUsernameError() != null) {
-//                JOptionPane.showMessageDialog(this, state.getUsernameError());
-//            }
-//        }
-//    }
 }
