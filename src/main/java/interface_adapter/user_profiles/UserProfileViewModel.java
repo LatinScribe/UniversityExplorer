@@ -14,13 +14,15 @@ public class UserProfileViewModel extends ViewModel {
     public final String PASSWORD_LABEL = "Enter Password";
 
 
-    public static final String PROFILE_BUTTON_LABEL = "View Profile";
+    public static final String PROFILE_BUTTON_LABEL = "View Your Profile";
 
     public static final String EDIT_BUTTON_LABEL = "Edit Profile";
 
     public static final String SIGNIN_BUTTON_LABEL = "Sign In";
 
     public static final String GUEST_BUTTON_LABEL = "Continue as Guest";
+
+    public static final String OTHER_PROFILE_BUTTON_LABEL = "View User's Profile";
 
     private UserProfileState state = new UserProfileState();
     public UserProfileViewModel(String viewName) {
