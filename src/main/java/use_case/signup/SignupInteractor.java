@@ -37,6 +37,7 @@ public class SignupInteractor implements SignupInputBoundary {
         }
     }
 
+    @Override
     // added return to main menu (to be changed)
     public void returnMainMenu() {
         userPresenter.prepareMainMenuView();

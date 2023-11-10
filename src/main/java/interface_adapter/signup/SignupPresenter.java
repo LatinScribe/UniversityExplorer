@@ -54,9 +54,6 @@ public class SignupPresenter implements SignupOutputBoundary {
 
     @Override
     public void prepareMainMenuView() {
-        MainMenuState mainMenuState = mainMenuViewModel.getState();
-        this.mainMenuViewModel.setState(mainMenuState);
-        mainMenuViewModel.firePropertyChanged();
         viewManagerModel.setActiveView(mainMenuViewModel.getViewName());
         viewManagerModel.firePropertyChanged();
     }
