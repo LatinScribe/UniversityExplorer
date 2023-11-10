@@ -36,4 +36,9 @@ public class SignupInteractor implements SignupInputBoundary {
             userPresenter.prepareSuccessView(signupOutputData);
         }
     }
+
+    // added return to main menu (to be changed)
+//    public void returnMainMenu() {
+//        userPresenter.
+//    }
 }
