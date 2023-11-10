@@ -1,11 +1,13 @@
 package use_case.login;
 
+import entity.CreationUser;
+import entity.ExistingUser;
 import entity.User;
 
 public interface LoginUserDataAccessInterface {
     boolean existsByName(String identifier);
 
-    String save(User user);
+    String save(CreationUser user);
 
-    User get(String username, String password);
+    ExistingUser get(String username, String password);
 }
