@@ -3,14 +3,12 @@ package view;
 //import interface_adapter.clear_users.ClearController;
 import app.LoginUseCaseFactory;
 import app.SignupUseCaseFactory;
-import data_access.FileUserDataAccessObject;
 import data_access.ServerUserDataAccessObject;
-import entity.CommonUserFactory;
+import entity.CreationCommonUserFactory;
+import entity.ExistingCommonUserFactory;
 import interface_adapter.ViewManagerModel;
 import interface_adapter.logged_in.LoggedInViewModel;
 import interface_adapter.login.LoginViewModel;
-import interface_adapter.main_menu.MainMenuController;
-import interface_adapter.main_menu.MainMenuViewModel;
 import interface_adapter.signup.SignupController;
 import interface_adapter.signup.SignupState;
 import interface_adapter.signup.SignupViewModel;
@@ -23,7 +21,6 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
-import java.io.IOException;
 
 
 public class SignupView extends JPanel implements ActionListener, PropertyChangeListener {
@@ -227,7 +224,7 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
 //        } catch (IOException e) {
 //            throw new RuntimeException(e);
 //        }
-        ServerUserDataAccessObject userDataAccessObject = new ServerUserDataAccessObject(new CommonUserFactory());
+        ServerUserDataAccessObject userDataAccessObject = new ServerUserDataAccessObject(new ExistingCommonUserFactory());
 
         SignupView signupView = SignupUseCaseFactory.create(viewManagerModel, loginViewModel, signupViewModel, userDataAccessObject);
         views.add(signupView, signupView.viewName);

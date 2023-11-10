@@ -1,6 +1,7 @@
 package app;
 
-import entity.CommonUserFactory;
+import entity.CreationCommonUserFactory;
+import entity.CreationUserFactory;
 import entity.UserFactory;
 import interface_adapter.ViewManagerModel;
 import interface_adapter.logged_in.LoggedInViewModel;
@@ -46,7 +47,7 @@ public class LoginUseCaseFactory {
         // Notice how we pass this method's parameters to the Presenter.
         LoginOutputBoundary loginOutputBoundary = new LoginPresenter(viewManagerModel, loggedInViewModel, loginViewModel);
 
-        UserFactory userFactory = new CommonUserFactory();
+        CreationUserFactory userFactory = new CreationCommonUserFactory();
 
         LoginInputBoundary loginInteractor = new LoginInteractor(
                 userDataAccessObject, loginOutputBoundary);
