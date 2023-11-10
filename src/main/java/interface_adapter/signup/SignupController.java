@@ -16,7 +16,7 @@ public class SignupController {
 
         userSignupUseCaseInteractor.execute(signupInputData);
     }
-//    public void returnMainMenu() {
-//        userSignupUseCaseInteractor.
-//    }
+    public void returnMainMenu() {
+        userSignupUseCaseInteractor.returnMainMenu();
+    }
 }

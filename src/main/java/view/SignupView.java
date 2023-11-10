@@ -9,6 +9,8 @@ import entity.ExistingCommonUserFactory;
 import interface_adapter.ViewManagerModel;
 import interface_adapter.logged_in.LoggedInViewModel;
 import interface_adapter.login.LoginViewModel;
+import interface_adapter.main_menu.MainMenuPresenter;
+import interface_adapter.main_menu.MainMenuViewModel;
 import interface_adapter.signup.SignupController;
 import interface_adapter.signup.SignupState;
 import interface_adapter.signup.SignupViewModel;
@@ -104,7 +106,8 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
         cancel.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
                 if (evt.getSource().equals(cancel)) {
-//                    signupController.
+                    System.out.println("cancel pressed");
+                    signupController.returnMainMenu();
                 }
             }
         });
@@ -223,6 +226,8 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
         LoginViewModel loginViewModel = new LoginViewModel();
         LoggedInViewModel loggedInViewModel = new LoggedInViewModel();
         SignupViewModel signupViewModel = new SignupViewModel();
+        MainMenuViewModel mainMenuViewModel = new MainMenuViewModel();
+        MainMenuPresenter mainMenuPresenter = new MainMenuPresenter(signupViewModel,loginViewModel,viewManagerModel);
 
 //        FileUserDataAccessObject userDataAccessObject;
 //        try {
@@ -231,8 +236,10 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
 //            throw new RuntimeException(e);
 //        }
         ServerUserDataAccessObject userDataAccessObject = new ServerUserDataAccessObject(new ExistingCommonUserFactory());
+        MainMenuView mainMenuView = new MainMenuView(mainMenuViewModel, mainMenuPresenter);
+        views.add(mainMenuView, mainMenuView.viewName);
 
-        SignupView signupView = SignupUseCaseFactory.create(viewManagerModel, loginViewModel, signupViewModel, userDataAccessObject);
+        SignupView signupView = SignupUseCaseFactory.create(viewManagerModel, loginViewModel, signupViewModel, userDataAccessObject, mainMenuViewModel);
         views.add(signupView, signupView.viewName);
 
         LoginView loginView = LoginUseCaseFactory.create(viewManagerModel, loginViewModel, loggedInViewModel, userDataAccessObject);

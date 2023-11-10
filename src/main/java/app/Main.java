@@ -41,12 +41,12 @@ public class Main {
         MainMenuViewModel mainMenuViewModel1 = new MainMenuViewModel();
         MainMenuPresenter mainMenuPresenter1 = new MainMenuPresenter(signupViewModel, loginViewModel, viewManagerModel);
         MainMenuView mainMenuView = new MainMenuView(mainMenuViewModel1, mainMenuPresenter1);
-        views.add(mainMenuView);
+        views.add(mainMenuView, mainMenuView.viewName);
 
         // add login, logged in and signup Views
         ServerUserDataAccessObject userDataAccessObject = new ServerUserDataAccessObject(new ExistingCommonUserFactory());
 
-        SignupView signupView = SignupUseCaseFactory.create(viewManagerModel, loginViewModel, signupViewModel, userDataAccessObject);
+        SignupView signupView = SignupUseCaseFactory.create(viewManagerModel, loginViewModel, signupViewModel, userDataAccessObject, mainMenuViewModel1);
         views.add(signupView, signupView.viewName);
 
         LoginView loginView = LoginUseCaseFactory.create(viewManagerModel, loginViewModel, loggedInViewModel, userDataAccessObject);
