@@ -4,13 +4,12 @@ package view;
 import interface_adapter.apply.ApplyController;
 import interface_adapter.apply.ApplyState;
 import interface_adapter.apply.ApplyViewModel;
+import use_case.apply.ApplyInputBoundary;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
@@ -92,7 +91,8 @@ public class Applyview extends JPanel implements ActionListener, PropertyChangeL
         application.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
         ApplyViewModel applyViewModel = new ApplyViewModel();
-        ApplyController applyController = new ApplyController(applyViewModel);
+        ApplyInputBoundary applyUseCaseInteractor = null;
+        ApplyController applyController = new ApplyController(applyViewModel, applyUseCaseInteractor);
         Applyview applyView = new Applyview(applyController, applyViewModel);
 
         JPanel testPanel = new JPanel();
