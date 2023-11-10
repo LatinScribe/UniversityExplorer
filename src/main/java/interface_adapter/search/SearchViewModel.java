@@ -12,6 +12,7 @@ public class SearchViewModel extends ViewModel {
     public final String SEARCH_LABEL = "Enter search criteria";
 
     public static final String SEARCH_BUTTON_LABEL = "Search";
+    public static final String BACK_BUTTON_LABEL = "Back";
 
     private SearchState state = new SearchState();
 

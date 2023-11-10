@@ -1,3 +1,5 @@
+// Author: André
+
 package interface_adapter;
 
 import java.beans.PropertyChangeListener;
