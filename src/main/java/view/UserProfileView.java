@@ -23,6 +23,12 @@ public class UserProfileView extends JPanel implements ActionListener, PropertyC
 
     private final UserProfileViewModel userProfileViewModel;
 
+    private JTextField finAidRequirementField;
+    private JTextField preferredProgramField;
+    private JTextField avgSalaryField;
+    private JTextField universityRankingRangeField;
+    private JTextField locationPreferenceField;
+
     final JButton profile;
 
     final JButton editProfile;
@@ -55,6 +61,27 @@ public class UserProfileView extends JPanel implements ActionListener, PropertyC
         editProfile = new JButton(UserProfileViewModel.EDIT_BUTTON_LABEL);
         buttons.add(editProfile);
         userProfile = new JButton(UserProfileViewModel.OTHER_PROFILE_BUTTON_LABEL);
+
+        finAidRequirementField = new JTextField(20);
+        preferredProgramField = new JTextField(20);
+        avgSalaryField = new JTextField(20);
+        universityRankingRangeField = new JTextField(20);
+        locationPreferenceField = new JTextField(20);
+
+        // Add input fields to the panel
+        this.add(new JLabel("Financial Aid Requirement:"));
+        this.add(finAidRequirementField);
+        this.add(new JLabel("Preferred Program:"));
+        this.add(preferredProgramField);
+        this.add(new JLabel("Average Salary:"));
+        this.add(avgSalaryField);
+        this.add(new JLabel("University Ranking Range:"));
+        this.add(universityRankingRangeField);
+        this.add(new JLabel("Location Preference:"));
+        this.add(locationPreferenceField);
+
+        // Setup action listeners for buttons
+        editProfile.addActionListener(this);
 
 //        UserProfileState.addActionListener(                // This creates an anonymous subclass of ActionListener and instantiates it.
 //                new ActionListener() {
@@ -91,6 +118,53 @@ public class UserProfileView extends JPanel implements ActionListener, PropertyC
         UserProfileState state = (UserProfileState) evt.getNewValue();
     }
 
+    private JButton saveButton; // A button for saving changes
+
+    private void setupSaveButton() {
+        saveButton = new JButton("Save");
+        saveButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                saveProfile();
+            }
+        });
+        this.add(saveButton);
+    }
+
+    private Integer[] parseRankingRange(String input) {
+        if (input == null || input.isEmpty()) {
+            return new Integer[0];
+        }
+        String[] parts = input.split(",");
+        Integer[] result = new Integer[parts.length];
+        for (int i = 0; i < parts.length; i++) {
+            try {
+                result[i] = Integer.parseInt(parts[i].trim());
+            } catch (NumberFormatException e) {
+                // Handle the case where a part of the input is not a valid integer
+                // You might want to notify the user or log this
+                // For simplicity, we can skip invalid inputs
+            }
+        }
+        return result;
+    }
+    private void saveProfile() {
+        // Collect user input from fields
+        Integer finAidRequirement = Integer.parseInt(finAidRequirementField.getText());
+        String preferredProgram = preferredProgramField.getText();
+        Integer avgSalary = Integer.parseInt(avgSalaryField.getText());
+        String universityRankingRangeText = universityRankingRangeField.getText();
+        Integer[] universityRankingRange = parseRankingRange(universityRankingRangeText);
+        String locationPreference = locationPreferenceField.getText();
+
+
+
+        // Send data to controller
+        userProfileController.updateUserProfile(finAidRequirement, preferredProgram,
+                avgSalary, universityRankingRange,
+                locationPreference);
+    }
+
     public static void main(String[] args) {
         JFrame application = new JFrame("User Profile Test");
         application.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -100,7 +174,7 @@ public class UserProfileView extends JPanel implements ActionListener, PropertyC
         application.add(views);
 
         UserProfileViewModel userProfileViewModel1 = new UserProfileViewModel("User Profile");
-        UserProfileController userProfileController1 = new UserProfileController();
+        UserProfileController userProfileController1 = new UserProfileController(userProfileViewModel1);
         UserProfileView userProfileView = new UserProfileView(userProfileViewModel1, userProfileController1);
 
         views.add(userProfileView, userProfileView.viewName);
