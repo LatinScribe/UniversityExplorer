@@ -1,8 +1,6 @@
 // Author: Kanish
 package view;
 
-import interface_adapter.main_menu.MainMenuController;
-import interface_adapter.main_menu.MainMenuViewModel;
 import interface_adapter.user_profiles.UserProfileController;
 import interface_adapter.user_profiles.UserProfileState;
 import interface_adapter.user_profiles.UserProfileViewModel;
@@ -33,6 +31,8 @@ public class UserProfileView extends JPanel implements ActionListener, PropertyC
 
     final JButton signIn;
 
+    final JButton userProfile;
+
     private final UserProfileController userProfileController;
 
     public UserProfileView(UserProfileViewModel userProfileViewModel, UserProfileController controller) {
@@ -45,7 +45,7 @@ public class UserProfileView extends JPanel implements ActionListener, PropertyC
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         JPanel buttons = new JPanel();
-        // access static member using class
+        // access static member using class - would this be a button for the profile?
         profile = new JButton(UserProfileViewModel.PROFILE_BUTTON_LABEL);
         buttons.add(profile);
         continueAsGuest = new JButton(UserProfileViewModel.GUEST_BUTTON_LABEL);
@@ -54,6 +54,7 @@ public class UserProfileView extends JPanel implements ActionListener, PropertyC
         buttons.add(signIn);
         editProfile = new JButton(UserProfileViewModel.EDIT_BUTTON_LABEL);
         buttons.add(editProfile);
+        userProfile = new JButton(UserProfileViewModel.OTHER_PROFILE_BUTTON_LABEL);
 
 //        UserProfileState.addActionListener(                // This creates an anonymous subclass of ActionListener and instantiates it.
 //                new ActionListener() {
@@ -78,8 +79,9 @@ public class UserProfileView extends JPanel implements ActionListener, PropertyC
 
 
     @Override
-    public void actionPerformed(ActionEvent evt) {
-        System.out.println("Button Clicked" + evt.getActionCommand());
+    public void actionPerformed(ActionEvent e) {
+        System.out.println("Button Clicked" + e.getActionCommand());
+
 
         // need to figure how to properly initialize this event in the listener above - need the use case implemented
     }
