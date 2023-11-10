@@ -23,6 +23,7 @@ public class SearchView extends JPanel implements ActionListener, PropertyChange
     private final SearchController searchController;
 
     private final JButton search;
+    private final JButton back;
 
     public SearchView(SearchController searchController, SearchViewModel searchViewModel) {
 
@@ -39,6 +40,8 @@ public class SearchView extends JPanel implements ActionListener, PropertyChange
         JPanel buttons = new JPanel();
         search = new JButton(SearchViewModel.SEARCH_BUTTON_LABEL);
         buttons.add(search);
+        back = new JButton(SearchViewModel.BACK_BUTTON_LABEL);
+        buttons.add(back);
 
         search.addActionListener(
                 // This creates an anonymous subclass of ActionListener and instantiates it.
@@ -53,6 +56,21 @@ public class SearchView extends JPanel implements ActionListener, PropertyChange
 //                            );
                         }
                     }
+                }
+        );
+
+        back.addActionListener(
+                // This creates an anonymous subclass of ActionListener and instantiates it.
+                new ActionListener() {
+                    public void actionPerformed(ActionEvent evt) {
+                        if (evt.getSource().equals(back)) {
+                            System.out.println("Back pressed!");
+                            SearchState currentState = searchViewModel.getState();
+
+                            searchController.execute(
+                                    currentState.getSearchCriteria()
+                            );
+                        }
                 }
         );
 
