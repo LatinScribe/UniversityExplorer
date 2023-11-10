@@ -4,7 +4,7 @@ public interface UserProfileDataAccessInterface {
 
     boolean hasProfile(String username);
 
-    void save(UserProfileData userdata);
+    void save(UserProfileInputData userdata);
 
 
 }

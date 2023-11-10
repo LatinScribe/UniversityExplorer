@@ -1,6 +1,6 @@
 package use_case.user_profile;
 
-public class UserProfileData {
+public class UserProfileInputData {
 
     final private String username;
 
@@ -12,7 +12,7 @@ public class UserProfileData {
 
     final private String preferredUni;
 
-    public UserProfileData(String user, String name, String nationality, String location, String preferredUni) {
+    public UserProfileInputData(String user, String name, String nationality, String location, String preferredUni) {
         this.username = user;
         this.name = name;
         this.nationality = nationality;

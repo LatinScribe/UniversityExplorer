@@ -2,5 +2,5 @@ package use_case.user_profile;
 
 public interface UserProfileInputBoundary {
 
-    void execute(UserProfileData userProfileInputData);
+    void execute(UserProfileInputData userProfileInputData);
 }
