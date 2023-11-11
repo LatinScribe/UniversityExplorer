@@ -31,9 +31,4 @@ public class LoginInteractor implements LoginInputBoundary {
             }
         }
     }
-    @Override
-    // added return to main menu (to be changed)
-    public void returnMainMenu() {
-        loginPresenter.prepareMainMenuView();
-    }
 }

@@ -1,20 +1,17 @@
 package app;
 
-import entity.CreationCommonUserFactory;
-import entity.CreationUserFactory;
+import entity.CommonUserFactory;
 import entity.UserFactory;
 import interface_adapter.ViewManagerModel;
 import interface_adapter.logged_in.LoggedInViewModel;
 import interface_adapter.login.LoginController;
 import interface_adapter.login.LoginPresenter;
 import interface_adapter.login.LoginViewModel;
-import interface_adapter.main_menu.MainMenuViewModel;
 import use_case.login.LoginInputBoundary;
 import use_case.login.LoginInteractor;
 import use_case.login.LoginOutputBoundary;
 import use_case.login.LoginUserDataAccessInterface;
 import view.LoginView;
-import view.MainMenuView;
 
 import javax.swing.*;
 import java.io.IOException;
@@ -28,11 +25,10 @@ public class LoginUseCaseFactory {
             ViewManagerModel viewManagerModel,
             LoginViewModel loginViewModel,
             LoggedInViewModel loggedInViewModel,
-            MainMenuViewModel mainMenuViewModel,
             LoginUserDataAccessInterface userDataAccessObject) {
 
         try {
-            LoginController loginController = createLoginUseCase(viewManagerModel, loginViewModel, loggedInViewModel, mainMenuViewModel, userDataAccessObject);
+            LoginController loginController = createLoginUseCase(viewManagerModel, loginViewModel, loggedInViewModel, userDataAccessObject);
             return new LoginView(loginViewModel, loginController);
         } catch (IOException e) {
             JOptionPane.showMessageDialog(null, "Could not open user data file.");
@@ -45,13 +41,12 @@ public class LoginUseCaseFactory {
             ViewManagerModel viewManagerModel,
             LoginViewModel loginViewModel,
             LoggedInViewModel loggedInViewModel,
-            MainMenuViewModel mainMenuViewModel,
             LoginUserDataAccessInterface userDataAccessObject) throws IOException {
 
         // Notice how we pass this method's parameters to the Presenter.
-        LoginOutputBoundary loginOutputBoundary = new LoginPresenter(viewManagerModel, loggedInViewModel, loginViewModel, mainMenuViewModel);
+        LoginOutputBoundary loginOutputBoundary = new LoginPresenter(viewManagerModel, loggedInViewModel, loginViewModel);
 
-        CreationUserFactory userFactory = new CreationCommonUserFactory();
+        UserFactory userFactory = new CommonUserFactory();
 
         LoginInputBoundary loginInteractor = new LoginInteractor(
                 userDataAccessObject, loginOutputBoundary);

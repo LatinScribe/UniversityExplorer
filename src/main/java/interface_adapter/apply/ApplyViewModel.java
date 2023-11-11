@@ -1,4 +1,3 @@
-// Author: Bora
 package interface_adapter.apply;
 
 import interface_adapter.ViewModel;
