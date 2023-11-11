@@ -1,6 +1,8 @@
 package data_access;
 
-import entity.*;
+import entity.CommonUserFactory;
+import entity.User;
+import entity.UserFactory;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
@@ -13,13 +15,13 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 
 public class ServerUserDataAccessObject implements SignupUserDataAccessInterface, LoginUserDataAccessInterface {
-    private ExistingUserFactory userFactory;
+    private UserFactory userFactory;
 
-    public ServerUserDataAccessObject(ExistingUserFactory factory) {
+    public ServerUserDataAccessObject(UserFactory factory) {
         this.userFactory = factory;
     }
     @Override
-    public ExistingUser get(String username, String password) {
+    public User get(String username, String password) {
         OkHttpClient client = new OkHttpClient().newBuilder()
                 .build();
         Request request = new Request.Builder()
@@ -33,7 +35,8 @@ public class ServerUserDataAccessObject implements SignupUserDataAccessInterface
 
             if (responseBody.getInt("status_code") == 200) {
                 LocalDateTime curr = LocalDateTime.now();
-                ExistingUser user = this.userFactory.create(username, "SAMPLEID", password, curr, responseBody.getString("token"));
+                User user = this.userFactory.create(username, password, curr);
+                user.setToken(responseBody.getString("token"));
                 return user;
 
             } else {
@@ -76,7 +79,7 @@ public class ServerUserDataAccessObject implements SignupUserDataAccessInterface
     }
 
     @Override
-    public String save(CreationUser user) {
+    public String save(User user) {
         OkHttpClient client = new OkHttpClient().newBuilder()
                 .build();
         Request request = new Request.Builder()
@@ -100,7 +103,7 @@ public class ServerUserDataAccessObject implements SignupUserDataAccessInterface
     }
 
     public static void main(String[] args) {
-        ServerUserDataAccessObject db = new ServerUserDataAccessObject(new ExistingCommonUserFactory());
+        ServerUserDataAccessObject db = new ServerUserDataAccessObject(new CommonUserFactory());
         boolean result = db.existsByName("johny");
         System.out.println("This should return true");
         System.out.println(result);
@@ -109,15 +112,15 @@ public class ServerUserDataAccessObject implements SignupUserDataAccessInterface
         System.out.println("This should return false");
         System.out.println(result2);
 
-        CreationCommonUserFactory fact = new CreationCommonUserFactory();
+        CommonUserFactory fact = new CommonUserFactory();
         LocalDateTime time = LocalDateTime.now();
 
-        ExistingUser myuser = db.get("johny1234", "12342324");
+        User myuser = db.get("johny1234", "12342324");
         System.out.println("We expect true");
         System.out.println(myuser.getToken().equals("1kRrWzHPUZnSFlFevLuMBoQi2lFeXP8z"));
 
         // change username to something else or else an error is thrown!
-        CreationUser user = fact.create("BillyBob123", "1234654", time);
+        User user = fact.create("BillyBob123", "1234654", time);
 
         String token = db.save(user);
         System.out.println(token);

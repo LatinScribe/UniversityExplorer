@@ -1,7 +1,5 @@
 package use_case.signup;
 
-import entity.CreationUser;
-import entity.CreationUserFactory;
 import entity.User;
 import entity.UserFactory;
 
@@ -10,11 +8,11 @@ import java.time.LocalDateTime;
 public class SignupInteractor implements SignupInputBoundary {
     final SignupUserDataAccessInterface userDataAccessObject;
     final SignupOutputBoundary userPresenter;
-    final CreationUserFactory userFactory;
+    final UserFactory userFactory;
 
     public SignupInteractor(SignupUserDataAccessInterface signupDataAccessInterface,
                             SignupOutputBoundary signupOutputBoundary,
-                            CreationUserFactory userFactory) {
+                            UserFactory userFactory) {
         this.userDataAccessObject = signupDataAccessInterface;
         this.userPresenter = signupOutputBoundary;
         this.userFactory = userFactory;
@@ -29,17 +27,12 @@ public class SignupInteractor implements SignupInputBoundary {
         } else {
 
             LocalDateTime now = LocalDateTime.now();
-            CreationUser user = userFactory.create(signupInputData.getUsername(), signupInputData.getPassword(), now);
+            User user = userFactory.create(signupInputData.getUsername(), signupInputData.getPassword(), now);
             String token = userDataAccessObject.save(user);
+            user.setToken(token);
 
             SignupOutputData signupOutputData = new SignupOutputData(user.getName(), now.toString(), false);
             userPresenter.prepareSuccessView(signupOutputData);
         }
-    }
-
-    @Override
-    // added return to main menu (to be changed)
-    public void returnMainMenu() {
-        userPresenter.prepareMainMenuView();
     }
 }

@@ -17,8 +17,4 @@ public class LoginController {
 
         loginUseCaseInteractor.execute(loginInputData);
     }
-
-    public void returnMainMenu() {
-       loginUseCaseInteractor.returnMainMenu();
-    }
 }
