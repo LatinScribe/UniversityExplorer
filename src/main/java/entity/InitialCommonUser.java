@@ -2,22 +2,28 @@ package entity;
 
 import java.time.LocalDateTime;
 
-class InitialCommonUser implements User {
+public class ExistingCommonUser implements ExistingUser{
 
     private final String name;
+    private final int id;
+
     private final String password;
     private final LocalDateTime creationTime;
     private String token;
 
     /**
-     * Requires: password is valid.
+     * Requires: should match entries in server database
+     *
      * @param name
+     * @param id
      * @param password
      */
-    InitialCommonUser(String name, String password, LocalDateTime creationTime) {
+    ExistingCommonUser(String name, int id, String password, LocalDateTime creationTime, String token) {
         this.name = name;
+        this.id = id;
         this.password = password;
         this.creationTime = creationTime;
+        this.token = token;
     }
 
     @Override
@@ -25,9 +31,8 @@ class InitialCommonUser implements User {
         return name;
     }
 
-    @Override
-    public String getPassword() {
-        return password;
+    public int getID() {
+        return id;
     }
 
     @Override
@@ -41,6 +46,10 @@ class InitialCommonUser implements User {
     }
 
     @Override
+    public String getPassword() {
+        return password;
+    }
+
     public LocalDateTime getCreationTime() {
         return creationTime;
     }
