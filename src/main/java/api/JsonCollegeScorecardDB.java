@@ -1,16 +1,13 @@
 package api;
 
-import entity.Grade;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 import org.jetbrains.annotations.NotNull;
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
-import java.util.ArrayList;
 
 // This file contains the methods for accessing data through the College Scorecard API
 // All methods return a JSON object
