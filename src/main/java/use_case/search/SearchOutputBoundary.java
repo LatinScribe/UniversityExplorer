@@ -2,8 +2,13 @@
 
 package use_case.search;
 
-public interface SearchOutputBoundary {
-    void prepareSuccessView(SearchOutputData user);
+import entity.University;
 
-    void prepareFailView(String error);
+import java.util.List;
+
+public interface SearchOutputBoundary {
+    void prepareSuccessView(SearchOutputData universities);
+
+    void prepareResultsNotFoundView(String error);
+
 }
