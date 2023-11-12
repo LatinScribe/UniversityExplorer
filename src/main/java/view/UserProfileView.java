@@ -19,7 +19,7 @@ import java.beans.PropertyChangeListener;
 
 
 public class UserProfileView extends JPanel implements ActionListener, PropertyChangeListener{
-    public final String viewName = "User Profile";
+    public final String viewName = "userProfileView";
 
     private final UserProfileViewModel userProfileViewModel;
 
@@ -100,6 +100,8 @@ public class UserProfileView extends JPanel implements ActionListener, PropertyC
 //
 //        cancel.addActionListener(this);
 
+        setupSaveButton();
+
         this.add(title);
         this.add(buttons);
     }
@@ -149,20 +151,23 @@ public class UserProfileView extends JPanel implements ActionListener, PropertyC
         return result;
     }
     private void saveProfile() {
-        // Collect user input from fields
-        Integer finAidRequirement = Integer.parseInt(finAidRequirementField.getText());
-        String preferredProgram = preferredProgramField.getText();
-        Integer avgSalary = Integer.parseInt(avgSalaryField.getText());
-        String universityRankingRangeText = universityRankingRangeField.getText();
-        Integer[] universityRankingRange = parseRankingRange(universityRankingRangeText);
-        String locationPreference = locationPreferenceField.getText();
+        try {
+            Integer finAidRequirement = Integer.parseInt(finAidRequirementField.getText());
+            String preferredProgram = preferredProgramField.getText();
+            Integer avgSalary = Integer.parseInt(avgSalaryField.getText());
+            String universityRankingRangeText = universityRankingRangeField.getText();
+            Integer[] universityRankingRange = parseRankingRange(universityRankingRangeText);
+            String locationPreference = locationPreferenceField.getText();
 
+            // Send data to controller
+            userProfileController.updateUserProfile(finAidRequirement, preferredProgram,
+                    avgSalary, universityRankingRange, locationPreference);
 
-
-        // Send data to controller
-        userProfileController.updateUserProfile(finAidRequirement, preferredProgram,
-                avgSalary, universityRankingRange,
-                locationPreference);
+            JOptionPane.showMessageDialog(this, "Profile saved successfully");
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Please enter valid numbers in numeric fields",
+                    "Input Error", JOptionPane.ERROR_MESSAGE);
+        }
     }
 
     public static void main(String[] args) {
