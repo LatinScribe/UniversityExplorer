@@ -18,11 +18,7 @@ public class UserProfileViewModel extends ViewModel {
 
     public static final String EDIT_BUTTON_LABEL = "Edit Profile";
 
-    public static final String SIGNIN_BUTTON_LABEL = "Sign In";
-
-    public static final String GUEST_BUTTON_LABEL = "Continue as Guest";
-
-    public static final String OTHER_PROFILE_BUTTON_LABEL = "View User's Profile";
+    public static final String RETURN_TO_LOGGEDIN = "Return to Main Menu ";
 
     private UserProfileState state = new UserProfileState();
     public UserProfileViewModel() {
