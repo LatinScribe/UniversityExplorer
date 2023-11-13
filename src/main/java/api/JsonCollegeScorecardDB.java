@@ -1,6 +1,5 @@
 package api;
 
-import entity.Grade;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
@@ -79,6 +78,8 @@ public class JsonCollegeScorecardDB implements CollegeScorecardDB{
     public static void main(String[] args) {
         JsonCollegeScorecardDB db = new JsonCollegeScorecardDB();
         JSONObject stuff = db.basicQuery("school.degrees_awarded.predominant=2,3", "fields=id,school.name,2013.student.size");
+//        JSONArray results = stuff.getJSONArray("results");
+//        JSONObject uni = results.getJSONObject()
         System.out.println(stuff);
 
         JSONObject otherstuff = db.zipcodeQuery("02138", "5mi");

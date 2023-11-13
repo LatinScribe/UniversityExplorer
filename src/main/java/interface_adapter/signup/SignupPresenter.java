@@ -3,8 +3,11 @@ package interface_adapter.signup;
 import interface_adapter.ViewManagerModel;
 import interface_adapter.login.LoginState;
 import interface_adapter.login.LoginViewModel;
+import interface_adapter.main_menu.MainMenuState;
+import interface_adapter.main_menu.MainMenuViewModel;
 import use_case.signup.SignupOutputBoundary;
 import use_case.signup.SignupOutputData;
+import view.MainMenuView;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -15,12 +18,16 @@ public class SignupPresenter implements SignupOutputBoundary {
     private final LoginViewModel loginViewModel;
     private ViewManagerModel viewManagerModel;
 
+    private MainMenuViewModel mainMenuViewModel;
+
     public SignupPresenter(ViewManagerModel viewManagerModel,
                            SignupViewModel signupViewModel,
-                           LoginViewModel loginViewModel) {
+                           LoginViewModel loginViewModel,
+                           MainMenuViewModel mainMenuViewModel) {
         this.viewManagerModel = viewManagerModel;
         this.signupViewModel = signupViewModel;
         this.loginViewModel = loginViewModel;
+        this.mainMenuViewModel = mainMenuViewModel;
     }
 
     @Override
@@ -43,5 +50,11 @@ public class SignupPresenter implements SignupOutputBoundary {
         SignupState signupState = signupViewModel.getState();
         signupState.setUsernameError(error);
         signupViewModel.firePropertyChanged();
+    }
+
+    @Override
+    public void prepareMainMenuView() {
+        viewManagerModel.setActiveView(mainMenuViewModel.getViewName());
+        viewManagerModel.firePropertyChanged();
     }
 }
