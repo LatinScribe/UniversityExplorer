@@ -1,7 +1,7 @@
 package api;
 
-import entity.gradeAPI_for_reference.Grade;
-import entity.gradeAPI_for_reference.Team;
+import entity.Grade;
+import entity.Team;
 import okhttp3.*;
 import org.json.JSONArray;
 import org.json.JSONException;

@@ -5,7 +5,7 @@ import java.time.LocalDateTime;
 public interface ExistingUser extends User{
     String getName();
 
-    int getID();
+    String getID();
     void setToken(String token);
 
     String getToken();

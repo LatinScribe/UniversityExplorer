@@ -43,7 +43,7 @@ public class FileUserDataAccessObject implements SignupUserDataAccessInterface, 
                 String row;
                 while ((row = reader.readLine()) != null) {
                     String[] col = row.split(",");
-                    int id = Integer.parseInt(col[headers.get("id")]);
+                    String id = String.valueOf(col[headers.get("id")]);
                     String username = String.valueOf(col[headers.get("username")]);
                     String password = String.valueOf(col[headers.get("password")]);
                     String creationTimeText = String.valueOf(col[headers.get("creation_time")]);
@@ -74,7 +74,7 @@ public class FileUserDataAccessObject implements SignupUserDataAccessInterface, 
 
     @Override
     public String save(CreationUser user) {
-        int id = 1234;
+        String id = "123456(example, this should be unique)";
         String token = "123asdEXAMPLETOKEN";
         ExistingUser new_user = userFactory.create(user.getName(), id, user.getPassword(), user.getCreationTime(), token);
         accounts.put(user.getName(), new_user);
