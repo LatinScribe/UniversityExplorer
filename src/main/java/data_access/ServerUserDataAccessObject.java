@@ -1,8 +1,6 @@
 package data_access;
 
-import entity.CommonUserFactory;
-import entity.User;
-import entity.UserFactory;
+import entity.*;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
@@ -15,13 +13,13 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 
 public class ServerUserDataAccessObject implements SignupUserDataAccessInterface, LoginUserDataAccessInterface {
-    private UserFactory userFactory;
+    private ExistingUserFactory userFactory;
 
-    public ServerUserDataAccessObject(UserFactory factory) {
+    public ServerUserDataAccessObject(ExistingUserFactory factory) {
         this.userFactory = factory;
     }
     @Override
-    public User get(String username, String password) {
+    public ExistingUser get(String username, String password) {
         OkHttpClient client = new OkHttpClient().newBuilder()
                 .build();
         Request request = new Request.Builder()
@@ -35,8 +33,7 @@ public class ServerUserDataAccessObject implements SignupUserDataAccessInterface
 
             if (responseBody.getInt("status_code") == 200) {
                 LocalDateTime curr = LocalDateTime.now();
-                User user = this.userFactory.create(username, password, curr);
-                user.setToken(responseBody.getString("token"));
+                ExistingUser user = this.userFactory.create(username, responseBody.getInt("id"), password, curr, responseBody.getString("token"));
                 return user;
 
             } else {
@@ -79,7 +76,7 @@ public class ServerUserDataAccessObject implements SignupUserDataAccessInterface
     }
 
     @Override
-    public String save(User user) {
+    public String save(CreationUser user) {
         OkHttpClient client = new OkHttpClient().newBuilder()
                 .build();
         Request request = new Request.Builder()
@@ -89,6 +86,7 @@ public class ServerUserDataAccessObject implements SignupUserDataAccessInterface
         try {
             Response response = client.newCall(request).execute();
             System.out.println(response);
+            assert response.body() != null;
             JSONObject responseBody = new JSONObject(response.body().string());
 
             if (responseBody.getInt("status_code") == 200) {
@@ -103,7 +101,7 @@ public class ServerUserDataAccessObject implements SignupUserDataAccessInterface
     }
 
     public static void main(String[] args) {
-        ServerUserDataAccessObject db = new ServerUserDataAccessObject(new CommonUserFactory());
+        ServerUserDataAccessObject db = new ServerUserDataAccessObject(new ExistingCommonUserFactory());
         boolean result = db.existsByName("johny");
         System.out.println("This should return true");
         System.out.println(result);
@@ -112,17 +110,25 @@ public class ServerUserDataAccessObject implements SignupUserDataAccessInterface
         System.out.println("This should return false");
         System.out.println(result2);
 
-        CommonUserFactory fact = new CommonUserFactory();
+        CreationCommonUserFactory fact = new CreationCommonUserFactory();
         LocalDateTime time = LocalDateTime.now();
 
-        User myuser = db.get("johny1234", "12342324");
+        ExistingUser myuser = db.get("johny1234", "12342324");
         System.out.println("We expect true");
         System.out.println(myuser.getToken().equals("1kRrWzHPUZnSFlFevLuMBoQi2lFeXP8z"));
+        System.out.println("We expect true");
+        System.out.println(myuser.getID() == 8);
 
         // change username to something else or else an error is thrown!
-        User user = fact.create("BillyBob123", "1234654", time);
+        try {
+            CreationUser user = fact.create("BillyBob123", "1234654", time);
+            String token = db.save(user);
+            System.out.println(token);
+        }
+        catch (RuntimeException e) {
+            System.out.println(e);
+            System.out.println("This should be because user already exists");
+        }
 
-        String token = db.save(user);
-        System.out.println(token);
     }
 }

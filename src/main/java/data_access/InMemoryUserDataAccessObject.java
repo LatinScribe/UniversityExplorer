@@ -1,5 +1,6 @@
 package data_access;
 
+import entity.CreationUser;
 import entity.User;
 import use_case.signup.SignupUserDataAccessInterface;
 
@@ -23,7 +24,7 @@ public class InMemoryUserDataAccessObject implements SignupUserDataAccessInterfa
      * @param user the data to save
      */
     @Override
-    public String save(User user) {
+    public String save(CreationUser user) {
         users.put(user.getName(), user);
         return "something";
     }
