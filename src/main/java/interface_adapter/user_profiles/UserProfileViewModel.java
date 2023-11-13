@@ -46,8 +46,4 @@ public class UserProfileViewModel extends ViewModel {
     public UserProfileState getState() {
         return state;
     }
-
-    public void updateState(UserProfileState userProfileState) {
-        this.state = userProfileState;
-    }
 }

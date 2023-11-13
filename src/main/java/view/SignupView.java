@@ -14,7 +14,6 @@ import interface_adapter.main_menu.MainMenuViewModel;
 import interface_adapter.signup.SignupController;
 import interface_adapter.signup.SignupState;
 import interface_adapter.signup.SignupViewModel;
-import interface_adapter.user_profiles.UserProfileViewModel;
 
 import javax.swing.*;
 import java.awt.*;
@@ -229,7 +228,6 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
         SignupViewModel signupViewModel = new SignupViewModel();
         MainMenuViewModel mainMenuViewModel = new MainMenuViewModel();
         MainMenuPresenter mainMenuPresenter = new MainMenuPresenter(signupViewModel,loginViewModel,viewManagerModel);
-        // UserProfileViewModel userProfileViewModel = new UserProfileViewModel("View your Profile");
 
 //        FileUserDataAccessObject userDataAccessObject;
 //        try {
@@ -247,7 +245,7 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
         LoginView loginView = LoginUseCaseFactory.create(viewManagerModel, loginViewModel, loggedInViewModel, mainMenuViewModel,userDataAccessObject);
         views.add(loginView, loginView.viewName);
 
-        LoggedInView loggedInView = new LoggedInView(loggedInViewModel, userProfileViewModel);
+        LoggedInView loggedInView = new LoggedInView(loggedInViewModel);
         views.add(loggedInView, loggedInView.viewName);
 
         viewManagerModel.setActiveView(signupView.viewName);

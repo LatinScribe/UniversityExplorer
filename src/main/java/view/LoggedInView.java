@@ -1,9 +1,7 @@
 package view;
 
-import interface_adapter.ViewManagerModel;
 import interface_adapter.logged_in.LoggedInState;
 import interface_adapter.logged_in.LoggedInViewModel;
-import interface_adapter.user_profiles.UserProfileViewModel;
 
 import javax.swing.*;
 import java.awt.*;
@@ -16,21 +14,17 @@ public class LoggedInView extends JPanel implements ActionListener, PropertyChan
 
     public final String viewName = "logged in";
     private final LoggedInViewModel loggedInViewModel;
-    private final UserProfileViewModel userprofileViewModel;
 
     JLabel username;
 
     final JButton logOut;
 
-    final JButton viewProfile;
-
     /**
      * A window with a title and a JButton.
      */
-    public LoggedInView(LoggedInViewModel loggedInViewModel, UserProfileViewModel userProfileViewModel) {
+    public LoggedInView(LoggedInViewModel loggedInViewModel) {
         this.loggedInViewModel = loggedInViewModel;
         this.loggedInViewModel.addPropertyChangeListener(this);
-        this.userprofileViewModel = userProfileViewModel;
 
         JLabel title = new JLabel("Logged In Screen");
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -41,10 +35,6 @@ public class LoggedInView extends JPanel implements ActionListener, PropertyChan
         JPanel buttons = new JPanel();
         logOut = new JButton(loggedInViewModel.LOGOUT_BUTTON_LABEL);
         buttons.add(logOut);
-
-        viewProfile = new JButton("View your Profile");
-        buttons.add(viewProfile);
-        viewProfile.addActionListener(this);
 
         logOut.addActionListener(this);
 
@@ -60,12 +50,7 @@ public class LoggedInView extends JPanel implements ActionListener, PropertyChan
      * React to a button click that results in evt.
      */
     public void actionPerformed(ActionEvent evt) {
-        // System.out.println("Click " + evt.getActionCommand()); - removed this for view logic
-        if (evt.getSource() == viewProfile) {
-            loggedInViewModel.setCurrentView("userProfileView");
-        } else {
-            System.out.println("Click " + evt.getActionCommand());
-        }
+        System.out.println("Click " + evt.getActionCommand());
     }
 
     @Override
@@ -73,5 +58,4 @@ public class LoggedInView extends JPanel implements ActionListener, PropertyChan
         LoggedInState state = (LoggedInState) evt.getNewValue();
         username.setText(state.getUsername());
     }
-
 }
