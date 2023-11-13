@@ -8,4 +8,10 @@ public class ApplyInputData {
         this.satScore = satScore;
         this.actScore = actScore;
     }
+    String getSatScore(){
+        return this.satScore;
+    }
+    String getActScore(){
+        return actScore;
+    }
 }
