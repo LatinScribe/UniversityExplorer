@@ -178,7 +178,7 @@ public class UserProfileView extends JPanel implements ActionListener, PropertyC
         JPanel views = new JPanel(cardLayout);
         application.add(views);
 
-        UserProfileViewModel userProfileViewModel1 = new UserProfileViewModel("User Profile");
+        UserProfileViewModel userProfileViewModel1 = new UserProfileViewModel();
         UserProfileController userProfileController1 = new UserProfileController(userProfileViewModel1);
         UserProfileView userProfileView = new UserProfileView(userProfileViewModel1, userProfileController1);
 

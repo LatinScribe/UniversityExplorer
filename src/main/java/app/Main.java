@@ -10,6 +10,8 @@ import interface_adapter.main_menu.MainMenuViewModel;
 import interface_adapter.signup.SignupViewModel;
 import interface_adapter.sub_menu.SubViewController;
 import interface_adapter.sub_menu.SubViewModel;
+import interface_adapter.user_profiles.UserProfileController;
+import interface_adapter.user_profiles.UserProfileViewModel;
 import view.*;
 
 import javax.swing.*;
@@ -52,7 +54,13 @@ public class Main {
         LoginView loginView = LoginUseCaseFactory.create(viewManagerModel, loginViewModel, loggedInViewModel, mainMenuViewModel1,userDataAccessObject);
         views.add(loginView, loginView.viewName);
 
-        LoggedInView loggedInView = new LoggedInView(loggedInViewModel);
+        // create a UserProfileViewModel and view
+        UserProfileViewModel userProfileViewModel = new UserProfileViewModel();
+        UserProfileController userProfileController = new UserProfileController(userProfileViewModel);
+        UserProfileView userProfileView = new UserProfileView(userProfileViewModel, userProfileController);
+        views.add(userProfileView, userProfileView.viewName);
+
+        LoggedInView loggedInView = new LoggedInView(loggedInViewModel, userProfileViewModel);
         views.add(loggedInView, loggedInView.viewName);
 
         viewManagerModel.setActiveView(mainMenuView.viewName);

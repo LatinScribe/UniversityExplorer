@@ -25,7 +25,7 @@ public class UserProfileViewModel extends ViewModel {
     public static final String OTHER_PROFILE_BUTTON_LABEL = "View User's Profile";
 
     private UserProfileState state = new UserProfileState();
-    public UserProfileViewModel(String viewName) {
+    public UserProfileViewModel() {
         super("User Profile");
     }
 

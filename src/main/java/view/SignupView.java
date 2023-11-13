@@ -246,6 +246,9 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
 
         LoginView loginView = LoginUseCaseFactory.create(viewManagerModel, loginViewModel, loggedInViewModel, mainMenuViewModel,userDataAccessObject);
         views.add(loginView, loginView.viewName);
+        // create a UserProfileViewModel and view
+        UserProfileViewModel userProfileViewModel = new UserProfileViewModel();
+//        UserProfileView userProfileView = new UserProfileView()
 
         LoggedInView loggedInView = new LoggedInView(loggedInViewModel, userProfileViewModel);
         views.add(loggedInView, loggedInView.viewName);

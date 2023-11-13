@@ -13,6 +13,7 @@ import interface_adapter.main_menu.MainMenuViewModel;
 import interface_adapter.main_menu.MainMenuState;
 import interface_adapter.main_menu.MainMenuController;
 import interface_adapter.signup.SignupViewModel;
+import interface_adapter.user_profiles.UserProfileViewModel;
 
 import javax.swing.*;
 import java.awt.*;
@@ -148,7 +149,11 @@ public class MainMenuView extends JPanel implements ActionListener, PropertyChan
         LoginView loginView = LoginUseCaseFactory.create(viewManagerModel, loginViewModel, loggedInViewModel, mainMenuViewModel1,userDataAccessObject);
         views.add(loginView, loginView.viewName);
 
-        LoggedInView loggedInView = new LoggedInView(loggedInViewModel);
+        // create a UserProfileViewModel and view
+        UserProfileViewModel userProfileViewModel = new UserProfileViewModel();
+//        UserProfileView userProfileView = new UserProfileView(userProfileViewModel, )
+
+        LoggedInView loggedInView = new LoggedInView(loggedInViewModel, userProfileViewModel);
         views.add(loggedInView, loggedInView.viewName);
 
         viewManagerModel.setActiveView(mainMenuView.viewName);
