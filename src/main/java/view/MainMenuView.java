@@ -6,12 +6,13 @@ import app.SignupUseCaseFactory;
 import data_access.ServerUserDataAccessObject;
 import entity.ExistingCommonUserFactory;
 import interface_adapter.ViewManagerModel;
+import interface_adapter.logged_in.LoggedInController;
+import interface_adapter.logged_in.LoggedInPresenter;
 import interface_adapter.logged_in.LoggedInViewModel;
 import interface_adapter.login.LoginViewModel;
 import interface_adapter.main_menu.MainMenuPresenter;
 import interface_adapter.main_menu.MainMenuViewModel;
 import interface_adapter.main_menu.MainMenuState;
-import interface_adapter.main_menu.MainMenuController;
 import interface_adapter.signup.SignupViewModel;
 import interface_adapter.user_profiles.UserProfileViewModel;
 
@@ -19,8 +20,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
@@ -153,7 +152,10 @@ public class MainMenuView extends JPanel implements ActionListener, PropertyChan
         UserProfileViewModel userProfileViewModel = new UserProfileViewModel();
 //        UserProfileView userProfileView = new UserProfileView(userProfileViewModel, )
 
-        LoggedInView loggedInView = new LoggedInView(loggedInViewModel, userProfileViewModel);
+        // add loggedin view
+        LoggedInPresenter loggedInPresenter= new LoggedInPresenter(userProfileViewModel, viewManagerModel);
+        LoggedInController loggedInController = new LoggedInController(loggedInPresenter);
+        LoggedInView loggedInView = new LoggedInView(loggedInViewModel, userProfileViewModel, loggedInController);
         views.add(loggedInView, loggedInView.viewName);
 
         viewManagerModel.setActiveView(mainMenuView.viewName);

@@ -26,7 +26,7 @@ public class UserProfileViewModel extends ViewModel {
 
     private UserProfileState state = new UserProfileState();
     public UserProfileViewModel() {
-        super("User Profile");
+        super("userProfileView");
     }
 
     public void setState(UserProfileState state) {this.state = state;}
