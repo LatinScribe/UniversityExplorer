@@ -6,8 +6,9 @@ import interface_adapter.apply.ApplyState;
 import interface_adapter.apply.ApplyViewModel;
 import interface_adapter.search.SearchState;
 import interface_adapter.search.SearchViewModel;
+import use_case.sub_menu.SubViewOutputBoundary;
 
-public class SubViewPresenter {
+public class SubViewPresenter implements SubViewOutputBoundary {
     private final SearchViewModel searchViewModel;
     private final ApplyViewModel applyViewModel;
     private ViewManagerModel viewManagerModel;
@@ -31,9 +32,9 @@ public class SubViewPresenter {
         // On success, switch to the apply view.
         ApplyState applyState = applyViewModel.getState();
         this.applyViewModel.setState(applyState);
-        applyViewModel.firePropertyChanged();
+        this.applyViewModel.firePropertyChanged();
 
-        viewManagerModel.setActiveView(applyViewModel.getViewName());
-        viewManagerModel.firePropertyChanged();
+        this.viewManagerModel.setActiveView(applyViewModel.getViewName());
+        this.viewManagerModel.firePropertyChanged();
     }
 }

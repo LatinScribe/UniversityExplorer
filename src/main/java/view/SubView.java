@@ -15,6 +15,8 @@ import interface_adapter.sub_menu.SubViewState;
 import org.json.JSONObject;
 import use_case.apply.ApplyInputBoundary;
 import use_case.search.SearchUserDataAccessInterface;
+import use_case.sub_menu.SubViewInputBoundary;
+import use_case.sub_menu.SubViewInteractor;
 
 import javax.swing.*;
 import java.awt.*;
@@ -31,9 +33,8 @@ public class SubView extends JPanel implements ActionListener, PropertyChangeLis
     private final SubViewModel subViewModel;
     private final SubViewController subViewController;
 
-    private final SubViewPresenter subViewPresenter;
 
-    public SubView(SubViewModel subViewModel, SubViewController controller, SubViewPresenter subViewPresenter) {
+    public SubView(SubViewModel subViewModel, SubViewController controller) {
         this.subViewController = controller;
         this.subViewModel = subViewModel;
         this.subViewModel.addPropertyChangeListener(this);
@@ -47,15 +48,14 @@ public class SubView extends JPanel implements ActionListener, PropertyChangeLis
         search = new JButton(SubViewModel.SEARCH_BUTTON_LABEL);
         buttons.add(search);
 
-        // for testing: parameter controller
-        this.subViewPresenter = subViewPresenter;
 
         recommendation.addActionListener(
                 new ActionListener() {
                     public void actionPerformed(ActionEvent evt) {
                         if (evt.getSource().equals(recommendation)) {
                             // System.out.println("Recommendation Button pressed");
-                            subViewPresenter.prepareApplyView();
+                            // subViewPresenter.prepareApplyView();
+                            subViewController.execute("search");
                         }
                     }
                 }
@@ -66,7 +66,8 @@ public class SubView extends JPanel implements ActionListener, PropertyChangeLis
                     public void actionPerformed(ActionEvent evt) {
                         if (evt.getSource().equals(search)) {
                             // System.out.println("Search Button pressed");
-                            subViewPresenter.prepareSearchView();
+                            // subViewPresenter.prepareSearchView();
+                            subViewController.execute("recommendation");
                         }
                     }
                 }
@@ -102,8 +103,9 @@ public class SubView extends JPanel implements ActionListener, PropertyChangeLis
         SubViewModel subViewModel = new SubViewModel();
         SubViewPresenter subViewPresenter = new SubViewPresenter(searchViewModel, applyViewModel, viewManagerModel);
 
-        SubViewController subViewController = new SubViewController();
-        SubView subView = new SubView(subViewModel, subViewController, subViewPresenter);
+        SubViewInputBoundary subViewInteractor = new SubViewInteractor(subViewPresenter);
+        SubViewController subViewController = new SubViewController(subViewInteractor);
+        SubView subView = new SubView(subViewModel, subViewController);
 
         views.add(subView, subView.viewName);
 
