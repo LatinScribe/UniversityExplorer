@@ -60,6 +60,7 @@ public class Main {
         UserProfileView userProfileView = new UserProfileView(userProfileViewModel, userProfileController);
         views.add(userProfileView, userProfileView.viewName);
 
+
         LoggedInView loggedInView = new LoggedInView(loggedInViewModel, userProfileViewModel);
         views.add(loggedInView, loggedInView.viewName);
 

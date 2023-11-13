@@ -31,6 +31,7 @@ public class LoggedInView extends JPanel implements ActionListener, PropertyChan
         this.loggedInViewModel = loggedInViewModel;
         this.loggedInViewModel.addPropertyChangeListener(this);
         this.userprofileViewModel = userProfileViewModel;
+        this.userprofileViewModel.addPropertyChangeListener(this);
 
         JLabel title = new JLabel("Logged In Screen");
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -62,6 +63,7 @@ public class LoggedInView extends JPanel implements ActionListener, PropertyChan
     public void actionPerformed(ActionEvent evt) {
         // System.out.println("Click " + evt.getActionCommand()); - removed this for view logic
         if (evt.getSource() == viewProfile) {
+            System.out.println("View Profile BUtton LCilcked");
             loggedInViewModel.setCurrentView("userProfileView");
         } else {
             System.out.println("Click " + evt.getActionCommand());
@@ -70,8 +72,16 @@ public class LoggedInView extends JPanel implements ActionListener, PropertyChan
 
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
-        LoggedInState state = (LoggedInState) evt.getNewValue();
-        username.setText(state.getUsername());
+        if ("state".equals(evt.getPropertyName()) && evt.getNewValue() instanceof LoggedInState) {
+            System.out.println("Something apart from View Profile clicked");
+            LoggedInState state = (LoggedInState) evt.getNewValue();
+            username.setText(state.getUsername());
+        } else if ("currentView".equals(evt.getPropertyName()) && evt.getNewValue() instanceof String) {
+            String newView = (String) evt.getNewValue();
+            System.out.println("View Profile Button Clicked");
+            // Handle the view change here. Typically, this would involve
+            // telling a ViewManager or similar to change the view.
+        }
     }
 
 }

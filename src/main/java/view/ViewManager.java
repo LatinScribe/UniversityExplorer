@@ -23,6 +23,7 @@ public class ViewManager implements PropertyChangeListener {
     public void propertyChange(PropertyChangeEvent evt) {
         if (evt.getPropertyName().equals("view")) {
             String viewModelName = (String) evt.getNewValue();
+            System.out.println("Attemping to change view to " + viewModelName);
             cardLayout.show(views, viewModelName);
         }
     }
