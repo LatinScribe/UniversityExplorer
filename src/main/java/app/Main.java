@@ -37,6 +37,7 @@ public class Main {
         // be observed by the Views.
         LoginViewModel loginViewModel = new LoginViewModel();
         LoggedInViewModel loggedInViewModel = new LoggedInViewModel();
+
         SignupViewModel signupViewModel = new SignupViewModel();
 
         // create the main menu view

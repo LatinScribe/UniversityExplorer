@@ -63,8 +63,9 @@ public class LoggedInView extends JPanel implements ActionListener, PropertyChan
     public void actionPerformed(ActionEvent evt) {
         // System.out.println("Click " + evt.getActionCommand()); - removed this for view logic
         if (evt.getSource() == viewProfile) {
-            System.out.println("View Profile BUtton LCilcked");
             loggedInViewModel.setCurrentView("userProfileView");
+            System.out.println("View Profile BUtton LCilcked");
+            // When trying to switch views - this print statement seems to work
         } else {
             System.out.println("Click " + evt.getActionCommand());
         }
