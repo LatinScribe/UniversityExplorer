@@ -13,6 +13,7 @@ import interface_adapter.main_menu.MainMenuViewModel;
 import interface_adapter.main_menu.MainMenuState;
 import interface_adapter.main_menu.MainMenuController;
 import interface_adapter.signup.SignupViewModel;
+import interface_adapter.sub_menu.SubViewModel;
 
 import javax.swing.*;
 import java.awt.*;
@@ -65,6 +66,7 @@ public class MainMenuView extends JPanel implements ActionListener, PropertyChan
                     public void actionPerformed(ActionEvent evt) {
                         if (evt.getSource().equals(continueAsGuest)) {
                             System.out.println("Continue as Guest Button pressed");
+                            mainMenuController.switchToSubView();
                         }
                     }
                 }
@@ -131,9 +133,10 @@ public class MainMenuView extends JPanel implements ActionListener, PropertyChan
         LoggedInViewModel loggedInViewModel = new LoggedInViewModel();
         SignupViewModel signupViewModel = new SignupViewModel();
         MainMenuViewModel mainMenuViewModel1 = new MainMenuViewModel();
+        SubViewModel subViewModel = new SubViewModel();
 
         // create the main menu view
-        MainMenuView mainMenuView = MainMenuUseCaseFactory.create(mainMenuViewModel1, signupViewModel, loginViewModel, viewManagerModel);
+        MainMenuView mainMenuView = MainMenuUseCaseFactory.create(mainMenuViewModel1, signupViewModel, loginViewModel, subViewModel,viewManagerModel);
         views.add(mainMenuView, mainMenuView.viewName);
 
         // add login, logged in and signup Views
