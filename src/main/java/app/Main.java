@@ -8,8 +8,6 @@ import interface_adapter.login.LoginViewModel;
 import interface_adapter.main_menu.MainMenuPresenter;
 import interface_adapter.main_menu.MainMenuViewModel;
 import interface_adapter.signup.SignupViewModel;
-import interface_adapter.sub_menu.SubViewController;
-import interface_adapter.sub_menu.SubViewModel;
 import view.*;
 
 import javax.swing.*;
@@ -33,14 +31,15 @@ public class Main {
         // This information will be changed by a presenter object that is reporting the
         // results from the use case. The ViewModels are observable, and will
         // be observed by the Views.
+
+        // create the view models
         LoginViewModel loginViewModel = new LoginViewModel();
         LoggedInViewModel loggedInViewModel = new LoggedInViewModel();
         SignupViewModel signupViewModel = new SignupViewModel();
+        MainMenuViewModel mainMenuViewModel1 = new MainMenuViewModel();
 
         // create the main menu view
-        MainMenuViewModel mainMenuViewModel1 = new MainMenuViewModel();
-        MainMenuPresenter mainMenuPresenter1 = new MainMenuPresenter(signupViewModel, loginViewModel, viewManagerModel);
-        MainMenuView mainMenuView = new MainMenuView(mainMenuViewModel1, mainMenuPresenter1);
+        MainMenuView mainMenuView = MainMenuUseCaseFactory.create(mainMenuViewModel1, signupViewModel, loginViewModel, viewManagerModel);
         views.add(mainMenuView, mainMenuView.viewName);
 
         // add login, logged in and signup Views
