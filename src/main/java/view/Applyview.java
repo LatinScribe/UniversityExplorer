@@ -14,11 +14,11 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
 public class Applyview extends JPanel implements ActionListener, PropertyChangeListener {
-    public final String viewName = "apply";
+    public final String viewName = "Submit form";
 
     private final ApplyViewModel applyViewModel;
-    private final JTextField usernameInputField = new JTextField(15);
-    private final JTextField gpaInputField = new JTextField(15);
+    private final JTextField actInputField = new JTextField(15);
+    private final JTextField satInputField = new JTextField(15);
 
     private final ApplyController applyController;
 
@@ -34,10 +34,10 @@ public class Applyview extends JPanel implements ActionListener, PropertyChangeL
         JLabel title = new JLabel(ApplyViewModel.TITLE_LABEL);
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        LabelTextPanel usernameInfo = new LabelTextPanel(
-                new JLabel(ApplyViewModel.USERNAME_LABEL), usernameInputField);
-        LabelTextPanel gpaInfo = new LabelTextPanel(
-                new JLabel(ApplyViewModel.GPA_LABEL), gpaInputField);
+        LabelTextPanel actInfo = new LabelTextPanel(
+                new JLabel(ApplyViewModel.ACT_LABEL), actInputField);
+        LabelTextPanel satInfo = new LabelTextPanel(
+                new JLabel(ApplyViewModel.SAT_LABEL), satInputField);
 
 
         JPanel buttons = new JPanel();
@@ -58,8 +58,8 @@ public class Applyview extends JPanel implements ActionListener, PropertyChangeL
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
         this.add(title);
-        this.add(usernameInfo);
-        this.add(gpaInfo);
+        this.add(actInfo);
+        this.add(satInfo);
         this.add(buttons);
     }
 
