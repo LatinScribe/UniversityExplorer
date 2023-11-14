@@ -1,7 +1,7 @@
 // Author: Diego
 package view;
 
-import app.SearchUseCaseFactory;
+//import app.SearchUseCaseFactory;
 import data_access.ServerUserDataAccessObject;
 import entity.ExistingCommonUserFactory;
 import interface_adapter.ViewManagerModel;
@@ -118,9 +118,9 @@ public class SubView extends JPanel implements ActionListener, PropertyChangeLis
             }
         };
 
-        SearchView searchView = SearchUseCaseFactory.create(viewManagerModel, searchViewModel, userSearchData);
-        assert searchView != null;
-        views.add(searchView, searchView.viewName);
+//        SearchView searchView = SearchUseCaseFactory.create(viewManagerModel, searchViewModel, userSearchData);
+//        assert searchView != null;
+//        views.add(searchView, searchView.viewName);
         ApplyInputBoundary applyUseCaseInteractor = null;
         ApplyController applyController = new ApplyController(applyViewModel, applyUseCaseInteractor);
         Applyview applyView = new Applyview(applyController, applyViewModel);

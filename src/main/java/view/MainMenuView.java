@@ -2,13 +2,13 @@
 package view;
 
 import app.LoginUseCaseFactory;
+import app.MainMenuUseCaseFactory;
 import app.SignupUseCaseFactory;
 import data_access.ServerUserDataAccessObject;
 import entity.ExistingCommonUserFactory;
 import interface_adapter.ViewManagerModel;
 import interface_adapter.logged_in.LoggedInViewModel;
 import interface_adapter.login.LoginViewModel;
-import interface_adapter.main_menu.MainMenuPresenter;
 import interface_adapter.main_menu.MainMenuViewModel;
 import interface_adapter.main_menu.MainMenuState;
 import interface_adapter.main_menu.MainMenuController;
@@ -18,8 +18,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
@@ -31,11 +29,10 @@ public class MainMenuView extends JPanel implements ActionListener, PropertyChan
     final JButton continueAsGuest;
     final JButton signIn;
     final JButton settings;
-    private final MainMenuPresenter mainMenuPresenter;
+    private final MainMenuController mainMenuController;
 
-    public MainMenuView(MainMenuViewModel mainMenuViewModel, MainMenuPresenter mainMenuPresenter) {
-
-        this.mainMenuPresenter = mainMenuPresenter;
+    public MainMenuView(MainMenuViewModel mainMenuViewModel, MainMenuController mainMenuController) {
+        this.mainMenuController = mainMenuController;;
         this.mainMenuViewModel = mainMenuViewModel;
         this.mainMenuViewModel.addPropertyChangeListener(this);
 
@@ -58,7 +55,7 @@ public class MainMenuView extends JPanel implements ActionListener, PropertyChan
                 new ActionListener() {
                     public void actionPerformed(ActionEvent evt) {
                         if (evt.getSource().equals(signUp)) {
-                            mainMenuPresenter.prepareSignUpView();
+                            mainMenuController.switchToSignupView();
                         }
                     }
                 }
@@ -77,7 +74,7 @@ public class MainMenuView extends JPanel implements ActionListener, PropertyChan
                 new ActionListener() {
                     public void actionPerformed(ActionEvent evt) {
                         if (evt.getSource().equals(signIn)) {
-                            mainMenuPresenter.prepareLoginView();
+                            mainMenuController.switchToLoginView();
                         }
                     }
                 }
@@ -121,22 +118,22 @@ public class MainMenuView extends JPanel implements ActionListener, PropertyChan
         JPanel views = new JPanel(cardLayout);
         application.add(views);
 
-        // This keeps track of and manages which view is currently showing.
-        ViewManagerModel viewManagerModel = new ViewManagerModel();
-        new ViewManager(views, cardLayout, viewManagerModel);
-
+        // This keeps track of and manages which view is currently showing
         // The data for the views, such as username and password, are in the ViewModels.
         // This information will be changed by a presenter object that is reporting the
         // results from the use case. The ViewModels are observable, and will
         // be observed by the Views.
+        ViewManagerModel viewManagerModel = new ViewManagerModel();
+        new ViewManager(views, cardLayout, viewManagerModel);
+
+        // create the view models
         LoginViewModel loginViewModel = new LoginViewModel();
         LoggedInViewModel loggedInViewModel = new LoggedInViewModel();
         SignupViewModel signupViewModel = new SignupViewModel();
+        MainMenuViewModel mainMenuViewModel1 = new MainMenuViewModel();
 
         // create the main menu view
-        MainMenuViewModel mainMenuViewModel1 = new MainMenuViewModel();
-        MainMenuPresenter mainMenuPresenter1 = new MainMenuPresenter(signupViewModel, loginViewModel, viewManagerModel);
-        MainMenuView mainMenuView = new MainMenuView(mainMenuViewModel1, mainMenuPresenter1);
+        MainMenuView mainMenuView = MainMenuUseCaseFactory.create(mainMenuViewModel1, signupViewModel, loginViewModel, viewManagerModel);
         views.add(mainMenuView, mainMenuView.viewName);
 
         // add login, logged in and signup Views
