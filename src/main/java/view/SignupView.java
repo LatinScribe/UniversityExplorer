@@ -3,13 +3,13 @@ package view;
 //import interface_adapter.clear_users.ClearController;
 import app.LoginUseCaseFactory;
 import app.SignupUseCaseFactory;
-import data_access.FileUserDataAccessObject;
 import data_access.ServerUserDataAccessObject;
-import entity.CommonUserFactory;
+import entity.CreationCommonUserFactory;
+import entity.ExistingCommonUserFactory;
 import interface_adapter.ViewManagerModel;
 import interface_adapter.logged_in.LoggedInViewModel;
 import interface_adapter.login.LoginViewModel;
-import interface_adapter.main_menu.MainMenuController;
+import interface_adapter.main_menu.MainMenuPresenter;
 import interface_adapter.main_menu.MainMenuViewModel;
 import interface_adapter.signup.SignupController;
 import interface_adapter.signup.SignupState;
@@ -23,7 +23,6 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
-import java.io.IOException;
 
 
 public class SignupView extends JPanel implements ActionListener, PropertyChangeListener {
@@ -104,7 +103,14 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
 //                }
 //        );
 
-        cancel.addActionListener(this);
+        cancel.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
+                if (evt.getSource().equals(cancel)) {
+                    System.out.println("cancel pressed");
+                    signupController.returnMainMenu();
+                }
+            }
+        });
 
         // This makes a new KeyListener implementing class, instantiates it, and
         // makes it listen to keystrokes in the usernameInputField.
@@ -220,6 +226,8 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
         LoginViewModel loginViewModel = new LoginViewModel();
         LoggedInViewModel loggedInViewModel = new LoggedInViewModel();
         SignupViewModel signupViewModel = new SignupViewModel();
+        MainMenuViewModel mainMenuViewModel = new MainMenuViewModel();
+        MainMenuPresenter mainMenuPresenter = new MainMenuPresenter(signupViewModel,loginViewModel,viewManagerModel);
 
 //        FileUserDataAccessObject userDataAccessObject;
 //        try {
@@ -227,12 +235,14 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
 //        } catch (IOException e) {
 //            throw new RuntimeException(e);
 //        }
-        ServerUserDataAccessObject userDataAccessObject = new ServerUserDataAccessObject(new CommonUserFactory());
+        ServerUserDataAccessObject userDataAccessObject = new ServerUserDataAccessObject(new ExistingCommonUserFactory());
+        MainMenuView mainMenuView = new MainMenuView(mainMenuViewModel, mainMenuPresenter);
+        views.add(mainMenuView, mainMenuView.viewName);
 
-        SignupView signupView = SignupUseCaseFactory.create(viewManagerModel, loginViewModel, signupViewModel, userDataAccessObject);
+        SignupView signupView = SignupUseCaseFactory.create(viewManagerModel, loginViewModel, signupViewModel, userDataAccessObject, mainMenuViewModel);
         views.add(signupView, signupView.viewName);
 
-        LoginView loginView = LoginUseCaseFactory.create(viewManagerModel, loginViewModel, loggedInViewModel, userDataAccessObject);
+        LoginView loginView = LoginUseCaseFactory.create(viewManagerModel, loginViewModel, loggedInViewModel, mainMenuViewModel,userDataAccessObject);
         views.add(loginView, loginView.viewName);
 
         LoggedInView loggedInView = new LoggedInView(loggedInViewModel);
