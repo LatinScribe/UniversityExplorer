@@ -1,3 +1,5 @@
+// Author: Henry
+// Note: NEEDS INTERNET ACCESS
 package api;
 
 import okhttp3.OkHttpClient;

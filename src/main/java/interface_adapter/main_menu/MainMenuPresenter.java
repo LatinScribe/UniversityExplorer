@@ -1,3 +1,5 @@
+// Author: Henry
+
 package interface_adapter.main_menu;
 
 import interface_adapter.ViewManagerModel;
@@ -6,10 +8,6 @@ import interface_adapter.login.LoginViewModel;
 import interface_adapter.signup.SignupState;
 import interface_adapter.signup.SignupViewModel;
 import use_case.main_menu.MainMenuOutputBoundary;
-import use_case.signup.SignupOutputData;
-
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 
 public class MainMenuPresenter implements MainMenuOutputBoundary {
     private final SignupViewModel signupViewModel;
