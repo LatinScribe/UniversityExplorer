@@ -25,6 +25,7 @@ public class UserProfileUseCaseFactory {
                                                                   UserPreferencesFactory userPreferencesFactory) throws IOException {
 
         // Assume UserProfilePresenter implements UserProfileOutputBoundary
+        // TODO: Remove redundant inputs for createUserProfile - userPreferencesFactory, DAO, etc
         UserProfileOutputBoundary userProfilePresenter = new UserProfilePresenter(viewManager, userProfileViewModel);
 
         UserProfileInputBoundary userProfileInteractor = new UserProfileInteractor(userProfilePresenter);
