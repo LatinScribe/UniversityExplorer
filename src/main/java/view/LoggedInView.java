@@ -32,8 +32,8 @@ public class LoggedInView extends JPanel implements ActionListener, PropertyChan
         this.loggedInViewModel = loggedInViewModel;
         this.loggedInController = loggedInController;
         this.loggedInViewModel.addPropertyChangeListener(this);
-        this.userprofileViewModel = userProfileViewModel;
-        this.userprofileViewModel.addPropertyChangeListener(this);
+//        this.userprofileViewModel = userProfileViewModel;
+//        this.userprofileViewModel.addPropertyChangeListener(this);
 
         JLabel title = new JLabel("Logged In Screen");
         title.setAlignmentX(Component.CENTER_ALIGNMENT);

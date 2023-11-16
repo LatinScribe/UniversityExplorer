@@ -56,8 +56,9 @@ public class Main {
 
         // create a UserProfileViewModel and view
         UserProfileViewModel userProfileViewModel = new UserProfileViewModel();
-        UserProfileController userProfileController = new UserProfileController(userProfileViewModel);
-        UserProfileView userProfileView = new UserProfileView(userProfileViewModel, userProfileController);
+//        UserProfileController userProfileController = new UserProfileController(userProfileViewModel);
+//        UserProfileView userProfileView = new UserProfileView(userProfileViewModel, userProfileController);
+        UserProfileView userProfileView = UserProfileUseCaseFactory.create(viewManagerModel, userProfileViewModel);
 
         // add loggedin view
         LoggedInPresenter loggedInPresenter= new LoggedInPresenter(userProfileViewModel, viewManagerModel);

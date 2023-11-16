@@ -8,11 +8,11 @@ import view.ViewManager;
 
 public class UserProfilePresenter implements UserProfileOutputBoundary {
 
-    private ViewManager viewManagerModel;
+    private ViewManagerModel viewManagerModel;
 
     private UserProfileViewModel userProfileViewModel;
 
-    public UserProfilePresenter(ViewManager viewManager, UserProfileViewModel userProfileViewModel) {
+    public UserProfilePresenter(ViewManagerModel viewManager, UserProfileViewModel userProfileViewModel) {
         this.viewManagerModel = viewManager;
         this.userProfileViewModel = userProfileViewModel;
 

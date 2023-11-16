@@ -17,12 +17,17 @@ import java.io.IOException;
 
 public class UserProfileUseCaseFactory {
 
-    /** Prevent instantiation. */
-    private UserProfileUseCaseFactory() {}
+    /**
+     * Prevent instantiation.
+     */
+    private UserProfileUseCaseFactory() {
+    }
 
-    private static UserProfileController createUserProfileUseCase(ViewManager viewManager, UserProfileViewModel userProfileViewModel,
-                                                                  UserProfileDataAccessInterface userProfileDataAccessInterface, UserProfileOutputBoundary userProfileOutputBoundary,
-                                                                  UserPreferencesFactory userPreferencesFactory) throws IOException {
+    private static UserProfileController createUserProfileUseCase(ViewManagerModel viewManager, UserProfileViewModel userProfileViewModel) throws IOException {
+
+//    private static UserProfileController createUserProfileUseCase(ViewManager viewManager, UserProfileViewModel userProfileViewModel,
+//            UserProfileDataAccessInterface userProfileDataAccessInterface, UserProfileOutputBoundary userProfileOutputBoundary,
+//            UserPreferencesFactory userPreferencesFactory) throws IOException {
 
         // Assume UserProfilePresenter implements UserProfileOutputBoundary
         // TODO: Remove redundant inputs for createUserProfile - userPreferencesFactory, DAO, etc
@@ -33,14 +38,10 @@ public class UserProfileUseCaseFactory {
         return new UserProfileController(userProfileViewModel, userProfileInteractor);
     }
 
-    public static UserProfileView create(ViewManager viewManager, UserProfileViewModel userProfileViewModel,
-            UserProfileDataAccessInterface userProfileDataAccessInterface, UserProfileOutputBoundary userProfileOutputBoundary,
-            UserPreferencesFactory userPreferencesFactory) {
+    public static UserProfileView create(ViewManagerModel viewManager, UserProfileViewModel userProfileViewModel) {
 
         try {
-            UserProfileController userProfileController = createUserProfileUseCase(viewManager, userProfileViewModel,
-                    userProfileDataAccessInterface, userProfileOutputBoundary,
-                     userPreferencesFactory);
+            UserProfileController userProfileController = createUserProfileUseCase(viewManager, userProfileViewModel);
             return new UserProfileView(userProfileViewModel, userProfileController);
         } catch (IOException e) {
             JOptionPane.showMessageDialog(null, "Could not open user data file.");
@@ -48,3 +49,4 @@ public class UserProfileUseCaseFactory {
 
         return null;
     }
+}

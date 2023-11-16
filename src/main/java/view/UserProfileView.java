@@ -1,7 +1,9 @@
 // Author: Kanish
 package view;
 
+import app.UserProfileUseCaseFactory;
 import interface_adapter.ViewManagerModel;
+import interface_adapter.logged_in.LoggedInViewModel;
 import interface_adapter.user_profiles.UserProfileController;
 import interface_adapter.user_profiles.UserProfilePresenter;
 import interface_adapter.user_profiles.UserProfileState;
@@ -176,20 +178,25 @@ public class UserProfileView extends JPanel implements ActionListener, PropertyC
         JPanel views = new JPanel(cardLayout);
         application.add(views);
 
-        UserProfileViewModel userProfileViewModel1 = new UserProfileViewModel("User Profile");
-        ViewManagerModel viewManagerModel1 = new ViewManagerModel();
-        ViewManager viewManager = new ViewManager(views, cardLayout, viewManagerModel1);
-        UserProfileOutputBoundary userProfilePresenter = new UserProfilePresenter(viewManager, userProfileViewModel1);
-
-        UserProfileInputBoundary userProfileInteractor = new UserProfileInteractor(userProfilePresenter);
-        UserProfileController userProfileController1 = new UserProfileController(userProfileViewModel1, userProfileInteractor);
-
-        // TODO : Create a UserProfilePresenter and UserPreferenceFactory so that this controller can be created
+        // create the view models
         UserProfileViewModel userProfileViewModel1 = new UserProfileViewModel();
-        UserProfileController userProfileController1 = new UserProfileController(userProfileViewModel1);
-        UserProfileView userProfileView = new UserProfileView(userProfileViewModel1, userProfileController1);
+        LoggedInViewModel loggedInViewModel = new LoggedInViewModel();
 
-        views.add(userProfileView, userProfileView.viewName);
+        // create view manager
+        ViewManagerModel viewManagerModel1 = new ViewManagerModel();
+        new ViewManager(views, cardLayout, viewManagerModel1);
+
+        // Add user profile View
+        UserProfileView userProfileView = UserProfileUseCaseFactory.create(viewManagerModel1, userProfileViewModel1);
+        views.add(userProfileView);
+
+//        UserProfileOutputBoundary userProfilePresenter = new UserProfilePresenter(viewManager, userProfileViewModel1);
+//        UserProfileInputBoundary userProfileInteractor = new UserProfileInteractor(userProfilePresenter);
+//        UserProfileController userProfileController1 = new UserProfileController(userProfileViewModel1, userProfileInteractor);
+//        UserProfileViewModel userProfileViewModel1 = new UserProfileViewModel();
+//        UserProfileController userProfileController1 = new UserProfileController(userProfileViewModel1);
+//        UserProfileView userProfileView = new UserProfileView(userProfileViewModel1, userProfileController1);
+//        views.add(userProfileView, userProfileView.viewName);
 
         application.pack();
         application.setVisible(true);
