@@ -27,7 +27,7 @@ public class SearchUseCaseFactory {
             SearchController searchController = createSearchUseCase(viewManagerModel, searchViewModel, searchUserDataAccessObject, shortUniversityFactory);
             return new SearchView(searchController, searchViewModel);
         } catch (IOException e) {
-            JOptionPane.showMessageDialog(null, "Could not open user data file.");
+            JOptionPane.showMessageDialog(null, "API unable to be accessed.");
         }
 
         return null;
