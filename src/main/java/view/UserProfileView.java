@@ -1,14 +1,20 @@
 // Author: Kanish
 package view;
 
+import interface_adapter.ViewManagerModel;
 import interface_adapter.user_profiles.UserProfileController;
+import interface_adapter.user_profiles.UserProfilePresenter;
 import interface_adapter.user_profiles.UserProfileState;
 import interface_adapter.user_profiles.UserProfileViewModel;
+import use_case.user_profile.UserProfileInputBoundary;
+import use_case.user_profile.UserProfileInteractor;
+import use_case.user_profile.UserProfileOutputBoundary;
 
 import java.awt.event.ActionListener;
 import java.beans.PropertyChangeListener;
 
 import javax.swing.*;
+import javax.swing.text.View;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -22,6 +28,7 @@ public class UserProfileView extends JPanel implements ActionListener, PropertyC
     public final String viewName = "userProfileView";
 
     private final UserProfileViewModel userProfileViewModel;
+    private final UserProfileController userProfileController;
 
     private JTextField finAidRequirementField;
     private JTextField preferredProgramField;
@@ -36,14 +43,11 @@ public class UserProfileView extends JPanel implements ActionListener, PropertyC
     final JButton returnLoggedIn;
 
 
-    private final UserProfileController userProfileController;
-
     public UserProfileView(UserProfileViewModel userProfileViewModel, UserProfileController controller) {
 
         this.userProfileController = controller;
         this.userProfileViewModel = userProfileViewModel;
         this.userProfileViewModel.addPropertyChangeListener(this);
-
         JLabel title = new JLabel("User Profile");
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
 
@@ -172,6 +176,15 @@ public class UserProfileView extends JPanel implements ActionListener, PropertyC
         JPanel views = new JPanel(cardLayout);
         application.add(views);
 
+        UserProfileViewModel userProfileViewModel1 = new UserProfileViewModel("User Profile");
+        ViewManagerModel viewManagerModel1 = new ViewManagerModel();
+        ViewManager viewManager = new ViewManager(views, cardLayout, viewManagerModel1);
+        UserProfileOutputBoundary userProfilePresenter = new UserProfilePresenter(viewManager, userProfileViewModel1);
+
+        UserProfileInputBoundary userProfileInteractor = new UserProfileInteractor(userProfilePresenter);
+        UserProfileController userProfileController1 = new UserProfileController(userProfileViewModel1, userProfileInteractor);
+
+        // TODO : Create a UserProfilePresenter and UserPreferenceFactory so that this controller can be created
         UserProfileViewModel userProfileViewModel1 = new UserProfileViewModel();
         UserProfileController userProfileController1 = new UserProfileController(userProfileViewModel1);
         UserProfileView userProfileView = new UserProfileView(userProfileViewModel1, userProfileController1);

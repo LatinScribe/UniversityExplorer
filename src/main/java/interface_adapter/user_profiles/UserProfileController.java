@@ -1,18 +1,25 @@
 package interface_adapter.user_profiles;
 
+import use_case.user_profile.UserProfileInputBoundary;
+import use_case.user_profile.UserProfileInteractor;
+import use_case.user_profile.UserProfileOutputBoundary;
+
 public class UserProfileController {
+
+    final UserProfileInputBoundary userProfileInteractor;
 
     private UserProfileState userProfileState;
     private final UserProfileViewModel userProfileViewModel;
 
-    public UserProfileController(UserProfileViewModel userProfileViewModel) {
+    public UserProfileController(UserProfileViewModel userProfileViewModel, UserProfileInputBoundary userProfileInteractor) {
         this.userProfileViewModel = userProfileViewModel;
+        this.userProfileInteractor = userProfileInteractor;
         initializeState();
 
     }
 
     private void initializeState() {
-        // Need to check if user profile exists and load based on that - @Henry
+        // TODO: Need to check if user profile exists and load based on that - @Henry
         userProfileState = new UserProfileState();
         userProfileState.setAvgSalary(0);
         userProfileState.setFinAidRequirement(0);

@@ -16,7 +16,6 @@ public class LoggedInView extends JPanel implements ActionListener, PropertyChan
 
     public final String viewName = "logged in";
     private final LoggedInViewModel loggedInViewModel;
-    private final UserProfileViewModel userprofileViewModel;
 
     private final LoggedInController loggedInController;
 
