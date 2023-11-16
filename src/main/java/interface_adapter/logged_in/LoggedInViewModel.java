@@ -51,6 +51,9 @@ public class LoggedInViewModel extends ViewModel {
     public void setCurrentView(String currentView) {
         String oldView = this.currentView;
         this.currentView = currentView;
-        support.firePropertyChange("currentView", oldView, currentView);
+        System.out.println("setCurrentView called: It's called " + currentView);
+        support.firePropertyChange("view", oldView, currentView);
+
+        // TODO: Potentially an issue with the property name of userProfileView
     }
 }

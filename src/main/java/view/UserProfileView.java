@@ -40,11 +40,8 @@ public class UserProfileView extends JPanel implements ActionListener, PropertyC
 
     final JButton editProfile;
 
-    final JButton continueAsGuest;
+    final JButton returnLoggedIn;
 
-    final JButton signIn;
-
-    final JButton userProfile;
 
     public UserProfileView(UserProfileViewModel userProfileViewModel, UserProfileController controller) {
 
@@ -58,13 +55,10 @@ public class UserProfileView extends JPanel implements ActionListener, PropertyC
         // access static member using class - would this be a button for the profile?
         profile = new JButton(UserProfileViewModel.PROFILE_BUTTON_LABEL);
         buttons.add(profile);
-        continueAsGuest = new JButton(UserProfileViewModel.GUEST_BUTTON_LABEL);
-        buttons.add(continueAsGuest);
-        signIn = new JButton(UserProfileViewModel.SIGNIN_BUTTON_LABEL);
-        buttons.add(signIn);
+        returnLoggedIn = new JButton(UserProfileViewModel.RETURN_TO_LOGGEDIN);
+        buttons.add(returnLoggedIn);
         editProfile = new JButton(UserProfileViewModel.EDIT_BUTTON_LABEL);
         buttons.add(editProfile);
-        userProfile = new JButton(UserProfileViewModel.OTHER_PROFILE_BUTTON_LABEL);
 
         finAidRequirementField = new JTextField(20);
         preferredProgramField = new JTextField(20);
@@ -191,6 +185,8 @@ public class UserProfileView extends JPanel implements ActionListener, PropertyC
         UserProfileController userProfileController1 = new UserProfileController(userProfileViewModel1, userProfileInteractor);
 
         // TODO : Create a UserProfilePresenter and UserPreferenceFactory so that this controller can be created
+        UserProfileViewModel userProfileViewModel1 = new UserProfileViewModel();
+        UserProfileController userProfileController1 = new UserProfileController(userProfileViewModel1);
         UserProfileView userProfileView = new UserProfileView(userProfileViewModel1, userProfileController1);
 
         views.add(userProfileView, userProfileView.viewName);

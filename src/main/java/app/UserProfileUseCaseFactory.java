@@ -48,6 +48,3 @@ public class UserProfileUseCaseFactory {
 
         return null;
     }
-
-
-}
