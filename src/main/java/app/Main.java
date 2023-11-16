@@ -1,3 +1,5 @@
+// Author: Common
+
 package app;
 
 import data_access.ServerUserDataAccessObject;
@@ -7,7 +9,6 @@ import interface_adapter.logged_in.LoggedInController;
 import interface_adapter.logged_in.LoggedInPresenter;
 import interface_adapter.logged_in.LoggedInViewModel;
 import interface_adapter.login.LoginViewModel;
-import interface_adapter.main_menu.MainMenuPresenter;
 import interface_adapter.main_menu.MainMenuViewModel;
 import interface_adapter.signup.SignupViewModel;
 import interface_adapter.user_profiles.UserProfileController;
@@ -35,15 +36,16 @@ public class Main {
         // This information will be changed by a presenter object that is reporting the
         // results from the use case. The ViewModels are observable, and will
         // be observed by the Views.
+
+        // create the view models
         LoginViewModel loginViewModel = new LoginViewModel();
         LoggedInViewModel loggedInViewModel = new LoggedInViewModel();
 
         SignupViewModel signupViewModel = new SignupViewModel();
+        MainMenuViewModel mainMenuViewModel1 = new MainMenuViewModel();
 
         // create the main menu view
-        MainMenuViewModel mainMenuViewModel1 = new MainMenuViewModel();
-        MainMenuPresenter mainMenuPresenter1 = new MainMenuPresenter(signupViewModel, loginViewModel, viewManagerModel);
-        MainMenuView mainMenuView = new MainMenuView(mainMenuViewModel1, mainMenuPresenter1);
+        MainMenuView mainMenuView = MainMenuUseCaseFactory.create(mainMenuViewModel1, signupViewModel, loginViewModel, viewManagerModel);
         views.add(mainMenuView, mainMenuView.viewName);
 
         // add login, logged in and signup Views

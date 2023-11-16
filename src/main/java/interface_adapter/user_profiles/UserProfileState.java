@@ -4,15 +4,12 @@ package interface_adapter.user_profiles;
 public class UserProfileState {
 
     private String confirmEditMessage;
-    private String failedEditMessage;
-    private String confirmPublishMessage;
-    private String failPublishMessage;
 
-    private Integer finAidRequirement;
-    private String preferredProgram;
-    private Integer avgSalary;
-    private Integer[] universityRankingRange;
-    private String locationPreference;
+    private String failedEditMessage;
+
+    private String confirmPublishMessage;
+
+    private String failPublishMessage;
 
     public String getConfirmEditMessage() {return confirmEditMessage;}
 
@@ -34,21 +31,5 @@ public class UserProfileState {
 
     public void setFailPublishMessage(String failPublishMessage) {
         this.failPublishMessage = failPublishMessage;
-    }
-
-    public void setFinAidRequirement(Integer finAidRequirement) {
-        this.finAidRequirement = finAidRequirement;
-    }
-    public void setPreferredProgram(String preferredProgram) {
-        this.preferredProgram = preferredProgram;
-    }
-    public void setAvgSalary(Integer avgSalary) {
-        this.avgSalary = avgSalary;
-    }
-    public void setUniversityRankingRange(Integer[] universityRankingRange) {
-        this.universityRankingRange = universityRankingRange;
-    }
-    public void setLocationPreference(String locationPreference) {
-        this.locationPreference = locationPreference;
     }
 }

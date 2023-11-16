@@ -2,13 +2,18 @@
 
 package interface_adapter.search;
 
+import entity.University;
+import java.util.List;
+
 public class SearchState {
-    private String searchCriteria = "";
+    private String searchCriteria;
     private String searchError = null;
+    private List<University> universities = null;
 
     public SearchState(SearchState copy) {
         searchCriteria = copy.searchCriteria;
         searchError = copy.searchError;
+        universities = copy.universities;
     }
 
     // Because of the previous copy constructor, the default constructor must be explicit.
@@ -23,6 +28,11 @@ public class SearchState {
         return searchError;
     }
 
+    // Currently used as a test to see if the parameters went through.
+    public String getUniversities() {
+        return universities.toString();
+    }
+
     public void setSearchCriteria(String searchCriteria) {
         this.searchCriteria = searchCriteria;
     }
@@ -31,10 +41,15 @@ public class SearchState {
         this.searchError = searchError;
     }
 
+    public void setUniversities(List<University> universities) {
+        this.universities = universities;
+    }
+
     @Override
     public String toString() {
-        return "SearchState{" +
+        return "SignupState{" +
                 "username='" + searchCriteria + '\'' +
+                ", universities='" + universities + '\'' +
                 '}';
+        }
     }
-}

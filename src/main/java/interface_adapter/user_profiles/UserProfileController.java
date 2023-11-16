@@ -47,5 +47,4 @@ public class UserProfileController {
     }
 
     // TODO - include a way for the user to save and return university IDs
-
 }

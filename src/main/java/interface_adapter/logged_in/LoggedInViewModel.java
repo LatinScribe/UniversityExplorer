@@ -13,8 +13,6 @@ public class LoggedInViewModel extends ViewModel {
     public static final String LOGOUT_BUTTON_LABEL = "Log out";
     private String loggedInUser;
 
-    private String currentView;
-
     public LoggedInViewModel() {
         super("logged in");
     }
@@ -47,7 +45,7 @@ public class LoggedInViewModel extends ViewModel {
     public void setLoggedInUser(String loggedInUser) {
         this.loggedInUser = loggedInUser;
     }
-
+    // TODO: Check if this is nesscary, maybe set to private?
     public void setCurrentView(String currentView) {
         String oldView = this.currentView;
         this.currentView = currentView;
