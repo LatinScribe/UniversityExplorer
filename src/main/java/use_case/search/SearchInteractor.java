@@ -52,29 +52,61 @@ public class SearchInteractor implements SearchInputBoundary {
     private List<University> executeHelper(JSONArray results) {
         List<University> universities = new ArrayList<University>();
         for (int i = 0; i < results.length(); i++) {
+            // After every object is extracted, temporarily save its value as an object and check if it's null before implementing.
             JSONObject university = (JSONObject) results.get(i);
-            Integer ID = university.getInt("id");
-            String name = university.getString("school.name");
-            String state = university.getString("school.state");
-            String city = university.getString("school.city");
-            Object admRate = university.get("admissions.admission_rate.overall");
-            // Need to change object to float and accept null values
-            if (admRate == "null") {
-                Double admRateDouble = null;
-            }
-            Float admRateConvert = (Float) admRate;
-            Double admRateDouble = admRateConvert.doubleValue();
-            Integer outTuit = university.getInt("cost.tuition.out_of_state");
-            Integer inTuit = university.getInt("cost.tuition.in_state");
-            Float avgSAT = university.getFloat("admissions.sat_scores.average.overall");
-            Double avgSATDouble = avgSAT.doubleValue();
-            Float avgACT = university.getFloat("admissions.act_scores.midpoint.cumulative");
-            Double avgACTDouble = avgACT.doubleValue();
-            String url = university.getString("school.school_url");
+            Object idCheck = university.get("id");
+            Integer id = integerChecker(idCheck);
+            Object nameCheck = university.get("school.name");
+            String name = stringChecker(nameCheck);
+            Object stateCheck = university.get("school.state");
+            String state = stringChecker(stateCheck);
+            Object cityCheck = university.get("school.city");
+            String city = stringChecker(cityCheck);
+            Object admRateCheck = university.get("admissions.admission_rate.overall");
+            Double admRate = doubleChecker(admRateCheck);
+            Object outTuitCheck = university.get("cost.tuition.out_of_state");
+            Integer outTuit = integerChecker(outTuitCheck);
+            Object inTuitCheck = university.get("cost.tuition.in_state");
+            Integer inTuit = integerChecker(inTuitCheck);
+            Object avgSATCheck = university.get("admissions.sat_scores.average.overall");
+            Double avgSAT = doubleChecker(avgSATCheck) ;
+            Object avgACTCheck = university.get("admissions.act_scores.midpoint.cumulative");
+            Double avgACT = doubleChecker(avgACTCheck);
+            Object urlCheck = university.get("school.school_url");
+            String url = stringChecker(urlCheck);
 
-            University newUniversity = universityFactory.create(ID, name, state, city, admRateDouble, outTuit, inTuit, avgSATDouble, avgACTDouble, url);
+            University newUniversity = universityFactory.create(id, name, state, city, admRate, inTuit, outTuit, avgSAT, avgACT, url);
             universities.add(newUniversity);
         }
         return universities;
+
     }
+
+    // The following 3 new methods are meant to check if the object returns a null type (JSONObject.null) or the proper type (Double, String, Integer).
+    private Double doubleChecker(Object object) {
+        String checker = object.toString();
+        if (checker.equals("null")) {
+            return null;
+        }
+        Float converter = (Float) object;
+        return converter.doubleValue();
+    }
+
+    private Integer integerChecker(Object object) {
+        String checker = object.toString();
+        if (checker.equals("null")) {
+            return null;
+        }
+        return (Integer) object;
+    }
+
+    private String stringChecker(Object object) {
+        String checker = object.toString();
+        if (checker.equals("null")) {
+            return null;
+        }
+        return (String) object;
+    }
+
+
 }
