@@ -18,4 +18,10 @@ public class MainMenuInteractor implements MainMenuInputBoundary{
     public void showSignUpView() {
         this.mainMenuOutputBoundary.prepareSignUpView();
     }
+
+    @Override
+    public void showSubView() {
+        this.mainMenuOutputBoundary.prepareSubView();
+    }
+
 }

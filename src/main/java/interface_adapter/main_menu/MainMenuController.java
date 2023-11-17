@@ -18,6 +18,10 @@ public class MainMenuController {
         this.mainMenuInputBoundary.showSignUpView();
     }
 
+    public void switchToSubView() {
+        this.mainMenuInputBoundary.showSubView();
+    }
+
 //    public void execute(String username, String password) {
 //    }
 }
