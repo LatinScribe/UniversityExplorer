@@ -1,5 +1,6 @@
 package view;
 
+import interface_adapter.logged_in.LoggedInController;
 import interface_adapter.logged_in.LoggedInState;
 import interface_adapter.logged_in.LoggedInViewModel;
 
@@ -15,6 +16,8 @@ public class LoggedInView extends JPanel implements ActionListener, PropertyChan
     public final String viewName = "logged in";
     private final LoggedInViewModel loggedInViewModel;
 
+    private final LoggedInController loggedInController;
+
     JLabel username;
 
     final JButton logOut;
@@ -22,9 +25,12 @@ public class LoggedInView extends JPanel implements ActionListener, PropertyChan
     /**
      * A window with a title and a JButton.
      */
-    public LoggedInView(LoggedInViewModel loggedInViewModel) {
+    public LoggedInView(LoggedInViewModel loggedInViewModel, UserProfileViewModel userProfileViewModel, LoggedInController loggedInController) {
         this.loggedInViewModel = loggedInViewModel;
+        this.loggedInController = loggedInController;
         this.loggedInViewModel.addPropertyChangeListener(this);
+//        this.userprofileViewModel = userProfileViewModel;
+//        this.userprofileViewModel.addPropertyChangeListener(this);
 
         JLabel title = new JLabel("Logged In Screen");
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -35,6 +41,19 @@ public class LoggedInView extends JPanel implements ActionListener, PropertyChan
         JPanel buttons = new JPanel();
         logOut = new JButton(loggedInViewModel.LOGOUT_BUTTON_LABEL);
         buttons.add(logOut);
+        
+        // add view profile button
+        viewProfile = new JButton("View your Profile");
+        buttons.add(viewProfile);
+        viewProfile.addActionListener(// This creates an anonymous subclass of ActionListener and instantiates it.
+                new ActionListener() {
+                    public void actionPerformed(ActionEvent evt) {
+                        if (evt.getSource().equals(viewProfile)) {
+                            System.out.println("ViewProfile pressed");
+                            loggedInController.swapToUserProfileView();
+                        }
+                    }
+                });
 
         logOut.addActionListener(this);
 
@@ -50,12 +69,31 @@ public class LoggedInView extends JPanel implements ActionListener, PropertyChan
      * React to a button click that results in evt.
      */
     public void actionPerformed(ActionEvent evt) {
-        System.out.println("Click " + evt.getActionCommand());
+        // output some messages for debugging
+        // System.out.println("Click " + evt.getActionCommand()); - removed this for view logic
+        if (evt.getSource() == viewProfile) {
+//            loggedInViewModel.setCurrentView("userProfileView");
+//            loggedInViewModel.firePropertyChanged();
+            System.out.println("View Profile BUtton LCilcked");
+//            this.loggedInController.swapToUserProfileView();
+            // we swap the view
+            // When trying to switch views - this print statement seems to work
+        } else {
+            System.out.println("Click " + evt.getActionCommand());
+        }
     }
 
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
-        LoggedInState state = (LoggedInState) evt.getNewValue();
-        username.setText(state.getUsername());
+        if ("state".equals(evt.getPropertyName()) && evt.getNewValue() instanceof LoggedInState) {
+            System.out.println("Something apart from View Profile clicked");
+            LoggedInState state = (LoggedInState) evt.getNewValue();
+            username.setText(state.getUsername());
+        } else if ("currentView".equals(evt.getPropertyName()) && evt.getNewValue() instanceof String) {
+            String newView = (String) evt.getNewValue();
+            System.out.println("View Profile Button Clicked");
+            // Handle the view change here. Typically, this would involve
+            // telling a ViewManager or similar to change the view.
+        }
     }
 }
