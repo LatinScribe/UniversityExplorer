@@ -17,6 +17,7 @@ import interface_adapter.signup.SignupController;
 import interface_adapter.signup.SignupState;
 import interface_adapter.signup.SignupViewModel;
 import interface_adapter.sub_menu.SubViewModel;
+import interface_adapter.user_profiles.UserProfileViewModel;
 
 import javax.swing.*;
 import java.awt.*;
