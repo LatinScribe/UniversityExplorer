@@ -7,12 +7,22 @@ import entity.ExistingCommonUserFactory;
 import interface_adapter.ViewManagerModel;
 import interface_adapter.logged_in.LoggedInController;
 import interface_adapter.logged_in.LoggedInPresenter;
+import interface_adapter.apply.ApplyController;
+import interface_adapter.apply.ApplyViewModel;
 import interface_adapter.logged_in.LoggedInViewModel;
 import interface_adapter.login.LoginViewModel;
 import interface_adapter.main_menu.MainMenuViewModel;
+import interface_adapter.search.SearchViewModel;
 import interface_adapter.signup.SignupViewModel;
 import interface_adapter.user_profiles.UserProfileController;
 import interface_adapter.user_profiles.UserProfileViewModel;
+import interface_adapter.sub_menu.SubViewController;
+import interface_adapter.sub_menu.SubViewModel;
+import interface_adapter.sub_menu.SubViewPresenter;
+import use_case.apply.ApplyInputBoundary;
+import use_case.sub_menu.SubViewInputBoundary;
+import use_case.sub_menu.SubViewInteractor;
+
 import view.*;
 
 import javax.swing.*;
@@ -43,9 +53,12 @@ public class Main {
 
         SignupViewModel signupViewModel = new SignupViewModel();
         MainMenuViewModel mainMenuViewModel1 = new MainMenuViewModel();
+        SearchViewModel searchViewModel = new SearchViewModel();
+        SubViewModel subViewModel = new SubViewModel();
+        ApplyViewModel applyViewModel = new ApplyViewModel();
 
         // create the main menu view
-        MainMenuView mainMenuView = MainMenuUseCaseFactory.create(mainMenuViewModel1, signupViewModel, loginViewModel, viewManagerModel);
+        MainMenuView mainMenuView = MainMenuUseCaseFactory.create(mainMenuViewModel1, signupViewModel, loginViewModel, subViewModel, viewManagerModel);
         views.add(mainMenuView, mainMenuView.viewName);
 
         // add login, logged in and signup Views
@@ -69,6 +82,21 @@ public class Main {
 
         views.add(loggedInView, loggedInView.viewName);
         views.add(userProfileView, userProfileView.viewName);
+
+        // add subview
+        SubViewPresenter subViewPresenter = new SubViewPresenter(searchViewModel, applyViewModel, viewManagerModel);
+
+        SubViewInputBoundary subViewInteractor = new SubViewInteractor(subViewPresenter);
+        SubViewController subViewController = new SubViewController(subViewInteractor);
+        SubView subView = new SubView(subViewModel, subViewController);
+
+        views.add(subView, subView.viewName);
+
+        // add apply view
+        ApplyInputBoundary applyUseCaseInteractor = null;
+        ApplyController applyController = new ApplyController(applyViewModel, applyUseCaseInteractor);
+        Applyview applyView = new Applyview(applyController, applyViewModel);
+        views.add(applyView, applyView.viewName);
 
         viewManagerModel.setActiveView(mainMenuView.viewName);
         viewManagerModel.firePropertyChanged();
