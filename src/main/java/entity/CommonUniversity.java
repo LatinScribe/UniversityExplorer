@@ -13,7 +13,7 @@ public class CommonUniversity implements University {
     private final Double averageACTScore;
     private final String url;
 
-    public CommonUniversity(Integer schoolID, String schoolName, String state, String city, Double admissionRate, Integer averageInStateTuition, int averageOutOfStateTuition, Double averageSATScore, Double averageACTScore, String url) {
+    public CommonUniversity(Integer schoolID, String schoolName, String state, String city, Double admissionRate, Integer averageInStateTuition, Integer averageOutOfStateTuition, Double averageSATScore, Double averageACTScore, String url) {
         this.schoolID = schoolID;
         this.schoolName = schoolName;
         this.state = state;
@@ -78,11 +78,11 @@ public class CommonUniversity implements University {
     public String toString() {
         return "University Name: " + schoolName + "\"" +
                 "Location: " + city + ", " + state + "\"" +
-                "Admission Rate: " + admissionRate.toString() + "\"" +
-                "Average Tuition (In State): " + averageInStateTuition.toString() + "\"" +
-                "Average Tuition (Out of State) " + averageOutOfStateTuition.toString() + "\"" +
-                "Average SAT Score: " + averageSATScore.toString() + "\"" +
-                "Average ACT Score: " + averageACTScore.toString() + "\"" +
+                "Admission Rate: " + admissionRate + "\"" +
+                "Average Tuition (In State): " + averageInStateTuition + "\"" +
+                "Average Tuition (Out of State) " + averageOutOfStateTuition + "\"" +
+                "Average SAT Score: " + averageSATScore + "\"" +
+                "Average ACT Score: " + averageACTScore + "\"" +
                 "URL: " + url;
     }
 }

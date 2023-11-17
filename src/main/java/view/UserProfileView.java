@@ -1,14 +1,22 @@
 // Author: Kanish
 package view;
 
+import app.UserProfileUseCaseFactory;
+import interface_adapter.ViewManagerModel;
+import interface_adapter.logged_in.LoggedInViewModel;
 import interface_adapter.user_profiles.UserProfileController;
+import interface_adapter.user_profiles.UserProfilePresenter;
 import interface_adapter.user_profiles.UserProfileState;
 import interface_adapter.user_profiles.UserProfileViewModel;
+import use_case.user_profile.UserProfileInputBoundary;
+import use_case.user_profile.UserProfileInteractor;
+import use_case.user_profile.UserProfileOutputBoundary;
 
 import java.awt.event.ActionListener;
 import java.beans.PropertyChangeListener;
 
 import javax.swing.*;
+import javax.swing.text.View;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -22,25 +30,20 @@ public class UserProfileView extends JPanel implements ActionListener, PropertyC
     public final String viewName = "User Profile";
 
     private final UserProfileViewModel userProfileViewModel;
+    private final UserProfileController userProfileController;
 
     final JButton profile;
 
     final JButton editProfile;
 
-    final JButton continueAsGuest;
+    final JButton returnLoggedIn;
 
-    final JButton signIn;
-
-    final JButton userProfile;
-
-    private final UserProfileController userProfileController;
 
     public UserProfileView(UserProfileViewModel userProfileViewModel, UserProfileController controller) {
 
         this.userProfileController = controller;
         this.userProfileViewModel = userProfileViewModel;
         this.userProfileViewModel.addPropertyChangeListener(this);
-
         JLabel title = new JLabel("User Profile");
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
 
@@ -48,13 +51,10 @@ public class UserProfileView extends JPanel implements ActionListener, PropertyC
         // access static member using class - would this be a button for the profile?
         profile = new JButton(UserProfileViewModel.PROFILE_BUTTON_LABEL);
         buttons.add(profile);
-        continueAsGuest = new JButton(UserProfileViewModel.GUEST_BUTTON_LABEL);
-        buttons.add(continueAsGuest);
-        signIn = new JButton(UserProfileViewModel.SIGNIN_BUTTON_LABEL);
-        buttons.add(signIn);
+        returnLoggedIn = new JButton(UserProfileViewModel.RETURN_TO_LOGGEDIN);
+        buttons.add(returnLoggedIn);
         editProfile = new JButton(UserProfileViewModel.EDIT_BUTTON_LABEL);
         buttons.add(editProfile);
-        userProfile = new JButton(UserProfileViewModel.OTHER_PROFILE_BUTTON_LABEL);
 
 //        UserProfileState.addActionListener(                // This creates an anonymous subclass of ActionListener and instantiates it.
 //                new ActionListener() {
@@ -99,11 +99,25 @@ public class UserProfileView extends JPanel implements ActionListener, PropertyC
         JPanel views = new JPanel(cardLayout);
         application.add(views);
 
-        UserProfileViewModel userProfileViewModel1 = new UserProfileViewModel("User Profile");
-        UserProfileController userProfileController1 = new UserProfileController();
-        UserProfileView userProfileView = new UserProfileView(userProfileViewModel1, userProfileController1);
+        // create the view models
+        UserProfileViewModel userProfileViewModel1 = new UserProfileViewModel();
+        LoggedInViewModel loggedInViewModel = new LoggedInViewModel();
 
-        views.add(userProfileView, userProfileView.viewName);
+        // create view manager
+        ViewManagerModel viewManagerModel1 = new ViewManagerModel();
+        new ViewManager(views, cardLayout, viewManagerModel1);
+
+        // Add user profile View
+        UserProfileView userProfileView = UserProfileUseCaseFactory.create(viewManagerModel1, userProfileViewModel1);
+        views.add(userProfileView);
+
+//        UserProfileOutputBoundary userProfilePresenter = new UserProfilePresenter(viewManager, userProfileViewModel1);
+//        UserProfileInputBoundary userProfileInteractor = new UserProfileInteractor(userProfilePresenter);
+//        UserProfileController userProfileController1 = new UserProfileController(userProfileViewModel1, userProfileInteractor);
+//        UserProfileViewModel userProfileViewModel1 = new UserProfileViewModel();
+//        UserProfileController userProfileController1 = new UserProfileController(userProfileViewModel1);
+//        UserProfileView userProfileView = new UserProfileView(userProfileViewModel1, userProfileController1);
+//        views.add(userProfileView, userProfileView.viewName);
 
         application.pack();
         application.setVisible(true);
