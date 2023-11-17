@@ -1,7 +1,7 @@
 // Author: Diego
 package view;
 
-import app.SearchUseCaseFactory;
+//import app.SearchUseCaseFactory;
 import data_access.ServerUserDataAccessObject;
 import entity.ExistingCommonUserFactory;
 import interface_adapter.ViewManagerModel;
@@ -110,17 +110,17 @@ public class SubView extends JPanel implements ActionListener, PropertyChangeLis
         views.add(subView, subView.viewName);
 
         // add apply and search Views
-        ServerUserDataAccessObject userDataAccessObject = new ServerUserDataAccessObject(new ExistingCommonUserFactory());
-        SearchUserDataAccessInterface userSearchData = new SearchUserDataAccessInterface() {
-            @Override
-            public JSONObject basicQuery(String queryParameters, String optionalParameters) {
-                return null;
-            }
-        };
+//        ServerUserDataAccessObject userDataAccessObject = new ServerUserDataAccessObject(new ExistingCommonUserFactory());
+//        SearchUserDataAccessInterface userSearchData = new SearchUserDataAccessInterface() {
+//            @Override
+//            public JSONObject basicQuery(String queryParameters, String optionalParameters) {
+//                return null;
+//            }
+//        };
 
-        SearchView searchView = SearchUseCaseFactory.create(viewManagerModel, searchViewModel, userSearchData);
-        assert searchView != null;
-        views.add(searchView, searchView.viewName);
+//        SearchView searchView = SearchUseCaseFactory.create(viewManagerModel, searchViewModel, userSearchData);
+//        assert searchView != null;
+//        views.add(searchView, searchView.viewName);
         ApplyInputBoundary applyUseCaseInteractor = null;
         ApplyController applyController = new ApplyController(applyViewModel, applyUseCaseInteractor);
         Applyview applyView = new Applyview(applyController, applyViewModel);
