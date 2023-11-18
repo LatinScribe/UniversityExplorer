@@ -1,12 +1,10 @@
 package data_access;
 
-import entity.ExistingUser;
-
 import java.io.*;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-public class FileTokenDataAccessObject {
+public class FileTokenDataAccessObject implements TokenDataAccessInterface{
     private final File csvFile;
     private final Map<String, Integer> headers = new LinkedHashMap<>();
 
@@ -25,6 +23,7 @@ public class FileTokenDataAccessObject {
         headers.put("token", 1);
 
     }
+    @Override
     public void save_token(int id, String token) {
         BufferedWriter writer;
         try {
@@ -43,7 +42,7 @@ public class FileTokenDataAccessObject {
             throw new RuntimeException(e);
         }
     }
-
+    @Override
     public void remove_token() {
         BufferedWriter writer;
         try {
@@ -63,7 +62,7 @@ public class FileTokenDataAccessObject {
         }
     }
 
-
+    @Override
     // note, this could throw a file not found error
     public String retrieve_token() throws IOException{
         BufferedReader br = new BufferedReader(new FileReader(csvFile));
@@ -73,6 +72,8 @@ public class FileTokenDataAccessObject {
         return values[1];
     }
 
+    @Override
+    // note, this could throw a file not found error
     public int retrieve_id() throws IOException, NumberFormatException{
         BufferedReader br = new BufferedReader(new FileReader(csvFile));
         br.readLine();

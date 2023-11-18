@@ -5,6 +5,7 @@ package view;
 import app.LoginUseCaseFactory;
 import app.MainMenuUseCaseFactory;
 import app.SignupUseCaseFactory;
+import data_access.FileTokenDataAccessObject;
 import data_access.ServerUserDataAccessObject;
 import entity.ExistingCommonUserFactory;
 import interface_adapter.ViewManagerModel;
@@ -250,13 +251,15 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
         MainMenuView mainMenuView = MainMenuUseCaseFactory.create(mainMenuViewModel1, signupViewModel, loginViewModel, subViewModel,viewManagerModel);
         views.add(mainMenuView, mainMenuView.viewName);
 
-        // add login, logged in and signup Views
+        // create data access objects for this particular implementation
         ServerUserDataAccessObject userDataAccessObject = new ServerUserDataAccessObject(new ExistingCommonUserFactory());
+        FileTokenDataAccessObject tokenDataAccessObject = new FileTokenDataAccessObject();
 
-        SignupView signupView = SignupUseCaseFactory.create(viewManagerModel, loginViewModel, signupViewModel, userDataAccessObject, mainMenuViewModel1);
+        // add login, logged in and signup Views
+        SignupView signupView = SignupUseCaseFactory.create(viewManagerModel, loginViewModel, signupViewModel, userDataAccessObject, mainMenuViewModel1, tokenDataAccessObject);
         views.add(signupView, signupView.viewName);
 
-        LoginView loginView = LoginUseCaseFactory.create(viewManagerModel, loginViewModel, loggedInViewModel, mainMenuViewModel1,userDataAccessObject);
+        LoginView loginView = LoginUseCaseFactory.create(viewManagerModel, loginViewModel, loggedInViewModel, mainMenuViewModel1,userDataAccessObject, tokenDataAccessObject);
         views.add(loginView, loginView.viewName);
       
         // create a UserProfileViewModel and view

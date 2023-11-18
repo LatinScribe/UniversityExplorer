@@ -78,7 +78,7 @@ public class ServerUserDataAccessObject implements SignupUserDataAccessInterface
     }
 
     @Override
-    public String save(CreationUser user) {
+    public ExistingUser save(CreationUser user) {
         OkHttpClient client = new OkHttpClient().newBuilder()
                 .build();
         Request request = new Request.Builder()
@@ -92,7 +92,8 @@ public class ServerUserDataAccessObject implements SignupUserDataAccessInterface
             JSONObject responseBody = new JSONObject(response.body().string());
 
             if (responseBody.getInt("status_code") == 200) {
-                return responseBody.getString("token");
+                LocalDateTime curr = LocalDateTime.now();
+                return this.userFactory.create(user.getName(), responseBody.getInt("id"), user.getPassword(), curr, responseBody.getString("token"));
 
             } else {
                 throw new RuntimeException(responseBody.getString("message"));
@@ -124,8 +125,8 @@ public class ServerUserDataAccessObject implements SignupUserDataAccessInterface
         // change username to something else or else an error is thrown!
         try {
             CreationUser user = fact.create("BillyBob123", "1234654", time);
-            String token = db.save(user);
-            System.out.println(token);
+            ExistingUser user4 = db.save(user);
+            System.out.println(user4.getToken());
         }
         catch (RuntimeException e) {
             System.out.println(e);
