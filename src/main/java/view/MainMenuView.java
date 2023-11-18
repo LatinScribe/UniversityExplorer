@@ -31,7 +31,7 @@ public class MainMenuView extends JPanel implements ActionListener, PropertyChan
     final JButton settings;
     private final MainMenuController mainMenuController;
 
-    public MainMenuView(MainMenuViewModel mainMenuViewModel, MainMenuController mainMenuController) {
+    public MainMenuView(MainMenuViewModel mainMenuViewModel, MainMenuController     mainMenuController) {
         this.mainMenuController = mainMenuController;;
         this.mainMenuViewModel = mainMenuViewModel;
         this.mainMenuViewModel.addPropertyChangeListener(this);

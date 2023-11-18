@@ -5,4 +5,10 @@ public class UserProfileController {
     public void execute(String searchCriteria) {
         return;
     }
+
+    public void switchToEditProfile() {
+    }
+
+    public void switchToPersonalProfile() {
+    }
 }

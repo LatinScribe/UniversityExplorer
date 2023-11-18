@@ -20,13 +20,9 @@ public class UserProfileViewModel extends ViewModel {
 
     public static final String SIGNIN_BUTTON_LABEL = "Sign In";
 
-    public static final String GUEST_BUTTON_LABEL = "Continue as Guest";
-
-    public static final String OTHER_PROFILE_BUTTON_LABEL = "View User's Profile";
-
     private UserProfileState state = new UserProfileState();
     public UserProfileViewModel(String viewName) {
-        super("User Profile");
+        super("userProfileView");
     }
 
     public void setState(UserProfileState state) {this.state = state;}

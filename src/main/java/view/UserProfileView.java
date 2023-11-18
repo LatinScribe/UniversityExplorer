@@ -19,7 +19,7 @@ import java.beans.PropertyChangeListener;
 
 
 public class UserProfileView extends JPanel implements ActionListener, PropertyChangeListener{
-    public final String viewName = "User Profile";
+    public final String viewName = "userProfileView";
 
     private final UserProfileViewModel userProfileViewModel;
 
@@ -27,11 +27,8 @@ public class UserProfileView extends JPanel implements ActionListener, PropertyC
 
     final JButton editProfile;
 
-    final JButton continueAsGuest;
-
     final JButton signIn;
 
-    final JButton userProfile;
 
     private final UserProfileController userProfileController;
 
@@ -48,30 +45,34 @@ public class UserProfileView extends JPanel implements ActionListener, PropertyC
         // access static member using class - would this be a button for the profile?
         profile = new JButton(UserProfileViewModel.PROFILE_BUTTON_LABEL);
         buttons.add(profile);
-        continueAsGuest = new JButton(UserProfileViewModel.GUEST_BUTTON_LABEL);
-        buttons.add(continueAsGuest);
         signIn = new JButton(UserProfileViewModel.SIGNIN_BUTTON_LABEL);
         buttons.add(signIn);
         editProfile = new JButton(UserProfileViewModel.EDIT_BUTTON_LABEL);
         buttons.add(editProfile);
-        userProfile = new JButton(UserProfileViewModel.OTHER_PROFILE_BUTTON_LABEL);
 
-//        UserProfileState.addActionListener(                // This creates an anonymous subclass of ActionListener and instantiates it.
-//                new ActionListener() {
-//                    public void actionPerformed(ActionEvent evt) {
-//                        if (evt.getSource().equals("User Profile")) {
-//                            UserProfileState currentState = UserProfileViewModel.getState();
-//
-//                            userProfileController.execute(
-//                                    currentState.getUsername(),
-//                                    currentState.getPassword()
-//                            );
-//                        }
-//                    }
-//                }
-//        );
-//
-//        cancel.addActionListener(this);
+        profile.addActionListener(                // This creates an anonymous subclass of ActionListener and instantiates it.
+                new ActionListener() {
+                    public void actionPerformed(ActionEvent evt) {
+                        if (evt.getSource().equals(profile)) {
+                            userProfileController.switchToPersonalProfile();
+                        }
+                    }
+                }
+        );
+
+        editProfile.addActionListener(
+                new ActionListener() {
+                    public void actionPerformed(ActionEvent evt) {
+                        if (evt.getSource().equals(profile)) {
+                            userProfileController.switchToEditProfile();
+                        }
+                    }
+                }
+        );
+
+
+
+
 
         this.add(title);
         this.add(buttons);
