@@ -11,6 +11,7 @@ import interface_adapter.logged_in.LoggedInController;
 import interface_adapter.logged_in.LoggedInPresenter;
 import interface_adapter.logged_in.LoggedInViewModel;
 import interface_adapter.login.LoginViewModel;
+import interface_adapter.main_menu.MainMenuController;
 import interface_adapter.main_menu.MainMenuViewModel;
 import interface_adapter.main_menu.MainMenuState;
 import interface_adapter.signup.SignupViewModel;
