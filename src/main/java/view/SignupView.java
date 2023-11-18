@@ -2,6 +2,7 @@
 package view;
 
 //import interface_adapter.clear_users.ClearController;
+import app.LoggedInUseCaseFactory;
 import app.LoginUseCaseFactory;
 import app.MainMenuUseCaseFactory;
 import app.SignupUseCaseFactory;
@@ -267,9 +268,7 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
 //        UserProfileView userProfileView = new UserProfileView()
 
         // add loggedin view
-        LoggedInPresenter loggedInPresenter= new LoggedInPresenter(userProfileViewModel, viewManagerModel);
-        LoggedInController loggedInController = new LoggedInController(loggedInPresenter);
-        LoggedInView loggedInView = new LoggedInView(loggedInViewModel, userProfileViewModel, loggedInController);
+        LoggedInView loggedInView = LoggedInUseCaseFactory.create(viewManagerModel, loginViewModel, loggedInViewModel, userProfileViewModel, tokenDataAccessObject);
         views.add(loggedInView, loggedInView.viewName);
 
         viewManagerModel.setActiveView(mainMenuView.viewName);

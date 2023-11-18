@@ -15,7 +15,6 @@ import interface_adapter.login.LoginViewModel;
 import interface_adapter.main_menu.MainMenuViewModel;
 import interface_adapter.search.SearchViewModel;
 import interface_adapter.signup.SignupViewModel;
-import interface_adapter.user_profiles.UserProfileController;
 import interface_adapter.user_profiles.UserProfileViewModel;
 import interface_adapter.sub_menu.SubViewController;
 import interface_adapter.sub_menu.SubViewModel;
@@ -80,10 +79,7 @@ public class Main {
         UserProfileView userProfileView = UserProfileUseCaseFactory.create(viewManagerModel, userProfileViewModel);
 
         // add loggedin view
-        LoggedInPresenter loggedInPresenter= new LoggedInPresenter(userProfileViewModel, viewManagerModel);
-        LoggedInController loggedInController = new LoggedInController(loggedInPresenter);
-        LoggedInView loggedInView = new LoggedInView(loggedInViewModel, userProfileViewModel, loggedInController);
-
+        LoggedInView loggedInView = LoggedInUseCaseFactory.create(viewManagerModel, loginViewModel, loggedInViewModel, userProfileViewModel, tokenDataAccessObject);
         views.add(loggedInView, loggedInView.viewName);
         assert userProfileView != null;
         views.add(userProfileView, userProfileView.viewName);

@@ -3,22 +3,24 @@ package interface_adapter.logged_in;
 import interface_adapter.ViewManagerModel;
 import interface_adapter.login.LoginState;
 import interface_adapter.login.LoginViewModel;
-import interface_adapter.signup.SignupState;
-import interface_adapter.signup.SignupViewModel;
 import interface_adapter.user_profiles.UserProfileState;
 import interface_adapter.user_profiles.UserProfileViewModel;
-import view.UserProfileView;
+import use_case.logged_in.LoggedInOutputBoundary;
 
-public class LoggedInPresenter {
+public class LoggedInPresenter implements LoggedInOutputBoundary {
+
+    private ViewManagerModel viewManagerModel;
     private final UserProfileViewModel userProfileViewModel;
 //    private final LoginViewModel loginViewModel;
-    private ViewManagerModel viewManagerModel;
+    private final LoginViewModel loginViewModel;
 
-    public LoggedInPresenter(UserProfileViewModel userProfileViewModel, ViewManagerModel viewManagerModel) {
+    public LoggedInPresenter(UserProfileViewModel userProfileViewModel, ViewManagerModel viewManagerModel, LoginViewModel logInViewModel) {
         this.userProfileViewModel = userProfileViewModel;
         this.viewManagerModel = viewManagerModel;
+        this.loginViewModel = logInViewModel;
     }
 
+    @Override
     public void prepareUserProfileView() {
         // On success, switch to the login view.
         UserProfileState userProfileState = userProfileViewModel.getState();
@@ -29,15 +31,14 @@ public class LoggedInPresenter {
         viewManagerModel.firePropertyChanged();
         System.out.println("We swapped to UserProfileView" + userProfileViewModel.getViewName());
     }
-//    public void prepareSignUpView() {
-//        // On success, switch to the login view.
-//
-//        // quick check to make sure things work - to be removed
-//        SignupState SignUpState = signupViewModel.getState();
-//        this.signupViewModel.setState(SignUpState);
-//        signupViewModel.firePropertyChanged();
-//
-//        viewManagerModel.setActiveView(signupViewModel.getViewName());
-//        viewManagerModel.firePropertyChanged();
-//    }
+    @Override
+    public void prepareLoginView() {
+        // On success, switch to the login view.
+        LoginState loginState = loginViewModel.getState();
+        this.loginViewModel.setState(loginState);
+        loginViewModel.firePropertyChanged();
+
+        viewManagerModel.setActiveView(loginViewModel.getViewName());
+        viewManagerModel.firePropertyChanged();
+    }
 }

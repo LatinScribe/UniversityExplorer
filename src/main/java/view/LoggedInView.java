@@ -57,7 +57,15 @@ public class LoggedInView extends JPanel implements ActionListener, PropertyChan
                     }
                 });
 
-        logOut.addActionListener(this);
+        logOut.addActionListener(// This creates an anonymous subclass of ActionListener and instantiates it.
+                new ActionListener() {
+                    public void actionPerformed(ActionEvent evt) {
+                        if (evt.getSource().equals(logOut)) {
+                            System.out.println("logOut pressed");
+                            loggedInController.logOutUser();
+                        }
+                    }
+                });
 
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 

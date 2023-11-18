@@ -1,6 +1,7 @@
 // Author: Henry
 package view;
 
+import app.LoggedInUseCaseFactory;
 import app.LoginUseCaseFactory;
 import app.MainMenuUseCaseFactory;
 import app.SignupUseCaseFactory;
@@ -159,9 +160,7 @@ public class MainMenuView extends JPanel implements ActionListener, PropertyChan
 //        UserProfileView userProfileView = new UserProfileView(userProfileViewModel, )
 
         // add loggedin view
-        LoggedInPresenter loggedInPresenter= new LoggedInPresenter(userProfileViewModel, viewManagerModel);
-        LoggedInController loggedInController = new LoggedInController(loggedInPresenter);
-        LoggedInView loggedInView = new LoggedInView(loggedInViewModel, userProfileViewModel, loggedInController);
+        LoggedInView loggedInView = LoggedInUseCaseFactory.create(viewManagerModel, loginViewModel, loggedInViewModel, userProfileViewModel, tokenDataAccessObject);
         views.add(loggedInView, loggedInView.viewName);
 
         viewManagerModel.setActiveView(mainMenuView.viewName);
