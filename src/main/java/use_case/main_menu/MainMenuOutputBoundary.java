@@ -5,4 +5,6 @@ public interface MainMenuOutputBoundary {
     void prepareLoginView();
 
     void prepareSignUpView();
+
+    void prepareSubView();
 }
