@@ -4,5 +4,5 @@ public interface UserProfileOutputBoundary {
 
     void prepareEditView();
 
-    void prepareProfileView(String error);
+    void prepareProfileView();
 }

@@ -2,12 +2,12 @@ package use_case.user_profile;
 
 public class UserProfileInteractor implements UserProfileInputBoundary{
 
-    final UserProfileOutputBoundary userProfilePresenter;
+    final UserProfileOutputBoundary userProfileOutputBoundary;
 
     // final UserPreferencesFactory userPreferenceFactory;
 
     public UserProfileInteractor(UserProfileOutputBoundary userProfilePresenter){
-        this.userProfilePresenter = userProfilePresenter;
+        this.userProfileOutputBoundary = userProfilePresenter;
         // this.userPreferenceFactory = userPreferenceFactory;
 
         // TODO: See if you even need the userPreferenceFactory here
@@ -19,5 +19,15 @@ public class UserProfileInteractor implements UserProfileInputBoundary{
 
 
 
+    }
+
+    @Override
+    public void showPersonalProfileView() {
+        this.userProfileOutputBoundary.prepareProfileView();
+    }
+
+    @Override
+    public void updateUserProfile(int finAidRequirement, int avgSalary, String locationPreference, String preferredProgram, Integer[] universityRankingRange) {
+        // TODO: Look at Henry's implementation of the data object and use that to update CSV data
     }
 }

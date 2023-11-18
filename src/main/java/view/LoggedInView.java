@@ -3,6 +3,7 @@ package view;
 import interface_adapter.logged_in.LoggedInController;
 import interface_adapter.logged_in.LoggedInState;
 import interface_adapter.logged_in.LoggedInViewModel;
+import interface_adapter.user_profiles.UserProfileViewModel;
 
 import javax.swing.*;
 import java.awt.*;
@@ -21,6 +22,8 @@ public class LoggedInView extends JPanel implements ActionListener, PropertyChan
     JLabel username;
 
     final JButton logOut;
+
+    final JButton viewProfile;
 
     /**
      * A window with a title and a JButton.

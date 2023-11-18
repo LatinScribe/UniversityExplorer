@@ -152,7 +152,7 @@ public class MainMenuView extends JPanel implements ActionListener, PropertyChan
         views.add(loginView, loginView.viewName);
 
         // create a UserProfileViewModel and view
-        UserProfileViewModel userProfileViewModel = new UserProfileViewModel();
+        UserProfileViewModel userProfileViewModel = new UserProfileViewModel("userProfileView");
 //        UserProfileView userProfileView = new UserProfileView(userProfileViewModel, )
 
         // add loggedin view

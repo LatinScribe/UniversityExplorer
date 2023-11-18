@@ -18,7 +18,7 @@ public class UserProfileViewModel extends ViewModel {
 
     public static final String EDIT_BUTTON_LABEL = "Edit Profile";
 
-    public static final String SIGNIN_BUTTON_LABEL = "Sign In";
+    public static final String SAVE_BUTTON_LABEL = "Save";
 
     private UserProfileState state = new UserProfileState();
     public UserProfileViewModel(String viewName) {

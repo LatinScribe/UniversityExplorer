@@ -17,6 +17,7 @@ import interface_adapter.signup.SignupController;
 import interface_adapter.signup.SignupState;
 import interface_adapter.signup.SignupViewModel;
 import interface_adapter.sub_menu.SubViewModel;
+import interface_adapter.user_profiles.UserProfileViewModel;
 
 import javax.swing.*;
 import java.awt.*;
@@ -259,7 +260,7 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
         views.add(loginView, loginView.viewName);
       
         // create a UserProfileViewModel and view
-        UserProfileViewModel userProfileViewModel = new UserProfileViewModel();
+        UserProfileViewModel userProfileViewModel = new UserProfileViewModel("userProfileView");
 //        UserProfileView userProfileView = new UserProfileView()
 
         // add loggedin view

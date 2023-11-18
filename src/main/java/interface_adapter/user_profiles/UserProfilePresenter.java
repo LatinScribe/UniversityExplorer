@@ -9,6 +9,8 @@ public class UserProfilePresenter implements UserProfileOutputBoundary {
 
     private final UserProfileViewModel userProfileViewModel;
 
+    // TODO: Need to add other views and viewmodels here
+
 
     public UserProfilePresenter(ViewManagerModel viewManagerModel, UserProfileViewModel userProfileViewModel) {
         this.viewManagerModel = viewManagerModel;
@@ -23,7 +25,7 @@ public class UserProfilePresenter implements UserProfileOutputBoundary {
     }
 
     @Override
-    public void prepareProfileView(String error) {
+    public void prepareProfileView() {
 
     }
 }
