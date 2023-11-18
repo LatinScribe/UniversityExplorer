@@ -7,7 +7,7 @@ import entity.ExistingUser;
 public interface LoginUserDataAccessInterface {
     boolean existsByName(String identifier);
 
-    String save(CreationUser user);
+    ExistingUser save(CreationUser user);
 
     ExistingUser get(String username, String password);
 }

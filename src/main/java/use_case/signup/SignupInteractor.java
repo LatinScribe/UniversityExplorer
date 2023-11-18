@@ -1,10 +1,8 @@
 // Author: Henry
 package use_case.signup;
 
-import entity.CreationUser;
-import entity.CreationUserFactory;
-import entity.User;
-import entity.UserFactory;
+import data_access.TokenDataAccessInterface;
+import entity.*;
 
 import java.time.LocalDateTime;
 
@@ -13,12 +11,15 @@ public class SignupInteractor implements SignupInputBoundary {
     final SignupOutputBoundary userPresenter;
     final CreationUserFactory userFactory;
 
+    final TokenDataAccessInterface tokenDataAccessInterface;
+
     public SignupInteractor(SignupUserDataAccessInterface signupDataAccessInterface,
                             SignupOutputBoundary signupOutputBoundary,
-                            CreationUserFactory userFactory) {
+                            CreationUserFactory userFactory, TokenDataAccessInterface tokenDataAccessInterface) {
         this.userDataAccessObject = signupDataAccessInterface;
         this.userPresenter = signupOutputBoundary;
         this.userFactory = userFactory;
+        this.tokenDataAccessInterface = tokenDataAccessInterface;
     }
 
     @Override
@@ -31,7 +32,10 @@ public class SignupInteractor implements SignupInputBoundary {
 
             LocalDateTime now = LocalDateTime.now();
             CreationUser user = userFactory.create(signupInputData.getUsername(), signupInputData.getPassword(), now);
-            String token = userDataAccessObject.save(user);
+            ExistingUser user1 = userDataAccessObject.save(user);
+
+            // save the token and id somewhere
+            tokenDataAccessInterface.save_token(user1.getID(),user1.getToken());
 
             SignupOutputData signupOutputData = new SignupOutputData(user.getName(), now.toString(), false);
             userPresenter.prepareSuccessView(signupOutputData);
