@@ -31,18 +31,18 @@ public class UserProfileView extends JPanel implements ActionListener, PropertyC
     final JButton editProfile;
     final JButton save;
 
-    private JTextField finAidRequirementField;
-    private JTextField avgSalaryField;
-    private JTextField locationPreferenceField;
-    private JTextField preferredProgramField;
+    private final JTextField finAidRequirementField;
+    private final JTextField avgSalaryField;
+    private final JTextField locationPreferenceField;
+    private final JTextField preferredProgramField;
     // Assuming universityRankingRange is an array of integers
-    private JTextField universityRankingRangeField;
+    private final JTextField universityRankingRangeField;
 
-    private JLabel finAidRequirementLabel;
-    private JLabel avgSalaryLabel;
-    private JLabel locationPreferenceLabel;
-    private JLabel preferredProgramLabel;
-    private JLabel universityRankingRangeLabel;
+    private final JLabel finAidRequirementLabel;
+    private final JLabel avgSalaryLabel;
+    private final JLabel locationPreferenceLabel;
+    private final JLabel preferredProgramLabel;
+    private final JLabel universityRankingRangeLabel;
 
 
     private final UserProfileController userProfileController;
@@ -154,50 +154,12 @@ public class UserProfileView extends JPanel implements ActionListener, PropertyC
 
         // TODO: Finish implementation of different edit structure and remove editProfile classes/functions
 
-        /*editProfile.addActionListener(
-                new ActionListener() {
-                    public void actionPerformed(ActionEvent evt) {
-                        if (evt.getSource().equals(profile)) {
-                            userProfileController.switchToEditProfile();
-                        }
-                    }
-                }
-        );*/
 
 
         this.add(title);
         this.add(buttons);
     }
 
-    /*private void setEditMode(boolean editable) {
-        finAidRequirementField.setEditable(editable);
-        avgSalaryField.setEditable(editable);
-        locationPreferenceField.setEditable(editable);
-        preferredProgramField.setEditable(editable);
-        universityRankingRangeField.setEditable(editable);
-        save.setVisible(editable);
-
-        UserProfileState state = userProfileViewModel.getState();
-
-        if (!editable) {
-            // In view mode, populate fields from state
-            finAidRequirementField.setText(state.getFinAidRequirement() != null ? state.getFinAidRequirement().toString() : "0");
-            avgSalaryField.setText(state.getAvgSalary() != null ? state.getAvgSalary().toString() : "0");
-            locationPreferenceField.setText(state.getLocationPreference() != null ? state.getLocationPreference() : "");
-            preferredProgramField.setText(state.getPreferredProgram() != null ? state.getPreferredProgram() : "");
-            // Convert array to comma-separated string
-            universityRankingRangeField.setText(Arrays.toString(state.getUniversityRankingRange()).replaceAll("[\\[\\]]", ""));
-        } else {
-            // Clear the fields or set them to default values when switching to edit mode
-            finAidRequirementField.setText("0");
-            avgSalaryField.setText("0");
-            locationPreferenceField.setText("");
-            preferredProgramField.setText("");
-            universityRankingRangeField.setText("");
-        }
-    }*/
-
-    // TODO: Check if the following CardLayout implementation works better than the one above
 
     private void setEditMode(boolean editable) {
         CardLayout cardLayout = (CardLayout) (this.cards.getLayout());
@@ -210,8 +172,6 @@ public class UserProfileView extends JPanel implements ActionListener, PropertyC
         this.revalidate();
         this.repaint();
     }
-
-
 
     @Override
     public void actionPerformed(ActionEvent e) {
