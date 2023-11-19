@@ -86,7 +86,7 @@ public class SubView extends JPanel implements ActionListener, PropertyChangeLis
         // setFields(state);
     }
 
-    public static void main(String[] args) {
+   /* public static void main(String[] args) {
         JFrame application = new JFrame("Sub menu Test");
         application.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
@@ -130,6 +130,6 @@ public class SubView extends JPanel implements ActionListener, PropertyChangeLis
         viewManagerModel.firePropertyChanged();
 
         application.pack();
-        application.setVisible(true);
+        application.setVisible(true);*/
     }
-}
+

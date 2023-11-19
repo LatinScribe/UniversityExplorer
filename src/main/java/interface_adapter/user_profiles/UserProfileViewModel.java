@@ -18,10 +18,10 @@ public class UserProfileViewModel extends ViewModel {
 
     public static final String EDIT_BUTTON_LABEL = "Edit Profile";
 
-    public static final String RETURN_TO_LOGGEDIN = "Return to Main Menu ";
+    public static final String SAVE_BUTTON_LABEL = "Save";
 
     private UserProfileState state = new UserProfileState();
-    public UserProfileViewModel() {
+    public UserProfileViewModel(String viewName) {
         super("userProfileView");
     }
 
