@@ -10,7 +10,7 @@ public class UserProfileController {
     final UserProfileInputBoundary userProfileInputBoundary;
 
     public UserProfileController(UserProfileInputBoundary userProfileInputBoundary) {
-        this.userProfileInputBoundary = new MockUserProfileInputBoundary();
+        this.userProfileInputBoundary = userProfileInputBoundary;
     }
 
     public void execute(String searchCriteria) {

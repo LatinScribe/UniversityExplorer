@@ -11,13 +11,12 @@ import java.beans.PropertyChangeListener;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.lang.reflect.Array;
 import java.util.Arrays;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 
 public class UserProfileView extends JPanel implements ActionListener, PropertyChangeListener {
@@ -114,7 +113,8 @@ public class UserProfileView extends JPanel implements ActionListener, PropertyC
                 new ActionListener() {
                     public void actionPerformed(ActionEvent evt) {
                         if (evt.getSource().equals(profile)) {
-                            userProfileController.switchToPersonalProfile();
+                            CardLayout c1 = (CardLayout) (cards.getLayout());
+                            c1.show(cards, "View");
                         }
                     }
                 }
@@ -153,7 +153,6 @@ public class UserProfileView extends JPanel implements ActionListener, PropertyC
         });
 
         // TODO: Finish implementation of different edit structure and remove editProfile classes/functions
-
 
 
         this.add(title);
@@ -201,18 +200,15 @@ public class UserProfileView extends JPanel implements ActionListener, PropertyC
             UserProfileState state = (UserProfileState) evt.getNewValue();
 
             // Update the view components based on the new state
-            finAidRequirementField.setText(state.getFinAidRequirement() != null ? state.getFinAidRequirement().toString() : "");
-            avgSalaryField.setText(state.getAvgSalary() != null ? state.getAvgSalary().toString() : "");
-            locationPreferenceField.setText(state.getLocationPreference() != null ? state.getLocationPreference() : "");
-            preferredProgramField.setText(state.getPreferredProgram() != null ? state.getPreferredProgram() : "");
+            // ... update other fields ...
 
-            // Handle the universityRankingRange array
-            Integer[] universityRankingRange = state.getUniversityRankingRange();
+            // Handle the universityRankingRange array using reflection
+            Object universityRankingRange = state.getUniversityRankingRange();
 
-            if (universityRankingRange != null && universityRankingRange.length > 0) {
-                // Use Arrays.stream() to convert the array to a stream, then process it
-                universityRankingRangeField.setText(Arrays.stream(universityRankingRange)
-                        .map(String::valueOf) // Convert Integer to String
+            if (universityRankingRange != null && Array.getLength(universityRankingRange) > 0) {
+                // Use IntStream.range() to iterate over the array indices, then map to Object and to String
+                universityRankingRangeField.setText(IntStream.range(0, Array.getLength(universityRankingRange))
+                        .mapToObj(idx -> Array.get(universityRankingRange, idx).toString()) // Convert each item to String
                         .collect(Collectors.joining(", ")));
             } else {
                 universityRankingRangeField.setText("");
@@ -220,6 +216,7 @@ public class UserProfileView extends JPanel implements ActionListener, PropertyC
         }
     }
 }
+
 
 /*    public static void main(String[] args) {
         JFrame application = new JFrame("User Profile Test");

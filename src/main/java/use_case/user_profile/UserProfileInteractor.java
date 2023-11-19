@@ -23,7 +23,11 @@ public class UserProfileInteractor implements UserProfileInputBoundary{
 
     @Override
     public void showPersonalProfileView() {
-        this.userProfileOutputBoundary.prepareProfileView();
+
+    }
+
+    public void showPersonalProfileView(UserProfileOutputData userProfileOutputData) {
+        this.userProfileOutputBoundary.presentUserProfile(userProfileOutputData);
     }
 
     @Override
