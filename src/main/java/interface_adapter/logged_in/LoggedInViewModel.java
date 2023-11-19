@@ -10,6 +10,8 @@ public class LoggedInViewModel extends ViewModel {
 
     private LoggedInState state = new LoggedInState();
 
+    private String currentView;
+
     public static final String LOGOUT_BUTTON_LABEL = "Log out";
     public static final String PROFILE_BUTTON_LABEL = "View your Profile";
     private String loggedInUser;
@@ -43,7 +45,7 @@ public class LoggedInViewModel extends ViewModel {
         return loggedInUser;
     }
 
-    public void setLoggedInUser(String loggedInUser) {
+    private void setLoggedInUser(String loggedInUser) {
         this.loggedInUser = loggedInUser;
     }
     // TODO: Check if this is nesscary, maybe set to private?

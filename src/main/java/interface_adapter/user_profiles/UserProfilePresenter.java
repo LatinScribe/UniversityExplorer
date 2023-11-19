@@ -1,32 +1,59 @@
 package interface_adapter.user_profiles;
 
+import entity.User;
 import interface_adapter.ViewManagerModel;
 import use_case.user_profile.UserProfileOutputBoundary;
 import use_case.user_profile.UserProfileOutputData;
-import view.UserProfileView;
-import view.ViewManager;
 
 public class UserProfilePresenter implements UserProfileOutputBoundary {
 
-    private ViewManagerModel viewManagerModel;
+    private final ViewManagerModel viewManagerModel;
 
-    private UserProfileViewModel userProfileViewModel;
+    private final UserProfileViewModel userProfileViewModel;
 
-    public UserProfilePresenter(ViewManagerModel viewManager, UserProfileViewModel userProfileViewModel) {
-        this.viewManagerModel = viewManager;
+    // TODO: Need to add other views and viewmodels here
+
+
+    public UserProfilePresenter(ViewManagerModel viewManagerModel, UserProfileViewModel userProfileViewModel) {
+        this.viewManagerModel = viewManagerModel;
         this.userProfileViewModel = userProfileViewModel;
 
-
-    }
-    @Override
-    public void prepareSuccessView(UserProfileOutputData user) {
-        return;
-
     }
 
+    private UserProfileOutputData getCurrentUserProfileData() {
+        return null;
+        // TODO: Implement Henry's data storage and retrieval so that user data can be accessed remotely
+
+    }
+
     @Override
-    public void prepareFailView(String error) {
-        return;
+    public void presentUserProfile(UserProfileOutputData userProfileOutputData) {
+        // Convert output data to view model state and update the view model
+        UserProfileState state = convertToViewState(userProfileOutputData);
+        userProfileViewModel.setState(state);
+
+        // Notify the view to update
+        userProfileViewModel.firePropertyChanged();
+    }
+
+    private UserProfileState convertToViewState(UserProfileOutputData outputData) {
+        UserProfileState state = new UserProfileState();
+        // Map fields from outputData to state
+        state.setFinAidRequirement(outputData.getFinAidRequirement());
+        state.setAvgSalary(outputData.getAvgSalary());
+        state.setLocationPreference(outputData.getLocationPreference());
+        state.setPreferredProgram(outputData.getPreferredProgram());
+        state.setUniversityRankingRange(outputData.getUniversityRankingRange());
+        return state;
+    }
+
+    @Override
+    public void presentProfileEditConfirmation(boolean isSuccess, String message) {
+
+    }
+
+    @Override
+    public void presentProfileViewError(String message) {
 
     }
 }

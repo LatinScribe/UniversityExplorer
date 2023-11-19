@@ -1,50 +1,51 @@
 package interface_adapter.user_profiles;
 
+import interface_adapter.ViewManagerModel;
+import use_case.user_profile.MockUserProfileInputBoundary;
 import use_case.user_profile.UserProfileInputBoundary;
-import use_case.user_profile.UserProfileInteractor;
-import use_case.user_profile.UserProfileOutputBoundary;
+import view.ViewManager;
 
 public class UserProfileController {
 
-    final UserProfileInputBoundary userProfileInteractor;
+    final UserProfileInputBoundary userProfileInputBoundary;
 
-    private UserProfileState userProfileState;
-    private final UserProfileViewModel userProfileViewModel;
-
-    public UserProfileController(UserProfileViewModel userProfileViewModel, UserProfileInputBoundary userProfileInteractor) {
-        this.userProfileViewModel = userProfileViewModel;
-        this.userProfileInteractor = userProfileInteractor;
-        initializeState();
-
-    }
-
-    private void initializeState() {
-        // TODO: Need to check if user profile exists and load based on that - @Henry
-        userProfileState = new UserProfileState();
-        userProfileState.setAvgSalary(0);
-        userProfileState.setFinAidRequirement(0);
-        userProfileState.setLocationPreference(null);
-        userProfileState.setPreferredProgram(null);
-        userProfileState.setUniversityRankingRange(null);
-    }
-
-    public void updateUserProfile(Integer finAidRequirement, String preferredProgram,
-                                  Integer avgSalary, Integer[] universityRankingRange,
-                                  String locationPreference) {
-        // Update the state
-        userProfileState.setFinAidRequirement(finAidRequirement);
-        userProfileState.setPreferredProgram(preferredProgram);
-        userProfileState.setAvgSalary(avgSalary);
-        userProfileState.setUniversityRankingRange(universityRankingRange);
-        userProfileState.setLocationPreference(locationPreference);
-
-        // Notify the view model
-        userProfileViewModel.updateState(userProfileState);
+    public UserProfileController(UserProfileInputBoundary userProfileInputBoundary) {
+        this.userProfileInputBoundary = userProfileInputBoundary;
     }
 
     public void execute(String searchCriteria) {
         return;
     }
 
-    // TODO - include a way for the user to save and return university IDs
+    public void updateUserProfile(int finAidRequirement, int avgSalary, String locationPreference,
+                                  String preferredProgram, Integer[] universityRankingRange)
+            throws IllegalArgumentException {
+        // Input validation
+        if (finAidRequirement < 0) {
+            throw new IllegalArgumentException("Financial aid requirement cannot be negative.");
+        }
+        if (avgSalary < 0) {
+            throw new IllegalArgumentException("Average salary cannot be negative.");
+        }
+        if (locationPreference == null || locationPreference.trim().isEmpty()) {
+            throw new IllegalArgumentException("Location preference cannot be null or empty.");
+        }
+        if (preferredProgram == null || preferredProgram.trim().isEmpty()) {
+            throw new IllegalArgumentException("Preferred program cannot be null or empty.");
+        }
+        if (universityRankingRange == null || universityRankingRange.length == 0) {
+            throw new IllegalArgumentException("University ranking range cannot be null or empty.");
+        }
+
+        // Call the use case layer to update the user profile
+        userProfileInputBoundary.updateUserProfile(finAidRequirement, avgSalary, locationPreference,
+                preferredProgram, universityRankingRange);
+    }
+
+    public void switchToPersonalProfile() {
+        this.userProfileInputBoundary.showPersonalProfileView();
+    }
+
+    public void updateUserProfile(int finAidRequirement, int avgSalary) {
+    }
 }
