@@ -2,7 +2,9 @@ package use_case.user_profile;
 
 public interface UserProfileOutputBoundary {
 
-    void prepareSuccessView(UserProfileOutputData user);
+    void presentUserProfile(UserProfileOutputData userProfileOutputData);
 
-    void prepareFailView(String error);
+    void presentProfileEditConfirmation(boolean isSuccess, String message);
+    void presentProfileViewError(String message);
+
 }

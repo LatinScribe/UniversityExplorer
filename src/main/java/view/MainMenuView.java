@@ -4,6 +4,7 @@ package view;
 import app.LoginUseCaseFactory;
 import app.MainMenuUseCaseFactory;
 import app.SignupUseCaseFactory;
+import data_access.FileTokenDataAccessObject;
 import data_access.ServerUserDataAccessObject;
 import entity.ExistingCommonUserFactory;
 import interface_adapter.ViewManagerModel;
@@ -11,6 +12,7 @@ import interface_adapter.logged_in.LoggedInController;
 import interface_adapter.logged_in.LoggedInPresenter;
 import interface_adapter.logged_in.LoggedInViewModel;
 import interface_adapter.login.LoginViewModel;
+import interface_adapter.main_menu.MainMenuController;
 import interface_adapter.main_menu.MainMenuViewModel;
 import interface_adapter.main_menu.MainMenuState;
 import interface_adapter.signup.SignupViewModel;
@@ -34,7 +36,7 @@ public class MainMenuView extends JPanel implements ActionListener, PropertyChan
     final JButton settings;
     private final MainMenuController mainMenuController;
 
-    public MainMenuView(MainMenuViewModel mainMenuViewModel, MainMenuController mainMenuController) {
+    public MainMenuView(MainMenuViewModel mainMenuViewModel, MainMenuController     mainMenuController) {
         this.mainMenuController = mainMenuController;;
         this.mainMenuViewModel = mainMenuViewModel;
         this.mainMenuViewModel.addPropertyChangeListener(this);
@@ -141,17 +143,19 @@ public class MainMenuView extends JPanel implements ActionListener, PropertyChan
         MainMenuView mainMenuView = MainMenuUseCaseFactory.create(mainMenuViewModel1, signupViewModel, loginViewModel, subViewModel,viewManagerModel);
         views.add(mainMenuView, mainMenuView.viewName);
 
-        // add login, logged in and signup Views
+        // create data access objects for this particular implementation
         ServerUserDataAccessObject userDataAccessObject = new ServerUserDataAccessObject(new ExistingCommonUserFactory());
+        FileTokenDataAccessObject tokenDataAccessObject = new FileTokenDataAccessObject();
 
-        SignupView signupView = SignupUseCaseFactory.create(viewManagerModel, loginViewModel, signupViewModel, userDataAccessObject, mainMenuViewModel1);
+        // add login, logged in and signup Views
+        SignupView signupView = SignupUseCaseFactory.create(viewManagerModel, loginViewModel, signupViewModel, userDataAccessObject, mainMenuViewModel1, tokenDataAccessObject);
         views.add(signupView, signupView.viewName);
 
-        LoginView loginView = LoginUseCaseFactory.create(viewManagerModel, loginViewModel, loggedInViewModel, mainMenuViewModel1,userDataAccessObject);
+        LoginView loginView = LoginUseCaseFactory.create(viewManagerModel, loginViewModel, loggedInViewModel, mainMenuViewModel1,userDataAccessObject, tokenDataAccessObject);
         views.add(loginView, loginView.viewName);
 
         // create a UserProfileViewModel and view
-        UserProfileViewModel userProfileViewModel = new UserProfileViewModel();
+        UserProfileViewModel userProfileViewModel = new UserProfileViewModel("userProfileView");
 //        UserProfileView userProfileView = new UserProfileView(userProfileViewModel, )
 
         // add loggedin view

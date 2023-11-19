@@ -35,7 +35,7 @@ public class UserProfileUseCaseFactory {
 
         UserProfileInputBoundary userProfileInteractor = new UserProfileInteractor(userProfilePresenter);
 
-        return new UserProfileController(userProfileViewModel, userProfileInteractor);
+        return new UserProfileController(userProfileInteractor);
     }
 
     public static UserProfileView create(ViewManagerModel viewManager, UserProfileViewModel userProfileViewModel) {
