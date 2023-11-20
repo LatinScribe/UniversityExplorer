@@ -75,13 +75,13 @@ public class FileUserDataAccessObject implements SignupUserDataAccessInterface, 
 //    }
 
     @Override
-    public String save(CreationUser user) {
+    public ExistingUser save(CreationUser user) {
         int id = 1234;
         String token = "123asdEXAMPLETOKEN";
         ExistingUser new_user = userFactory.create(user.getName(), id, user.getPassword(), user.getCreationTime(), token);
         accounts.put(user.getName(), new_user);
         this.save();
-        return "something";
+        return new_user;
     }
 
 

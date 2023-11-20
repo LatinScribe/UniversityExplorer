@@ -5,4 +5,6 @@ public interface MainMenuInputBoundary {
     void showLoginView();
 
     void showSignUpView();
+
+    void showSubView();
 }

@@ -86,7 +86,7 @@ public class SubView extends JPanel implements ActionListener, PropertyChangeLis
         // setFields(state);
     }
 
-    public static void main(String[] args) {
+   /* public static void main(String[] args) {
         JFrame application = new JFrame("Sub menu Test");
         application.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
@@ -110,13 +110,13 @@ public class SubView extends JPanel implements ActionListener, PropertyChangeLis
         views.add(subView, subView.viewName);
 
         // add apply and search Views
-        ServerUserDataAccessObject userDataAccessObject = new ServerUserDataAccessObject(new ExistingCommonUserFactory());
-        SearchUserDataAccessInterface userSearchData = new SearchUserDataAccessInterface() {
-            @Override
-            public JSONObject basicQuery(String queryParameters, String optionalParameters) {
-                return null;
-            }
-        };
+//        ServerUserDataAccessObject userDataAccessObject = new ServerUserDataAccessObject(new ExistingCommonUserFactory());
+//        SearchUserDataAccessInterface userSearchData = new SearchUserDataAccessInterface() {
+//            @Override
+//            public JSONObject basicQuery(String queryParameters, String optionalParameters) {
+//                return null;
+//            }
+//        };
 
 //        SearchView searchView = SearchUseCaseFactory.create(viewManagerModel, searchViewModel, userSearchData);
 //        assert searchView != null;
@@ -130,6 +130,6 @@ public class SubView extends JPanel implements ActionListener, PropertyChangeLis
         viewManagerModel.firePropertyChanged();
 
         application.pack();
-        application.setVisible(true);
+        application.setVisible(true);*/
     }
-}
+

@@ -2,9 +2,10 @@
 package use_case.signup;
 
 import entity.CreationUser;
+import entity.ExistingUser;
 
 public interface SignupUserDataAccessInterface {
     boolean existsByName(String identifier);
 
-    String save(CreationUser user);
+    ExistingUser save(CreationUser user);
 }
