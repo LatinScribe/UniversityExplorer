@@ -25,7 +25,7 @@ public class SearchInteractor implements SearchInputBoundary {
     }
 
     @Override
-    public void execute(SearchInputData searchInputData) {
+    public void executeSearch(SearchInputData searchInputData) {
         String stringAccumulator = "";
         String input = searchInputData.getSearchCriteria();
         for (int i = 0; i < input.length(); i++) {
@@ -106,6 +106,10 @@ public class SearchInteractor implements SearchInputBoundary {
             return null;
         }
         return (String) object;
+    }
+
+    public void executeBack(){
+        searchPresenter.prepareBackView();
     }
 
 
