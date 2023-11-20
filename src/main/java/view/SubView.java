@@ -1,7 +1,6 @@
 // Author: Diego
 package view;
 
-import app.SearchUseCaseFactory;
 import data_access.ServerUserDataAccessObject;
 import entity.ExistingCommonUserFactory;
 import interface_adapter.ViewManagerModel;
