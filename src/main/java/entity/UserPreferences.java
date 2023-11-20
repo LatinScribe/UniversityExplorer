@@ -13,13 +13,13 @@ public class UserPreferences {
 
     private Integer avgSalary;
 
-    private ArrayList<Integer> universityRankingRange;
+    private Integer[] universityRankingRange;
 
     private String locationPreference;
 
 
     public UserPreferences(Integer finAidRequirement, String preferredProgram, Integer avgSalary,
-                           ArrayList<Integer> universityRankingRange, String locationPreference) {
+                           Integer[] universityRankingRange, String locationPreference) {
         this.finAidRequirement = finAidRequirement;
         this.preferredProgram = preferredProgram;
         this.avgSalary = avgSalary;

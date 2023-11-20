@@ -107,12 +107,9 @@ public class UserProfileView extends JPanel implements ActionListener, PropertyC
         // Add the cards panel to the UserProfileView
         this.add(cards);
 
-        // Add new fields to the panel or a specific layout
-        // Example: this.add(finAidRequirementField);
-
         setEditMode(false); // Initially set to view mode
 
-        profile.addActionListener(                // This creates an anonymous subclass of ActionListener and instantiates it.
+        profile.addActionListener(
                 new ActionListener() {
                     public void actionPerformed(ActionEvent evt) {
                         if (evt.getSource().equals(profile)) {
