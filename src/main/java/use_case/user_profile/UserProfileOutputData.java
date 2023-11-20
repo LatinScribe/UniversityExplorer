@@ -8,10 +8,10 @@ public class UserProfileOutputData {
     private Integer avgSalary;
     private String locationPreference;
     private String preferredProgram;
-    private Array universityRankingRange;
+    private Integer[] universityRankingRange;
 
     public UserProfileOutputData(Integer finAidRequirements, Integer avgSalary, String locationPreference,
-                                 String preferredProgram, Array universityRankingRange) {
+                                 String preferredProgram, Integer[] universityRankingRange) {
 
         this.finAidRequirements = finAidRequirements;
         this.avgSalary = avgSalary;
@@ -36,7 +36,7 @@ public class UserProfileOutputData {
         return this.preferredProgram;
     }
 
-    public Array getUniversityRankingRange() {
+    public Integer[] getUniversityRankingRange() {
         return this.universityRankingRange;
     }
 }

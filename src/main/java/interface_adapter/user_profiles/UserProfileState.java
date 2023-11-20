@@ -2,6 +2,7 @@
 package interface_adapter.user_profiles;
 
 import java.lang.reflect.Array;
+import java.util.ArrayList;
 
 public class UserProfileState {
 
@@ -14,7 +15,7 @@ public class UserProfileState {
     private Integer avgSalary;
     private String locationPreference;
     private String preferredProgram;
-    private Array universityRankingRange; // Assuming it's Integer[]
+    private Integer[] universityRankingRange; // Assuming it's Integer[]
 
     public String getConfirmEditMessage() {return confirmEditMessage;}
 
@@ -70,11 +71,11 @@ public class UserProfileState {
         this.preferredProgram = preferredProgram;
     }
 
-    public Array getUniversityRankingRange() {
+    public Integer[] getUniversityRankingRange() {
         return universityRankingRange;
     }
 
-    public void setUniversityRankingRange(Array universityRankingRange) {
+    public void setUniversityRankingRange(Integer[] universityRankingRange) {
         this.universityRankingRange = universityRankingRange;
     }
 }

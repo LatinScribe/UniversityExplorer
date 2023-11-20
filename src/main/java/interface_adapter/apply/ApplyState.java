@@ -1,12 +1,17 @@
 // Author: Bora
 package interface_adapter.apply;
 
+import entity.University;
+
 public class ApplyState {
     private String act = "";
     private String sat = "";
     private String actError = null;
     private String satError = null;
     private String submitStatus = null;
+    private University university = null;
+
+    private String universityError = null;
 
     public ApplyState(ApplyState copy) {
         act = copy.act;
@@ -14,6 +19,8 @@ public class ApplyState {
         actError = copy.actError;
         satError = copy.satError;
         submitStatus = copy.submitStatus;
+        university = copy.university;
+        universityError = copy.universityError;
     }
 
     public ApplyState() {
@@ -38,6 +45,8 @@ public class ApplyState {
     public String getSubmitStatus() {
         return submitStatus;
     }
+    public University getUni(){return university;}
+    public String getUniversityError(){return universityError;}
 
     public void setAct(String username) {
         this.act = username;
@@ -58,6 +67,8 @@ public class ApplyState {
     public void setSubmitStatus(String submitStatus) {
         this.submitStatus = submitStatus;
     }
+    public void setUni(University university){this.university = university;}
+    public void setUniversityError(String universityError){this.universityError = universityError;}
 
     @Override
     public String toString() {

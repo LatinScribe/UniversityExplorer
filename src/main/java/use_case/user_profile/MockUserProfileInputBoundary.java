@@ -1,5 +1,6 @@
 package use_case.user_profile;
 
+import java.lang.reflect.Array;
 import java.util.Arrays;
 
 // Mock implementation for testing

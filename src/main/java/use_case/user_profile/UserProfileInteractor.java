@@ -1,5 +1,7 @@
 package use_case.user_profile;
 
+import java.lang.reflect.Array;
+
 public class UserProfileInteractor implements UserProfileInputBoundary{
 
     final UserProfileOutputBoundary userProfileOutputBoundary;
