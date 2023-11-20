@@ -4,6 +4,7 @@ package app;
 
 import data_access.ServerUserDataAccessObject;
 import entity.ExistingCommonUserFactory;
+import entity.User;
 import interface_adapter.ViewManagerModel;
 import interface_adapter.logged_in.LoggedInController;
 import interface_adapter.logged_in.LoggedInPresenter;
@@ -15,6 +16,7 @@ import interface_adapter.main_menu.MainMenuViewModel;
 import interface_adapter.search.SearchViewModel;
 import interface_adapter.signup.SignupViewModel;
 import interface_adapter.user_profiles.UserProfileController;
+import interface_adapter.user_profiles.UserProfilePresenter;
 import interface_adapter.user_profiles.UserProfileViewModel;
 import interface_adapter.sub_menu.SubViewController;
 import interface_adapter.sub_menu.SubViewModel;
@@ -23,6 +25,7 @@ import use_case.apply.ApplyInputBoundary;
 import use_case.sub_menu.SubViewInputBoundary;
 import use_case.sub_menu.SubViewInteractor;
 
+import use_case.user_profile.UserProfileInteractor;
 import view.*;
 
 import javax.swing.*;
@@ -70,8 +73,10 @@ public class Main {
         views.add(loginView, loginView.viewName);
 
         // create a UserProfileViewModel and view
-        UserProfileViewModel userProfileViewModel = new UserProfileViewModel();
-//        UserProfileController userProfileController = new UserProfileController(userProfileViewModel);
+        UserProfileViewModel userProfileViewModel = new UserProfileViewModel("userProfileView");
+        UserProfilePresenter userProfilePresenter = new UserProfilePresenter(viewManagerModel, userProfileViewModel);
+        UserProfileInteractor userProfileInteractor = new UserProfileInteractor(userProfilePresenter);
+        UserProfileController userProfileController = new UserProfileController(userProfileInteractor);
 //        UserProfileView userProfileView = new UserProfileView(userProfileViewModel, userProfileController);
         UserProfileView userProfileView = UserProfileUseCaseFactory.create(viewManagerModel, userProfileViewModel);
 

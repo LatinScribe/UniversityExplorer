@@ -3,6 +3,7 @@ package view;
 import interface_adapter.logged_in.LoggedInController;
 import interface_adapter.logged_in.LoggedInState;
 import interface_adapter.logged_in.LoggedInViewModel;
+import interface_adapter.user_profiles.UserProfileViewModel;
 
 import javax.swing.*;
 import java.awt.*;
@@ -21,6 +22,9 @@ public class LoggedInView extends JPanel implements ActionListener, PropertyChan
     JLabel username;
 
     final JButton logOut;
+    final JButton viewProfile;
+
+    final JButton viewProfile;
 
     /**
      * A window with a title and a JButton.
@@ -39,11 +43,11 @@ public class LoggedInView extends JPanel implements ActionListener, PropertyChan
         username = new JLabel();
 
         JPanel buttons = new JPanel();
-        logOut = new JButton(loggedInViewModel.LOGOUT_BUTTON_LABEL);
+        logOut = new JButton(LoggedInViewModel.LOGOUT_BUTTON_LABEL);
         buttons.add(logOut);
         
         // add view profile button
-        viewProfile = new JButton("View your Profile");
+        viewProfile = new JButton(LoggedInViewModel.PROFILE_BUTTON_LABEL);
         buttons.add(viewProfile);
         viewProfile.addActionListener(// This creates an anonymous subclass of ActionListener and instantiates it.
                 new ActionListener() {
