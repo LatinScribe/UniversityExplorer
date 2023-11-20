@@ -2,11 +2,14 @@
 
 package app;
 
+import entity.CommonUniversityFactory;
 import entity.UniversityFactory;
 import interface_adapter.ViewManagerModel;
 import interface_adapter.search.SearchController;
 import interface_adapter.search.SearchPresenter;
 import interface_adapter.search.SearchViewModel;
+import interface_adapter.sub_menu.SubViewModel;
+import okhttp3.Call;
 import use_case.search.SearchInputBoundary;
 import use_case.search.SearchInteractor;
 import use_case.search.SearchOutputBoundary;
@@ -21,10 +24,10 @@ public class SearchUseCaseFactory {
     private SearchUseCaseFactory() {}
 
     public static SearchView create(
-            ViewManagerModel viewManagerModel, SearchViewModel searchViewModel, SearchUserDataAccessInterface searchUserDataAccessObject, UniversityFactory shortUniversityFactory) {
+            ViewManagerModel viewManagerModel, SearchViewModel searchViewModel, SubViewModel subViewModel, SearchUserDataAccessInterface searchUserDataAccessObject) {
 
         try {
-            SearchController searchController = createSearchUseCase(viewManagerModel, searchViewModel, searchUserDataAccessObject, shortUniversityFactory);
+            SearchController searchController = createSearchUseCase(viewManagerModel, searchViewModel, subViewModel, searchUserDataAccessObject);
             return new SearchView(searchController, searchViewModel);
         } catch (IOException e) {
             JOptionPane.showMessageDialog(null, "API unable to be accessed.");
@@ -33,13 +36,15 @@ public class SearchUseCaseFactory {
         return null;
     }
 
-    private static SearchController createSearchUseCase(ViewManagerModel viewManagerModel, SearchViewModel signupViewModel, SearchUserDataAccessInterface userDataAccessObject, UniversityFactory shortUniversityFactory) throws IOException {
+    private static SearchController createSearchUseCase(ViewManagerModel viewManagerModel, SearchViewModel signupViewModel, SubViewModel subViewModel, SearchUserDataAccessInterface userDataAccessObject) throws IOException {
 
         // Notice how we pass this method's parameters to the Presenter.
-        SearchOutputBoundary searchOutputBoundary = new SearchPresenter(viewManagerModel, signupViewModel);
+        // Creating a new factory.
+        UniversityFactory universityFactory = new CommonUniversityFactory();
+        SearchOutputBoundary searchOutputBoundary = new SearchPresenter(viewManagerModel, signupViewModel, subViewModel);
 
         SearchInputBoundary searchSignupInteractor = new SearchInteractor(
-                userDataAccessObject, searchOutputBoundary, shortUniversityFactory);
+                userDataAccessObject, searchOutputBoundary, universityFactory);
 
         return new SearchController(searchSignupInteractor);
     }

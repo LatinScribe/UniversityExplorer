@@ -3,16 +3,17 @@
 package view;
 
 import app.SearchUseCaseFactory;
-import data_access.APIDataAccessObject;
+import data_access.SearchDataAccessObject;
 import entity.CommonUniversityFactory;
 import entity.UniversityFactory;
 import interface_adapter.ViewManagerModel;
 import interface_adapter.search.SearchController;
 import interface_adapter.search.SearchViewModel;
 import interface_adapter.search.SearchState;
+import interface_adapter.sub_menu.SubViewModel;
+import use_case.search.SearchUserDataAccessInterface;
 
 import javax.swing.*;
-import javax.swing.text.View;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -57,7 +58,7 @@ public class SearchView extends JPanel implements ActionListener, PropertyChange
                             System.out.println("Search pressed!");
                             SearchState currentState = searchViewModel.getState();
 
-                            searchController.execute(
+                            searchController.executeSearch(
                                     currentState.getSearchCriteria()
                             );
                         }
@@ -70,7 +71,9 @@ public class SearchView extends JPanel implements ActionListener, PropertyChange
                 new ActionListener() {
                     public void actionPerformed(ActionEvent evt) {
                         if (evt.getSource().equals(back)) {
-                            System.out.println("Back pressed! But not implemented yet");
+                            System.out.println("Back pressed");
+                            SearchState currentState = searchViewModel.getState();
+                            searchController.executeBack();
                         }
                     }
                 }
@@ -133,10 +136,10 @@ public class SearchView extends JPanel implements ActionListener, PropertyChange
         application.add(views);
 
         ViewManagerModel viewManagerModel = new ViewManagerModel();
-        UniversityFactory commonUniversityFactory = new CommonUniversityFactory();
         SearchViewModel searchViewModel = new SearchViewModel();
-        APIDataAccessObject apiDataAccessObject = new APIDataAccessObject();
-        SearchView searchView = SearchUseCaseFactory.create(viewManagerModel, searchViewModel, apiDataAccessObject, commonUniversityFactory);
+        SearchUserDataAccessInterface searchDataAccessObject = new SearchDataAccessObject();
+        SubViewModel subViewModel = new SubViewModel();
+        SearchView searchView = SearchUseCaseFactory.create(viewManagerModel, searchViewModel, subViewModel, searchDataAccessObject);
 
         views.add(searchView, searchView.viewName);
 

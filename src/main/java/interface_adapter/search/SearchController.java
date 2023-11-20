@@ -12,10 +12,15 @@ public class SearchController {
     public SearchController(SearchInputBoundary userSearchUseCaseInteractor) {
         this.userSearchUseCaseInteractor = userSearchUseCaseInteractor;
     }
-    public void execute(String searchCriteria) {
+    public void executeSearch(String searchCriteria) {
         SearchInputData searchInputData = new SearchInputData(searchCriteria);
 
-        userSearchUseCaseInteractor.execute(searchInputData);
+        userSearchUseCaseInteractor.executeSearch(searchInputData);
     }
+
+    public void executeBack() {
+        userSearchUseCaseInteractor.executeBack();
+    }
+
 
 }
