@@ -1,17 +1,21 @@
 package interface_adapter.logged_in;
 
-import use_case.signup.SignupInputData;
+import use_case.logged_in.LoggedInInputBoundary;
 
 public class LoggedInController {
 
-    final LoggedInPresenter loggedInPresenter;
+    final LoggedInInputBoundary loggedInInputBoundary;
 
-    public LoggedInController(LoggedInPresenter loggedInPresenter) {
-        this.loggedInPresenter = loggedInPresenter;
+    public LoggedInController(LoggedInInputBoundary loggedInInputBoundary) {
+        this.loggedInInputBoundary = loggedInInputBoundary;
     }
 
     public void swapToUserProfileView() {
-        loggedInPresenter.prepareUserProfileView();
+        loggedInInputBoundary.showUserProfileView();
+    }
+
+    public void logOutUser() {
+        loggedInInputBoundary.logOut();
     }
 //    public void returnMainMenu() {
 //        userSignupUseCaseInteractor.returnMainMenu();

@@ -2,6 +2,7 @@
 
 package app;
 
+import data_access.FileTokenDataAccessObject;
 import data_access.ServerUserDataAccessObject;
 import entity.ExistingCommonUserFactory;
 import entity.User;
@@ -64,13 +65,16 @@ public class Main {
         MainMenuView mainMenuView = MainMenuUseCaseFactory.create(mainMenuViewModel1, signupViewModel, loginViewModel, subViewModel, viewManagerModel);
         views.add(mainMenuView, mainMenuView.viewName);
 
-        // add login, logged in and signup Views
+        // create data access objects for this particular implementation
         ServerUserDataAccessObject userDataAccessObject = new ServerUserDataAccessObject(new ExistingCommonUserFactory());
+        FileTokenDataAccessObject tokenDataAccessObject = new FileTokenDataAccessObject();
 
-        SignupView signupView = SignupUseCaseFactory.create(viewManagerModel, loginViewModel, signupViewModel, userDataAccessObject, mainMenuViewModel1);
+        // add login, logged in and signup Views
+        SignupView signupView = SignupUseCaseFactory.create(viewManagerModel, loginViewModel, signupViewModel, userDataAccessObject, mainMenuViewModel1, tokenDataAccessObject);
 
-        LoginView loginView = LoginUseCaseFactory.create(viewManagerModel, loginViewModel, loggedInViewModel, mainMenuViewModel1,userDataAccessObject);
+        LoginView loginView = LoginUseCaseFactory.create(viewManagerModel, loginViewModel, loggedInViewModel, mainMenuViewModel1,userDataAccessObject, tokenDataAccessObject);
         views.add(loginView, loginView.viewName);
+        views.add(signupView, signupView.viewName);
 
         // create a UserProfileViewModel and view
         UserProfileViewModel userProfileViewModel = new UserProfileViewModel("userProfileView");
@@ -81,11 +85,9 @@ public class Main {
         UserProfileView userProfileView = UserProfileUseCaseFactory.create(viewManagerModel, userProfileViewModel);
 
         // add loggedin view
-        LoggedInPresenter loggedInPresenter= new LoggedInPresenter(userProfileViewModel, viewManagerModel);
-        LoggedInController loggedInController = new LoggedInController(loggedInPresenter);
-        LoggedInView loggedInView = new LoggedInView(loggedInViewModel, userProfileViewModel, loggedInController);
-
+        LoggedInView loggedInView = LoggedInUseCaseFactory.create(viewManagerModel, loginViewModel, loggedInViewModel, userProfileViewModel, tokenDataAccessObject);
         views.add(loggedInView, loggedInView.viewName);
+        assert userProfileView != null;
         views.add(userProfileView, userProfileView.viewName);
 
         // add subview

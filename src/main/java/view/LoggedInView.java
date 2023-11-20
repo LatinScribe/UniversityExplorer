@@ -22,7 +22,6 @@ public class LoggedInView extends JPanel implements ActionListener, PropertyChan
     JLabel username;
 
     final JButton logOut;
-
     final JButton viewProfile;
 
     /**
@@ -42,11 +41,11 @@ public class LoggedInView extends JPanel implements ActionListener, PropertyChan
         username = new JLabel();
 
         JPanel buttons = new JPanel();
-        logOut = new JButton(loggedInViewModel.LOGOUT_BUTTON_LABEL);
+        logOut = new JButton(LoggedInViewModel.LOGOUT_BUTTON_LABEL);
         buttons.add(logOut);
         
         // add view profile button
-        viewProfile = new JButton("View your Profile");
+        viewProfile = new JButton(LoggedInViewModel.PROFILE_BUTTON_LABEL);
         buttons.add(viewProfile);
         viewProfile.addActionListener(// This creates an anonymous subclass of ActionListener and instantiates it.
                 new ActionListener() {
@@ -58,7 +57,15 @@ public class LoggedInView extends JPanel implements ActionListener, PropertyChan
                     }
                 });
 
-        logOut.addActionListener(this);
+        logOut.addActionListener(// This creates an anonymous subclass of ActionListener and instantiates it.
+                new ActionListener() {
+                    public void actionPerformed(ActionEvent evt) {
+                        if (evt.getSource().equals(logOut)) {
+                            System.out.println("logOut pressed");
+                            loggedInController.logOutUser();
+                        }
+                    }
+                });
 
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 

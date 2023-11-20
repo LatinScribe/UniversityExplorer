@@ -2,8 +2,7 @@
 // Note: USE THIS FOR TESTING ONLY
 package data_access;
 
-import entity.CreationUser;
-import entity.User;
+import entity.*;
 import use_case.signup.SignupUserDataAccessInterface;
 
 import java.util.HashMap;
@@ -26,8 +25,9 @@ public class InMemoryUserDataAccessObject implements SignupUserDataAccessInterfa
      * @param user the data to save
      */
     @Override
-    public String save(CreationUser user) {
+    public ExistingUser save(CreationUser user) {
         users.put(user.getName(), user);
-        return "something";
+        ExistingCommonUserFactory fact = new ExistingCommonUserFactory();
+        return fact.create(user.getName(), 0, "fake", user.getCreationTime(), "fake");
     }
 }

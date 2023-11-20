@@ -13,6 +13,7 @@ public class LoggedInViewModel extends ViewModel {
     private String currentView;
 
     public static final String LOGOUT_BUTTON_LABEL = "Log out";
+    public static final String PROFILE_BUTTON_LABEL = "View your Profile";
     private String loggedInUser;
 
     public LoggedInViewModel() {
@@ -48,12 +49,12 @@ public class LoggedInViewModel extends ViewModel {
         this.loggedInUser = loggedInUser;
     }
     // TODO: Check if this is nesscary, maybe set to private?
-    public void setCurrentView(String currentView) {
-        String oldView = this.currentView;
-        this.currentView = currentView;
-        System.out.println("setCurrentView called: It's called " + currentView);
-        support.firePropertyChange("view", oldView, currentView);
-
-        // TODO: Potentially an issue with the property name of userProfileView
-    }
+//    public void setCurrentView(String currentView) {
+//        String oldView = this.currentView;
+//        this.currentView = currentView;
+//        System.out.println("setCurrentView called: It's called " + currentView);
+//        support.firePropertyChange("view", oldView, currentView);
+//
+//        // TODO: Potentially an issue with the property name of userProfileView
+//    }
 }
