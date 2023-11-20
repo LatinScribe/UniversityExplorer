@@ -1,23 +1,22 @@
 package data_access;
 
 import entity.UserPreferences;
-import entity.gradeAPI_for_reference.Grade;
 import okhttp3.*;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
-public class ServerProfileDataAccessObject {
+public class ServerProfileDataAccessObject implements ProfileDataAccessInterface{
     private final TokenDataAccessInterface tokenDataAccessInterface;
 
     public ServerProfileDataAccessObject(TokenDataAccessInterface tokenDataAccessInterface) {
         this.tokenDataAccessInterface = tokenDataAccessInterface;
     }
 
-    public String saveProfile( int finAidReq, String prefProg, int avgSalary, int uniRankingRange, String locationPref) throws IOException {
+    @Override
+    public String saveProfile(int finAidReq, String prefProg, int avgSalary, int uniRankingRange, String locationPref) throws IOException {
         OkHttpClient client = new OkHttpClient().newBuilder()
                 .build();
         MediaType mediaType = MediaType.parse("application/json");
@@ -53,6 +52,7 @@ public class ServerProfileDataAccessObject {
         }
     }
 
+    @Override
     public String updateProfile(int finAidReq, String prefProg, int avgSalary, int uniRankingRange, String locationPref) throws IOException {
         OkHttpClient client = new OkHttpClient().newBuilder()
                 .build();
@@ -88,6 +88,7 @@ public class ServerProfileDataAccessObject {
             throw new RuntimeException(e);
         }
     }
+    @Override
     public UserPreferences getProfile() throws IOException {
         OkHttpClient client = new OkHttpClient().newBuilder()
                 .build();
