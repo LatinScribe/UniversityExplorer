@@ -1,11 +1,16 @@
 // Author: Bora
 package view;
 
+import data_access.ApplyDataAccessObject;
+import entity.CommonUniversityFactory;
+import entity.UniversityFactory;
+import interface_adapter.ViewManagerModel;
 import interface_adapter.apply.ApplyController;
+import interface_adapter.apply.ApplyPresenter;
 import interface_adapter.apply.ApplyState;
 import interface_adapter.apply.ApplyViewModel;
 import interface_adapter.search.SearchState;
-import use_case.apply.ApplyInputBoundary;
+import use_case.apply.*;
 
 import javax.swing.*;
 import java.awt.*;
@@ -131,9 +136,13 @@ public class Applyview extends JPanel implements ActionListener, PropertyChangeL
     public static void main(String[] args) {
         JFrame application = new JFrame("ApplyView Test");
         application.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-
+        ViewManagerModel viewManagerModel = new ViewManagerModel();
         ApplyViewModel applyViewModel = new ApplyViewModel();
-        ApplyInputBoundary applyUseCaseInteractor = null;
+        ApplyOutputBoundary applyPresenter = new ApplyPresenter(applyViewModel,viewManagerModel);
+        //ApplyInputData applyInputData = new ApplyInputData();
+        ApplyDataAccessInterface applyDataAccessInterface = new ApplyDataAccessObject();
+        UniversityFactory universityFactory = new CommonUniversityFactory();
+        ApplyInputBoundary applyUseCaseInteractor = new ApplyInteractor(applyDataAccessInterface,applyPresenter,universityFactory);
         ApplyController applyController = new ApplyController( applyUseCaseInteractor);
         Applyview applyView = new Applyview(applyController, applyViewModel);
 
