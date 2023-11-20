@@ -8,6 +8,7 @@ import interface_adapter.user_profiles.UserProfileViewModel;
 import java.awt.event.ActionListener;
 import java.beans.PropertyChangeListener;
 
+import javax.lang.model.type.ArrayType;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -55,11 +56,11 @@ public class UserProfileView extends JPanel implements ActionListener, PropertyC
         JLabel title = new JLabel("User Profile");
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        finAidRequirementLabel = new JLabel("Financial Aid Requirement:");
-        avgSalaryLabel = new JLabel("Average Salary:");
-        locationPreferenceLabel = new JLabel("Location Preference:");
-        preferredProgramLabel = new JLabel("Preferred Program:");
-        universityRankingRangeLabel = new JLabel("University Ranking Range:");
+        finAidRequirementLabel = new JLabel(":Financial Aid Requirement");
+        avgSalaryLabel = new JLabel(":Average Salary:");
+        locationPreferenceLabel = new JLabel(":Location Preference:");
+        preferredProgramLabel = new JLabel(":Preferred Program:");
+        universityRankingRangeLabel = new JLabel(":University Ranking Range:");
 
         JPanel buttons = new JPanel();
         // access static member using class - would this be a button for the profile?
@@ -143,6 +144,8 @@ public class UserProfileView extends JPanel implements ActionListener, PropertyC
 
                     userProfileController.updateUserProfile(
                             finAidRequirement, avgSalary, locationPreference, preferredProgram, universityRankingRange);
+
+                    // TODO - determine whether to use Array or Integer[]
 
                     setEditMode(false); // Switch back to view mode after saving
                 } catch (NumberFormatException ex) {
