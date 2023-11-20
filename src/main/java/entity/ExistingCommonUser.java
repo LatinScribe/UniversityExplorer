@@ -5,7 +5,7 @@ import java.time.LocalDateTime;
 public class ExistingCommonUser implements ExistingUser{
 
     private final String name;
-    private final String id;
+    private final int id;
 
     private final String password;
     private final LocalDateTime creationTime;
@@ -18,7 +18,7 @@ public class ExistingCommonUser implements ExistingUser{
      * @param id
      * @param password
      */
-    ExistingCommonUser(String name, String id, String password, LocalDateTime creationTime, String token) {
+    ExistingCommonUser(String name, int id, String password, LocalDateTime creationTime, String token) {
         this.name = name;
         this.id = id;
         this.password = password;
@@ -31,7 +31,7 @@ public class ExistingCommonUser implements ExistingUser{
         return name;
     }
 
-    public String getID() {
+    public int getID() {
         return id;
     }
 
@@ -54,3 +54,4 @@ public class ExistingCommonUser implements ExistingUser{
         return creationTime;
     }
 }
+

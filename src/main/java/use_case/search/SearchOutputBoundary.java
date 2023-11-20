@@ -3,7 +3,8 @@
 package use_case.search;
 
 public interface SearchOutputBoundary {
-    void prepareSuccessView(SearchOutputData user);
+    void prepareSuccessView(SearchOutputData universities);
 
-    void prepareFailView(String error);
+    void prepareResultsNotFoundView(String error);
+
 }
