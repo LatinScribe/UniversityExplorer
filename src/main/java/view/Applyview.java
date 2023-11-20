@@ -4,12 +4,15 @@ package view;
 import interface_adapter.apply.ApplyController;
 import interface_adapter.apply.ApplyState;
 import interface_adapter.apply.ApplyViewModel;
+import interface_adapter.search.SearchState;
 import use_case.apply.ApplyInputBoundary;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
@@ -48,10 +51,50 @@ public class Applyview extends JPanel implements ActionListener, PropertyChangeL
                                      public void actionPerformed(ActionEvent evt) {
                                          if (evt.getSource().equals(submit)) {
                                              System.out.println("submit Button pressed");
-                                             applyController.execute();
+                                             ApplyState applyState = applyViewModel.getState();
+
+                                             applyController.execute(applyState.getSat(),applyState.getAct());
                                          }
                                      }
                                  });
+        actInputField.addKeyListener(
+                new KeyListener() {
+                    @Override
+                    public void keyTyped(KeyEvent e) {
+                        ApplyState currentState = applyViewModel.getState();
+                        String text = actInputField.getText() + e.getKeyChar();
+                        currentState.setAct(text);
+                        applyViewModel.setState(currentState);
+                    }
+
+                    @Override
+                    public void keyPressed(KeyEvent e) {
+                    }
+
+                    @Override
+                    public void keyReleased(KeyEvent e) {
+                    }
+                }
+        );
+        satInputField.addKeyListener(
+                new KeyListener() {
+                    @Override
+                    public void keyTyped(KeyEvent e) {
+                        ApplyState currentState = applyViewModel.getState();
+                        String text = satInputField.getText() + e.getKeyChar();
+                        currentState.setSat(text);
+                        applyViewModel.setState(currentState);
+                    }
+
+                    @Override
+                    public void keyPressed(KeyEvent e) {
+                    }
+
+                    @Override
+                    public void keyReleased(KeyEvent e) {
+                    }
+                }
+        );
 
 
 
@@ -68,22 +111,21 @@ public class Applyview extends JPanel implements ActionListener, PropertyChangeL
      */
     @Override
     public void actionPerformed(ActionEvent evt) {
-        // Handle any other actions or button clicks as needed
-        if (evt.getSource().equals(submit)) {
-            // This code will be executed when the "Submit" button is clicked
-            System.out.println("Submit Button pressed");
-        }
+        JOptionPane.showConfirmDialog(this, "Apply not implemented yet.");
     }
 
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
-        // Handle property changes if needed
-        if (evt.getPropertyName().equals("state") && evt.getNewValue() instanceof ApplyState) {
+        String y = evt.getPropertyName();
+        if (y.equals("state")) {
+            // Results View Not implemented yet, will be implemented soon.
             ApplyState state = (ApplyState) evt.getNewValue();
-            // Handle state changes here
-            // For example, you can update the view based on the new state
-            // You can access the ApplyViewModel and update the UI components
-            // with the latest state information
+            JOptionPane.showMessageDialog(this, state.getUni());
+            System.out.println(state.getUni().getSchoolName());
+        } else {
+            ApplyState state = (ApplyState) evt.getNewValue();
+            JOptionPane.showMessageDialog(this, state.getUniversityError());
+            state.setUniversityError(null);
         }
     }
     public static void main(String[] args) {
@@ -92,7 +134,7 @@ public class Applyview extends JPanel implements ActionListener, PropertyChangeL
 
         ApplyViewModel applyViewModel = new ApplyViewModel();
         ApplyInputBoundary applyUseCaseInteractor = null;
-        ApplyController applyController = new ApplyController(applyViewModel, applyUseCaseInteractor);
+        ApplyController applyController = new ApplyController( applyUseCaseInteractor);
         Applyview applyView = new Applyview(applyController, applyViewModel);
 
         JPanel testPanel = new JPanel();

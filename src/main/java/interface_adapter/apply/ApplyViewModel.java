@@ -2,7 +2,7 @@
 package interface_adapter.apply;
 
 import interface_adapter.ViewModel;
-import interface_adapter.main_menu.MainMenuState;
+
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
@@ -23,10 +23,13 @@ public class ApplyViewModel extends ViewModel {
 
     private final PropertyChangeSupport support = new PropertyChangeSupport(this);
 
-    // This is what the Signup Presenter will call to let the ViewModel know
+    // This is what the Apply Presenter will call to let the ViewModel know
     // to alert the View
     public void firePropertyChanged() {
         support.firePropertyChange("state", null, this.state);
+    }
+    public void fireFailChange() {
+        support.firePropertyChange("Error", null, this.state);
     }
 
     public void addPropertyChangeListener(PropertyChangeListener listener) {

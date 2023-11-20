@@ -24,8 +24,6 @@ public class LoggedInView extends JPanel implements ActionListener, PropertyChan
     final JButton logOut;
     final JButton viewProfile;
 
-    final JButton viewProfile;
-
     /**
      * A window with a title and a JButton.
      */
@@ -59,7 +57,15 @@ public class LoggedInView extends JPanel implements ActionListener, PropertyChan
                     }
                 });
 
-        logOut.addActionListener(this);
+        logOut.addActionListener(// This creates an anonymous subclass of ActionListener and instantiates it.
+                new ActionListener() {
+                    public void actionPerformed(ActionEvent evt) {
+                        if (evt.getSource().equals(logOut)) {
+                            System.out.println("logOut pressed");
+                            loggedInController.logOutUser();
+                        }
+                    }
+                });
 
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
