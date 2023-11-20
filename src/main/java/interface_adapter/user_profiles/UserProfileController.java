@@ -3,6 +3,7 @@ package interface_adapter.user_profiles;
 import interface_adapter.ViewManagerModel;
 import use_case.user_profile.MockUserProfileInputBoundary;
 import use_case.user_profile.UserProfileInputBoundary;
+import use_case.user_profile.UserProfileOutputData;
 import view.ViewManager;
 
 import java.lang.reflect.Array;
@@ -13,6 +14,7 @@ public class UserProfileController {
 
     public UserProfileController(UserProfileInputBoundary userProfileInputBoundary) {
         this.userProfileInputBoundary = userProfileInputBoundary;
+        // Takes in a UserProfileInteractor, which implements the Input Boundary
     }
 
     public void execute(String searchCriteria) {
@@ -44,8 +46,11 @@ public class UserProfileController {
                 preferredProgram, universityRankingRange);
     }
 
-    public void switchToPersonalProfile() {
-        this.userProfileInputBoundary.showPersonalProfileView();
+    public void switchToPersonalProfile(int finAidRequirement, int avgSalary, String locationPreference,
+                                        String preferredProgram, Integer[] universityRankingRange) {
+        UserProfileOutputData userProfileOutputData = new UserProfileOutputData(finAidRequirement, avgSalary, locationPreference,
+                preferredProgram, universityRankingRange);
+        this.userProfileInputBoundary.showPersonalProfileView(userProfileOutputData);
     }
 
     public void updateUserProfile(int finAidRequirement, int avgSalary) {

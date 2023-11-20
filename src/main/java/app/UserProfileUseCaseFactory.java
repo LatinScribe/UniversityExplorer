@@ -1,5 +1,8 @@
 package app;
 
+import data_access.ProfileDataAccessInterface;
+import data_access.ServerProfileDataAccessObject;
+import data_access.ServerUserDataAccessObject;
 import entity.UserPreferencesFactory;
 import interface_adapter.ViewManagerModel;
 import interface_adapter.user_profiles.UserProfilePresenter;
@@ -23,7 +26,7 @@ public class UserProfileUseCaseFactory {
     private UserProfileUseCaseFactory() {
     }
 
-    private static UserProfileController createUserProfileUseCase(ViewManagerModel viewManager, UserProfileViewModel userProfileViewModel) throws IOException {
+    private static UserProfileController createUserProfileUseCase(ViewManagerModel viewManager, UserProfileViewModel userProfileViewModel, ServerProfileDataAccessObject serverProfileDataAccessObject) throws IOException {
 
 //    private static UserProfileController createUserProfileUseCase(ViewManager viewManager, UserProfileViewModel userProfileViewModel,
 //            UserProfileDataAccessInterface userProfileDataAccessInterface, UserProfileOutputBoundary userProfileOutputBoundary,
@@ -33,15 +36,15 @@ public class UserProfileUseCaseFactory {
         // TODO: Remove redundant inputs for createUserProfile - userPreferencesFactory, DAO, etc
         UserProfileOutputBoundary userProfilePresenter = new UserProfilePresenter(viewManager, userProfileViewModel);
 
-        UserProfileInputBoundary userProfileInteractor = new UserProfileInteractor(userProfilePresenter);
+        UserProfileInputBoundary userProfileInteractor = new UserProfileInteractor(userProfilePresenter, serverProfileDataAccessObject);
 
         return new UserProfileController(userProfileInteractor);
     }
 
-    public static UserProfileView create(ViewManagerModel viewManager, UserProfileViewModel userProfileViewModel) {
+    public static UserProfileView create(ViewManagerModel viewManager, UserProfileViewModel userProfileViewModel, ServerProfileDataAccessObject serverProfileDataAccessObject) {
 
         try {
-            UserProfileController userProfileController = createUserProfileUseCase(viewManager, userProfileViewModel);
+            UserProfileController userProfileController = createUserProfileUseCase(viewManager, userProfileViewModel, serverProfileDataAccessObject);
             return new UserProfileView(userProfileViewModel, userProfileController);
         } catch (IOException e) {
             JOptionPane.showMessageDialog(null, "Could not open user data file.");

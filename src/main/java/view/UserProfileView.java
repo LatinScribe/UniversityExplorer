@@ -85,6 +85,8 @@ public class UserProfileView extends JPanel implements ActionListener, PropertyC
         viewPanel.add(profile);
         viewPanel.add(editProfile);
 
+        // TODO - implement the view so that users can see what they've already input or blank if they haven't
+
         // Add fields for editing
         editPanel.add(finAidRequirementField);
         editPanel.add(finAidRequirementLabel);
@@ -145,8 +147,6 @@ public class UserProfileView extends JPanel implements ActionListener, PropertyC
                     userProfileController.updateUserProfile(
                             finAidRequirement, avgSalary, locationPreference, preferredProgram, universityRankingRange);
 
-                    // TODO - determine whether to use Array or Integer[]
-
                     setEditMode(false); // Switch back to view mode after saving
                 } catch (NumberFormatException ex) {
                     // Handle invalid input format
@@ -154,8 +154,6 @@ public class UserProfileView extends JPanel implements ActionListener, PropertyC
                 }
             }
         });
-
-        // TODO: Finish implementation of different edit structure and remove editProfile classes/functions
 
 
         this.add(title);

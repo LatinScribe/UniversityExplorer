@@ -6,6 +6,11 @@ import java.util.Arrays;
 // Mock implementation for testing
 public class MockUserProfileInputBoundary implements UserProfileInputBoundary {
     @Override
+    public void showPersonalProfileView(UserProfileOutputData userProfileOutputData) {
+
+    }
+
+    @Override
     public void updateUserProfile(int finAidRequirement, int avgSalary, String locationPreference,
                                   String preferredProgram, Integer[] universityRankingRange) {
         System.out.println("Mock updateUserProfile called with:");
@@ -16,12 +21,6 @@ public class MockUserProfileInputBoundary implements UserProfileInputBoundary {
         System.out.println("University Ranking Range: " + Arrays.toString(universityRankingRange));
     }
 
-    @Override
-    public void execute(UserProfileInputData userProfileInputData) {
-
-    }
-
-    @Override
     public void showPersonalProfileView() {
         System.out.println("Mock showPersonalProfileView called.");
     }
