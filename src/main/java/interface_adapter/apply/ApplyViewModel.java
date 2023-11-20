@@ -10,8 +10,8 @@ import java.beans.PropertyChangeSupport;
 public class ApplyViewModel extends ViewModel {
 
     public static final String TITLE_LABEL = "Application Form";
-    public static final String ACT_LABEL = "Enter ACT score";
-    public static final String SAT_LABEL = "Enter your SAT score";
+    public static final String USERNAME_LABEL = "Enter username";
+    public static final String GPA_LABEL = "Enter your gpa";
     public static final String SUBMIT_BUTTON_LABEL = "Submit";
     private ApplyState state = new ApplyState();
     public void setState(ApplyState state){this.state=state;}

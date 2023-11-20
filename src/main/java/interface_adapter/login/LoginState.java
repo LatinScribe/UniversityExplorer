@@ -1,4 +1,3 @@
-// Author: Henry
 package interface_adapter.login;
 
 public class LoginState {

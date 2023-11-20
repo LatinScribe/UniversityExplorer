@@ -1,4 +1,3 @@
-// Author: Henry
 package use_case.login;
 
 import data_access.TokenDataAccessInterface;

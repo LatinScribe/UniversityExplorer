@@ -1,4 +1,3 @@
-// Author: Henry
 package view;
 
 import interface_adapter.login.LoginController;

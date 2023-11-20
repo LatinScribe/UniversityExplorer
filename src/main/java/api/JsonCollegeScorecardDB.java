@@ -1,7 +1,6 @@
-// Author: Henry
-// Note: NEEDS INTERNET ACCESS
 package api;
 
+import entity.Grade;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;

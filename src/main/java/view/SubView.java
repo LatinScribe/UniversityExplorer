@@ -1,7 +1,6 @@
 // Author: Diego
 package view;
 
-//import app.SearchUseCaseFactory;
 import data_access.ServerUserDataAccessObject;
 import entity.ExistingCommonUserFactory;
 import interface_adapter.ViewManagerModel;
@@ -55,7 +54,7 @@ public class SubView extends JPanel implements ActionListener, PropertyChangeLis
                         if (evt.getSource().equals(recommendation)) {
                             // System.out.println("Recommendation Button pressed");
                             // subViewPresenter.prepareApplyView();
-                            subViewController.execute("search");
+                            subViewController.execute("recommendation");
                         }
                     }
                 }
@@ -67,7 +66,7 @@ public class SubView extends JPanel implements ActionListener, PropertyChangeLis
                         if (evt.getSource().equals(search)) {
                             // System.out.println("Search Button pressed");
                             // subViewPresenter.prepareSearchView();
-                            subViewController.execute("recommendation");
+                            subViewController.execute("search");
                         }
                     }
                 }
@@ -86,50 +85,43 @@ public class SubView extends JPanel implements ActionListener, PropertyChangeLis
         // setFields(state);
     }
 
-   /* public static void main(String[] args) {
-        JFrame application = new JFrame("Sub menu Test");
-        application.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+   public static void main(String[] args) {
+       JFrame application = new JFrame("Sub menu Test");
+       application.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
-        CardLayout cardLayout = new CardLayout();
-        JPanel views = new JPanel(cardLayout);
-        application.add(views);
+       CardLayout cardLayout = new CardLayout();
+       JPanel views = new JPanel(cardLayout);
+       application.add(views);
 
-        ViewManagerModel viewManagerModel = new ViewManagerModel();
-        new ViewManager(views, cardLayout, viewManagerModel);
+       ViewManagerModel viewManagerModel = new ViewManagerModel();
+       new ViewManager(views, cardLayout, viewManagerModel);
 
-        SearchViewModel searchViewModel = new SearchViewModel();
-        ApplyViewModel applyViewModel = new ApplyViewModel();
+       SearchViewModel searchViewModel = new SearchViewModel();
+       ApplyViewModel applyViewModel = new ApplyViewModel();
 
-        SubViewModel subViewModel = new SubViewModel();
-        SubViewPresenter subViewPresenter = new SubViewPresenter(searchViewModel, applyViewModel, viewManagerModel);
+       SubViewModel subViewModel = new SubViewModel();
+       SubViewPresenter subViewPresenter = new SubViewPresenter(searchViewModel, applyViewModel, viewManagerModel);
 
-        SubViewInputBoundary subViewInteractor = new SubViewInteractor(subViewPresenter);
-        SubViewController subViewController = new SubViewController(subViewInteractor);
-        SubView subView = new SubView(subViewModel, subViewController);
+       SubViewInputBoundary subViewInteractor = new SubViewInteractor(subViewPresenter);
+       SubViewController subViewController = new SubViewController(subViewInteractor);
+       SubView subView = new SubView(subViewModel, subViewController);
 
-        views.add(subView, subView.viewName);
+       views.add(subView, subView.viewName);
 
-        // add apply and search Views
-//        ServerUserDataAccessObject userDataAccessObject = new ServerUserDataAccessObject(new ExistingCommonUserFactory());
-//        SearchUserDataAccessInterface userSearchData = new SearchUserDataAccessInterface() {
-//            @Override
-//            public JSONObject basicQuery(String queryParameters, String optionalParameters) {
-//                return null;
-//            }
-//        };
+       // add apply and search Views
 
-//        SearchView searchView = SearchUseCaseFactory.create(viewManagerModel, searchViewModel, userSearchData);
-//        assert searchView != null;
-//        views.add(searchView, searchView.viewName);
-        ApplyInputBoundary applyUseCaseInteractor = null;
-        ApplyController applyController = new ApplyController(applyViewModel, applyUseCaseInteractor);
-        Applyview applyView = new Applyview(applyController, applyViewModel);
-        views.add(applyView, applyView.viewName);
+       //SearchView searchView = SearchUseCaseFactory.create(viewManagerModel, searchViewModel, userSearchData);
+       //assert searchView != null;
+       //views.add(searchView, searchView.viewName);
+       ApplyInputBoundary applyUseCaseInteractor = null;
+       ApplyController applyController = new ApplyController(applyUseCaseInteractor);
+       Applyview applyView = new Applyview(applyController, applyViewModel);
+       views.add(applyView, applyView.viewName);
 
-        viewManagerModel.setActiveView(subView.viewName);
-        viewManagerModel.firePropertyChanged();
+       viewManagerModel.setActiveView(subView.viewName);
+       viewManagerModel.firePropertyChanged();
 
-        application.pack();
-        application.setVisible(true);*/
-    }
-
+       application.pack();
+       application.setVisible(true);
+   }
+}

@@ -32,9 +32,6 @@ public class SearchViewModel extends ViewModel {
         support.firePropertyChange("state", null, this.state);
     }
 
-    public void fireFailChange() {
-        support.firePropertyChange("failed search", null, this.state);
-    }
     public void addPropertyChangeListener(PropertyChangeListener listener) {
         support.addPropertyChangeListener(listener);
     }

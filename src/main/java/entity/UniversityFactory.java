@@ -1,6 +1,7 @@
 package entity;
 
-public interface UniversityFactory {
-    CommonUniversity create(Integer schoolID, String schoolName, String state, String city, Double admissionRate, Integer averageInStateTuition, Integer averageOutOfStateTuition, Double averageSATScore, Double averageACTScore, String url);
+import java.time.LocalDateTime;
 
+public interface UniversityFactory {
+    CommonUniversity create(String schoolName, String state, String city, double graduationRate, double averageTuition);
 }

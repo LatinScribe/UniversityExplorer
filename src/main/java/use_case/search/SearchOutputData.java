@@ -2,19 +2,29 @@
 
 package use_case.search;
 
-import entity.University;
-import java.util.List;
-
 public class SearchOutputData {
 
-    private List<University> universities;
+    private final String username;
+    private String creationTime;
 
-    public SearchOutputData(List<University> universities) {
-        this.universities = universities;
+    private boolean useCaseFailed;
+
+    public SearchOutputData(String username, String creationTime, boolean useCaseFailed) {
+        this.username = username;
+        this.creationTime = creationTime;
+        this.useCaseFailed = useCaseFailed;
     }
 
-    public List<University> getUniversities() {
-        return universities;
+    public String getUsername() {
+        return username;
+    }
+
+    public String getCreationTime() {
+        return creationTime;
+    }
+
+    public void setCreationTime(String creationTime) {
+        this.creationTime = creationTime;
     }
 
 }
