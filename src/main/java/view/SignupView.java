@@ -1,19 +1,24 @@
+// Author: Henry
 package view;
 
 //import interface_adapter.clear_users.ClearController;
 import app.LoginUseCaseFactory;
+import app.MainMenuUseCaseFactory;
 import app.SignupUseCaseFactory;
+import data_access.FileTokenDataAccessObject;
 import data_access.ServerUserDataAccessObject;
-import entity.CreationCommonUserFactory;
 import entity.ExistingCommonUserFactory;
 import interface_adapter.ViewManagerModel;
+import interface_adapter.logged_in.LoggedInController;
+import interface_adapter.logged_in.LoggedInPresenter;
 import interface_adapter.logged_in.LoggedInViewModel;
 import interface_adapter.login.LoginViewModel;
-import interface_adapter.main_menu.MainMenuPresenter;
 import interface_adapter.main_menu.MainMenuViewModel;
 import interface_adapter.signup.SignupController;
 import interface_adapter.signup.SignupState;
 import interface_adapter.signup.SignupViewModel;
+import interface_adapter.sub_menu.SubViewModel;
+import interface_adapter.user_profiles.UserProfileViewModel;
 
 import javax.swing.*;
 import java.awt.*;
@@ -223,11 +228,11 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
         // This information will be changed by a presenter object that is reporting the
         // results from the use case. The ViewModels are observable, and will
         // be observed by the Views.
-        LoginViewModel loginViewModel = new LoginViewModel();
-        LoggedInViewModel loggedInViewModel = new LoggedInViewModel();
-        SignupViewModel signupViewModel = new SignupViewModel();
-        MainMenuViewModel mainMenuViewModel = new MainMenuViewModel();
-        MainMenuPresenter mainMenuPresenter = new MainMenuPresenter(signupViewModel,loginViewModel,viewManagerModel);
+//        LoginViewModel loginViewModel = new LoginViewModel();
+//        LoggedInViewModel loggedInViewModel = new LoggedInViewModel();
+//        SignupViewModel signupViewModel = new SignupViewModel();
+//        MainMenuViewModel mainMenuViewModel = new MainMenuViewModel();
+//        MainMenuPresenter mainMenuPresenter = new MainMenuPresenter(signupViewModel,loginViewModel,viewManagerModel);
 
 //        FileUserDataAccessObject userDataAccessObject;
 //        try {
@@ -235,20 +240,39 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
 //        } catch (IOException e) {
 //            throw new RuntimeException(e);
 //        }
-        ServerUserDataAccessObject userDataAccessObject = new ServerUserDataAccessObject(new ExistingCommonUserFactory());
-        MainMenuView mainMenuView = new MainMenuView(mainMenuViewModel, mainMenuPresenter);
+        // create the view models
+        LoginViewModel loginViewModel = new LoginViewModel();
+        LoggedInViewModel loggedInViewModel = new LoggedInViewModel();
+        SignupViewModel signupViewModel = new SignupViewModel();
+        MainMenuViewModel mainMenuViewModel1 = new MainMenuViewModel();
+        SubViewModel subViewModel = new SubViewModel();
+
+        // create the main menu view
+        MainMenuView mainMenuView = MainMenuUseCaseFactory.create(mainMenuViewModel1, signupViewModel, loginViewModel, subViewModel,viewManagerModel);
         views.add(mainMenuView, mainMenuView.viewName);
 
-        SignupView signupView = SignupUseCaseFactory.create(viewManagerModel, loginViewModel, signupViewModel, userDataAccessObject, mainMenuViewModel);
+        // create data access objects for this particular implementation
+        ServerUserDataAccessObject userDataAccessObject = new ServerUserDataAccessObject(new ExistingCommonUserFactory());
+        FileTokenDataAccessObject tokenDataAccessObject = new FileTokenDataAccessObject();
+
+        // add login, logged in and signup Views
+        SignupView signupView = SignupUseCaseFactory.create(viewManagerModel, loginViewModel, signupViewModel, userDataAccessObject, mainMenuViewModel1, tokenDataAccessObject);
         views.add(signupView, signupView.viewName);
 
-        LoginView loginView = LoginUseCaseFactory.create(viewManagerModel, loginViewModel, loggedInViewModel, mainMenuViewModel,userDataAccessObject);
+        LoginView loginView = LoginUseCaseFactory.create(viewManagerModel, loginViewModel, loggedInViewModel, mainMenuViewModel1,userDataAccessObject, tokenDataAccessObject);
         views.add(loginView, loginView.viewName);
+      
+        // create a UserProfileViewModel and view
+        UserProfileViewModel userProfileViewModel = new UserProfileViewModel("userProfileView");
+//        UserProfileView userProfileView = new UserProfileView()
 
-        LoggedInView loggedInView = new LoggedInView(loggedInViewModel);
+        // add loggedin view
+        LoggedInPresenter loggedInPresenter= new LoggedInPresenter(userProfileViewModel, viewManagerModel);
+        LoggedInController loggedInController = new LoggedInController(loggedInPresenter);
+        LoggedInView loggedInView = new LoggedInView(loggedInViewModel, userProfileViewModel, loggedInController);
         views.add(loggedInView, loggedInView.viewName);
 
-        viewManagerModel.setActiveView(signupView.viewName);
+        viewManagerModel.setActiveView(mainMenuView.viewName);
         viewManagerModel.firePropertyChanged();
 
         application.pack();

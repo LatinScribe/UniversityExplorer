@@ -1,3 +1,5 @@
+// Author: Henry
+// Note: NEEDS INTERNET ACCESS
 package data_access;
 
 import entity.*;
@@ -33,7 +35,7 @@ public class ServerUserDataAccessObject implements SignupUserDataAccessInterface
 
             if (responseBody.getInt("status_code") == 200) {
                 LocalDateTime curr = LocalDateTime.now();
-                ExistingUser user = this.userFactory.create(username, "SAMPLEID", password, curr, responseBody.getString("token"));
+                ExistingUser user = this.userFactory.create(username, responseBody.getInt("id"), password, curr, responseBody.getString("token"));
                 return user;
 
             } else {
@@ -76,7 +78,7 @@ public class ServerUserDataAccessObject implements SignupUserDataAccessInterface
     }
 
     @Override
-    public String save(CreationUser user) {
+    public ExistingUser save(CreationUser user) {
         OkHttpClient client = new OkHttpClient().newBuilder()
                 .build();
         Request request = new Request.Builder()
@@ -86,10 +88,12 @@ public class ServerUserDataAccessObject implements SignupUserDataAccessInterface
         try {
             Response response = client.newCall(request).execute();
             System.out.println(response);
+            assert response.body() != null;
             JSONObject responseBody = new JSONObject(response.body().string());
 
             if (responseBody.getInt("status_code") == 200) {
-                return responseBody.getString("token");
+                LocalDateTime curr = LocalDateTime.now();
+                return this.userFactory.create(user.getName(), responseBody.getInt("id"), user.getPassword(), curr, responseBody.getString("token"));
 
             } else {
                 throw new RuntimeException(responseBody.getString("message"));
@@ -115,11 +119,19 @@ public class ServerUserDataAccessObject implements SignupUserDataAccessInterface
         ExistingUser myuser = db.get("johny1234", "12342324");
         System.out.println("We expect true");
         System.out.println(myuser.getToken().equals("1kRrWzHPUZnSFlFevLuMBoQi2lFeXP8z"));
+        System.out.println("We expect true");
+        System.out.println(myuser.getID() == 8);
 
         // change username to something else or else an error is thrown!
-        CreationUser user = fact.create("BillyBob123", "1234654", time);
+        try {
+            CreationUser user = fact.create("BillyBob123", "1234654", time);
+            ExistingUser user4 = db.save(user);
+            System.out.println(user4.getToken());
+        }
+        catch (RuntimeException e) {
+            System.out.println(e);
+            System.out.println("This should be because user already exists");
+        }
 
-        String token = db.save(user);
-        System.out.println(token);
     }
 }
