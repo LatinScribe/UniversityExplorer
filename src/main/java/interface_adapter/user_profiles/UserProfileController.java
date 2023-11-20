@@ -5,6 +5,8 @@ import use_case.user_profile.MockUserProfileInputBoundary;
 import use_case.user_profile.UserProfileInputBoundary;
 import view.ViewManager;
 
+import java.lang.reflect.Array;
+
 public class UserProfileController {
 
     final UserProfileInputBoundary userProfileInputBoundary;

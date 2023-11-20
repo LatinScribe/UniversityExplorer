@@ -22,7 +22,7 @@ public class UserProfilePresenter implements UserProfileOutputBoundary {
 
     private UserProfileOutputData getCurrentUserProfileData() {
         return null;
-        // TODO: Implement Henry's data storage and retrieval so that user data can be accessed remotely
+        // TODO: call the interactor here to get saved user data
 
     }
 
