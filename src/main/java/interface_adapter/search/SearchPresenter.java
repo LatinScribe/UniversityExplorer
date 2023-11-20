@@ -3,19 +3,24 @@
 package interface_adapter.search;
 
 import interface_adapter.ViewManagerModel;
+import interface_adapter.sub_menu.SubViewModel;
 import use_case.search.SearchOutputBoundary;
 import use_case.search.SearchOutputData;
+import interface_adapter.sub_menu.SubViewState;
+import view.SubView;
 
 public class SearchPresenter implements SearchOutputBoundary {
 
     private SearchViewModel searchViewModel;
     private ViewManagerModel viewManagerModel;
 //    private ResultsViewModel resultsViewModel;
+    private SubViewModel subViewModel;
 
-    public SearchPresenter(ViewManagerModel viewManagerModel, SearchViewModel searchViewModel) {
+    public SearchPresenter(ViewManagerModel viewManagerModel, SearchViewModel searchViewModel, SubViewModel subViewModel) {
         this.searchViewModel = searchViewModel;
         this.viewManagerModel = viewManagerModel;
 //        this.resultsViewModel = resultsViewModel;
+        this.subViewModel = subViewModel;
     }
 
     @Override
@@ -33,6 +38,17 @@ public class SearchPresenter implements SearchOutputBoundary {
     public void prepareResultsNotFoundView(String error) {
         SearchState searchState = searchViewModel.getState();
         searchState.setSearchError(error);
-        searchViewModel.fireFailChange();
+        this.searchViewModel.fireFailChange();
     }
+
+    @Override
+    public void prepareBackView() {
+        SubViewState subViewState = subViewModel.getState();
+        this.subViewModel.setState(subViewState);
+        subViewModel.firePropertyChanged();
+
+        viewManagerModel.setActiveView(subViewModel.getViewName());
+        viewManagerModel.firePropertyChanged();
+    }
+
 }

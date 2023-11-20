@@ -3,16 +3,10 @@
 package data_access;
 
 import api.JsonCollegeScorecardDB;
-import entity.UniversityFactory;
-import entity.University;
-import org.json.JSONArray;
 import org.json.JSONObject;
 import use_case.search.SearchUserDataAccessInterface;
 
-import java.util.ArrayList;
-import java.util.List;
-
-public class APIDataAccessObject implements SearchUserDataAccessInterface {
+public class SearchDataAccessObject implements SearchUserDataAccessInterface {
 
     private final JsonCollegeScorecardDB database = new JsonCollegeScorecardDB();
 
