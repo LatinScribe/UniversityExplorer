@@ -6,7 +6,7 @@ import entity.University;
 import java.util.List;
 
 public class SearchState {
-    private String searchCriteria;
+    private String searchCriteria = "";
     private String searchError = null;
     private List<University> universities = null;
 
