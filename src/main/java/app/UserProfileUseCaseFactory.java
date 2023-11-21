@@ -1,55 +1,42 @@
 package app;
 
 import data_access.ProfileDataAccessInterface;
-import data_access.ServerProfileDataAccessObject;
-import data_access.ServerUserDataAccessObject;
-import entity.UserPreferencesFactory;
 import interface_adapter.ViewManagerModel;
 import interface_adapter.user_profiles.UserProfilePresenter;
 import interface_adapter.user_profiles.UserProfileViewModel;
 import interface_adapter.user_profiles.UserProfileController;
-import use_case.user_profile.UserProfileDataAccessInterface;
-import use_case.user_profile.UserProfileInputBoundary;
 import use_case.user_profile.UserProfileInteractor;
-import use_case.user_profile.UserProfileOutputBoundary;
 import view.UserProfileView;
-import view.ViewManager;
 
 import javax.swing.*;
 import java.io.IOException;
 
 public class UserProfileUseCaseFactory {
 
-    /**
-     * Prevent instantiation.
-     */
-    private UserProfileUseCaseFactory() {
-    }
+    private UserProfileUseCaseFactory() {}
 
-    private static UserProfileController createUserProfileUseCase(ViewManagerModel viewManager, UserProfileViewModel userProfileViewModel, ServerProfileDataAccessObject serverProfileDataAccessObject) throws IOException {
+    private static UserProfileController createUserProfileUseCase(
+            ViewManagerModel viewManager,
+            UserProfileViewModel userProfileViewModel,
+            ProfileDataAccessInterface profileDataAccessInterface) throws IOException {
 
-//    private static UserProfileController createUserProfileUseCase(ViewManager viewManager, UserProfileViewModel userProfileViewModel,
-//            UserProfileDataAccessInterface userProfileDataAccessInterface, UserProfileOutputBoundary userProfileOutputBoundary,
-//            UserPreferencesFactory userPreferencesFactory) throws IOException {
-
-        // Assume UserProfilePresenter implements UserProfileOutputBoundary
-        // TODO: Remove redundant inputs for createUserProfile - userPreferencesFactory, DAO, etc
-        UserProfileOutputBoundary userProfilePresenter = new UserProfilePresenter(viewManager, userProfileViewModel);
-
-        UserProfileInputBoundary userProfileInteractor = new UserProfileInteractor(userProfilePresenter, serverProfileDataAccessObject);
+        UserProfilePresenter userProfilePresenter = new UserProfilePresenter(viewManager, userProfileViewModel);
+        UserProfileInteractor userProfileInteractor = new UserProfileInteractor(userProfilePresenter, profileDataAccessInterface);
 
         return new UserProfileController(userProfileInteractor);
     }
 
-    public static UserProfileView create(ViewManagerModel viewManager, UserProfileViewModel userProfileViewModel, ServerProfileDataAccessObject serverProfileDataAccessObject) {
+    public static UserProfileView create(
+            ViewManagerModel viewManager,
+            UserProfileViewModel userProfileViewModel,
+            ProfileDataAccessInterface profileDataAccessInterface) {
 
         try {
-            UserProfileController userProfileController = createUserProfileUseCase(viewManager, userProfileViewModel, serverProfileDataAccessObject);
+            UserProfileController userProfileController = createUserProfileUseCase(viewManager, userProfileViewModel, profileDataAccessInterface);
             return new UserProfileView(userProfileViewModel, userProfileController);
         } catch (IOException e) {
             JOptionPane.showMessageDialog(null, "Could not open user data file.");
+            return null;
         }
-
-        return null;
     }
 }
