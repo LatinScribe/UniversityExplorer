@@ -21,6 +21,11 @@ public class MockUserProfileInputBoundary implements UserProfileInputBoundary {
         System.out.println("University Ranking Range: " + Arrays.toString(universityRankingRange));
     }
 
+    @Override
+    public void fetchUserProfileData() {
+
+    }
+
     public void showPersonalProfileView() {
         System.out.println("Mock showPersonalProfileView called.");
     }

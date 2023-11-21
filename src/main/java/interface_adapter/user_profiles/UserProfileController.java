@@ -41,7 +41,7 @@ public class UserProfileController {
             throw new IllegalArgumentException("University ranking range cannot be null or empty.");
         }
 
-        // Call the use case layer to update the user profile
+        // Call the use case layer/interactor to update the user profile
         userProfileInputBoundary.updateUserProfile(finAidRequirement, avgSalary, locationPreference,
                 preferredProgram, universityRankingRange);
     }
@@ -54,5 +54,9 @@ public class UserProfileController {
     }
 
     public void updateUserProfile(int finAidRequirement, int avgSalary) {
+    }
+
+    public void getProfile() {
+        userProfileInputBoundary.fetchUserProfileData();
     }
 }

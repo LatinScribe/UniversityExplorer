@@ -11,18 +11,13 @@ public class UserProfilePresenter implements UserProfileOutputBoundary {
 
     private final UserProfileViewModel userProfileViewModel;
 
+
     // TODO: Need to add other views and viewmodels here
 
 
     public UserProfilePresenter(ViewManagerModel viewManagerModel, UserProfileViewModel userProfileViewModel) {
         this.viewManagerModel = viewManagerModel;
         this.userProfileViewModel = userProfileViewModel;
-
-    }
-
-    private UserProfileOutputData getCurrentUserProfileData() {
-        return null;
-        // TODO: call the interactor here to get saved user data
 
     }
 

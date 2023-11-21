@@ -8,4 +8,6 @@ public interface UserProfileInputBoundary {
 
     void updateUserProfile(int finAidRequirement, int avgSalary, String locationPreference, String preferredProgram,
                            Integer[] universityRankingRange);
+
+    void fetchUserProfileData();
 }

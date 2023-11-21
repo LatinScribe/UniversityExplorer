@@ -1,6 +1,7 @@
 package use_case.user_profile;
 
 import data_access.ProfileDataAccessInterface;
+import entity.UserPreferences;
 
 import java.awt.color.ProfileDataException;
 import java.io.IOException;
@@ -9,6 +10,7 @@ import java.lang.reflect.Array;
 public class UserProfileInteractor implements UserProfileInputBoundary{
 
     final UserProfileOutputBoundary userProfileOutputBoundary;
+    // UserProfilePresenter implements this and will be the primary function called
 
     final ProfileDataAccessInterface profileDataAccessInterface;
 
@@ -35,5 +37,16 @@ public class UserProfileInteractor implements UserProfileInputBoundary{
             throw new RuntimeException(e);
             // TODO: Make this error more descriptive
         }
+    }
+
+    @Override
+    public void fetchUserProfileData() {
+        try {
+            UserProfileOutputData userProfileData = profileDataAccessInterface.getProfile();
+            userProfileOutputBoundary.presentUserProfile(userProfileData);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
     }
 }
