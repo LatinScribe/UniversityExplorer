@@ -2,6 +2,8 @@
 package view;
 
 //import app.SearchUseCaseFactory;
+import app.SearchUseCaseFactory;
+import data_access.SearchDataAccessObject;
 import data_access.ServerUserDataAccessObject;
 import entity.ExistingCommonUserFactory;
 import interface_adapter.ViewManagerModel;
@@ -55,7 +57,7 @@ public class SubView extends JPanel implements ActionListener, PropertyChangeLis
                         if (evt.getSource().equals(recommendation)) {
                             // System.out.println("Recommendation Button pressed");
                             // subViewPresenter.prepareApplyView();
-                            subViewController.execute("search");
+                            subViewController.execute("recommendation");
                         }
                     }
                 }
@@ -67,7 +69,7 @@ public class SubView extends JPanel implements ActionListener, PropertyChangeLis
                         if (evt.getSource().equals(search)) {
                             // System.out.println("Search Button pressed");
                             // subViewPresenter.prepareSearchView();
-                            subViewController.execute("recommendation");
+                            subViewController.execute("search");
                         }
                     }
                 }
@@ -80,13 +82,14 @@ public class SubView extends JPanel implements ActionListener, PropertyChangeLis
     public void actionPerformed(ActionEvent evt) {
         System.out.println("Click " + evt.getActionCommand());
     }
+
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
         SubViewState state = (SubViewState) evt.getNewValue();
         // setFields(state);
     }
 
-   /* public static void main(String[] args) {
+    public static void main(String[] args) {
         JFrame application = new JFrame("Sub menu Test");
         application.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
@@ -109,20 +112,14 @@ public class SubView extends JPanel implements ActionListener, PropertyChangeLis
 
         views.add(subView, subView.viewName);
 
-        // add apply and search Views
-//        ServerUserDataAccessObject userDataAccessObject = new ServerUserDataAccessObject(new ExistingCommonUserFactory());
-//        SearchUserDataAccessInterface userSearchData = new SearchUserDataAccessInterface() {
-//            @Override
-//            public JSONObject basicQuery(String queryParameters, String optionalParameters) {
-//                return null;
-//            }
-//        };
+        // add apply and search Views7
+        SearchUserDataAccessInterface searchUserDataAccessInterface = new SearchDataAccessObject();
+        // ServerUserDataAccessObject userDataAccessObject = new ServerUserDataAccessObject(new ExistingCommonUserFactory());
+        SearchView searchView = SearchUseCaseFactory.create(viewManagerModel, searchViewModel, subViewModel, searchUserDataAccessInterface);
+        views.add(searchView, searchView.viewName);
 
-//        SearchView searchView = SearchUseCaseFactory.create(viewManagerModel, searchViewModel, userSearchData);
-//        assert searchView != null;
-//        views.add(searchView, searchView.viewName);
         ApplyInputBoundary applyUseCaseInteractor = null;
-        ApplyController applyController = new ApplyController(applyViewModel, applyUseCaseInteractor);
+        ApplyController applyController = new ApplyController(applyUseCaseInteractor);
         Applyview applyView = new Applyview(applyController, applyViewModel);
         views.add(applyView, applyView.viewName);
 
@@ -130,6 +127,6 @@ public class SubView extends JPanel implements ActionListener, PropertyChangeLis
         viewManagerModel.firePropertyChanged();
 
         application.pack();
-        application.setVisible(true);*/
+        application.setVisible(true);
     }
-
+}
