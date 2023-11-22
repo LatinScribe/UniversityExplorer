@@ -2,9 +2,12 @@
 
 package app;
 
+import data_access.ApplyDataAccessObject;
 import data_access.FileTokenDataAccessObject;
 import data_access.ServerUserDataAccessObject;
+import entity.CommonUniversityFactory;
 import entity.ExistingCommonUserFactory;
+import entity.UniversityFactory;
 import entity.User;
 import interface_adapter.ViewManagerModel;
 import interface_adapter.logged_in.LoggedInController;
@@ -22,6 +25,7 @@ import interface_adapter.user_profiles.UserProfileViewModel;
 import interface_adapter.sub_menu.SubViewController;
 import interface_adapter.sub_menu.SubViewModel;
 import interface_adapter.sub_menu.SubViewPresenter;
+import use_case.apply.ApplyDataAccessInterface;
 import use_case.apply.ApplyInputBoundary;
 import use_case.sub_menu.SubViewInputBoundary;
 import use_case.sub_menu.SubViewInteractor;
@@ -100,9 +104,11 @@ public class Main {
         views.add(subView, subView.viewName);
 
         // add apply view
-        ApplyInputBoundary applyUseCaseInteractor = null;
-        ApplyController applyController = new ApplyController(applyViewModel, applyUseCaseInteractor);
-        Applyview applyView = new Applyview(applyController, applyViewModel);
+        ApplyDataAccessInterface applyUserDataAccessObject = new ApplyDataAccessObject();
+        UniversityFactory shortUniversityFactory = new CommonUniversityFactory();
+        Applyview applyView = ApplyUseCaseFactory.create(viewManagerModel,applyViewModel,applyUserDataAccessObject,shortUniversityFactory);
+        //ApplyController applyController = new ApplyController( applyUseCaseInteractor);
+        //Applyview applyView = new Applyview(applyController, applyViewModel);
         views.add(applyView, applyView.viewName);
 
         viewManagerModel.setActiveView(mainMenuView.viewName);
