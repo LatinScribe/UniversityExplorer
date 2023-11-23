@@ -16,7 +16,7 @@ public class ServerProfileDataAccessObject implements ProfileDataAccessInterface
     }
 
     @Override
-    public String saveProfile(int finAidReq, String prefProg, int avgSalary, int uniRankingRange, String locationPref) throws IOException {
+    public String saveProfile(int finAidReq, String prefProg, int avgSalary, Integer[] uniRankingRange, String locationPref) throws IOException {
         OkHttpClient client = new OkHttpClient().newBuilder()
                 .build();
         MediaType mediaType = MediaType.parse("application/json");
@@ -53,7 +53,7 @@ public class ServerProfileDataAccessObject implements ProfileDataAccessInterface
     }
 
     @Override
-    public String updateProfile(int finAidReq, String prefProg, int avgSalary, int uniRankingRange, String locationPref) throws IOException {
+    public String updateProfile(int finAidReq, String prefProg, int avgSalary, Integer[] uniRankingRange, String locationPref) throws IOException {
         OkHttpClient client = new OkHttpClient().newBuilder()
                 .build();
         MediaType mediaType = MediaType.parse("application/json");

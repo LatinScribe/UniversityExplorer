@@ -31,6 +31,12 @@ public class UserProfileView extends JPanel implements ActionListener, PropertyC
     final JButton editProfile;
     final JButton save;
 
+    private JLabel finAidRequirementValue;
+    private JLabel avgSalaryValue;
+    private JLabel locationPreferenceValue;
+    private JLabel preferredProgramValue;
+    private JLabel universityRankingRangeValue;
+
     private final JTextField finAidRequirementField;
     private final JTextField avgSalaryField;
     private final JTextField locationPreferenceField;
@@ -75,6 +81,18 @@ public class UserProfileView extends JPanel implements ActionListener, PropertyC
         JPanel viewPanel = new JPanel(); // Panel for non-editable view
         JPanel editPanel = new JPanel(); // Panel for editable view
 
+        finAidRequirementValue = new JLabel();
+        avgSalaryValue = new JLabel();
+        locationPreferenceValue = new JLabel();
+        preferredProgramValue = new JLabel();
+        universityRankingRangeValue = new JLabel();
+
+        viewPanel.add(finAidRequirementValue);
+        viewPanel.add(avgSalaryValue);
+        viewPanel.add(locationPreferenceValue);
+        viewPanel.add(preferredProgramValue);
+        viewPanel.add(universityRankingRangeValue);
+
 
         finAidRequirementField = new JTextField(10);
         avgSalaryField = new JTextField(10);
@@ -84,6 +102,8 @@ public class UserProfileView extends JPanel implements ActionListener, PropertyC
 
         viewPanel.add(profile);
         viewPanel.add(editProfile);
+
+        // TODO - implement the view so that users can see what they've already input or blank if they haven't
 
         // Add fields for editing
         editPanel.add(finAidRequirementField);
@@ -105,15 +125,13 @@ public class UserProfileView extends JPanel implements ActionListener, PropertyC
         // Add the cards panel to the UserProfileView
         this.add(cards);
 
-        // Add new fields to the panel or a specific layout
-        // Example: this.add(finAidRequirementField);
-
         setEditMode(false); // Initially set to view mode
 
-        profile.addActionListener(                // This creates an anonymous subclass of ActionListener and instantiates it.
+        profile.addActionListener(
                 new ActionListener() {
                     public void actionPerformed(ActionEvent evt) {
                         if (evt.getSource().equals(profile)) {
+                            userProfileController.getProfile();
                             CardLayout c1 = (CardLayout) (cards.getLayout());
                             c1.show(cards, "View");
                         }
@@ -155,8 +173,6 @@ public class UserProfileView extends JPanel implements ActionListener, PropertyC
             }
         });
 
-        // TODO: Finish implementation of different edit structure and remove editProfile classes/functions
-
 
         this.add(title);
         this.add(buttons);
@@ -166,8 +182,21 @@ public class UserProfileView extends JPanel implements ActionListener, PropertyC
     private void setEditMode(boolean editable) {
         CardLayout cardLayout = (CardLayout) (this.cards.getLayout());
         if (editable) {
+            UserProfileState state = userProfileViewModel.getState();
+            finAidRequirementField.setText(state.getFinAidRequirement() != null ? String.valueOf(state.getFinAidRequirement()) : "");
+            avgSalaryField.setText(state.getAvgSalary() != null ? String.valueOf(state.getAvgSalary()) : "");
+            locationPreferenceField.setText(state.getLocationPreference() != null ? state.getLocationPreference() : "");
+            preferredProgramField.setText(state.getPreferredProgram() != null ? state.getPreferredProgram() : "");
+            // Set universityRankingRangeField by parsing the array and representing it as a string
+            Integer[] universityRankingRange = state.getUniversityRankingRange();
+            if (universityRankingRange != null && universityRankingRange.length > 0) {
+                universityRankingRangeField.setText(Arrays.stream(universityRankingRange)
+                        .map(Object::toString)
+                        .collect(Collectors.joining(", ")));
+            } else {
+                universityRankingRangeField.setText("");
+            }
             cardLayout.show(this.cards, "Edit");
-            // Populate the edit fields with current state if necessary
         } else {
             cardLayout.show(this.cards, "View");
         }
@@ -179,42 +208,56 @@ public class UserProfileView extends JPanel implements ActionListener, PropertyC
     public void actionPerformed(ActionEvent e) {
         System.out.println("Button Clicked" + e.getActionCommand());
         if (e.getSource() == save) {
-            // Update UserProfileState with new values
-            int finAidRequirement = Integer.parseInt(finAidRequirementField.getText());
-            int avgSalary = Integer.parseInt(avgSalaryField.getText());
-            //... parse and set other fields ...
+            try {
+                // Parse integer fields
+                int finAidRequirement = Integer.parseInt(finAidRequirementField.getText());
+                int avgSalary = Integer.parseInt(avgSalaryField.getText());
 
-            // Invoke controller method to save changes
-            userProfileController.updateUserProfile(
-                    finAidRequirement, avgSalary);
+                // Parse string fields
+                String locationPreference = locationPreferenceField.getText();
+                String preferredProgram = preferredProgramField.getText();
 
-            setEditMode(false); // Switch back to view mode after saving
+                // Parse the university ranking range
+                Integer[] universityRankingRange = Arrays.stream(universityRankingRangeField.getText().split(","))
+                        .map(String::trim)
+                        .filter(str -> !str.isEmpty())
+                        .map(Integer::parseInt)
+                        .toArray(Integer[]::new);
 
+                // Invoke controller method to save changes
+                userProfileController.updateUserProfile(
+                        finAidRequirement, avgSalary, locationPreference, preferredProgram, universityRankingRange);
 
-            // need to figure how to properly initialize this event in the listener above - need the use case implemented
+                setEditMode(false); // Switch back to view mode after saving
+            } catch (NumberFormatException ex) {
+                // Handle invalid input format
+                JOptionPane.showMessageDialog(this, "Invalid input format. Please check your inputs.", "Error", JOptionPane.ERROR_MESSAGE);
+            }
         }
     }
 
 
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
-        // Check if the property name is "state" which indicates a change in UserProfileState
+        // Check if the property change event is for the state of the user profile
         if ("state".equals(evt.getPropertyName())) {
+            // Retrieve the updated state
             UserProfileState state = (UserProfileState) evt.getNewValue();
 
-            // Update the view components based on the new state
-            // ... update other fields ...
+            // Update the labels with the new state values
+            finAidRequirementValue.setText(state.getFinAidRequirement() != null ? String.valueOf(state.getFinAidRequirement()) : "Not Set");
+            avgSalaryValue.setText(state.getAvgSalary() != null ? String.valueOf(state.getAvgSalary()) : "Not Set");
+            locationPreferenceValue.setText(state.getLocationPreference() != null ? state.getLocationPreference() : "Not Set");
+            preferredProgramValue.setText(state.getPreferredProgram() != null ? state.getPreferredProgram() : "Not Set");
 
-            // Handle the universityRankingRange array using reflection
-            Object universityRankingRange = state.getUniversityRankingRange();
-
-            if (universityRankingRange != null && Array.getLength(universityRankingRange) > 0) {
-                // Use IntStream.range() to iterate over the array indices, then map to Object and to String
-                universityRankingRangeField.setText(IntStream.range(0, Array.getLength(universityRankingRange))
-                        .mapToObj(idx -> Array.get(universityRankingRange, idx).toString()) // Convert each item to String
+            // Handle the universityRankingRange array
+            Integer[] universityRankingRange = state.getUniversityRankingRange();
+            if (universityRankingRange != null && universityRankingRange.length > 0) {
+                universityRankingRangeValue.setText(Arrays.stream(universityRankingRange)
+                        .map(Object::toString)
                         .collect(Collectors.joining(", ")));
             } else {
-                universityRankingRangeField.setText("");
+                universityRankingRangeValue.setText("Not Set");
             }
         }
     }
