@@ -12,6 +12,7 @@ import use_case.user_profile.UserProfileInputBoundary;
 import use_case.user_profile.UserProfileInteractor;
 import view.UserProfileView;
 
+/*
 public class UserProfileViewTest {
 
     public static void main(String[] args) {
@@ -33,3 +34,4 @@ public class UserProfileViewTest {
         frame.setVisible(true);
     }
 }
+*/
