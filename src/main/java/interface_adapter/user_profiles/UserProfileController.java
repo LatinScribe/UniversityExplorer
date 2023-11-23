@@ -22,7 +22,7 @@ public class UserProfileController {
     }
 
     public void updateUserProfile(int finAidRequirement, int avgSalary, String locationPreference,
-                                  String preferredProgram, Integer[] universityRankingRange)
+                                  String preferredProgram, int[] universityRankingRange)
             throws IllegalArgumentException {
         // Input validation
         if (finAidRequirement < 0) {
@@ -47,7 +47,7 @@ public class UserProfileController {
     }
 
     public void switchToPersonalProfile(int finAidRequirement, int avgSalary, String locationPreference,
-                                        String preferredProgram, Integer[] universityRankingRange) {
+                                        String preferredProgram, int[] universityRankingRange) {
         UserProfileOutputData userProfileOutputData = new UserProfileOutputData(finAidRequirement, avgSalary, locationPreference,
                 preferredProgram, universityRankingRange);
         this.userProfileInputBoundary.showPersonalProfileView(userProfileOutputData);

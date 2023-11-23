@@ -30,7 +30,7 @@ public class UserProfileInteractor implements UserProfileInputBoundary{
     }
 
     @Override
-    public void updateUserProfile(int finAidRequirement, int avgSalary, String locationPreference, String preferredProgram, Integer[] universityRankingRange) {
+    public void updateUserProfile(int finAidRequirement, int avgSalary, String locationPreference, String preferredProgram, int[] universityRankingRange) {
         try {
             this.profileDataAccessInterface.updateProfile(finAidRequirement, preferredProgram, avgSalary, universityRankingRange, locationPreference);
         } catch (IOException e) {
@@ -42,7 +42,8 @@ public class UserProfileInteractor implements UserProfileInputBoundary{
     @Override
     public void fetchUserProfileData() {
         try {
-            UserProfileOutputData userProfileData = profileDataAccessInterface.getProfile();
+            UserPreferences userProfilePreferences = profileDataAccessInterface.getProfile();
+            UserProfileOutputData userProfileData = new UserProfileOutputData(userProfilePreferences.getFinAidRequirement(), userProfilePreferences.getAvgSalary(), userProfilePreferences.getLocationPreference(), userProfilePreferences.getPreferredProgram(), userProfilePreferences.getUniversityRankingRange());
             userProfileOutputBoundary.presentUserProfile(userProfileData);
         } catch (IOException e) {
             throw new RuntimeException(e);
