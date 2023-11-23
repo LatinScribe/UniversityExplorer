@@ -163,6 +163,8 @@ public class UserProfileView extends JPanel implements ActionListener, PropertyC
                     userProfileController.updateUserProfile(
                             finAidRequirement, avgSalary, locationPreference, preferredProgram, universityRankingRange);
 
+                    // TODO - determine whether to use Array or Integer[]
+
                     setEditMode(false); // Switch back to view mode after saving
                 } catch (NumberFormatException ex) {
                     // Handle invalid input format

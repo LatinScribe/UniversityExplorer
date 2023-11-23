@@ -7,4 +7,6 @@ public interface SearchOutputBoundary {
 
     void prepareResultsNotFoundView(String error);
 
+    void prepareBackView();
+
 }

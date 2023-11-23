@@ -21,6 +21,12 @@ public class UserProfilePresenter implements UserProfileOutputBoundary {
 
     }
 
+//     private UserProfileOutputData getCurrentUserProfileData() {
+//         return null;
+//         // TODO: call the interactor here to get saved user data (maybe delete this)
+
+//     }
+
     @Override
     public void presentUserProfile(UserProfileOutputData userProfileOutputData) {
         // Convert output data to view model state and update the view model
