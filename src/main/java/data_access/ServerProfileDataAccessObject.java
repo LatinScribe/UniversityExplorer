@@ -7,6 +7,7 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class ServerProfileDataAccessObject implements ProfileDataAccessInterface{
     private final TokenDataAccessInterface tokenDataAccessInterface;
@@ -16,7 +17,10 @@ public class ServerProfileDataAccessObject implements ProfileDataAccessInterface
     }
 
     @Override
-    public String saveProfile(int finAidReq, String prefProg, int avgSalary, int uniRankingRange, String locationPref) throws IOException {
+    public String saveProfile(int finAidReq, String prefProg, int avgSalary, int[] uniRankingRange, String locationPref) throws IOException {
+        if (uniRankingRange.length != 2) {
+            throw new IOException("saveProfile expected 2 elements in uniRankingRange");
+        }
         OkHttpClient client = new OkHttpClient().newBuilder()
                 .build();
         MediaType mediaType = MediaType.parse("application/json");
@@ -25,7 +29,8 @@ public class ServerProfileDataAccessObject implements ProfileDataAccessInterface
         requestBody.put("finAidReq", finAidReq);
         requestBody.put("prefProg", prefProg);
         requestBody.put("avgSalary", avgSalary);
-        requestBody.put("uniRankingRange", uniRankingRange);
+        requestBody.put("uniRankingRangeStart", uniRankingRange[0]);
+        requestBody.put("uniRankingRangeEnd", uniRankingRange[1]);
         requestBody.put("locationPref", locationPref);
         RequestBody body = RequestBody.create(mediaType, requestBody.toString());
         Request request = new Request.Builder()
@@ -53,7 +58,11 @@ public class ServerProfileDataAccessObject implements ProfileDataAccessInterface
     }
 
     @Override
-    public String updateProfile(int finAidReq, String prefProg, int avgSalary, int uniRankingRange, String locationPref) throws IOException {
+    public String updateProfile(int finAidReq, String prefProg, int avgSalary, int[] uniRankingRange, String locationPref) throws IOException {
+        if (uniRankingRange.length != 2) {
+            throw new IOException("saveProfile expected 2 elements in uniRankingRange");
+        }
+
         OkHttpClient client = new OkHttpClient().newBuilder()
                 .build();
         MediaType mediaType = MediaType.parse("application/json");
@@ -62,7 +71,8 @@ public class ServerProfileDataAccessObject implements ProfileDataAccessInterface
         requestBody.put("finAidReq", finAidReq);
         requestBody.put("prefProg", prefProg);
         requestBody.put("avgSalary", avgSalary);
-        requestBody.put("uniRankingRange", uniRankingRange);
+        requestBody.put("uniRankingRangeStart", uniRankingRange[0]);
+        requestBody.put("uniRankingRangeEnd", uniRankingRange[1]);
         requestBody.put("locationPref", locationPref);
         RequestBody body = RequestBody.create(mediaType, requestBody.toString());
         Request request = new Request.Builder()
@@ -110,9 +120,9 @@ public class ServerProfileDataAccessObject implements ProfileDataAccessInterface
 //                        .course(grade.getString("course"))
 //                        .grade(grade.getInt("grade"))
 //                        .build();
-                ArrayList<Integer> myArray = new ArrayList<>();
-                myArray.add(responseBody.getInt("uniRankingRange"));
-                UserPreferences userPreferences = new UserPreferences(responseBody.getInt("finAidReq"), responseBody.getString("prefProg"), responseBody.getInt("avgSalary"), myArray,responseBody.getString("locationPref"));
+                int[] uniRankingRange = {responseBody.getInt("uniRankingRangeStart"), responseBody.getInt("uniRankingRangeEnd")};
+
+                UserPreferences userPreferences = new UserPreferences(responseBody.getInt("finAidReq"), responseBody.getString("prefProg"), responseBody.getInt("avgSalary"), uniRankingRange,responseBody.getString("locationPref"));
                 return  userPreferences;
             } else {
                 throw new RuntimeException(responseBody.getString("message"));
@@ -127,9 +137,14 @@ public class ServerProfileDataAccessObject implements ProfileDataAccessInterface
         FileTokenDataAccessObject fileTokenDataAccessObject = new FileTokenDataAccessObject();
         ServerProfileDataAccessObject db = new ServerProfileDataAccessObject(fileTokenDataAccessObject);
 //        db.saveProfile(20000, "commerce", 100000, 5, "Boston");
-        db.updateProfile( 100000, "compsci", 100000, 10, "New York");
+        db.updateProfile( 100000, "compsci", 100000, new int[]{1,2}, "New York");
 
         UserPreferences userPreferences = db.getProfile();
+        System.out.println("finaid: " + userPreferences.getFinAidRequirement());
+        System.out.println("prefProg: " + userPreferences.getPreferredProgram());
+        System.out.println("avgSal: " + userPreferences.getAvgSalary());
+        System.out.println("RankingRange: " + Arrays.toString(userPreferences.getUniversityRankingRange()));
+        System.out.println("locPref: " + userPreferences.getLocationPreference());
         System.out.println(userPreferences);
     }
 }
