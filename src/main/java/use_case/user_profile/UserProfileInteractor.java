@@ -3,9 +3,7 @@ package use_case.user_profile;
 import data_access.ProfileDataAccessInterface;
 import entity.UserPreferences;
 
-import java.awt.color.ProfileDataException;
 import java.io.IOException;
-import java.lang.reflect.Array;
 
 public class UserProfileInteractor implements UserProfileInputBoundary{
 
@@ -30,7 +28,7 @@ public class UserProfileInteractor implements UserProfileInputBoundary{
     }
 
     @Override
-    public void updateUserProfile(int finAidRequirement, int avgSalary, String locationPreference, String preferredProgram, Integer[] universityRankingRange) {
+    public void updateUserProfile(int finAidRequirement, int avgSalary, String locationPreference, String preferredProgram, int[] universityRankingRange) {
         try {
             this.profileDataAccessInterface.updateProfile(finAidRequirement, preferredProgram, avgSalary, universityRankingRange, locationPreference);
         } catch (IOException e) {
@@ -42,7 +40,10 @@ public class UserProfileInteractor implements UserProfileInputBoundary{
     @Override
     public void fetchUserProfileData() {
         try {
-            UserProfileOutputData userProfileData = profileDataAccessInterface.getProfile();
+            UserPreferences userPreferences = profileDataAccessInterface.getProfile();
+            UserProfileOutputData userProfileData = new UserProfileOutputData(userPreferences.getFinAidRequirement(), userPreferences.getAvgSalary(),
+                    userPreferences.getLocationPreference(), userPreferences.getPreferredProgram(), userPreferences.getUniversityRankingRange());
+
             userProfileOutputBoundary.presentUserProfile(userProfileData);
         } catch (IOException e) {
             throw new RuntimeException(e);

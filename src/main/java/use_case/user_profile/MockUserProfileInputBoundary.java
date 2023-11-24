@@ -1,6 +1,5 @@
 package use_case.user_profile;
 
-import java.lang.reflect.Array;
 import java.util.Arrays;
 
 // Mock implementation for testing
@@ -12,7 +11,7 @@ public class MockUserProfileInputBoundary implements UserProfileInputBoundary {
 
     @Override
     public void updateUserProfile(int finAidRequirement, int avgSalary, String locationPreference,
-                                  String preferredProgram, Integer[] universityRankingRange) {
+                                  String preferredProgram, int[] universityRankingRange) {
         System.out.println("Mock updateUserProfile called with:");
         System.out.println("Financial Aid Requirement: " + finAidRequirement);
         System.out.println("Average Salary: " + avgSalary);

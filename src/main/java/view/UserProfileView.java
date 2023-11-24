@@ -154,11 +154,11 @@ public class UserProfileView extends JPanel implements ActionListener, PropertyC
                     String locationPreference = locationPreferenceField.getText();
                     String preferredProgram = preferredProgramField.getText();
                     // Parse the comma-separated string back into an array
-                    Integer[] universityRankingRange = Arrays.stream(universityRankingRangeField.getText().split(","))
+                    int[] universityRankingRange = Arrays.stream(universityRankingRangeField.getText().split(","))
                             .map(String::trim)
                             .filter(str -> !str.isEmpty())
-                            .map(Integer::parseInt)
-                            .toArray(Integer[]::new);
+                            .mapToInt(Integer::parseInt) // Use mapToInt instead of map
+                            .toArray(); // Convert to int[] directly
 
                     userProfileController.updateUserProfile(
                             finAidRequirement, avgSalary, locationPreference, preferredProgram, universityRankingRange);
@@ -188,10 +188,10 @@ public class UserProfileView extends JPanel implements ActionListener, PropertyC
             locationPreferenceField.setText(state.getLocationPreference() != null ? state.getLocationPreference() : "");
             preferredProgramField.setText(state.getPreferredProgram() != null ? state.getPreferredProgram() : "");
             // Set universityRankingRangeField by parsing the array and representing it as a string
-            Integer[] universityRankingRange = state.getUniversityRankingRange();
+            int[] universityRankingRange = state.getUniversityRankingRange();
             if (universityRankingRange != null && universityRankingRange.length > 0) {
                 universityRankingRangeField.setText(Arrays.stream(universityRankingRange)
-                        .map(Object::toString)
+                        .mapToObj(String::valueOf) // Convert each int to String
                         .collect(Collectors.joining(", ")));
             } else {
                 universityRankingRangeField.setText("");
@@ -218,11 +218,11 @@ public class UserProfileView extends JPanel implements ActionListener, PropertyC
                 String preferredProgram = preferredProgramField.getText();
 
                 // Parse the university ranking range
-                Integer[] universityRankingRange = Arrays.stream(universityRankingRangeField.getText().split(","))
+                int[] universityRankingRange = Arrays.stream(universityRankingRangeField.getText().split(","))
                         .map(String::trim)
                         .filter(str -> !str.isEmpty())
-                        .map(Integer::parseInt)
-                        .toArray(Integer[]::new);
+                        .mapToInt(Integer::parseInt) // Convert to int
+                        .toArray();
 
                 // Invoke controller method to save changes
                 userProfileController.updateUserProfile(
@@ -251,10 +251,10 @@ public class UserProfileView extends JPanel implements ActionListener, PropertyC
             preferredProgramValue.setText(state.getPreferredProgram() != null ? state.getPreferredProgram() : "Not Set");
 
             // Handle the universityRankingRange array
-            Integer[] universityRankingRange = state.getUniversityRankingRange();
+            int[] universityRankingRange = state.getUniversityRankingRange();
             if (universityRankingRange != null && universityRankingRange.length > 0) {
                 universityRankingRangeValue.setText(Arrays.stream(universityRankingRange)
-                        .map(Object::toString)
+                        .mapToObj(String::valueOf) // Convert each int to String
                         .collect(Collectors.joining(", ")));
             } else {
                 universityRankingRangeValue.setText("Not Set");
