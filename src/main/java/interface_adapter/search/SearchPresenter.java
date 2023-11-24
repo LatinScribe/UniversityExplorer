@@ -45,7 +45,7 @@ public class SearchPresenter implements SearchOutputBoundary {
     public void prepareBackView() {
         SubViewState subViewState = subViewModel.getState();
         this.subViewModel.setState(subViewState);
-        subViewModel.firePropertyChanged();
+        this.subViewModel.firePropertyChanged();
 
         viewManagerModel.setActiveView(subViewModel.getViewName());
         viewManagerModel.firePropertyChanged();

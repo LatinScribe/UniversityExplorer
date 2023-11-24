@@ -72,7 +72,6 @@ public class SearchView extends JPanel implements ActionListener, PropertyChange
                     public void actionPerformed(ActionEvent evt) {
                         if (evt.getSource().equals(back)) {
                             System.out.println("Back pressed");
-                            SearchState currentState = searchViewModel.getState();
                             searchController.executeBack();
                         }
                     }
@@ -116,14 +115,16 @@ public class SearchView extends JPanel implements ActionListener, PropertyChange
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
         String y = evt.getPropertyName();
-        if (y.equals("state")) {
+        if (y.equals("success")) {
             // Results View Not implemented yet, will be implemented soon.
             SearchState state = (SearchState) evt.getNewValue();
-            JOptionPane.showMessageDialog(this, state.getUniversities());
-        } else {
+        } else if (y.equals("failure")){
             SearchState state = (SearchState) evt.getNewValue();
             JOptionPane.showMessageDialog(this, state.getSearchError());
             state.setSearchError(null);
+        } else {
+            SearchState state = (SearchState) evt.getNewValue();
+            JOptionPane.showMessageDialog(this, state.getUniversities());
         }
     }
 
@@ -136,12 +137,16 @@ public class SearchView extends JPanel implements ActionListener, PropertyChange
         application.add(views);
 
         ViewManagerModel viewManagerModel = new ViewManagerModel();
+        new ViewManager(views, cardLayout, viewManagerModel);
         SearchViewModel searchViewModel = new SearchViewModel();
         SearchUserDataAccessInterface searchDataAccessObject = new SearchDataAccessObject();
         SubViewModel subViewModel = new SubViewModel();
         SearchView searchView = SearchUseCaseFactory.create(viewManagerModel, searchViewModel, subViewModel, searchDataAccessObject);
 
         views.add(searchView, searchView.viewName);
+
+        viewManagerModel.setActiveView(searchView.viewName);
+        viewManagerModel.firePropertyChanged();
 
         application.pack();
         application.setVisible(true);
