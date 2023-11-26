@@ -4,16 +4,14 @@ package app;
 
 import data_access.ApplyDataAccessObject;
 import data_access.FileTokenDataAccessObject;
-import data_access.ProfileDataAccessInterface;
 import data_access.ServerProfileDataAccessObject;
 import data_access.ServerUserDataAccessObject;
 import entity.CommonUniversityFactory;
 import entity.ExistingCommonUserFactory;
+import entity.UserPreferencesFactory;
 import entity.UniversityFactory;
 import entity.User;
 import interface_adapter.ViewManagerModel;
-import interface_adapter.logged_in.LoggedInController;
-import interface_adapter.logged_in.LoggedInPresenter;
 import interface_adapter.apply.ApplyController;
 import interface_adapter.apply.ApplyViewModel;
 import interface_adapter.logged_in.LoggedInViewModel;
@@ -84,7 +82,8 @@ public class Main {
         // create data access objects for this particular implementation
         ServerUserDataAccessObject userDataAccessObject = new ServerUserDataAccessObject(new ExistingCommonUserFactory());
         FileTokenDataAccessObject tokenDataAccessObject = new FileTokenDataAccessObject();
-        ServerProfileDataAccessObject profileDataAccessObject = new ServerProfileDataAccessObject(tokenDataAccessObject);
+        UserPreferencesFactory userPreferencesFactory = new UserPreferencesFactory();
+        ServerProfileDataAccessObject profileDataAccessObject = new ServerProfileDataAccessObject(tokenDataAccessObject, userPreferencesFactory);
 
         // add login, logged in and signup Views
         SignupView signupView = SignupUseCaseFactory.create(viewManagerModel, loginViewModel, signupViewModel, userDataAccessObject, mainMenuViewModel1, tokenDataAccessObject);
