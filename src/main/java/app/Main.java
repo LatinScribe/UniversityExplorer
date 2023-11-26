@@ -2,11 +2,14 @@
 
 package app;
 
+import data_access.ApplyDataAccessObject;
 import data_access.FileTokenDataAccessObject;
 import data_access.ProfileDataAccessInterface;
 import data_access.ServerProfileDataAccessObject;
 import data_access.ServerUserDataAccessObject;
+import entity.CommonUniversityFactory;
 import entity.ExistingCommonUserFactory;
+import entity.UniversityFactory;
 import entity.User;
 import interface_adapter.ViewManagerModel;
 import interface_adapter.logged_in.LoggedInController;
@@ -24,6 +27,7 @@ import interface_adapter.user_profiles.UserProfileViewModel;
 import interface_adapter.sub_menu.SubViewController;
 import interface_adapter.sub_menu.SubViewModel;
 import interface_adapter.sub_menu.SubViewPresenter;
+import use_case.apply.ApplyDataAccessInterface;
 import use_case.apply.ApplyInputBoundary;
 import use_case.sub_menu.SubViewInputBoundary;
 import use_case.sub_menu.SubViewInteractor;
@@ -35,6 +39,17 @@ import javax.swing.*;
 import java.awt.*;
 
 public class Main {
+    /**
+     *
+     * Order views are added in:
+     * 1) MainMenuView
+     * 2) LoginView
+     * 3) SignupView
+     * 4) LoggedInView
+     * 5) UserProfileView
+     * 6) SubView
+     * 7) ApplyView
+     */
     public static void main(String[] args) {
         JFrame application = new JFrame("Main Menu Test");
         application.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -56,7 +71,6 @@ public class Main {
         // create the view models
         LoginViewModel loginViewModel = new LoginViewModel();
         LoggedInViewModel loggedInViewModel = new LoggedInViewModel();
-
         SignupViewModel signupViewModel = new SignupViewModel();
         MainMenuViewModel mainMenuViewModel1 = new MainMenuViewModel();
         SearchViewModel searchViewModel = new SearchViewModel();
@@ -103,9 +117,12 @@ public class Main {
         views.add(subView, subView.viewName);
 
         // add apply view
-        ApplyInputBoundary applyUseCaseInteractor = null;
-        ApplyController applyController = new ApplyController(applyUseCaseInteractor);
-        Applyview applyView = new Applyview(applyController, applyViewModel);
+        ApplyDataAccessInterface applyUserDataAccessObject = new ApplyDataAccessObject();
+        UniversityFactory shortUniversityFactory = new CommonUniversityFactory();
+        Applyview applyView = ApplyUseCaseFactory.create(viewManagerModel,applyViewModel,applyUserDataAccessObject,shortUniversityFactory);
+        //ApplyController applyController = new ApplyController( applyUseCaseInteractor);
+        //Applyview applyView = new Applyview(applyController, applyViewModel);
+
         views.add(applyView, applyView.viewName);
 
         viewManagerModel.setActiveView(mainMenuView.viewName);
