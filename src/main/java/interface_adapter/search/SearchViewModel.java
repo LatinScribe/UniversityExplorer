@@ -17,7 +17,7 @@ public class SearchViewModel extends ViewModel {
     private SearchState state = new SearchState();
 
     public SearchViewModel() {
-        super("Search");
+        super("search");
     }
 
     public void setState(SearchState state) {
@@ -29,6 +29,10 @@ public class SearchViewModel extends ViewModel {
     // This is what the Signup Presenter will call to let the ViewModel know
     // to alert the View
     public void firePropertyChanged() {
+        support.firePropertyChange("change view", null, this.state);
+    }
+
+    public void fireSuccessChange() {
         support.firePropertyChange("successful search", null, this.state);
     }
 

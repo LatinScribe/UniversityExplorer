@@ -7,11 +7,16 @@ import data_access.SearchDataAccessObject;
 import entity.CommonUniversityFactory;
 import entity.UniversityFactory;
 import interface_adapter.ViewManagerModel;
+import interface_adapter.apply.ApplyViewModel;
 import interface_adapter.search.SearchController;
 import interface_adapter.search.SearchViewModel;
 import interface_adapter.search.SearchState;
+import interface_adapter.sub_menu.SubViewController;
 import interface_adapter.sub_menu.SubViewModel;
+import interface_adapter.sub_menu.SubViewPresenter;
 import use_case.search.SearchUserDataAccessInterface;
+import use_case.sub_menu.SubViewInputBoundary;
+import use_case.sub_menu.SubViewInteractor;
 
 import javax.swing.*;
 import java.awt.*;
@@ -115,16 +120,16 @@ public class SearchView extends JPanel implements ActionListener, PropertyChange
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
         String y = evt.getPropertyName();
-        if (y.equals("success")) {
+        if (y.equals("successful search")) {
             // Results View Not implemented yet, will be implemented soon.
             SearchState state = (SearchState) evt.getNewValue();
+            JOptionPane.showMessageDialog(this, state.getUniversities());
         } else if (y.equals("failure")){
             SearchState state = (SearchState) evt.getNewValue();
             JOptionPane.showMessageDialog(this, state.getSearchError());
             state.setSearchError(null);
         } else {
             SearchState state = (SearchState) evt.getNewValue();
-            JOptionPane.showMessageDialog(this, state.getUniversities());
         }
     }
 
@@ -143,7 +148,14 @@ public class SearchView extends JPanel implements ActionListener, PropertyChange
         SubViewModel subViewModel = new SubViewModel();
         SearchView searchView = SearchUseCaseFactory.create(viewManagerModel, searchViewModel, subViewModel, searchDataAccessObject);
 
+        ApplyViewModel applyViewModel = new ApplyViewModel();
+        SubViewPresenter subViewPresenter = new SubViewPresenter(searchViewModel, applyViewModel, viewManagerModel);
+        SubViewInputBoundary subViewInteractor = new SubViewInteractor(subViewPresenter);
+        SubViewController subViewController = new SubViewController(subViewInteractor);
+        SubView subView = new SubView(subViewModel, subViewController);
+
         views.add(searchView, searchView.viewName);
+        views.add(subView, subView.viewName);
 
         viewManagerModel.setActiveView(searchView.viewName);
         viewManagerModel.firePropertyChanged();
