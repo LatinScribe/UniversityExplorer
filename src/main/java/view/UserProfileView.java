@@ -37,7 +37,7 @@ public class UserProfileView extends JPanel implements ActionListener, PropertyC
     private JLabel preferredProgramValue;
     private JLabel universityRankingRangeValue;
 
-    private final JTextField finAidRequirementField;
+    final JTextField finAidRequirementField;
     private final JTextField avgSalaryField;
     private final JTextField locationPreferenceField;
     private final JTextField preferredProgramField;
