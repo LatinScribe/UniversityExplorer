@@ -24,6 +24,24 @@ public class UserPreferences implements UserProfile{
         this.locationPreference = locationPreference;
     }
 
+// <<<<<<< KanishV2
+//     public Integer getFinAidRequirement() {
+//         return finAidRequirement;
+//     }
+
+//     public String getPreferredProgram() {
+//         return preferredProgram;
+//     }
+
+//     public Integer getAvgSalary() {
+//         return avgSalary;
+//     }
+
+//     public int[] getUniversityRankingRange() {
+//         return universityRankingRange;
+//     }
+
+// =======
     @Override
     public Integer getFinAidRequirement() {
         return finAidRequirement;
