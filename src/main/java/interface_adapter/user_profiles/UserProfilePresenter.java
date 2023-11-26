@@ -1,6 +1,5 @@
 package interface_adapter.user_profiles;
 
-import entity.User;
 import interface_adapter.ViewManagerModel;
 import use_case.user_profile.UserProfileOutputBoundary;
 import use_case.user_profile.UserProfileOutputData;

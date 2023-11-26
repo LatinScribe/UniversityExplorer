@@ -22,6 +22,9 @@ public class ServerProfileDataAccessObject implements ProfileDataAccessInterface
     }
 
     @Override
+// <<<<<<< KanishV2
+//     public String saveProfile(int finAidReq, String prefProg, int avgSalary, int[] uniRankingRange, String locationPref) throws IOException {
+// =======
     public String saveProfile(UserProfile userProfile) throws IOException {
         if (userProfile.getUniversityRankingRange().length != 2) {
             throw new IOException("saveProfile expected 2 elements in uniRankingRange");
@@ -62,12 +65,14 @@ public class ServerProfileDataAccessObject implements ProfileDataAccessInterface
         }
     }
 
+// <<<<<<< KanishV2
+//     public String updateProfile(int finAidReq, String prefProg, int avgSalary, int[] uniRankingRange, String locationPref) throws IOException {
+// =======
     @Override
     public String updateProfile(UserProfile userProfile) throws IOException {
         if (userProfile.getUniversityRankingRange().length != 2) {
             throw new IOException("saveProfile expected 2 elements in uniRankingRange");
         }
-
         OkHttpClient client = new OkHttpClient().newBuilder()
                 .build();
         MediaType mediaType = MediaType.parse("application/json");
@@ -127,6 +132,10 @@ public class ServerProfileDataAccessObject implements ProfileDataAccessInterface
 //                        .build();
                 int[] uniRankingRange = {responseBody.getInt("uniRankingRangeStart"), responseBody.getInt("uniRankingRangeEnd")};
 
+// <<<<<<< KanishV2
+//                 UserPreferences userPreferences = new UserPreferences(responseBody.getInt("finAidReq"), responseBody.getString("prefProg"), responseBody.getInt("avgSalary"), uniRankingRange,responseBody.getString("locationPref"));
+//                 return userPreferences;
+// =======
                 return userProfileFactory.create(responseBody.getInt("finAidReq"), responseBody.getString("prefProg"), responseBody.getInt("avgSalary"), uniRankingRange,responseBody.getString("locationPref"));
             } else {
                 throw new RuntimeException(responseBody.getString("message"));
@@ -142,6 +151,17 @@ public class ServerProfileDataAccessObject implements ProfileDataAccessInterface
         UserPreferencesFactory userPreferencesFactory = new UserPreferencesFactory();
         ServerProfileDataAccessObject db = new ServerProfileDataAccessObject(fileTokenDataAccessObject, userPreferencesFactory);
 //        db.saveProfile(20000, "commerce", 100000, 5, "Boston");
+// <<<<<<< KanishV2
+//         db.updateProfile( 100000, "compsci", 100000, new int[]{1,2}, "New York");
+
+//         UserPreferences userPreferences = db.getProfile();
+//         System.out.println("finaid: " + userPreferences.getFinAidRequirement());
+//         System.out.println("prefProg: " + userPreferences.getPreferredProgram());
+//         System.out.println("avgSal: " + userPreferences.getAvgSalary());
+//         System.out.println("RankingRange: " + Arrays.toString(userPreferences.getUniversityRankingRange()));
+//         System.out.println("locPref: " + userPreferences.getLocationPreference());
+//         System.out.println(userPreferences);
+// =======
         UserPreferences userPreferences = new UserPreferences(100000, "compsci", 100000, new int[]{1,2}, "New York");
         db.updateProfile(userPreferences);
 
