@@ -35,6 +35,17 @@ import javax.swing.*;
 import java.awt.*;
 
 public class Main {
+    /**
+     *
+     * Order views are added in:
+     * 1) MainMenuView
+     * 2) LoginView
+     * 3) SignupView
+     * 4) LoggedInView
+     * 5) UserProfileView
+     * 6) SubView
+     * 7) ApplyView
+     */
     public static void main(String[] args) {
         JFrame application = new JFrame("Main Menu Test");
         application.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -56,7 +67,6 @@ public class Main {
         // create the view models
         LoginViewModel loginViewModel = new LoginViewModel();
         LoggedInViewModel loggedInViewModel = new LoggedInViewModel();
-
         SignupViewModel signupViewModel = new SignupViewModel();
         MainMenuViewModel mainMenuViewModel1 = new MainMenuViewModel();
         SearchViewModel searchViewModel = new SearchViewModel();
