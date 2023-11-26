@@ -62,11 +62,11 @@ public class UserProfileView extends JPanel implements ActionListener, PropertyC
         JLabel title = new JLabel("User Profile");
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        finAidRequirementLabel = new JLabel(":Financial Aid Requirement");
-        avgSalaryLabel = new JLabel(":Average Salary:");
-        locationPreferenceLabel = new JLabel(":Location Preference:");
-        preferredProgramLabel = new JLabel(":Preferred Program:");
-        universityRankingRangeLabel = new JLabel(":University Ranking Range:");
+        finAidRequirementLabel = new JLabel("- Financial Aid Requirement");
+        avgSalaryLabel = new JLabel("- Average Salary");
+        locationPreferenceLabel = new JLabel("- Location Preference");
+        preferredProgramLabel = new JLabel("- Preferred Program");
+        universityRankingRangeLabel = new JLabel("- University Ranking Range");
 
         JPanel buttons = new JPanel();
         // access static member using class - would this be a button for the profile?
