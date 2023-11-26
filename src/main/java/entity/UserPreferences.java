@@ -13,13 +13,13 @@ public class UserPreferences {
 
     private Integer avgSalary;
 
-    private ArrayList<Integer> universityRankingRange;
+    private int[] universityRankingRange;
 
     private String locationPreference;
 
 
     public UserPreferences(Integer finAidRequirement, String preferredProgram, Integer avgSalary,
-                           ArrayList<Integer> universityRankingRange, String locationPreference) {
+                           int[] universityRankingRange, String locationPreference) {
         this.finAidRequirement = finAidRequirement;
         this.preferredProgram = preferredProgram;
         this.avgSalary = avgSalary;
@@ -27,4 +27,23 @@ public class UserPreferences {
         this.locationPreference = locationPreference;
     }
 
+    public Integer getFinAidRequirement() {
+        return finAidRequirement;
+    }
+
+    public String getPreferredProgram() {
+        return preferredProgram;
+    }
+
+    public Integer getAvgSalary() {
+        return avgSalary;
+    }
+
+    public int[] getUniversityRankingRange() {
+        return universityRankingRange;
+    }
+
+    public String getLocationPreference() {
+        return locationPreference;
+    }
 }

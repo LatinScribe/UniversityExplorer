@@ -4,6 +4,8 @@ package app;
 
 import data_access.ApplyDataAccessObject;
 import data_access.FileTokenDataAccessObject;
+import data_access.ProfileDataAccessInterface;
+import data_access.ServerProfileDataAccessObject;
 import data_access.ServerUserDataAccessObject;
 import entity.CommonUniversityFactory;
 import entity.ExistingCommonUserFactory;
@@ -72,6 +74,7 @@ public class Main {
         // create data access objects for this particular implementation
         ServerUserDataAccessObject userDataAccessObject = new ServerUserDataAccessObject(new ExistingCommonUserFactory());
         FileTokenDataAccessObject tokenDataAccessObject = new FileTokenDataAccessObject();
+        ServerProfileDataAccessObject profileDataAccessObject = new ServerProfileDataAccessObject(tokenDataAccessObject);
 
         // add login, logged in and signup Views
         SignupView signupView = SignupUseCaseFactory.create(viewManagerModel, loginViewModel, signupViewModel, userDataAccessObject, mainMenuViewModel1, tokenDataAccessObject);
@@ -83,10 +86,10 @@ public class Main {
         // create a UserProfileViewModel and view
         UserProfileViewModel userProfileViewModel = new UserProfileViewModel("userProfileView");
         UserProfilePresenter userProfilePresenter = new UserProfilePresenter(viewManagerModel, userProfileViewModel);
-        UserProfileInteractor userProfileInteractor = new UserProfileInteractor(userProfilePresenter);
+        UserProfileInteractor userProfileInteractor = new UserProfileInteractor(userProfilePresenter, profileDataAccessObject); // TODO: Determine if this casting is appropriate
         UserProfileController userProfileController = new UserProfileController(userProfileInteractor);
 //        UserProfileView userProfileView = new UserProfileView(userProfileViewModel, userProfileController);
-        UserProfileView userProfileView = UserProfileUseCaseFactory.create(viewManagerModel, userProfileViewModel);
+        UserProfileView userProfileView = UserProfileUseCaseFactory.create(viewManagerModel, userProfileViewModel, profileDataAccessObject);
 
         // add loggedin view
         LoggedInView loggedInView = LoggedInUseCaseFactory.create(viewManagerModel, loginViewModel, loggedInViewModel, userProfileViewModel, tokenDataAccessObject);
@@ -109,6 +112,7 @@ public class Main {
         Applyview applyView = ApplyUseCaseFactory.create(viewManagerModel,applyViewModel,applyUserDataAccessObject,shortUniversityFactory);
         //ApplyController applyController = new ApplyController( applyUseCaseInteractor);
         //Applyview applyView = new Applyview(applyController, applyViewModel);
+
         views.add(applyView, applyView.viewName);
 
         viewManagerModel.setActiveView(mainMenuView.viewName);

@@ -3,6 +3,7 @@ package interface_adapter.user_profiles;
 import interface_adapter.ViewManagerModel;
 import use_case.user_profile.MockUserProfileInputBoundary;
 import use_case.user_profile.UserProfileInputBoundary;
+import use_case.user_profile.UserProfileOutputData;
 import view.ViewManager;
 
 import java.lang.reflect.Array;
@@ -13,6 +14,7 @@ public class UserProfileController {
 
     public UserProfileController(UserProfileInputBoundary userProfileInputBoundary) {
         this.userProfileInputBoundary = userProfileInputBoundary;
+        // Takes in a UserProfileInteractor, which implements the Input Boundary
     }
 
     public void execute(String searchCriteria) {
@@ -20,7 +22,7 @@ public class UserProfileController {
     }
 
     public void updateUserProfile(int finAidRequirement, int avgSalary, String locationPreference,
-                                  String preferredProgram, Integer[] universityRankingRange)
+                                  String preferredProgram, int[] universityRankingRange)
             throws IllegalArgumentException {
         // Input validation
         if (finAidRequirement < 0) {
@@ -39,15 +41,22 @@ public class UserProfileController {
             throw new IllegalArgumentException("University ranking range cannot be null or empty.");
         }
 
-        // Call the use case layer to update the user profile
+        // Call the use case layer/interactor to update the user profile
         userProfileInputBoundary.updateUserProfile(finAidRequirement, avgSalary, locationPreference,
                 preferredProgram, universityRankingRange);
     }
 
-    public void switchToPersonalProfile() {
-        this.userProfileInputBoundary.showPersonalProfileView();
+    public void switchToPersonalProfile(int finAidRequirement, int avgSalary, String locationPreference,
+                                        String preferredProgram, int[] universityRankingRange) {
+        UserProfileOutputData userProfileOutputData = new UserProfileOutputData(finAidRequirement, avgSalary, locationPreference,
+                preferredProgram, universityRankingRange);
+        this.userProfileInputBoundary.showPersonalProfileView(userProfileOutputData);
     }
 
     public void updateUserProfile(int finAidRequirement, int avgSalary) {
+    }
+
+    public void getProfile() {
+        userProfileInputBoundary.fetchUserProfileData();
     }
 }

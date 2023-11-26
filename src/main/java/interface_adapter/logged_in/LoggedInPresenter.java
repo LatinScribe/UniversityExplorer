@@ -35,6 +35,7 @@ public class LoggedInPresenter implements LoggedInOutputBoundary {
     public void prepareLoginView() {
         // On success, switch to the login view.
         LoginState loginState = loginViewModel.getState();
+        loginState.setPassword("");
         this.loginViewModel.setState(loginState);
         loginViewModel.firePropertyChanged();
 
