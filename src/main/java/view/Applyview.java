@@ -126,7 +126,7 @@ public class Applyview extends JPanel implements ActionListener, PropertyChangeL
             // Results View Not implemented yet, will be implemented soon.
             ApplyState state = (ApplyState) evt.getNewValue();
             JOptionPane.showMessageDialog(this, state.getUni());
-            System.out.println(state.getUni().getSchoolName());
+            //System.out.println(state.getUni().getSchoolName());
         } else {
             ApplyState state = (ApplyState) evt.getNewValue();
             JOptionPane.showMessageDialog(this, state.getUniversityError());
