@@ -3,12 +3,14 @@
 package interface_adapter.search;
 
 import entity.University;
+
+import java.util.Collections;
 import java.util.List;
 
 public class SearchState {
-    private String searchCriteria;
+    private String searchCriteria = "";
     private String searchError = null;
-    private List<University> universities = null;
+    private List<University> universities = Collections.emptyList();
 
     public SearchState(SearchState copy) {
         searchCriteria = copy.searchCriteria;

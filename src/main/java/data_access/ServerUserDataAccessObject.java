@@ -102,36 +102,4 @@ public class ServerUserDataAccessObject implements SignupUserDataAccessInterface
             throw new RuntimeException(e);
         }
     }
-
-    public static void main(String[] args) {
-        ServerUserDataAccessObject db = new ServerUserDataAccessObject(new ExistingCommonUserFactory());
-        boolean result = db.existsByName("johny");
-        System.out.println("This should return true");
-        System.out.println(result);
-
-        boolean result2 = db.existsByName("somerandomuser");
-        System.out.println("This should return false");
-        System.out.println(result2);
-
-        CreationCommonUserFactory fact = new CreationCommonUserFactory();
-        LocalDateTime time = LocalDateTime.now();
-
-        ExistingUser myuser = db.get("johny1234", "12342324");
-        System.out.println("We expect true");
-        System.out.println(myuser.getToken().equals("1kRrWzHPUZnSFlFevLuMBoQi2lFeXP8z"));
-        System.out.println("We expect true");
-        System.out.println(myuser.getID() == 8);
-
-        // change username to something else or else an error is thrown!
-        try {
-            CreationUser user = fact.create("BillyBob123", "1234654", time);
-            ExistingUser user4 = db.save(user);
-            System.out.println(user4.getToken());
-        }
-        catch (RuntimeException e) {
-            System.out.println(e);
-            System.out.println("This should be because user already exists");
-        }
-
-    }
 }
