@@ -1,20 +1,24 @@
 package data_access;
 
 import entity.UserPreferences;
+import entity.UserPreferencesFactory;
 import entity.UserProfile;
+import entity.UserProfileFactory;
 import okhttp3.*;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Arrays;
 
 public class ServerProfileDataAccessObject implements ProfileDataAccessInterface{
     private final TokenDataAccessInterface tokenDataAccessInterface;
 
-    public ServerProfileDataAccessObject(TokenDataAccessInterface tokenDataAccessInterface) {
+    private final UserProfileFactory userProfileFactory;
+
+    public ServerProfileDataAccessObject(TokenDataAccessInterface tokenDataAccessInterface, UserProfileFactory userProfileFactory) {
         this.tokenDataAccessInterface = tokenDataAccessInterface;
+        this.userProfileFactory = userProfileFactory;
     }
 
     @Override
@@ -123,7 +127,7 @@ public class ServerProfileDataAccessObject implements ProfileDataAccessInterface
 //                        .build();
                 int[] uniRankingRange = {responseBody.getInt("uniRankingRangeStart"), responseBody.getInt("uniRankingRangeEnd")};
 
-                return new UserPreferences(responseBody.getInt("finAidReq"), responseBody.getString("prefProg"), responseBody.getInt("avgSalary"), uniRankingRange,responseBody.getString("locationPref"));
+                return userProfileFactory.create(responseBody.getInt("finAidReq"), responseBody.getString("prefProg"), responseBody.getInt("avgSalary"), uniRankingRange,responseBody.getString("locationPref"));
             } else {
                 throw new RuntimeException(responseBody.getString("message"));
             }
@@ -135,7 +139,8 @@ public class ServerProfileDataAccessObject implements ProfileDataAccessInterface
     public static void main(String[] args) throws IOException {
         // NOTE YOU MUST BE SIGNED IN TO RUN THIS!!!!
         FileTokenDataAccessObject fileTokenDataAccessObject = new FileTokenDataAccessObject();
-        ServerProfileDataAccessObject db = new ServerProfileDataAccessObject(fileTokenDataAccessObject);
+        UserPreferencesFactory userPreferencesFactory = new UserPreferencesFactory();
+        ServerProfileDataAccessObject db = new ServerProfileDataAccessObject(fileTokenDataAccessObject, userPreferencesFactory);
 //        db.saveProfile(20000, "commerce", 100000, 5, "Boston");
         UserPreferences userPreferences = new UserPreferences(100000, "compsci", 100000, new int[]{1,2}, "New York");
         db.updateProfile(userPreferences);
