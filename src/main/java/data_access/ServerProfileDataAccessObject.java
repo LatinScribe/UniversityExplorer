@@ -150,20 +150,18 @@ public class ServerProfileDataAccessObject implements ProfileDataAccessInterface
         FileTokenDataAccessObject fileTokenDataAccessObject = new FileTokenDataAccessObject();
         UserPreferencesFactory userPreferencesFactory = new UserPreferencesFactory();
         ServerProfileDataAccessObject db = new ServerProfileDataAccessObject(fileTokenDataAccessObject, userPreferencesFactory);
-//        db.saveProfile(20000, "commerce", 100000, 5, "Boston");
-// <<<<<<< KanishV2
-//         db.updateProfile( 100000, "compsci", 100000, new int[]{1,2}, "New York");
+        UserPreferences userPreferences = new UserPreferences(20000, "commerce", 100000, new int[]{1,2}, "Boston");
+        db.saveProfile(userPreferences);
 
-//         UserPreferences userPreferences = db.getProfile();
-//         System.out.println("finaid: " + userPreferences.getFinAidRequirement());
-//         System.out.println("prefProg: " + userPreferences.getPreferredProgram());
-//         System.out.println("avgSal: " + userPreferences.getAvgSalary());
-//         System.out.println("RankingRange: " + Arrays.toString(userPreferences.getUniversityRankingRange()));
-//         System.out.println("locPref: " + userPreferences.getLocationPreference());
-//         System.out.println(userPreferences);
-// =======
-        UserPreferences userPreferences = new UserPreferences(100000, "compsci", 100000, new int[]{1,2}, "New York");
-        db.updateProfile(userPreferences);
+        UserProfile userProfile3 = db.getProfile();
+        System.out.println("finaid: " + userProfile3.getFinAidRequirement());
+        System.out.println("prefProg: " + userProfile3.getPreferredProgram());
+        System.out.println("avgSal: " + userProfile3.getAvgSalary());
+        System.out.println("RankingRange: " + Arrays.toString(userProfile3.getUniversityRankingRange()));
+        System.out.println("locPref: " + userProfile3.getLocationPreference());
+        System.out.println(userProfile3);
+        UserPreferences userPreferences1 = new UserPreferences(100000, "compsci", 100000, new int[]{1,2}, "New York");
+        db.updateProfile(userPreferences1);
 
         UserProfile userProfile = db.getProfile();
         System.out.println("finaid: " + userProfile.getFinAidRequirement());
