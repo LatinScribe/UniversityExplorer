@@ -78,15 +78,4 @@ public class JsonCollegeScorecardDB implements CollegeScorecardDB{
         String url = API_ADDRESS+ "schools.json?" + "zip=" + zipcode + "&" + "distance=" +radius + "&fields=id,school.name,2013.student.size"+ "&api_key=" + API_TOKEN;
         return getJsonObject(url);
     }
-
-    public static void main(String[] args) {
-        JsonCollegeScorecardDB db = new JsonCollegeScorecardDB();
-        JSONObject stuff = db.basicQuery("school.degrees_awarded.predominant=2,3", "fields=id,school.name,2013.student.size");
-//        JSONArray results = stuff.getJSONArray("results");
-//        JSONObject uni = results.getJSONObject()
-        System.out.println(stuff);
-
-        JSONObject otherstuff = db.zipcodeQuery("02138", "5mi");
-        System.out.println(otherstuff);
-    }
 }

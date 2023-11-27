@@ -126,7 +126,7 @@ public class Main {
         // add apply view
         ApplyDataAccessInterface applyUserDataAccessObject = new ApplyDataAccessObject();
         UniversityFactory shortUniversityFactory = new CommonUniversityFactory();
-        Applyview applyView = ApplyUseCaseFactory.create(viewManagerModel,applyViewModel,applyUserDataAccessObject,shortUniversityFactory);
+        Applyview applyView = ApplyUseCaseFactory.create(viewManagerModel,applyViewModel,applyUserDataAccessObject,shortUniversityFactory,mainMenuViewModel1);
         //ApplyController applyController = new ApplyController( applyUseCaseInteractor);
         //Applyview applyView = new Applyview(applyController, applyViewModel);
 

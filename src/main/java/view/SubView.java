@@ -1,13 +1,15 @@
 // Author: Diego
 package view;
 
-//import app.SearchUseCaseFactory;
+import app.ApplyUseCaseFactory;
 import app.SearchUseCaseFactory;
+import data_access.ApplyDataAccessObject;
 import data_access.SearchDataAccessObject;
-import data_access.ServerUserDataAccessObject;
-import entity.ExistingCommonUserFactory;
+import entity.CommonUniversityFactory;
+import entity.UniversityFactory;
 import interface_adapter.ViewManagerModel;
 import interface_adapter.apply.ApplyController;
+import interface_adapter.apply.ApplyPresenter;
 import interface_adapter.apply.ApplyViewModel;
 import interface_adapter.results.ResultsViewModel;
 import interface_adapter.search.SearchViewModel;
@@ -15,8 +17,10 @@ import interface_adapter.sub_menu.SubViewController;
 import interface_adapter.sub_menu.SubViewModel;
 import interface_adapter.sub_menu.SubViewPresenter;
 import interface_adapter.sub_menu.SubViewState;
-import org.json.JSONObject;
+import use_case.apply.ApplyDataAccessInterface;
 import use_case.apply.ApplyInputBoundary;
+import use_case.apply.ApplyInteractor;
+import use_case.apply.ApplyOutputBoundary;
 import use_case.search.SearchUserDataAccessInterface;
 import use_case.sub_menu.SubViewInputBoundary;
 import use_case.sub_menu.SubViewInteractor;
@@ -57,7 +61,6 @@ public class SubView extends JPanel implements ActionListener, PropertyChangeLis
                     public void actionPerformed(ActionEvent evt) {
                         if (evt.getSource().equals(recommendation)) {
                             // System.out.println("Recommendation Button pressed");
-                            // subViewPresenter.prepareApplyView();
                             subViewController.execute("recommendation");
                         }
                     }
@@ -69,7 +72,6 @@ public class SubView extends JPanel implements ActionListener, PropertyChangeLis
                     public void actionPerformed(ActionEvent evt) {
                         if (evt.getSource().equals(search)) {
                             // System.out.println("Search Button pressed");
-                            // subViewPresenter.prepareSearchView();
                             subViewController.execute("search");
                         }
                     }
@@ -113,17 +115,22 @@ public class SubView extends JPanel implements ActionListener, PropertyChangeLis
 
         views.add(subView, subView.viewName);
 
-        // add apply and search Views7
+        // add apply and search Views
         SearchUserDataAccessInterface searchUserDataAccessInterface = new SearchDataAccessObject();
         // ServerUserDataAccessObject userDataAccessObject = new ServerUserDataAccessObject(new ExistingCommonUserFactory());
         ResultsViewModel resultsViewModel = new ResultsViewModel();
         SearchView searchView = SearchUseCaseFactory.create(viewManagerModel, searchViewModel, subViewModel, resultsViewModel, searchUserDataAccessInterface);
         views.add(searchView, searchView.viewName);
-
-        ApplyInputBoundary applyUseCaseInteractor = null;
+        ApplyOutputBoundary applyPresenter = new ApplyPresenter(applyViewModel,viewManagerModel);
+        ApplyDataAccessInterface applyDataAccessInterface = new ApplyDataAccessObject();
+        UniversityFactory universityFactory = new CommonUniversityFactory();
+        ApplyInputBoundary applyUseCaseInteractor = new ApplyInteractor(applyDataAccessInterface,applyPresenter,universityFactory);
         ApplyController applyController = new ApplyController(applyUseCaseInteractor);
-        Applyview applyView = new Applyview(applyController, applyViewModel);
-        views.add(applyView, applyView.viewName);
+        // Applyview applyView = new Applyview(applyController, applyViewModel);
+        ApplyDataAccessInterface applyDataAccessInterface1 = new ApplyDataAccessObject();
+        Applyview applyView1 = ApplyUseCaseFactory.create(viewManagerModel, applyViewModel, applyDataAccessInterface1, universityFactory);
+
+        views.add(applyView1, applyView1.viewName);
 
         viewManagerModel.setActiveView(subView.viewName);
         viewManagerModel.firePropertyChanged();

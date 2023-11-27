@@ -4,11 +4,11 @@ import java.lang.reflect.Array;
 
 public class UserProfileOutputData {
 
-    private Integer finAidRequirements;
-    private Integer avgSalary;
-    private String locationPreference;
-    private String preferredProgram;
-    private int[] universityRankingRange;
+    private final Integer finAidRequirements;
+    private final Integer avgSalary;
+    private final String locationPreference;
+    private final String preferredProgram;
+    private final int[] universityRankingRange;
 
     public UserProfileOutputData(Integer finAidRequirements, Integer avgSalary, String locationPreference,
                                  String preferredProgram, int[] universityRankingRange) {

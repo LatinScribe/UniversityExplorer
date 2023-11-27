@@ -42,12 +42,6 @@ public class UserProfileInteractor implements UserProfileInputBoundary{
     @Override
     public void fetchUserProfileData() {
         try {
-// <<<<<<< KanishV2
-//             UserPreferences userPreferences = profileDataAccessInterface.getProfile();
-//             UserProfileOutputData userProfileData = new UserProfileOutputData(userPreferences.getFinAidRequirement(), userPreferences.getAvgSalary(),
-//                     userPreferences.getLocationPreference(), userPreferences.getPreferredProgram(), userPreferences.getUniversityRankingRange());
-
-// =======
             UserProfile userProfilePreferences = profileDataAccessInterface.getProfile();
             UserProfileOutputData userProfileData = new UserProfileOutputData(userProfilePreferences.getFinAidRequirement(), userProfilePreferences.getAvgSalary(), userProfilePreferences.getLocationPreference(), userProfilePreferences.getPreferredProgram(), userProfilePreferences.getUniversityRankingRange());
             userProfileOutputBoundary.presentUserProfile(userProfileData);

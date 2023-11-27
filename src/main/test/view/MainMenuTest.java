@@ -4,6 +4,7 @@ import app.Main;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.concurrent.ThreadLocalRandom;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
@@ -100,6 +101,7 @@ public class MainMenuTest {
 
     @org.junit.Test
     public void testSignUpButtonPressed() {
+
         Main.main(null);
         JButton button = getButton(0);
         button.doClick();

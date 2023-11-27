@@ -5,4 +5,6 @@ public interface ApplyOutputBoundary {
     void prepareSuccessView(ApplyOutputData university);
 
     void prepareFailView(String error);
+
+    void prepareBackView();
 }

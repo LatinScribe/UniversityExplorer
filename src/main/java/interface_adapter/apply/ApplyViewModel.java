@@ -13,6 +13,7 @@ public class ApplyViewModel extends ViewModel {
     public static final String ACT_LABEL = "Enter ACT score";
     public static final String SAT_LABEL = "Enter your SAT score";
     public static final String SUBMIT_BUTTON_LABEL = "Submit";
+    public static final String BACK_BUTTON_LABEL = "Back";
     private ApplyState state = new ApplyState();
     public void setState(ApplyState state){this.state=state;}
 
@@ -27,6 +28,9 @@ public class ApplyViewModel extends ViewModel {
     // to alert the View
     public void firePropertyChanged() {
         support.firePropertyChange("state", null, this.state);
+    }
+    public void exchangechange(){ support.firePropertyChange("success", null, this.state);
+
     }
     public void fireFailChange() {
         support.firePropertyChange("Error", null, this.state);
