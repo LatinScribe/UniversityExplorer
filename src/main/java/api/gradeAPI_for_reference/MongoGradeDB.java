@@ -1,9 +1,9 @@
 // FOR REFERENCE ONLY, DO NOT USE IN PRODUCTION (managed by Henry)
 
-package api;
+package api.gradeAPI_for_reference;
 
-import entity.gradeAPI_for_reference.Grade;
-import entity.gradeAPI_for_reference.Team;
+import entity.gradeAPI_entities_for_reference.Grade;
+import entity.gradeAPI_entities_for_reference.Team;
 import okhttp3.*;
 import org.json.JSONArray;
 import org.json.JSONException;

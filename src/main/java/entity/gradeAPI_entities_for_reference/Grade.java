@@ -1,4 +1,4 @@
-package entity.gradeAPI_for_reference;
+package entity.gradeAPI_entities_for_reference;
 
 public class Grade {
 
