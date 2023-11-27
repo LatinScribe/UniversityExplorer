@@ -23,7 +23,8 @@ public class ApplyPresenter implements ApplyOutputBoundary {
         ApplyState applyState = applyViewModel.getState();
         applyState.setUni(applyOutputData.getUniversity());
         this.applyViewModel.setState(applyState);
-        this.applyViewModel.firePropertyChanged();
+        //this.applyViewModel.firePropertyChanged();
+        this.applyViewModel.exchangechange();
 
         viewManagerModel.setActiveView(applyViewModel.getViewName());
         viewManagerModel.firePropertyChanged();

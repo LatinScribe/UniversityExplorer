@@ -29,6 +29,9 @@ public class ApplyViewModel extends ViewModel {
     public void firePropertyChanged() {
         support.firePropertyChange("state", null, this.state);
     }
+    public void exchangechange(){ support.firePropertyChange("success", null, this.state);
+
+    }
     public void fireFailChange() {
         support.firePropertyChange("Error", null, this.state);
     }

@@ -142,12 +142,12 @@ public class Applyview extends JPanel implements ActionListener, PropertyChangeL
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
         String y = evt.getPropertyName();
-        if (y.equals("state")) {
+        if (y.equals("success")) {
             // Results View Not implemented yet, will be implemented soon.
             ApplyState state = (ApplyState) evt.getNewValue();
             JOptionPane.showMessageDialog(this, state.getUni());
             //System.out.println(state.getUni().getSchoolName());
-        } else {
+        } else if (y.equals("Error")) {
             ApplyState state = (ApplyState) evt.getNewValue();
             JOptionPane.showMessageDialog(this, state.getUniversityError());
             state.setUniversityError(null);
