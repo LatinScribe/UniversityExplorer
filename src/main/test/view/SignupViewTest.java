@@ -3,6 +3,7 @@ package view;
 import app.Main;
 import interface_adapter.signup.SignupController;
 import interface_adapter.signup.SignupViewModel;
+import org.jetbrains.annotations.Nullable;
 import org.junit.Before;
 import use_case.signup.SignupInputBoundary;
 
@@ -22,13 +23,7 @@ public class SignupViewTest {
     static boolean popUpDiscovered = false;
 
     public JButton getMainButton(int i) {
-        JFrame app = null;
-        Window[] windows = Window.getWindows();
-        for (Window window : windows) {
-            if (window instanceof JFrame) {
-                app = (JFrame) window;
-            }
-        }
+        JFrame app = getApp();
 
         JPanel jp2 = getPrimaryJpanel(app);
 
@@ -39,13 +34,7 @@ public class SignupViewTest {
     }
 
     public JButton getButton(int i) {
-        JFrame app = null;
-        Window[] windows = Window.getWindows();
-        for (Window window : windows) {
-            if (window instanceof JFrame) {
-                app = (JFrame) window;
-            }
-        }
+        JFrame app = getApp();
 
         JPanel jp2 = getPrimaryJpanel(app);
 
@@ -56,13 +45,7 @@ public class SignupViewTest {
     }
 
     public LabelTextPanel getPasswordPanel1() {
-        JFrame app = null;
-        Window[] windows = Window.getWindows();
-        for (Window window : windows) {
-            if (window instanceof JFrame) {
-                app = (JFrame) window;
-            }
-        }
+        JFrame app = getApp();
 
         JPanel jp2 = getPrimaryJpanel(app);
 
@@ -72,13 +55,7 @@ public class SignupViewTest {
     }
 
     public LabelTextPanel getPasswordPanel2() {
-        JFrame app = null;
-        Window[] windows = Window.getWindows();
-        for (Window window : windows) {
-            if (window instanceof JFrame) {
-                app = (JFrame) window;
-            }
-        }
+        JFrame app = getApp();
 
         JPanel jp2 = getPrimaryJpanel(app);
 
@@ -88,13 +65,7 @@ public class SignupViewTest {
     }
 
     public LabelTextPanel getTextPanel() {
-        JFrame app = null;
-        Window[] windows = Window.getWindows();
-        for (Window window : windows) {
-            if (window instanceof JFrame) {
-                app = (JFrame) window;
-            }
-        }
+        JFrame app = getApp();
 
         JPanel jp2 = getPrimaryJpanel(app);
 
@@ -105,6 +76,15 @@ public class SignupViewTest {
     }
 
     public boolean getShowing(int i) {
+        JFrame app = getApp();
+
+        JPanel jp2 = getPrimaryJpanel(app);
+
+        return jp2.getComponent(i).isShowing();
+    }
+
+    @Nullable
+    private static JFrame getApp() {
         JFrame app = null;
         Window[] windows = Window.getWindows();
         for (Window window : windows) {
@@ -112,11 +92,9 @@ public class SignupViewTest {
                 app = (JFrame) window;
             }
         }
-
-        JPanel jp2 = getPrimaryJpanel(app);
-
-        return jp2.getComponent(i).isShowing();
+        return app;
     }
+
     /**
      *
      * Test that the Signup button is present and where it is expected to be
