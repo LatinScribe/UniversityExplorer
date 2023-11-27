@@ -58,6 +58,12 @@ public class ApplyInteractor implements ApplyInputBoundary {
 
 
     }
+
+    @Override
+    public void executeBack(){
+        applyPresenter.prepareBackView();
+    }
+
     private University executeHelper(JSONArray results) {
         int largestindex = 0;
         Integer largestSat = 0;
