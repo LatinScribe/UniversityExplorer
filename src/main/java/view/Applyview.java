@@ -11,6 +11,7 @@ import interface_adapter.apply.ApplyState;
 import interface_adapter.apply.ApplyViewModel;
 import interface_adapter.main_menu.MainMenuViewModel;
 import interface_adapter.search.SearchViewModel;
+import interface_adapter.sub_menu.SubViewModel;
 import use_case.apply.*;
 
 import javax.swing.*;
@@ -158,7 +159,7 @@ public class Applyview extends JPanel implements ActionListener, PropertyChangeL
         application.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         ViewManagerModel viewManagerModel = new ViewManagerModel();
         ApplyViewModel applyViewModel = new ApplyViewModel();
-        MainMenuViewModel mainMenuViewModel = new MainMenuViewModel();
+        SubViewModel mainMenuViewModel = new SubViewModel();
         ApplyOutputBoundary applyPresenter = new ApplyPresenter(applyViewModel,viewManagerModel,mainMenuViewModel);
         //ApplyInputData applyInputData = new ApplyInputData();
         ApplyDataAccessInterface applyDataAccessInterface = new ApplyDataAccessObject();
