@@ -31,18 +31,18 @@ public class UserProfileView extends JPanel implements ActionListener, PropertyC
     final JButton editProfile;
     final JButton save;
 
-    private JLabel finAidRequirementValue;
-    private JLabel avgSalaryValue;
-    private JLabel locationPreferenceValue;
-    private JLabel preferredProgramValue;
-    private JLabel universityRankingRangeValue;
+    JLabel finAidRequirementValue;
+    JLabel avgSalaryValue;
+    JLabel locationPreferenceValue;
+    JLabel preferredProgramValue;
+    JLabel universityRankingRangeValue;
 
-    private final JTextField finAidRequirementField;
-    private final JTextField avgSalaryField;
-    private final JTextField locationPreferenceField;
-    private final JTextField preferredProgramField;
+    final JTextField finAidRequirementField;
+    final JTextField avgSalaryField;
+    final JTextField locationPreferenceField;
+    final JTextField preferredProgramField;
     // Assuming universityRankingRange is an array of integers
-    private final JTextField universityRankingRangeField;
+    final JTextField universityRankingRangeField;
 
     private final JLabel finAidRequirementLabel;
     private final JLabel avgSalaryLabel;
