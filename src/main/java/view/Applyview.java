@@ -9,7 +9,8 @@ import interface_adapter.apply.ApplyController;
 import interface_adapter.apply.ApplyPresenter;
 import interface_adapter.apply.ApplyState;
 import interface_adapter.apply.ApplyViewModel;
-import interface_adapter.search.SearchState;
+import interface_adapter.main_menu.MainMenuViewModel;
+import interface_adapter.search.SearchViewModel;
 import use_case.apply.*;
 
 import javax.swing.*;
@@ -31,6 +32,7 @@ public class Applyview extends JPanel implements ActionListener, PropertyChangeL
     private final ApplyController applyController;
 
     private final JButton submit;
+    private final JButton back;
 
 
     public Applyview(ApplyController controller, ApplyViewModel applyViewModel) {
@@ -51,16 +53,34 @@ public class Applyview extends JPanel implements ActionListener, PropertyChangeL
         JPanel buttons = new JPanel();
         submit = new JButton(ApplyViewModel.SUBMIT_BUTTON_LABEL);
         buttons.add(submit);
-        submit.addActionListener(new ActionListener() {
-                                     @Override
-                                     public void actionPerformed(ActionEvent evt) {
-                                         if (evt.getSource().equals(submit)) {
-                                             System.out.println("submit Button pressed");
-                                             ApplyState applyState = applyViewModel.getState();
+        back = new JButton(ApplyViewModel.BACK_BUTTON_LABEL);
+        buttons.add(back);
+        back.addActionListener(
+                // This creates an anonymous subclass of ActionListener and instantiates it.
+                new ActionListener() {
+                    public void actionPerformed(ActionEvent evt) {
+                        if (evt.getSource().equals(back)) {
+                            System.out.println("Back pressed");
+                            applyController.executeBack();
+                        }
+                    }
+                }
+        );
+        submit.addActionListener(e -> {
 
-                                             applyController.execute(applyState.getSat(),applyState.getAct());
+                                         if (e.getSource().equals(submit)) {
+                                             try {
+                                                 System.out.println("submit Button pressed");
+                                                 ApplyState applyState = applyViewModel.getState();
+
+                                                 applyController.execute(applyState.getSat(),applyState.getAct());
+
+                                             }catch (IllegalArgumentException ex){
+                                                 JOptionPane.showMessageDialog(this, "invalid input format", "error", JOptionPane.ERROR_MESSAGE);
+                                             }
+
                                          }
-                                     }
+
                                  });
         actInputField.addKeyListener(
                 new KeyListener() {
@@ -138,7 +158,8 @@ public class Applyview extends JPanel implements ActionListener, PropertyChangeL
         application.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         ViewManagerModel viewManagerModel = new ViewManagerModel();
         ApplyViewModel applyViewModel = new ApplyViewModel();
-        ApplyOutputBoundary applyPresenter = new ApplyPresenter(applyViewModel,viewManagerModel);
+        MainMenuViewModel mainMenuViewModel = new MainMenuViewModel();
+        ApplyOutputBoundary applyPresenter = new ApplyPresenter(applyViewModel,viewManagerModel,mainMenuViewModel);
         //ApplyInputData applyInputData = new ApplyInputData();
         ApplyDataAccessInterface applyDataAccessInterface = new ApplyDataAccessObject();
         UniversityFactory universityFactory = new CommonUniversityFactory();
