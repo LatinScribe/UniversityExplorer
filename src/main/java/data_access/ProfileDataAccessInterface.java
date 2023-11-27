@@ -1,13 +1,14 @@
 package data_access;
 
 import entity.UserPreferences;
+import entity.UserProfile;
 
 import java.io.IOException;
 
 public interface ProfileDataAccessInterface {
-    String saveProfile(int finAidReq, String prefProg, int avgSalary, int uniRankingRange, String locationPref) throws IOException;
+    String saveProfile(UserProfile userProfile) throws IOException;
 
-    String updateProfile(int finAidReq, String prefProg, int avgSalary, int uniRankingRange, String locationPref) throws IOException;
+    String updateProfile(UserProfile userProfile) throws IOException;
 
-    UserPreferences getProfile() throws IOException;
+    UserProfile getProfile() throws IOException;
 }

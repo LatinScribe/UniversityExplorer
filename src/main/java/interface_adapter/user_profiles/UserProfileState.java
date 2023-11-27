@@ -15,7 +15,7 @@ public class UserProfileState {
     private Integer avgSalary;
     private String locationPreference;
     private String preferredProgram;
-    private Integer[] universityRankingRange; // Assuming it's Integer[]
+    private int[] universityRankingRange; // Assuming it's Integer[]
 
     public String getConfirmEditMessage() {return confirmEditMessage;}
 
@@ -71,11 +71,11 @@ public class UserProfileState {
         this.preferredProgram = preferredProgram;
     }
 
-    public Integer[] getUniversityRankingRange() {
+    public int[] getUniversityRankingRange() {
         return universityRankingRange;
     }
 
-    public void setUniversityRankingRange(Integer[] universityRankingRange) {
+    public void setUniversityRankingRange(int[] universityRankingRange) {
         this.universityRankingRange = universityRankingRange;
     }
 }

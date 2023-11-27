@@ -1,9 +1,6 @@
 package entity;
 
-import java.lang.reflect.Array;
-import java.util.ArrayList;
-
-public class UserPreferences {
+public class UserPreferences implements UserProfile{
 
     // Refer to the API documentation for the meaning of these fields.
 
@@ -13,13 +10,13 @@ public class UserPreferences {
 
     private Integer avgSalary;
 
-    private ArrayList<Integer> universityRankingRange;
+    private int[] universityRankingRange;
 
     private String locationPreference;
 
 
     public UserPreferences(Integer finAidRequirement, String preferredProgram, Integer avgSalary,
-                           ArrayList<Integer> universityRankingRange, String locationPreference) {
+                           int[] universityRankingRange, String locationPreference) {
         this.finAidRequirement = finAidRequirement;
         this.preferredProgram = preferredProgram;
         this.avgSalary = avgSalary;
@@ -27,4 +24,42 @@ public class UserPreferences {
         this.locationPreference = locationPreference;
     }
 
+// <<<<<<< KanishV2
+//     public Integer getFinAidRequirement() {
+//         return finAidRequirement;
+//     }
+
+//     public String getPreferredProgram() {
+//         return preferredProgram;
+//     }
+
+//     public Integer getAvgSalary() {
+//         return avgSalary;
+//     }
+
+//     public int[] getUniversityRankingRange() {
+//         return universityRankingRange;
+//     }
+
+// =======
+    @Override
+    public Integer getFinAidRequirement() {
+        return finAidRequirement;
+    }
+    @Override
+    public String getPreferredProgram() {
+        return preferredProgram;
+    }
+    @Override
+    public Integer getAvgSalary() {
+        return avgSalary;
+    }
+    @Override
+    public int[] getUniversityRankingRange() {
+        return universityRankingRange;
+    }
+    @Override
+    public String getLocationPreference() {
+        return locationPreference;
+    }
 }

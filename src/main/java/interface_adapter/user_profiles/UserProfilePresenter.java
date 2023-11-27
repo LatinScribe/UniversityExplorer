@@ -1,6 +1,5 @@
 package interface_adapter.user_profiles;
 
-import entity.User;
 import interface_adapter.ViewManagerModel;
 import use_case.user_profile.UserProfileOutputBoundary;
 import use_case.user_profile.UserProfileOutputData;
@@ -11,6 +10,7 @@ public class UserProfilePresenter implements UserProfileOutputBoundary {
 
     private final UserProfileViewModel userProfileViewModel;
 
+
     // TODO: Need to add other views and viewmodels here
 
 
@@ -20,11 +20,11 @@ public class UserProfilePresenter implements UserProfileOutputBoundary {
 
     }
 
-    private UserProfileOutputData getCurrentUserProfileData() {
-        return null;
-        // TODO: call the interactor here to get saved user data
+//     private UserProfileOutputData getCurrentUserProfileData() {
+//         return null;
+//         // TODO: call the interactor here to get saved user data (maybe delete this)
 
-    }
+//     }
 
     @Override
     public void presentUserProfile(UserProfileOutputData userProfileOutputData) {

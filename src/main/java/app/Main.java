@@ -2,13 +2,16 @@
 
 package app;
 
+import data_access.ApplyDataAccessObject;
 import data_access.FileTokenDataAccessObject;
+import data_access.ServerProfileDataAccessObject;
 import data_access.ServerUserDataAccessObject;
+import entity.CommonUniversityFactory;
 import entity.ExistingCommonUserFactory;
+import entity.UserPreferencesFactory;
+import entity.UniversityFactory;
 import entity.User;
 import interface_adapter.ViewManagerModel;
-import interface_adapter.logged_in.LoggedInController;
-import interface_adapter.logged_in.LoggedInPresenter;
 import interface_adapter.apply.ApplyController;
 import interface_adapter.apply.ApplyViewModel;
 import interface_adapter.logged_in.LoggedInViewModel;
@@ -22,6 +25,7 @@ import interface_adapter.user_profiles.UserProfileViewModel;
 import interface_adapter.sub_menu.SubViewController;
 import interface_adapter.sub_menu.SubViewModel;
 import interface_adapter.sub_menu.SubViewPresenter;
+import use_case.apply.ApplyDataAccessInterface;
 import use_case.apply.ApplyInputBoundary;
 import use_case.sub_menu.SubViewInputBoundary;
 import use_case.sub_menu.SubViewInteractor;
@@ -33,6 +37,17 @@ import javax.swing.*;
 import java.awt.*;
 
 public class Main {
+    /**
+     *
+     * Order views are added in:
+     * 1) MainMenuView
+     * 2) LoginView
+     * 3) SignupView
+     * 4) LoggedInView
+     * 5) UserProfileView
+     * 6) SubView
+     * 7) ApplyView
+     */
     public static void main(String[] args) {
         JFrame application = new JFrame("Main Menu Test");
         application.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -54,7 +69,6 @@ public class Main {
         // create the view models
         LoginViewModel loginViewModel = new LoginViewModel();
         LoggedInViewModel loggedInViewModel = new LoggedInViewModel();
-
         SignupViewModel signupViewModel = new SignupViewModel();
         MainMenuViewModel mainMenuViewModel1 = new MainMenuViewModel();
         SearchViewModel searchViewModel = new SearchViewModel();
@@ -68,6 +82,8 @@ public class Main {
         // create data access objects for this particular implementation
         ServerUserDataAccessObject userDataAccessObject = new ServerUserDataAccessObject(new ExistingCommonUserFactory());
         FileTokenDataAccessObject tokenDataAccessObject = new FileTokenDataAccessObject();
+        UserPreferencesFactory userPreferencesFactory = new UserPreferencesFactory();
+        ServerProfileDataAccessObject profileDataAccessObject = new ServerProfileDataAccessObject(tokenDataAccessObject, userPreferencesFactory);
 
         // add login, logged in and signup Views
         SignupView signupView = SignupUseCaseFactory.create(viewManagerModel, loginViewModel, signupViewModel, userDataAccessObject, mainMenuViewModel1, tokenDataAccessObject);
@@ -79,10 +95,10 @@ public class Main {
         // create a UserProfileViewModel and view
         UserProfileViewModel userProfileViewModel = new UserProfileViewModel("userProfileView");
         UserProfilePresenter userProfilePresenter = new UserProfilePresenter(viewManagerModel, userProfileViewModel);
-        UserProfileInteractor userProfileInteractor = new UserProfileInteractor(userProfilePresenter);
+        UserProfileInteractor userProfileInteractor = new UserProfileInteractor(userProfilePresenter, profileDataAccessObject); // TODO: Determine if this casting is appropriate
         UserProfileController userProfileController = new UserProfileController(userProfileInteractor);
 //        UserProfileView userProfileView = new UserProfileView(userProfileViewModel, userProfileController);
-        UserProfileView userProfileView = UserProfileUseCaseFactory.create(viewManagerModel, userProfileViewModel);
+        UserProfileView userProfileView = UserProfileUseCaseFactory.create(viewManagerModel, userProfileViewModel, profileDataAccessObject);
 
         // add loggedin view
         LoggedInView loggedInView = LoggedInUseCaseFactory.create(viewManagerModel, loginViewModel, loggedInViewModel, userProfileViewModel, tokenDataAccessObject);
@@ -100,9 +116,12 @@ public class Main {
         views.add(subView, subView.viewName);
 
         // add apply view
-        ApplyInputBoundary applyUseCaseInteractor = null;
-        ApplyController applyController = new ApplyController(applyViewModel, applyUseCaseInteractor);
-        Applyview applyView = new Applyview(applyController, applyViewModel);
+        ApplyDataAccessInterface applyUserDataAccessObject = new ApplyDataAccessObject();
+        UniversityFactory shortUniversityFactory = new CommonUniversityFactory();
+        Applyview applyView = ApplyUseCaseFactory.create(viewManagerModel,applyViewModel,applyUserDataAccessObject,shortUniversityFactory);
+        //ApplyController applyController = new ApplyController( applyUseCaseInteractor);
+        //Applyview applyView = new Applyview(applyController, applyViewModel);
+
         views.add(applyView, applyView.viewName);
 
         viewManagerModel.setActiveView(mainMenuView.viewName);
