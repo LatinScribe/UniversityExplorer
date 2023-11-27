@@ -9,6 +9,7 @@ import entity.ExistingCommonUserFactory;
 import interface_adapter.ViewManagerModel;
 import interface_adapter.apply.ApplyController;
 import interface_adapter.apply.ApplyViewModel;
+import interface_adapter.results.ResultsViewModel;
 import interface_adapter.search.SearchViewModel;
 import interface_adapter.sub_menu.SubViewController;
 import interface_adapter.sub_menu.SubViewModel;
@@ -115,7 +116,8 @@ public class SubView extends JPanel implements ActionListener, PropertyChangeLis
         // add apply and search Views7
         SearchUserDataAccessInterface searchUserDataAccessInterface = new SearchDataAccessObject();
         // ServerUserDataAccessObject userDataAccessObject = new ServerUserDataAccessObject(new ExistingCommonUserFactory());
-        SearchView searchView = SearchUseCaseFactory.create(viewManagerModel, searchViewModel, subViewModel, searchUserDataAccessInterface);
+        ResultsViewModel resultsViewModel = new ResultsViewModel();
+        SearchView searchView = SearchUseCaseFactory.create(viewManagerModel, searchViewModel, subViewModel, resultsViewModel, searchUserDataAccessInterface);
         views.add(searchView, searchView.viewName);
 
         ApplyInputBoundary applyUseCaseInteractor = null;
