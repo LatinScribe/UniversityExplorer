@@ -3,6 +3,8 @@
 package interface_adapter.search;
 
 import interface_adapter.ViewManagerModel;
+import interface_adapter.results.ResultsState;
+import interface_adapter.results.ResultsViewModel;
 import interface_adapter.sub_menu.SubViewModel;
 import use_case.search.SearchOutputBoundary;
 import use_case.search.SearchOutputData;
@@ -13,24 +15,24 @@ public class SearchPresenter implements SearchOutputBoundary {
 
     private SearchViewModel searchViewModel;
     private ViewManagerModel viewManagerModel;
-//    private ResultsViewModel resultsViewModel;
+    private ResultsViewModel resultsViewModel;
     private SubViewModel subViewModel;
 
-    public SearchPresenter(ViewManagerModel viewManagerModel, SearchViewModel searchViewModel, SubViewModel subViewModel) {
+    public SearchPresenter(ViewManagerModel viewManagerModel, SearchViewModel searchViewModel, ResultsViewModel resultsViewModel, SubViewModel subViewModel) {
         this.searchViewModel = searchViewModel;
         this.viewManagerModel = viewManagerModel;
-//        this.resultsViewModel = resultsViewModel;
+        this.resultsViewModel = resultsViewModel;
         this.subViewModel = subViewModel;
     }
 
     @Override
     public void prepareSuccessView(SearchOutputData response) {
-        SearchState searchState = searchViewModel.getState();
-        searchState.setUniversities(response.getUniversities());
-        this.searchViewModel.setState(searchState);
-        this.searchViewModel.fireSuccessChange();
+        ResultsState resultsState = resultsViewModel.getState();
+        resultsState.setUniversities(response.getUniversities());
+        this.resultsViewModel.setState(resultsState);
+        this.resultsViewModel.firePropertyChanged();
 
-        viewManagerModel.setActiveView(searchViewModel.getViewName());
+        viewManagerModel.setActiveView(resultsViewModel.getViewName());
         viewManagerModel.firePropertyChanged();
     }
 
