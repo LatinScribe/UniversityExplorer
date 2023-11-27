@@ -350,6 +350,7 @@ public class SignupViewTest {
 
                         // this ignores old dialogs
                         if (dialog.isVisible()) {
+                            System.out.println("found jdialogue");
                             String s = ((JOptionPane) ((BorderLayout) dialog.getRootPane()
                                     .getContentPane().getLayout()).getLayoutComponent(BorderLayout.CENTER)).getMessage().toString();
                             System.out.println("message = " + s);
