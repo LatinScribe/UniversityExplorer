@@ -83,18 +83,6 @@ public class SignupViewTest {
         return jp2.getComponent(i).isShowing();
     }
 
-    @Nullable
-    private static JFrame getApp() {
-        JFrame app = null;
-        Window[] windows = Window.getWindows();
-        for (Window window : windows) {
-            if (window instanceof JFrame) {
-                app = (JFrame) window;
-            }
-        }
-        return app;
-    }
-
     /**
      *
      * Test that the Signup button is present and where it is expected to be
@@ -437,6 +425,18 @@ public class SignupViewTest {
 
         JPanel jp2 = (JPanel) jp.getComponent(0);
         return jp2;
+    }
+
+    @Nullable
+    private static JFrame getApp() {
+        JFrame app = null;
+        Window[] windows = Window.getWindows();
+        for (Window window : windows) {
+            if (window instanceof JFrame) {
+                app = (JFrame) window;
+            }
+        }
+        return app;
     }
 
 }

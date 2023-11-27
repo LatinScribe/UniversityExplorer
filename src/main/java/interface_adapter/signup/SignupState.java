@@ -7,9 +7,6 @@ public class SignupState {
     private String passwordError = null;
     private String repeatPassword = "";
     private String repeatPasswordError = null;
-
-    private String clearStatus = null;
-
     public SignupState(SignupState copy) {
         username = copy.username;
         usernameError = copy.usernameError;
@@ -17,7 +14,6 @@ public class SignupState {
         passwordError = copy.passwordError;
         repeatPassword = copy.repeatPassword;
         repeatPasswordError = copy.repeatPasswordError;
-        clearStatus = copy.clearStatus;
     }
 
     // Because of the previous copy constructor, the default constructor must be explicit.
@@ -48,8 +44,6 @@ public class SignupState {
         return repeatPasswordError;
     }
 
-    public String getClearStatus(){return clearStatus;}
-
     public void setUsername(String username) {
         this.username = username;
     }
@@ -72,10 +66,6 @@ public class SignupState {
 
     public void setRepeatPasswordError(String repeatPasswordError) {
         this.repeatPasswordError = repeatPasswordError;
-    }
-
-    public void setClearStatus(String clearStatus) {
-        this.clearStatus = clearStatus;
     }
 
     @Override
