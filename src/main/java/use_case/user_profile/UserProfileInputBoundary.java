@@ -1,7 +1,5 @@
 package use_case.user_profile;
 
-import java.lang.reflect.Array;
-
 public interface UserProfileInputBoundary {
 
     void showPersonalProfileView(UserProfileOutputData userProfileOutputData);
