@@ -31,18 +31,18 @@ public class UserProfileView extends JPanel implements ActionListener, PropertyC
     final JButton editProfile;
     final JButton save;
 
-    private JLabel finAidRequirementValue;
-    private JLabel avgSalaryValue;
-    private JLabel locationPreferenceValue;
-    private JLabel preferredProgramValue;
-    private JLabel universityRankingRangeValue;
+    JLabel finAidRequirementValue;
+    JLabel avgSalaryValue;
+    JLabel locationPreferenceValue;
+    JLabel preferredProgramValue;
+    JLabel universityRankingRangeValue;
 
-    private final JTextField finAidRequirementField;
-    private final JTextField avgSalaryField;
-    private final JTextField locationPreferenceField;
-    private final JTextField preferredProgramField;
+    final JTextField finAidRequirementField;
+    final JTextField avgSalaryField;
+    final JTextField locationPreferenceField;
+    final JTextField preferredProgramField;
     // Assuming universityRankingRange is an array of integers
-    private final JTextField universityRankingRangeField;
+    final JTextField universityRankingRangeField;
 
     private final JLabel finAidRequirementLabel;
     private final JLabel avgSalaryLabel;
@@ -62,11 +62,11 @@ public class UserProfileView extends JPanel implements ActionListener, PropertyC
         JLabel title = new JLabel("User Profile");
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        finAidRequirementLabel = new JLabel(":Financial Aid Requirement");
-        avgSalaryLabel = new JLabel(":Average Salary:");
-        locationPreferenceLabel = new JLabel(":Location Preference:");
-        preferredProgramLabel = new JLabel(":Preferred Program:");
-        universityRankingRangeLabel = new JLabel(":University Ranking Range:");
+        finAidRequirementLabel = new JLabel("- Financial Aid Requirement");
+        avgSalaryLabel = new JLabel("- Average Salary");
+        locationPreferenceLabel = new JLabel("- Location Preference");
+        preferredProgramLabel = new JLabel("- Preferred Program");
+        universityRankingRangeLabel = new JLabel("- University Ranking Range");
 
         JPanel buttons = new JPanel();
         // access static member using class - would this be a button for the profile?
@@ -157,8 +157,9 @@ public class UserProfileView extends JPanel implements ActionListener, PropertyC
                     int[] universityRankingRange = Arrays.stream(universityRankingRangeField.getText().split(","))
                             .map(String::trim)
                             .filter(str -> !str.isEmpty())
-                            .mapToInt(Integer::parseInt)
-                            .toArray();
+                            .mapToInt(Integer::parseInt) // Use mapToInt instead of map
+                            .toArray(); // Convert to int[] directly
+
 
                     userProfileController.updateUserProfile(
                             finAidRequirement, avgSalary, locationPreference, preferredProgram, universityRankingRange);
@@ -189,13 +190,21 @@ public class UserProfileView extends JPanel implements ActionListener, PropertyC
             preferredProgramField.setText(state.getPreferredProgram() != null ? state.getPreferredProgram() : "");
             // Set universityRankingRangeField by parsing the array and representing it as a string
             int[] universityRankingRange = state.getUniversityRankingRange();
-            if (universityRankingRange != null && universityRankingRange.length == 1) {
-                universityRankingRangeField.setText(String.valueOf(universityRankingRange[0]));
-            } if(universityRankingRange != null && universityRankingRange.length == 2) {
-                universityRankingRangeField.setText(universityRankingRange[0] + ", " + universityRankingRange[1]);
-            }
+          
+            if (universityRankingRange != null && universityRankingRange.length > 0) {
+                universityRankingRangeField.setText(Arrays.stream(universityRankingRange)
+                        .mapToObj(String::valueOf) // Convert each int to String
+                        .collect(Collectors.joining(", ")));
+            } else {
+// =======
+//             if (universityRankingRange != null && universityRankingRange.length == 1) {
+//                 universityRankingRangeField.setText(String.valueOf(universityRankingRange[0]));
+//             } if(universityRankingRange != null && universityRankingRange.length == 2) {
+//                 universityRankingRangeField.setText(universityRankingRange[0] + ", " + universityRankingRange[1]);
+//             }
 
-            else {
+//             else {
+// >>>>>>> main
                 universityRankingRangeField.setText("");
             }
             cardLayout.show(this.cards, "Edit");
@@ -223,7 +232,9 @@ public class UserProfileView extends JPanel implements ActionListener, PropertyC
                 int[] universityRankingRange = Arrays.stream(universityRankingRangeField.getText().split(","))
                         .map(String::trim)
                         .filter(str -> !str.isEmpty())
-                        .mapToInt(Integer::parseInt)
+                  
+                        .mapToInt(Integer::parseInt) // Convert to int
+
                         .toArray();
 
                 // Invoke controller method to save changes
@@ -256,8 +267,11 @@ public class UserProfileView extends JPanel implements ActionListener, PropertyC
             int[] universityRankingRange = state.getUniversityRankingRange();
             if (universityRankingRange != null && universityRankingRange.length > 0) {
                 universityRankingRangeValue.setText(Arrays.stream(universityRankingRange)
-                        // TODO: Check if this works
-                        .mapToObj(Integer::toString)
+                        .mapToObj(String::valueOf) // Convert each int to String
+// =======
+//                         //
+//                         .mapToObj(Integer::toString)
+// >>>>>>> main
                         .collect(Collectors.joining(", ")));
             } else {
                 universityRankingRangeValue.setText("Not Set");

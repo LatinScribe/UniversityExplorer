@@ -18,9 +18,9 @@ public class SearchInteractor implements SearchInputBoundary {
     final UniversityFactory universityFactory;
 
     public SearchInteractor(SearchUserDataAccessInterface searchUserDataAccessInterface,
-                            SearchOutputBoundary signupOutputBoundary, UniversityFactory universityFactory) {
+                            SearchOutputBoundary searchPresenter, UniversityFactory universityFactory) {
         this.searchDataAccessObject = searchUserDataAccessInterface;
-        this.searchPresenter = signupOutputBoundary;
+        this.searchPresenter = searchPresenter;
         this.universityFactory = universityFactory;
     }
 
