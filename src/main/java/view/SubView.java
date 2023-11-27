@@ -11,6 +11,7 @@ import interface_adapter.ViewManagerModel;
 import interface_adapter.apply.ApplyController;
 import interface_adapter.apply.ApplyPresenter;
 import interface_adapter.apply.ApplyViewModel;
+import interface_adapter.main_menu.MainMenuViewModel;
 import interface_adapter.results.ResultsViewModel;
 import interface_adapter.search.SearchViewModel;
 import interface_adapter.sub_menu.SubViewController;
@@ -37,6 +38,7 @@ public class SubView extends JPanel implements ActionListener, PropertyChangeLis
     public final String viewName = "sub menu";
     private final JButton recommendation;
     private final JButton search;
+    private final JButton zip_search;
     private final SubViewModel subViewModel;
     private final SubViewController subViewController;
 
@@ -54,6 +56,8 @@ public class SubView extends JPanel implements ActionListener, PropertyChangeLis
         buttons.add(recommendation);
         search = new JButton(SubViewModel.SEARCH_BUTTON_LABEL);
         buttons.add(search);
+        zip_search = new JButton(SubViewModel.ZIP_SEARCH_BUTTON_LABEL);
+        buttons.add(zip_search);
 
 
         recommendation.addActionListener(
@@ -73,6 +77,17 @@ public class SubView extends JPanel implements ActionListener, PropertyChangeLis
                         if (evt.getSource().equals(search)) {
                             // System.out.println("Search Button pressed");
                             subViewController.execute("search");
+                        }
+                    }
+                }
+        );
+
+        zip_search.addActionListener(
+                new ActionListener() {
+                    public void actionPerformed(ActionEvent evt) {
+                        if (evt.getSource().equals(search)) {
+                            // System.out.println("Search Button pressed");
+                            subViewController.execute("zip_search");
                         }
                     }
                 }
@@ -121,16 +136,12 @@ public class SubView extends JPanel implements ActionListener, PropertyChangeLis
         ResultsViewModel resultsViewModel = new ResultsViewModel();
         SearchView searchView = SearchUseCaseFactory.create(viewManagerModel, searchViewModel, subViewModel, resultsViewModel, searchUserDataAccessInterface);
         views.add(searchView, searchView.viewName);
-        ApplyOutputBoundary applyPresenter = new ApplyPresenter(applyViewModel,viewManagerModel);
-        ApplyDataAccessInterface applyDataAccessInterface = new ApplyDataAccessObject();
+        MainMenuViewModel mainMenuViewModel = new MainMenuViewModel();
         UniversityFactory universityFactory = new CommonUniversityFactory();
-        ApplyInputBoundary applyUseCaseInteractor = new ApplyInteractor(applyDataAccessInterface,applyPresenter,universityFactory);
-        ApplyController applyController = new ApplyController(applyUseCaseInteractor);
-        // Applyview applyView = new Applyview(applyController, applyViewModel);
         ApplyDataAccessInterface applyDataAccessInterface1 = new ApplyDataAccessObject();
-        Applyview applyView1 = ApplyUseCaseFactory.create(viewManagerModel, applyViewModel, applyDataAccessInterface1, universityFactory);
+        Applyview applyView = ApplyUseCaseFactory.create(viewManagerModel, applyViewModel, applyDataAccessInterface1, universityFactory, mainMenuViewModel);
 
-        views.add(applyView1, applyView1.viewName);
+        views.add(applyView, applyView.viewName);
 
         viewManagerModel.setActiveView(subView.viewName);
         viewManagerModel.firePropertyChanged();

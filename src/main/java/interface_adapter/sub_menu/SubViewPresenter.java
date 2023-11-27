@@ -37,4 +37,14 @@ public class SubViewPresenter implements SubViewOutputBoundary {
         this.viewManagerModel.setActiveView(applyViewModel.getViewName());
         this.viewManagerModel.firePropertyChanged();
     }
+
+    public void prepareZipSearchView() {
+        // On success, switch to the zip search view.
+        ApplyState applyState = applyViewModel.getState();
+        this.applyViewModel.setState(applyState);
+        this.applyViewModel.firePropertyChanged();
+
+        this.viewManagerModel.setActiveView(applyViewModel.getViewName());
+        this.viewManagerModel.firePropertyChanged();
+    }
 }
