@@ -58,7 +58,7 @@ public class ResultsView extends JPanel implements ActionListener, PropertyChang
 
         JLabel title = new JLabel("Results View");
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
-        JLabel instructions = new JLabel("For more information on a university, click a university below!");
+        JLabel instructions = new JLabel("For more information on a university, select a university in the list, then press confirm!");
         JPanel buttons = new JPanel();
         back = new JButton(ResultsViewModel.BACK_BUTTON_LABEL);
         confirm = new JButton(ResultsViewModel.CONFIRM_BUTTON_LABEL);

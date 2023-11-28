@@ -81,7 +81,7 @@ public class CommonUniversity implements University {
         Object[] objects = toStringHelper();
         for (int i = 0; i < objects.length; i++) {
             if (objects[i] == null) {
-                objects[i] = new String("N/A");
+                objects[i] = "N/A";
             }
         }
         return "Institution Name: " + objects[0] + "\n" +
@@ -96,6 +96,5 @@ public class CommonUniversity implements University {
 
     private Object[] toStringHelper() {
         return new Object[] {schoolName, city, state, admissionRate, averageInStateTuition, averageOutOfStateTuition, averageSATScore, averageACTScore, url};
-
     }
 }
