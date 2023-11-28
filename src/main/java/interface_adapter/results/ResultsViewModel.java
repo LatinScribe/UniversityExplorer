@@ -13,6 +13,7 @@ public class ResultsViewModel extends ViewModel {
     public final String Instructions = "Enter search criteria";
 
     public static final String BACK_BUTTON_LABEL = "Back";
+    public static final String CONFIRM_BUTTON_LABEL = "Confirm";
 
     private ResultsState state = new ResultsState();
 

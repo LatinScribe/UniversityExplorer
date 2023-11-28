@@ -3,7 +3,11 @@ package use_case.results;
 import entity.University;
 import entity.UniversityFactory;
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
+import use_case.search.SearchOutputData;
+
+import java.util.List;
 
 public class ResultsInteractor implements ResultsInputBoundary{
 
@@ -31,18 +35,19 @@ public class ResultsInteractor implements ResultsInputBoundary{
                 stringAccumulator += cursor;
             }
         }
-        JSONObject query = resultsDataAccessObject.searchQuery("school.name=" + stringAccumulator);
-        JSONObject metadata = query.getJSONObject("metadata");
-        if (metadata.getInt("total") == 0) {
-            resultsPresenter.prepareFailView("University not found in database!");
-        } else if (metadata.getInt("total") >= 2) {
-            resultsPresenter.prepareFailView("Unexpected error: more than 1 university found");
-        } else {
-            University university = executeHelper(query.getJSONArray("results"));
-            ResultsOutputData resultsOutputData = new ResultsOutputData(university);
-            resultsPresenter.prepareUniPopup(resultsOutputData);
+        try {
+            JSONObject query = resultsDataAccessObject.searchQuery("school.name=" + stringAccumulator);
+            JSONObject metadata = query.getJSONObject("metadata");
+            if (metadata.getInt("total") == 0) {
+                resultsPresenter.prepareFailView("Results not found!");
+            } else {
+                University university = executeHelper(query.getJSONArray("results"));
+                ResultsOutputData resultsOutputData = new ResultsOutputData(university);
+                resultsPresenter.prepareUniPopup(resultsOutputData);
+            }
+        } catch (JSONException e) {
+            resultsPresenter.prepareFailView("JSON Error! (" + e + ")");
         }
-
     }
 
     private University executeHelper(JSONArray results) {
