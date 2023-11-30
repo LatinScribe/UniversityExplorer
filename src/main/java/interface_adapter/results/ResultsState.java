@@ -36,7 +36,7 @@ public class ResultsState {
         this.universities = universities;
     }
 
-    public void setChosenUniversity(University university) {this.chosenUniversity = chosenUniversity;}
+    public void setChosenUniversity(University university) {this.chosenUniversity = university;}
 
     public void setSearchError(String searchError) {this.searchError = searchError;}
 
