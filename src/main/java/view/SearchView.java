@@ -98,7 +98,7 @@ public class SearchView extends JPanel implements ActionListener, PropertyChange
                         for (int counter = 0; counter < text.length(); counter++) {
                             String substring = text.substring(counter, counter + 1);
                             if (!(substring.equals("\b"))) {
-                                accumulator += accumulator + substring;
+                                accumulator += substring;
                             }
                         }
                         currentState.setSearchCriteria(accumulator);
