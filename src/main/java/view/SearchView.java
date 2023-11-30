@@ -94,7 +94,14 @@ public class SearchView extends JPanel implements ActionListener, PropertyChange
                     public void keyTyped(KeyEvent e) {
                         SearchState currentState = searchViewModel.getState();
                         String text = searchInputField.getText() + e.getKeyChar();
-                        currentState.setSearchCriteria(text);
+                        String accumulator = "";
+                        for (int counter = 0; counter < text.length(); counter++) {
+                            String substring = text.substring(counter, counter + 1);
+                            if (!(substring.equals("\b"))) {
+                                accumulator += accumulator + substring;
+                            }
+                        }
+                        currentState.setSearchCriteria(accumulator);
                         searchViewModel.setState(currentState);
                     }
 
