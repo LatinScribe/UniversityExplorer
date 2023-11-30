@@ -6,6 +6,7 @@ import interface_adapter.apply.ApplyController;
 import interface_adapter.apply.ApplyPresenter;
 import interface_adapter.apply.ApplyViewModel;
 import interface_adapter.main_menu.MainMenuViewModel;
+import interface_adapter.sub_menu.SubViewModel;
 import use_case.apply.ApplyDataAccessInterface;
 import use_case.apply.ApplyInputBoundary;
 import use_case.apply.ApplyInteractor;
@@ -20,7 +21,7 @@ public class ApplyUseCaseFactory {
     private ApplyUseCaseFactory() {}
 
     public static Applyview create(
-            ViewManagerModel viewManagerModel, ApplyViewModel applyViewModel, ApplyDataAccessInterface applyUserDataAccessObject, UniversityFactory shortUniversityFactory,MainMenuViewModel mainMenuViewModel) {
+            ViewManagerModel viewManagerModel, ApplyViewModel applyViewModel, ApplyDataAccessInterface applyUserDataAccessObject, UniversityFactory shortUniversityFactory, SubViewModel mainMenuViewModel) {
 
         try {
             ApplyController applyController = createApplyUseCase(viewManagerModel, applyViewModel, applyUserDataAccessObject, shortUniversityFactory,mainMenuViewModel);
@@ -32,7 +33,7 @@ public class ApplyUseCaseFactory {
         return null;
     }
 
-    private static ApplyController createApplyUseCase(ViewManagerModel viewManagerModel, ApplyViewModel applyViewModel, ApplyDataAccessInterface applyDataAccessObject, UniversityFactory shortUniversityFactory, MainMenuViewModel mainMenuViewModel) throws IOException {
+    private static ApplyController createApplyUseCase(ViewManagerModel viewManagerModel, ApplyViewModel applyViewModel, ApplyDataAccessInterface applyDataAccessObject, UniversityFactory shortUniversityFactory, SubViewModel mainMenuViewModel) throws IOException {
 
         // Notice how we pass this method's parameters to the Presenter.
         ApplyOutputBoundary applyOutputBoundary = new ApplyPresenter(applyViewModel,viewManagerModel,mainMenuViewModel);
