@@ -2,18 +2,23 @@
 
 package view;
 
+import app.ResultsUseCaseFactory;
 import app.SearchUseCaseFactory;
+import data_access.ResultsDataAccessObject;
 import data_access.SearchDataAccessObject;
 import entity.CommonUniversityFactory;
 import entity.UniversityFactory;
 import interface_adapter.ViewManagerModel;
 import interface_adapter.apply.ApplyViewModel;
+import interface_adapter.results.ResultsViewModel;
 import interface_adapter.search.SearchController;
 import interface_adapter.search.SearchViewModel;
 import interface_adapter.search.SearchState;
 import interface_adapter.sub_menu.SubViewController;
 import interface_adapter.sub_menu.SubViewModel;
 import interface_adapter.sub_menu.SubViewPresenter;
+import org.json.JSONObject;
+import use_case.results.ResultsUserDataAccessInterface;
 import use_case.search.SearchUserDataAccessInterface;
 import use_case.sub_menu.SubViewInputBoundary;
 import use_case.sub_menu.SubViewInteractor;
@@ -47,7 +52,7 @@ public class SearchView extends JPanel implements ActionListener, PropertyChange
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         LabelTextPanel searchInfo = new LabelTextPanel(
-                new JLabel(SearchViewModel.SEARCH_BUTTON_LABEL), searchInputField);
+                new JLabel("Type in the name of a university here:"), searchInputField);
 
         JPanel buttons = new JPanel();
         search = new JButton(SearchViewModel.SEARCH_BUTTON_LABEL);
@@ -120,16 +125,10 @@ public class SearchView extends JPanel implements ActionListener, PropertyChange
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
         String y = evt.getPropertyName();
-        if (y.equals("successful search")) {
-            // Results View Not implemented yet, will be implemented soon.
-            SearchState state = (SearchState) evt.getNewValue();
-            JOptionPane.showMessageDialog(this, state.getUniversities());
-        } else if (y.equals("failure")){
+        if (y.equals("failure")){
             SearchState state = (SearchState) evt.getNewValue();
             JOptionPane.showMessageDialog(this, state.getSearchError());
             state.setSearchError(null);
-        } else {
-            SearchState state = (SearchState) evt.getNewValue();
         }
     }
 
@@ -146,7 +145,8 @@ public class SearchView extends JPanel implements ActionListener, PropertyChange
         SearchViewModel searchViewModel = new SearchViewModel();
         SearchUserDataAccessInterface searchDataAccessObject = new SearchDataAccessObject();
         SubViewModel subViewModel = new SubViewModel();
-        SearchView searchView = SearchUseCaseFactory.create(viewManagerModel, searchViewModel, subViewModel, searchDataAccessObject);
+        ResultsViewModel resultsViewModel = new ResultsViewModel();
+        SearchView searchView = SearchUseCaseFactory.create(viewManagerModel, searchViewModel, subViewModel, resultsViewModel, searchDataAccessObject);
 
         ApplyViewModel applyViewModel = new ApplyViewModel();
         SubViewPresenter subViewPresenter = new SubViewPresenter(searchViewModel, applyViewModel, viewManagerModel);
@@ -154,8 +154,12 @@ public class SearchView extends JPanel implements ActionListener, PropertyChange
         SubViewController subViewController = new SubViewController(subViewInteractor);
         SubView subView = new SubView(subViewModel, subViewController);
 
+        ResultsUserDataAccessInterface resultsUserDataAccessInterface = new ResultsDataAccessObject();
+        ResultsView resultsView = ResultsUseCaseFactory.create(viewManagerModel, resultsViewModel, searchViewModel, resultsUserDataAccessInterface);
+
         views.add(searchView, searchView.viewName);
         views.add(subView, subView.viewName);
+        views.add(resultsView, resultsView.viewName);
 
         viewManagerModel.setActiveView(searchView.viewName);
         viewManagerModel.firePropertyChanged();

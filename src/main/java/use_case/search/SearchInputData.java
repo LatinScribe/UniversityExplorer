@@ -10,7 +10,7 @@ public class SearchInputData {
         this.searchCriteria = searchCriteria;
     }
 
-    String getSearchCriteria() {
+    public String getSearchCriteria() {
         return searchCriteria;
     }
 

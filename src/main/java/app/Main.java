@@ -2,6 +2,8 @@
 
 package app;
 
+
+import data_access.*;
 import data_access.ApplyDataAccessObject;
 import data_access.FileTokenDataAccessObject;
 import data_access.ServerProfileDataAccessObject;
@@ -17,6 +19,8 @@ import interface_adapter.apply.ApplyViewModel;
 import interface_adapter.logged_in.LoggedInViewModel;
 import interface_adapter.login.LoginViewModel;
 import interface_adapter.main_menu.MainMenuViewModel;
+import interface_adapter.prefapply.PrefApplyViewModel;
+import interface_adapter.results.ResultsViewModel;
 import interface_adapter.search.SearchViewModel;
 import interface_adapter.signup.SignupViewModel;
 import interface_adapter.user_profiles.UserProfileController;
@@ -27,6 +31,9 @@ import interface_adapter.sub_menu.SubViewModel;
 import interface_adapter.sub_menu.SubViewPresenter;
 import use_case.apply.ApplyDataAccessInterface;
 import use_case.apply.ApplyInputBoundary;
+import use_case.prefapply.PrefApplyDataAccessInterface;
+import use_case.results.ResultsUserDataAccessInterface;
+import use_case.search.SearchUserDataAccessInterface;
 import use_case.sub_menu.SubViewInputBoundary;
 import use_case.sub_menu.SubViewInteractor;
 
@@ -47,6 +54,9 @@ public class Main {
      * 5) UserProfileView
      * 6) SubView
      * 7) ApplyView
+     * 8) SearchView
+     * 9) ResultsVIew
+     * 10) PrefApplyView
      */
     public static void main(String[] args) {
         JFrame application = new JFrame("Main Menu Test");
@@ -71,9 +81,11 @@ public class Main {
         LoggedInViewModel loggedInViewModel = new LoggedInViewModel();
         SignupViewModel signupViewModel = new SignupViewModel();
         MainMenuViewModel mainMenuViewModel1 = new MainMenuViewModel();
-        SearchViewModel searchViewModel = new SearchViewModel();
         SubViewModel subViewModel = new SubViewModel();
         ApplyViewModel applyViewModel = new ApplyViewModel();
+        SearchViewModel searchViewModel = new SearchViewModel();
+        ResultsViewModel resultsViewModel = new ResultsViewModel();
+        PrefApplyViewModel prefapplyViewModel = new PrefApplyViewModel();
 
         // create the main menu view
         MainMenuView mainMenuView = MainMenuUseCaseFactory.create(mainMenuViewModel1, signupViewModel, loginViewModel, subViewModel, viewManagerModel);
@@ -118,11 +130,31 @@ public class Main {
         // add apply view
         ApplyDataAccessInterface applyUserDataAccessObject = new ApplyDataAccessObject();
         UniversityFactory shortUniversityFactory = new CommonUniversityFactory();
-        Applyview applyView = ApplyUseCaseFactory.create(viewManagerModel,applyViewModel,applyUserDataAccessObject,shortUniversityFactory);
+        Applyview applyView = ApplyUseCaseFactory.create(viewManagerModel,applyViewModel,applyUserDataAccessObject,shortUniversityFactory,subViewModel);
         //ApplyController applyController = new ApplyController( applyUseCaseInteractor);
         //Applyview applyView = new Applyview(applyController, applyViewModel);
 
         views.add(applyView, applyView.viewName);
+
+        // add search view
+        SearchUserDataAccessInterface searchUserDataAccessInterface = new SearchDataAccessObject();
+        SearchView searchView = SearchUseCaseFactory.create(viewManagerModel, searchViewModel, subViewModel, resultsViewModel, searchUserDataAccessInterface);
+
+        views.add(searchView, searchView.viewName);
+
+        // add results view
+        ResultsUserDataAccessInterface resultsUserDataAccessInterface = new ResultsDataAccessObject();
+        ResultsView resultsView = ResultsUseCaseFactory.create(viewManagerModel, resultsViewModel, searchViewModel, resultsUserDataAccessInterface);
+
+        views.add(resultsView, resultsView.viewName);
+
+        // add prefapply view
+        PrefApplyDataAccessInterface prefapplyUserDataAccessObject = new PrefApplyDataAccessObject();
+        PrefApplyview prefapplyView = PrefApplyUseCaseFactory.create(viewManagerModel,prefapplyViewModel,prefapplyUserDataAccessObject,shortUniversityFactory,subViewModel);
+        //ApplyController applyController = new ApplyController( applyUseCaseInteractor);
+        //Applyview applyView = new Applyview(applyController, applyViewModel);
+
+        views.add(prefapplyView, prefapplyView.viewName);
 
         viewManagerModel.setActiveView(mainMenuView.viewName);
         viewManagerModel.firePropertyChanged();

@@ -1,13 +1,14 @@
-// Author: Bora
-package interface_adapter.apply;
+package interface_adapter.prefapply;
 
 import use_case.apply.ApplyInputBoundary;
 import use_case.apply.ApplyInputData;
+import use_case.prefapply.PrefApplyInputBoundary;
+import use_case.prefapply.PrefApplyInputData;
 
-public class ApplyController {
-    final ApplyInputBoundary applyUseCaseInteractor;
-    public ApplyController( ApplyInputBoundary applyUseCaseInteractor) {
-        this.applyUseCaseInteractor = applyUseCaseInteractor;
+public class PrefApplyController {
+    final PrefApplyInputBoundary prefapplyUseCaseInteractor;
+    public PrefApplyController( PrefApplyInputBoundary prefapplyUseCaseInteractor) {
+        this.prefapplyUseCaseInteractor = prefapplyUseCaseInteractor;
     }
 
     public void execute(String satScore , String actScore) throws IllegalArgumentException {
@@ -25,11 +26,11 @@ public class ApplyController {
         }
 
 
-        ApplyInputData applyInputData = new ApplyInputData(satScore,actScore);
-        applyUseCaseInteractor.execute(applyInputData);
+        PrefApplyInputData prefapplyInputData = new PrefApplyInputData(satScore,actScore);
+        prefapplyUseCaseInteractor.execute(prefapplyInputData);
 
     }
     public void executeBack() {
-        applyUseCaseInteractor.executeBack();
+        prefapplyUseCaseInteractor.executeBack();
     }
 }

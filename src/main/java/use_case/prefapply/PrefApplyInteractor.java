@@ -1,56 +1,54 @@
-package use_case.apply;
+package use_case.prefapply;
 
 import entity.University;
 import entity.UniversityFactory;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import java.util.List;
-
-public class ApplyInteractor implements ApplyInputBoundary {
-    final ApplyDataAccessInterface applyDataAccessObject;
-    final ApplyOutputBoundary applyPresenter;
+public class PrefApplyInteractor implements PrefApplyInputBoundary{
+    final PrefApplyDataAccessInterface prefapplyDataAccessObject;
+    final PrefApplyOutputBoundary prefapplyPresenter;
     final UniversityFactory universityFactory;
 
-    public ApplyInteractor(ApplyDataAccessInterface applyDataAccessObject, ApplyOutputBoundary applyOutputBoundary, UniversityFactory universityFactory) {
-        this.applyDataAccessObject = applyDataAccessObject;
-        this.applyPresenter = applyOutputBoundary;
+    public PrefApplyInteractor(PrefApplyDataAccessInterface prefapplyDataAccessObject, PrefApplyOutputBoundary prefapplyOutputBoundary, UniversityFactory universityFactory) {
+        this.prefapplyDataAccessObject = prefapplyDataAccessObject;
+        this.prefapplyPresenter = prefapplyOutputBoundary;
         this.universityFactory = universityFactory;
     }
 
     @Override
-    public void execute(ApplyInputData applyInputData) {
-        String actScore = applyInputData.getActScore();
-        String satScore = applyInputData.getSatScore();
+    public void execute(PrefApplyInputData prefapplyInputData) {
+        String actScore = prefapplyInputData.getActScore();
+        String satScore = prefapplyInputData.getSatScore();
         int intsatScore = Integer.parseInt(satScore);
         int intactScore = Integer.parseInt(actScore);
         String queryParameters1 = "2018.admissions.sat_scores.average.overall__range="+Integer.toString(intsatScore-100)+"..."+Integer.toString(intsatScore+50);
         String optionalParameters = "fields=id,school.name,school.state,school.city,admissions.admission_rate.overall,cost.tuition.in_state,cost.tuition.out_of_state,2018.admissions.sat_scores.average.overall,admissions.act_scores.midpoint.cumulative,school.school_url";
-        JSONObject query1= applyDataAccessObject.basicQuery(queryParameters1,optionalParameters);
+        JSONObject query1= prefapplyDataAccessObject.basicQuery(queryParameters1,optionalParameters);
         String queryParameters2 = "2018.admissions.act_scores.midpoint.cumulative__range="+Integer.toString(intactScore-2)+"..."+Integer.toString(intactScore+2);
-        JSONObject query2 = applyDataAccessObject.basicQuery(queryParameters2,optionalParameters);
+        JSONObject query2 = prefapplyDataAccessObject.basicQuery(queryParameters2,optionalParameters);
         University uni1 = executeHelper(query1.getJSONArray("results"));
         University uni2 = executeHelper(query2.getJSONArray("results"));
         University chosenUni = null;
-        if (uni1.getAverageSATScore() == null && uni2.getAverageSATScore() == null){ applyPresenter.prepareFailView("Error");}
+        if (uni1.getAverageSATScore() == null && uni2.getAverageSATScore() == null){ prefapplyPresenter.prepareFailView("Error");}
         else if (uni2.getAverageSATScore() == null) { chosenUni = uni1;}
         else if (uni1.getAverageSATScore() == null) { chosenUni = uni2;}
         else {
-        if (uni1.getAverageSATScore() >= uni2.getAverageSATScore()){
-            chosenUni = uni1;
-        }
-        else {
-            chosenUni = uni2;
-        }}
+            if (uni1.getAverageSATScore() >= uni2.getAverageSATScore()){
+                chosenUni = uni1;
+            }
+            else {
+                chosenUni = uni2;
+            }}
         JSONObject metadata1 = query1.getJSONObject("metadata");
         JSONObject metadata2 = query2.getJSONObject("metadata");
 
         if (metadata1.getInt("total") == 0 && metadata2.getInt("total") == 0) {
-            applyPresenter.prepareFailView("Error");
+            prefapplyPresenter.prepareFailView("Error");
         }
         else {
-            ApplyOutputData applyOutputData = new ApplyOutputData(chosenUni);
-            applyPresenter.prepareSuccessView(applyOutputData);
+            PrefApplyOutputData prefapplyOutputData = new PrefApplyOutputData(chosenUni);
+            prefapplyPresenter.prepareSuccessView(prefapplyOutputData);
         }
 
 
@@ -61,7 +59,7 @@ public class ApplyInteractor implements ApplyInputBoundary {
 
     @Override
     public void executeBack(){
-        applyPresenter.prepareBackView();
+        prefapplyPresenter.prepareBackView();
     }
 
     private University executeHelper(JSONArray results) {
@@ -73,8 +71,8 @@ public class ApplyInteractor implements ApplyInputBoundary {
             Object avgSATCheck = university.get("2018.admissions.sat_scores.average.overall");
             Integer avgSAT = integerChecker(avgSATCheck) ;
             if (avgSAT != null){
-               if (avgSAT > largestSat){ largestSat = avgSAT;
-                  largestindex = i;}
+                if (avgSAT > largestSat){ largestSat = avgSAT;
+                    largestindex = i;}
             }
         }
         JSONObject university = (JSONObject) results.get(largestindex);

@@ -1,25 +1,23 @@
-// Author: Bora
-package interface_adapter.apply;
+package interface_adapter.prefapply;
 
 import interface_adapter.ViewModel;
-
+import interface_adapter.apply.ApplyState;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
-public class ApplyViewModel extends ViewModel {
-
+public class PrefApplyViewModel extends ViewModel {
     public static final String TITLE_LABEL = "Application Form";
     public static final String ACT_LABEL = "Enter ACT score";
     public static final String SAT_LABEL = "Enter your SAT score";
     public static final String SUBMIT_BUTTON_LABEL = "Submit";
     public static final String BACK_BUTTON_LABEL = "Back";
-    private ApplyState state = new ApplyState();
-    public void setState(ApplyState state){this.state=state;}
+    private PrefApplyState state = new PrefApplyState();
+    public void setState(PrefApplyState state){this.state=state;}
 
 
-    public ApplyViewModel() {
-        super("Submit form");
+    public PrefApplyViewModel() {
+        super("PrefSubmit form");
     }
 
     private final PropertyChangeSupport support = new PropertyChangeSupport(this);
@@ -40,7 +38,5 @@ public class ApplyViewModel extends ViewModel {
         support.addPropertyChangeListener(listener);
     }
 
-    public ApplyState getState() {return state;}
-
-
+    public PrefApplyState getState() {return state;}
 }
