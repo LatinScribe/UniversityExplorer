@@ -12,30 +12,50 @@ import use_case.user_profile.UserProfileInteractor;
 import use_case.user_profile.UserProfileOutputBoundary;
 import use_case.user_profile.UserProfileOutputData;
 
+import java.util.Arrays;
+
+import static org.junit.Assert.assertTrue;
+
 public class UserProfileInteractorTest {
 
-    private UserProfilePresenterStub userProfilePresenter;
+    private UserProfileOutputBoundaryStub successPresenter;
     private ProfileDataAccessStub profileDataAccessStub;
-
+    private UserProfileInteractor interactor;
 
     @Before
     public void setUp() {
+        successPresenter = new UserProfileOutputBoundaryStub();
         profileDataAccessStub = new ProfileDataAccessStub();
-        UserProfileInteractor testInteractor = new UserProfileInteractor(userProfilePresenter, profileDataAccessStub);
-
-
-
-
-
+        interactor = new UserProfileInteractor(successPresenter, profileDataAccessStub);
     }
 
     @Test
-    public void showPersonalProfileTest() {
-        int[] rankingRange = new int[]{1, 10};
-        UserProfileOutputData userProfileOutputData = new UserProfileOutputData(10000, 10000,
-                "Singapore", "Computer Science", rankingRange);
-        this.userProfilePresenter.presentUserProfile(userProfileOutputData);
+    public void testShowPersonalProfileView() {
+        // Setup expected data
+        int expectedFinAidRequirement = 10000;
+        int expectedAvgSalary = 10000;
+        String expectedLocation = "Singapore";
+        String expectedProgram = "Computer Science";
+        int[] expectedRankingRange = new int[]{1, 10};
 
+        // Create output data with expected values
+        UserProfileOutputData expectedOutput = new UserProfileOutputData(
+                expectedFinAidRequirement, expectedAvgSalary, expectedLocation, expectedProgram, expectedRankingRange
+        );
+
+        // Call the method under test
+        interactor.showPersonalProfileView(expectedOutput);
+
+        // Assert that the presenter was called with the correct data
+        assertTrue("Presenter should be called with the expected output data",
+                successPresenter.wasPresentUserProfileCalledWith(
+                        expectedFinAidRequirement,
+                        expectedAvgSalary,
+                        expectedLocation,
+                        expectedProgram,
+                        expectedRankingRange
+                )
+        );
     }
 
 
@@ -58,19 +78,14 @@ public class UserProfileInteractorTest {
         }
     }
 
-    private static class UserProfilePresenterStub implements UserProfileOutputBoundary {
-
-        private UserProfileViewModel userProfileViewModel;
-        private ViewManagerModel viewManagerModel;
-
-        public UserProfilePresenterStub(ViewManagerModel viewManagerModel,UserProfileViewModel viewModel) {
-            this.userProfileViewModel = viewModel;
-            this.viewManagerModel = viewManagerModel;
-        }
+    private static class UserProfileOutputBoundaryStub implements UserProfileOutputBoundary {
+        private boolean presentUserProfileCalled = false;
+        private UserProfileOutputData lastOutputData;
 
         @Override
         public void presentUserProfile(UserProfileOutputData userProfileOutputData) {
-            System.out.println("presentUserProfile Called Successfully");
+            this.lastOutputData = userProfileOutputData;
+            this.presentUserProfileCalled = true;
         }
 
         @Override
@@ -82,7 +97,30 @@ public class UserProfileInteractorTest {
         public void presentProfileViewError(String message) {
 
         }
+
+
+
+
+
+        // Custom method to check if the presenter was called with the expected data
+        public boolean wasPresentUserProfileCalledWith(
+                int finAidRequirement,
+                int avgSalary,
+                String location,
+                String program,
+                int[] rankingRange
+        ) {
+            if (!presentUserProfileCalled) return false;
+
+            // Check each field individually
+            return lastOutputData.getFinAidRequirement() == finAidRequirement
+                    && lastOutputData.getAvgSalary() == avgSalary
+                    && lastOutputData.getLocationPreference().equals(location)
+                    && lastOutputData.getPreferredProgram().equals(program)
+                    && Arrays.equals(lastOutputData.getUniversityRankingRange(), rankingRange);
+        }
     }
+
 }
 
 
