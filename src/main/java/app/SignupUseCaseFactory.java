@@ -31,7 +31,7 @@ public class SignupUseCaseFactory {
 //            ClearController clearController = createClearUseCase(viewManagerModel, signupViewModel, loginViewModel, userDataAccessObject);
             return new SignupView(signupController, signupViewModel);
         } catch (IOException e) {
-            JOptionPane.showMessageDialog(null, "Could not open user data file.");
+            JOptionPane.showMessageDialog(null, "Error creating login model. This could be because there was a user DAO issue");
         }
 
         return null;
