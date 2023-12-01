@@ -6,16 +6,21 @@ import interface_adapter.apply.ApplyState;
 import interface_adapter.apply.ApplyViewModel;
 import interface_adapter.search.SearchState;
 import interface_adapter.search.SearchViewModel;
+import interface_adapter.zip_search.ZipSearchState;
+import interface_adapter.zip_search.ZipSearchViewModel;
 import use_case.sub_menu.SubViewOutputBoundary;
 
 public class SubViewPresenter implements SubViewOutputBoundary {
     private final SearchViewModel searchViewModel;
     private final ApplyViewModel applyViewModel;
+    private final ZipSearchViewModel zipSearchViewModel;
+
     private ViewManagerModel viewManagerModel;
 
-    public SubViewPresenter(SearchViewModel searchViewModel, ApplyViewModel applyViewModel, ViewManagerModel viewManagerModel) {
+    public SubViewPresenter(SearchViewModel searchViewModel, ApplyViewModel applyViewModel, ZipSearchViewModel zipSearchViewModel, ViewManagerModel viewManagerModel) {
         this.searchViewModel = searchViewModel;
         this.applyViewModel = applyViewModel;
+        this.zipSearchViewModel = zipSearchViewModel;
         this.viewManagerModel = viewManagerModel;
     }
 
@@ -40,11 +45,11 @@ public class SubViewPresenter implements SubViewOutputBoundary {
 
     public void prepareZipSearchView() {
         // On success, switch to the zip search view.
-        ApplyState applyState = applyViewModel.getState();
-        this.applyViewModel.setState(applyState);
-        this.applyViewModel.firePropertyChanged();
+        ZipSearchState zipSearchState = zipSearchViewModel.getState();
+        this.zipSearchViewModel.setState(zipSearchState);
+        this.zipSearchViewModel.firePropertyChanged();
 
-        this.viewManagerModel.setActiveView(applyViewModel.getViewName());
+        this.viewManagerModel.setActiveView(zipSearchViewModel.getViewName());
         this.viewManagerModel.firePropertyChanged();
     }
 }

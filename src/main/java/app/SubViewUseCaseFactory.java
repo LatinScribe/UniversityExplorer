@@ -8,6 +8,7 @@ import interface_adapter.search.SearchViewModel;
 import interface_adapter.sub_menu.SubViewController;
 import interface_adapter.sub_menu.SubViewModel;
 import interface_adapter.sub_menu.SubViewPresenter;
+import interface_adapter.zip_search.ZipSearchViewModel;
 import use_case.sub_menu.SubViewInputBoundary;
 import use_case.sub_menu.SubViewInteractor;
 import use_case.sub_menu.SubViewOutputBoundary;
@@ -22,10 +23,10 @@ public class SubViewUseCaseFactory {
     private SubViewUseCaseFactory() {}
 
     public static SubView create(
-            ViewManagerModel viewManagerModel, SearchViewModel searchViewModel, ApplyViewModel applyViewModel, SubViewModel subViewModel) {
+            ViewManagerModel viewManagerModel, SearchViewModel searchViewModel, ApplyViewModel applyViewModel, ZipSearchViewModel zipSearchViewModel, SubViewModel subViewModel) {
 
         try {
-            SubViewController subViewController = createSubViewUseCase(viewManagerModel, searchViewModel, applyViewModel);
+            SubViewController subViewController = createSubViewUseCase(viewManagerModel, searchViewModel, applyViewModel, zipSearchViewModel);
             return new SubView(subViewModel, subViewController);
         } catch (IOException e) {
             JOptionPane.showMessageDialog(null, "Could not open user data file.");
@@ -37,10 +38,11 @@ public class SubViewUseCaseFactory {
     private static SubViewController createSubViewUseCase(
             ViewManagerModel viewManagerModel,
             SearchViewModel searchViewModel,
-            ApplyViewModel applyViewModel) throws IOException {
+            ApplyViewModel applyViewModel,
+            ZipSearchViewModel zipSearchViewModel) throws IOException {
 
         // Notice how we pass this method's parameters to the Presenter.
-        SubViewOutputBoundary subViewOutputBoundary = new SubViewPresenter(searchViewModel, applyViewModel, viewManagerModel);
+        SubViewOutputBoundary subViewOutputBoundary = new SubViewPresenter(searchViewModel, applyViewModel, zipSearchViewModel, viewManagerModel);
 
         SubViewInputBoundary subViewInteractor = new SubViewInteractor(
                 subViewOutputBoundary);
