@@ -4,6 +4,7 @@ package use_case.search;
 
 import interface_adapter.search.SearchPresenter;
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 import entity.University;
 import entity.UniversityFactory;
@@ -37,16 +38,19 @@ public class SearchInteractor implements SearchInputBoundary {
                 stringAccumulator += cursor;
             }
         }
-        JSONObject query = searchDataAccessObject.searchQuery("school.name=" + stringAccumulator);
-        JSONObject metadata = query.getJSONObject("metadata");
-        if (metadata.getInt("total") == 0) {
-            searchPresenter.prepareResultsNotFoundView("Results not found!");
-        }
-        else {
-            List<University> universityList = executeHelper(query.getJSONArray("results"));
-            SearchOutputData searchOutputData = new SearchOutputData(universityList);
-            searchPresenter.prepareSuccessView(searchOutputData);
-        }
+        try {
+            JSONObject query = searchDataAccessObject.searchQuery("school.name=" + stringAccumulator);
+            JSONObject metadata = query.getJSONObject("metadata");
+            if (metadata.getInt("total") == 0) {
+                searchPresenter.prepareResultsNotFoundView("Results not found!");
+            } else {
+                List<University> universityList = executeHelper(query.getJSONArray("results"));
+                SearchOutputData searchOutputData = new SearchOutputData(universityList);
+                searchPresenter.prepareSuccessView(searchOutputData);
+            }
+        } catch (JSONException e) {
+            searchPresenter.prepareResultsNotFoundView("JSON Error! (" + e + ")");
+            }
     }
 
     private List<University> executeHelper(JSONArray results) {

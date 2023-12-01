@@ -1,5 +1,7 @@
 package entity;
 
+import java.sql.Array;
+
 public class CommonUniversity implements University {
 
     private final Integer schoolID;
@@ -76,13 +78,23 @@ public class CommonUniversity implements University {
 
     @Override
     public String toString() {
-        return "University Name: " + schoolName + "\"" +
-                "Location: " + city + ", " + state + "\"" +
-                "Admission Rate: " + admissionRate + "\"" +
-                "Average Tuition (In State): " + averageInStateTuition + "\"" +
-                "Average Tuition (Out of State) " + averageOutOfStateTuition + "\"" +
-                "Average SAT Score: " + averageSATScore + "\"" +
-                "Average ACT Score: " + averageACTScore + "\"" +
-                "URL: " + url;
+        Object[] objects = toStringHelper();
+        for (int i = 0; i < objects.length; i++) {
+            if (objects[i] == null) {
+                objects[i] = "N/A";
+            }
+        }
+        return "Institution Name: " + objects[0] + "\n" +
+                "Location: " + objects[1] + ", " + objects[2] + "\n" +
+                "Admission Rate: " + objects[3] + "\n" +
+                "Average Tuition (In State): " + objects[4] + "\n" +
+                "Average Tuition (Out of State) " + objects[5] + "\n" +
+                "Average SAT Score: " + objects[6] + "\n" +
+                "Average ACT Score: " + objects[7] + "\n" +
+                "URL: " + objects[8];
+    }
+
+    private Object[] toStringHelper() {
+        return new Object[] {schoolName, city, state, admissionRate, averageInStateTuition, averageOutOfStateTuition, averageSATScore, averageACTScore, url};
     }
 }

@@ -52,7 +52,7 @@ public class SearchView extends JPanel implements ActionListener, PropertyChange
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         LabelTextPanel searchInfo = new LabelTextPanel(
-                new JLabel(SearchViewModel.SEARCH_BUTTON_LABEL), searchInputField);
+                new JLabel("Type in the name of a university here:"), searchInputField);
 
         JPanel buttons = new JPanel();
         search = new JButton(SearchViewModel.SEARCH_BUTTON_LABEL);
@@ -129,8 +129,6 @@ public class SearchView extends JPanel implements ActionListener, PropertyChange
             SearchState state = (SearchState) evt.getNewValue();
             JOptionPane.showMessageDialog(this, state.getSearchError());
             state.setSearchError(null);
-        } else {
-            SearchState state = (SearchState) evt.getNewValue();
         }
     }
 

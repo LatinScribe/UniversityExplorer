@@ -3,15 +3,17 @@ package interface_adapter.apply;
 import interface_adapter.ViewManagerModel;
 import interface_adapter.main_menu.MainMenuState;
 import interface_adapter.main_menu.MainMenuViewModel;
+import interface_adapter.sub_menu.SubViewModel;
+import interface_adapter.sub_menu.SubViewState;
 import use_case.apply.ApplyOutputBoundary;
 import use_case.apply.ApplyOutputData;
 
 public class ApplyPresenter implements ApplyOutputBoundary {
     private ApplyViewModel applyViewModel;
     private ViewManagerModel viewManagerModel;
-    private MainMenuViewModel mainMenuViewModel;
+    private SubViewModel mainMenuViewModel;
 
-    public ApplyPresenter(ApplyViewModel applyViewModel, ViewManagerModel viewManagerModel,MainMenuViewModel mainMenuViewModel){
+    public ApplyPresenter(ApplyViewModel applyViewModel, ViewManagerModel viewManagerModel,SubViewModel mainMenuViewModel){
         this.applyViewModel = applyViewModel;
         this.viewManagerModel = viewManagerModel;
         this.mainMenuViewModel = mainMenuViewModel;
@@ -42,7 +44,7 @@ public class ApplyPresenter implements ApplyOutputBoundary {
     }
     @Override
     public void prepareBackView() {
-        MainMenuState mainMenuState = mainMenuViewModel.getState();
+        SubViewState mainMenuState = mainMenuViewModel.getState();
         this.mainMenuViewModel.setState(mainMenuState);
         this.mainMenuViewModel.firePropertyChanged();
 

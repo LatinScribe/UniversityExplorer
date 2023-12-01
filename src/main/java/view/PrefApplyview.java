@@ -1,7 +1,7 @@
-// Author: Bora
 package view;
 
 import data_access.ApplyDataAccessObject;
+import data_access.PrefApplyDataAccessObject;
 import entity.CommonUniversityFactory;
 import entity.UniversityFactory;
 import interface_adapter.ViewManagerModel;
@@ -9,10 +9,19 @@ import interface_adapter.apply.ApplyController;
 import interface_adapter.apply.ApplyPresenter;
 import interface_adapter.apply.ApplyState;
 import interface_adapter.apply.ApplyViewModel;
-import interface_adapter.main_menu.MainMenuViewModel;
-import interface_adapter.search.SearchViewModel;
+import interface_adapter.prefapply.PrefApplyController;
+import interface_adapter.prefapply.PrefApplyPresenter;
+import interface_adapter.prefapply.PrefApplyState;
+import interface_adapter.prefapply.PrefApplyViewModel;
 import interface_adapter.sub_menu.SubViewModel;
-import use_case.apply.*;
+import use_case.apply.ApplyDataAccessInterface;
+import use_case.apply.ApplyInputBoundary;
+import use_case.apply.ApplyInteractor;
+import use_case.apply.ApplyOutputBoundary;
+import use_case.prefapply.PrefApplyDataAccessInterface;
+import use_case.prefapply.PrefApplyInputBoundary;
+import use_case.prefapply.PrefApplyInteractor;
+import use_case.prefapply.PrefApplyOutputBoundary;
 
 import javax.swing.*;
 import java.awt.*;
@@ -23,24 +32,24 @@ import java.awt.event.KeyListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
-public class Applyview extends JPanel implements ActionListener, PropertyChangeListener {
-    public final String viewName = "Submit form";
+public class PrefApplyview extends JPanel implements ActionListener, PropertyChangeListener {
+    public final String viewName = "PrefSubmit form";
 
-    private final ApplyViewModel applyViewModel;
+    private final PrefApplyViewModel prefapplyViewModel;
     private final JTextField actInputField = new JTextField(15);
     private final JTextField satInputField = new JTextField(15);
 
-    private final ApplyController applyController;
+    private final PrefApplyController prefapplyController;
 
     private final JButton submit;
     private final JButton back;
 
 
-    public Applyview(ApplyController controller, ApplyViewModel applyViewModel) {
+    public PrefApplyview(PrefApplyController controller, PrefApplyViewModel prefapplyViewModel) {
 
-        this.applyController = controller;
-        this.applyViewModel = applyViewModel;
-        applyViewModel.addPropertyChangeListener(this);
+        this.prefapplyController = controller;
+        this.prefapplyViewModel = prefapplyViewModel;
+        prefapplyViewModel.addPropertyChangeListener(this);
 
         JLabel title = new JLabel(ApplyViewModel.TITLE_LABEL);
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -62,35 +71,35 @@ public class Applyview extends JPanel implements ActionListener, PropertyChangeL
                     public void actionPerformed(ActionEvent evt) {
                         if (evt.getSource().equals(back)) {
                             System.out.println("Back pressed");
-                            applyController.executeBack();
+                            prefapplyController.executeBack();
                         }
                     }
                 }
         );
         submit.addActionListener(e -> {
 
-                                         if (e.getSource().equals(submit)) {
-                                             try {
-                                                 System.out.println("submit Button pressed");
-                                                 ApplyState applyState = applyViewModel.getState();
+            if (e.getSource().equals(submit)) {
+                try {
+                    System.out.println("submit Button pressed");
+                    PrefApplyState prefapplyState = prefapplyViewModel.getState();
 
-                                                 applyController.execute(applyState.getSat(),applyState.getAct());
+                    prefapplyController.execute(prefapplyState.getSat(),prefapplyState.getAct());
 
-                                             }catch (IllegalArgumentException ex){
-                                                 JOptionPane.showMessageDialog(this, "invalid input format", "error", JOptionPane.ERROR_MESSAGE);
-                                             }
+                }catch (IllegalArgumentException ex){
+                    JOptionPane.showMessageDialog(this, "invalid input format", "error", JOptionPane.ERROR_MESSAGE);
+                }
 
-                                         }
+            }
 
-                                 });
+        });
         actInputField.addKeyListener(
                 new KeyListener() {
                     @Override
                     public void keyTyped(KeyEvent e) {
-                        ApplyState currentState = applyViewModel.getState();
+                        PrefApplyState currentState = prefapplyViewModel.getState();
                         String text = actInputField.getText() + e.getKeyChar();
                         currentState.setAct(text);
-                        applyViewModel.setState(currentState);
+                        prefapplyViewModel.setState(currentState);
                     }
 
                     @Override
@@ -106,10 +115,10 @@ public class Applyview extends JPanel implements ActionListener, PropertyChangeL
                 new KeyListener() {
                     @Override
                     public void keyTyped(KeyEvent e) {
-                        ApplyState currentState = applyViewModel.getState();
+                        PrefApplyState currentState = prefapplyViewModel.getState();
                         String text = satInputField.getText() + e.getKeyChar();
                         currentState.setSat(text);
-                        applyViewModel.setState(currentState);
+                        prefapplyViewModel.setState(currentState);
                     }
 
                     @Override
@@ -145,11 +154,11 @@ public class Applyview extends JPanel implements ActionListener, PropertyChangeL
         String y = evt.getPropertyName();
         if (y.equals("success")) {
             // Results View Not implemented yet, will be implemented soon.
-            ApplyState state = (ApplyState) evt.getNewValue();
+            PrefApplyState state = (PrefApplyState) evt.getNewValue();
             JOptionPane.showMessageDialog(this, state.getUni());
             //System.out.println(state.getUni().getSchoolName());
         } else if (y.equals("Error")) {
-            ApplyState state = (ApplyState) evt.getNewValue();
+            PrefApplyState state = (PrefApplyState) evt.getNewValue();
             JOptionPane.showMessageDialog(this, state.getUniversityError());
             state.setUniversityError(null);
         }
@@ -158,22 +167,21 @@ public class Applyview extends JPanel implements ActionListener, PropertyChangeL
         JFrame application = new JFrame("ApplyView Test");
         application.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         ViewManagerModel viewManagerModel = new ViewManagerModel();
-        ApplyViewModel applyViewModel = new ApplyViewModel();
+        PrefApplyViewModel prefapplyViewModel = new PrefApplyViewModel();
         SubViewModel mainMenuViewModel = new SubViewModel();
-        ApplyOutputBoundary applyPresenter = new ApplyPresenter(applyViewModel,viewManagerModel,mainMenuViewModel);
+        PrefApplyOutputBoundary prefapplyPresenter = new PrefApplyPresenter(prefapplyViewModel,viewManagerModel,mainMenuViewModel);
         //ApplyInputData applyInputData = new ApplyInputData();
-        ApplyDataAccessInterface applyDataAccessInterface = new ApplyDataAccessObject();
+        PrefApplyDataAccessInterface prefapplyDataAccessInterface = new PrefApplyDataAccessObject();
         UniversityFactory universityFactory = new CommonUniversityFactory();
-        ApplyInputBoundary applyUseCaseInteractor = new ApplyInteractor(applyDataAccessInterface,applyPresenter,universityFactory);
-        ApplyController applyController = new ApplyController( applyUseCaseInteractor);
-        Applyview applyView = new Applyview(applyController, applyViewModel);
+        PrefApplyInputBoundary prefapplyUseCaseInteractor = new PrefApplyInteractor(prefapplyDataAccessInterface,prefapplyPresenter,universityFactory);
+        PrefApplyController prefapplyController = new PrefApplyController( prefapplyUseCaseInteractor);
+        PrefApplyview prefapplyView = new PrefApplyview(prefapplyController, prefapplyViewModel);
 
         JPanel testPanel = new JPanel();
-        testPanel.add(applyView);
+        testPanel.add(prefapplyView);
 
         application.add(testPanel);
         application.pack();
         application.setVisible(true);
     }
-
 }
