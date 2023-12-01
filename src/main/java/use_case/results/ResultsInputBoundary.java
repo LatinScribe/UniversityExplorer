@@ -1,3 +1,4 @@
+// Author: André
 package use_case.results;
 
 import use_case.search.SearchInputData;
