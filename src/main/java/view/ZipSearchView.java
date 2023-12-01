@@ -2,13 +2,16 @@
 package view;
 
 import app.ResultsUseCaseFactory;
+import app.SubViewUseCaseFactory;
 import app.ZipSearchUseCaseFactory;
 import data_access.ResultsDataAccessObject;
 import data_access.ZipSearchDataAccessObject;
 import entity.CommonUniversityFactory;
 import entity.UniversityFactory;
 import interface_adapter.ViewManagerModel;
+import interface_adapter.apply.ApplyViewModel;
 import interface_adapter.results.ResultsViewModel;
+import interface_adapter.search.SearchViewModel;
 import interface_adapter.sub_menu.SubViewModel;
 import interface_adapter.zip_search.ZipSearchController;
 import interface_adapter.zip_search.ZipSearchPresenter;
@@ -32,8 +35,8 @@ import java.beans.PropertyChangeListener;
 public class ZipSearchView extends JPanel implements ActionListener, PropertyChangeListener {
     public final String viewName = "zip_search";
     private final ZipSearchViewModel zipSearchViewModel;
-    private final JPasswordField zipcodeInputField = new JPasswordField(15);
-    private final JPasswordField radiusInputField = new JPasswordField(15);
+    private final JTextField zipcodeInputField = new JTextField(15);
+    private final JTextField radiusInputField = new JTextField(15);
     private final ZipSearchController zipSearchController;
 
     private final JButton search;
@@ -171,17 +174,19 @@ public class ZipSearchView extends JPanel implements ActionListener, PropertyCha
         SubViewModel subViewModel = new SubViewModel();
         ResultsViewModel resultsViewModel = new ResultsViewModel();
         ZipSearchView zipSearchView = ZipSearchUseCaseFactory.create(viewManagerModel, zipSearchViewModel, subViewModel, resultsViewModel, zipSearchDataAccessObject);
-        //SubViewPresenter subViewPresenter = new SubViewPresenter(searchViewModel, applyViewModel, viewManagerModel);
-       // SubViewInputBoundary subViewInteractor = new SubViewInteractor(subViewPresenter);
-        //SubViewController subViewController = new SubViewController(subViewInteractor);
-        //SubView subView = new SubView(subViewModel, subViewController);
+
+        SearchViewModel searchViewModel = new SearchViewModel();
+        ApplyViewModel applyViewModel = new ApplyViewModel();
+
+        SubView subView = SubViewUseCaseFactory.create(viewManagerModel, searchViewModel, applyViewModel, zipSearchViewModel, subViewModel);
+
 
         ResultsUserDataAccessInterface resultsUserDataAccessInterface = new ResultsDataAccessObject();
-        //ResultsView resultsView = ResultsUseCaseFactory.create(viewManagerModel, resultsViewModel, searchViewModel, resultsUserDataAccessInterface);
+        ResultsView resultsView = ResultsUseCaseFactory.create(viewManagerModel, resultsViewModel, searchViewModel, resultsUserDataAccessInterface);
 
         views.add(zipSearchView, zipSearchView.viewName);
-        //views.add(subView, subView.viewName);
-        //views.add(resultsView, resultsView.viewName);
+        views.add(subView, subView.viewName);
+        views.add(resultsView, resultsView.viewName);
 
         viewManagerModel.setActiveView(zipSearchView.viewName);
         viewManagerModel.firePropertyChanged();

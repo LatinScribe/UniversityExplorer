@@ -1,11 +1,9 @@
 // Author: Diego
 package view;
 
-import app.ApplyUseCaseFactory;
-import app.SearchUseCaseFactory;
-import app.SubViewUseCaseFactory;
-import app.ZipSearchUseCaseFactory;
+import app.*;
 import data_access.ApplyDataAccessObject;
+import data_access.ResultsDataAccessObject;
 import data_access.SearchDataAccessObject;
 import data_access.ZipSearchDataAccessObject;
 import entity.CommonUniversityFactory;
@@ -26,6 +24,7 @@ import use_case.apply.ApplyDataAccessInterface;
 import use_case.apply.ApplyInputBoundary;
 import use_case.apply.ApplyInteractor;
 import use_case.apply.ApplyOutputBoundary;
+import use_case.results.ResultsUserDataAccessInterface;
 import use_case.search.SearchUserDataAccessInterface;
 import use_case.sub_menu.SubViewInputBoundary;
 import use_case.sub_menu.SubViewInteractor;
@@ -147,6 +146,10 @@ public class SubView extends JPanel implements ActionListener, PropertyChangeLis
         ZipSearchUserDataAccessInterface zipSearchUserDataAccessInterface = new ZipSearchDataAccessObject();
         ZipSearchView zipSearchView = ZipSearchUseCaseFactory.create(viewManagerModel, zipSearchViewModel, subViewModel, resultsViewModel, zipSearchUserDataAccessInterface);
         views.add(zipSearchView, zipSearchView.viewName);
+
+        ResultsUserDataAccessInterface resultsUserDataAccessInterface = new ResultsDataAccessObject();
+        ResultsView resultsView = ResultsUseCaseFactory.create(viewManagerModel, resultsViewModel, searchViewModel, resultsUserDataAccessInterface);
+        views.add(resultsView, resultsView.viewName);
 
         viewManagerModel.setActiveView(subView.viewName);
         viewManagerModel.firePropertyChanged();
