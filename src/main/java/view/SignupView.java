@@ -13,6 +13,7 @@ import interface_adapter.ViewManagerModel;
 import interface_adapter.logged_in.LoggedInController;
 import interface_adapter.logged_in.LoggedInPresenter;
 import interface_adapter.logged_in.LoggedInViewModel;
+import interface_adapter.login.LoginState;
 import interface_adapter.login.LoginViewModel;
 import interface_adapter.main_menu.MainMenuViewModel;
 import interface_adapter.signup.SignupController;
@@ -84,7 +85,7 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
                     public void actionPerformed(ActionEvent evt) {
                         if (evt.getSource().equals(signUp)) {
                             SignupState currentState = signupViewModel.getState();
-
+                            System.out.println(currentState.getUsername());
                             signupController.execute(
                                     currentState.getUsername(),
                                     currentState.getPassword(),
@@ -94,20 +95,6 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
                     }
                 }
         );
-
-        // Add the body to the actionPerformed method of the action listener below
-        //      for the "clear" button. You'll need to write the controller before
-        //      you can complete this. Done???
-//        clear.addActionListener(
-//                new ActionListener() {
-//                    @Override
-//                    public void actionPerformed(ActionEvent e) {
-//                        if (e.getSource().equals(clear)) {
-//                            clearController.execute();
-//                        }
-//                    }
-//                }
-//        );
 
         cancel.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
@@ -127,8 +114,10 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
                     @Override
                     public void keyTyped(KeyEvent e) {
                         SignupState currentState = signupViewModel.getState();
-                        String text = usernameInputField.getText() + e.getKeyChar();
-                        currentState.setUsername(text);
+                        String newUsername = usernameInputField.getText() + e.getKeyChar();
+                        String newUsername2 = newUsername.trim();
+                        newUsername2 = newUsername2.replaceAll("\\s", "");
+                        currentState.setUsername(newUsername2);
                         signupViewModel.setState(currentState);
                     }
 
@@ -146,7 +135,11 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
                     @Override
                     public void keyTyped(KeyEvent e) {
                         SignupState currentState = signupViewModel.getState();
-                        currentState.setPassword(passwordInputField.getText() + e.getKeyChar());
+
+                        String newPass = passwordInputField.getText() + e.getKeyChar();
+                        newPass = newPass.trim();
+                        newPass = newPass.replaceAll("\\s", "");
+                        currentState.setPassword(newPass);
                         signupViewModel.setState(currentState);
                     }
 
@@ -167,7 +160,10 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
                     @Override
                     public void keyTyped(KeyEvent e) {
                         SignupState currentState = signupViewModel.getState();
-                        currentState.setRepeatPassword(repeatPasswordInputField.getText() + e.getKeyChar());
+                        String newPass2 = repeatPasswordInputField.getText() + e.getKeyChar();
+                        newPass2 = newPass2.trim();
+                        newPass2 = newPass2.replaceAll("\\s", "");
+                        currentState.setRepeatPassword(newPass2);
                         signupViewModel.setState(currentState); // Hmm, is this necessary?
                     }
 
@@ -201,10 +197,19 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
 
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
+
         SignupState state = (SignupState) evt.getNewValue();
+        setFields(state);
+
         if (state.getUsernameError() != null) {
             JOptionPane.showMessageDialog(this, state.getUsernameError());
             state.setUsernameError(null);
         }
+    }
+
+    private void setFields(SignupState state) {
+        usernameInputField.setText(state.getUsername().trim());
+        passwordInputField.setText(state.getPassword().trim());
+        repeatPasswordInputField.setText(state.getRepeatPassword().trim());
     }
 }

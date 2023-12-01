@@ -8,11 +8,7 @@ import data_access.ApplyDataAccessObject;
 import data_access.FileTokenDataAccessObject;
 import data_access.ServerProfileDataAccessObject;
 import data_access.ServerUserDataAccessObject;
-import entity.CommonUniversityFactory;
-import entity.ExistingCommonUserFactory;
-import entity.UserPreferencesFactory;
-import entity.UniversityFactory;
-import entity.User;
+import entity.*;
 import interface_adapter.ViewManagerModel;
 import interface_adapter.apply.ApplyController;
 import interface_adapter.apply.ApplyViewModel;
@@ -96,9 +92,11 @@ public class Main {
         FileTokenDataAccessObject tokenDataAccessObject = new FileTokenDataAccessObject();
         UserPreferencesFactory userPreferencesFactory = new UserPreferencesFactory();
         ServerProfileDataAccessObject profileDataAccessObject = new ServerProfileDataAccessObject(tokenDataAccessObject, userPreferencesFactory);
+        PasswordValidatorService passwordValidatorService = new PasswordValidatorService();
+        UsernameValidatorService usernameValidatorService = new UsernameValidatorService();
 
         // add login, logged in and signup Views
-        SignupView signupView = SignupUseCaseFactory.create(viewManagerModel, loginViewModel, signupViewModel, userDataAccessObject, mainMenuViewModel1, tokenDataAccessObject);
+        SignupView signupView = SignupUseCaseFactory.create(viewManagerModel, loginViewModel, signupViewModel, userDataAccessObject, mainMenuViewModel1, tokenDataAccessObject, passwordValidatorService, usernameValidatorService);
 
         LoginView loginView = LoginUseCaseFactory.create(viewManagerModel, loginViewModel, loggedInViewModel, mainMenuViewModel1,userDataAccessObject, tokenDataAccessObject);
         views.add(loginView, loginView.viewName);
