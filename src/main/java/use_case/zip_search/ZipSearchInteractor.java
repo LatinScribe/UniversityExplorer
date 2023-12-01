@@ -44,7 +44,6 @@ public class ZipSearchInteractor implements ZipSearchInputBoundary {
                 stringAccumulator2 += cursor2;
             }
         }
-        System.out.println(stringAccumulator2);
         try {
             JSONObject query = zipSearchDataAccessObject.searchQuery(stringAccumulator, stringAccumulator2);
             JSONObject metadata = query.getJSONObject("metadata");

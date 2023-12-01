@@ -25,6 +25,7 @@ public class ZipSearchPresenter implements ZipSearchOutputBoundary {
     @Override
     public void prepareSuccessView(ZipSearchOutputData response) {
         ResultsState resultsState = resultsViewModel.getState();
+        resultsState.setPreviousView("zip_search");
         resultsState.setUniversities(response.getUniversities());
         this.resultsViewModel.setState(resultsState);
         this.resultsViewModel.firePropertyChanged();

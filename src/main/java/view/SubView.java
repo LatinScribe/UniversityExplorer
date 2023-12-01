@@ -148,7 +148,7 @@ public class SubView extends JPanel implements ActionListener, PropertyChangeLis
         views.add(zipSearchView, zipSearchView.viewName);
 
         ResultsUserDataAccessInterface resultsUserDataAccessInterface = new ResultsDataAccessObject();
-        ResultsView resultsView = ResultsUseCaseFactory.create(viewManagerModel, resultsViewModel, searchViewModel, resultsUserDataAccessInterface);
+        ResultsView resultsView = ResultsUseCaseFactory.create(viewManagerModel, resultsViewModel, searchViewModel, zipSearchViewModel, resultsUserDataAccessInterface);
         views.add(resultsView, resultsView.viewName);
 
         viewManagerModel.setActiveView(subView.viewName);

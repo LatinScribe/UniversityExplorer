@@ -6,21 +6,16 @@ import app.SubViewUseCaseFactory;
 import app.ZipSearchUseCaseFactory;
 import data_access.ResultsDataAccessObject;
 import data_access.ZipSearchDataAccessObject;
-import entity.CommonUniversityFactory;
-import entity.UniversityFactory;
 import interface_adapter.ViewManagerModel;
 import interface_adapter.apply.ApplyViewModel;
 import interface_adapter.results.ResultsViewModel;
 import interface_adapter.search.SearchViewModel;
 import interface_adapter.sub_menu.SubViewModel;
 import interface_adapter.zip_search.ZipSearchController;
-import interface_adapter.zip_search.ZipSearchPresenter;
+
 import interface_adapter.zip_search.ZipSearchState;
 import interface_adapter.zip_search.ZipSearchViewModel;
 import use_case.results.ResultsUserDataAccessInterface;
-import use_case.zip_search.ZipSearchInputBoundary;
-import use_case.zip_search.ZipSearchInteractor;
-import use_case.zip_search.ZipSearchOutputBoundary;
 import use_case.zip_search.ZipSearchUserDataAccessInterface;
 
 import javax.swing.*;
@@ -70,6 +65,7 @@ public class ZipSearchView extends JPanel implements ActionListener, PropertyCha
                         if (evt.getSource().equals(search)) {
                             System.out.println("Search pressed!");
                             ZipSearchState currentState = zipSearchViewModel.getState();
+                            System.out.println("the input: " + currentState.getRadSearchCriteria());
 
                             zipSearchController.executeSearch(
                                     currentState.getZipSearchCriteria(),
@@ -182,7 +178,7 @@ public class ZipSearchView extends JPanel implements ActionListener, PropertyCha
 
 
         ResultsUserDataAccessInterface resultsUserDataAccessInterface = new ResultsDataAccessObject();
-        ResultsView resultsView = ResultsUseCaseFactory.create(viewManagerModel, resultsViewModel, searchViewModel, resultsUserDataAccessInterface);
+        ResultsView resultsView = ResultsUseCaseFactory.create(viewManagerModel, resultsViewModel, searchViewModel, zipSearchViewModel, resultsUserDataAccessInterface);
 
         views.add(zipSearchView, zipSearchView.viewName);
         views.add(subView, subView.viewName);
