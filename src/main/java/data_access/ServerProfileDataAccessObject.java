@@ -117,13 +117,6 @@ public class ServerProfileDataAccessObject implements ProfileDataAccessInterface
             JSONObject responseBody = new JSONObject(response.body().string());
 
             if (responseBody.getInt("status_code") == 200) {
-//                JSONObject grade = responseBody.getJSONObject("grade");
-                // TODO: Use a builder instead
-//                return Grade.builder()
-//                        .utorid(grade.getString("utorid"))
-//                        .course(grade.getString("course"))
-//                        .grade(grade.getInt("grade"))
-//                        .build();
                 int[] uniRankingRange = {responseBody.getInt("uniRankingRangeStart"), responseBody.getInt("uniRankingRangeEnd")};
 
                 return userProfileFactory.create(responseBody.getInt("finAidReq"), responseBody.getString("prefProg"), responseBody.getInt("avgSalary"), uniRankingRange,responseBody.getString("locationPref"));
