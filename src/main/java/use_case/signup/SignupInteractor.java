@@ -35,9 +35,9 @@ public class SignupInteractor implements SignupInputBoundary {
         } else if (userDataAccessObject.existsByName(signupInputData.getUsername())){
                 userPresenter.prepareFailView("User already exists.");
         } else if (!passwordValidator.passwordIsValid(signupInputData.getPassword())) {
-            userPresenter.prepareFailView("Password must be longer than "+passwordValidator.minLength()+" characters (no spaces)");
+            userPresenter.prepareFailView(passwordValidator.getRule());
         }else if (!usernameValidator.usernameIsValid(signupInputData.getUsername())) {
-            userPresenter.prepareFailView("Username must be longer than "+usernameValidator.minLength()+" characters (no spaces)");
+            userPresenter.prepareFailView(usernameValidator.getRule());
         }else {
 
             LocalDateTime now = LocalDateTime.now();

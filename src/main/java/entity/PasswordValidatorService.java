@@ -5,7 +5,7 @@ public class PasswordValidatorService implements PasswordValidator {
         return password != null && password.length() > 5;
     }
     @Override
-    public String minLength() {
-        return "6";
+    public String getRule() {
+        return "Password must be longer than 5 characters (no spaces)";
     }
 }

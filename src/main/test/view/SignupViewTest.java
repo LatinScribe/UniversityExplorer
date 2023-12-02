@@ -286,7 +286,7 @@ public class SignupViewTest {
         // confirm a popUp was discovered
         assert(popUpDiscovered);
         System.out.println("popup was detected successfully.");
-        assert(message.equals("Password must be longer than 6 characters (no spaces)"));
+        assert(message.equals("Password must be longer than 5 characters (no spaces)"));
 
         assert(getShowing(2));
     }
@@ -343,7 +343,7 @@ public class SignupViewTest {
         // confirm a popUp was discovered
         assert(popUpDiscovered);
         System.out.println("popup was detected successfully.");
-        assert(message.equals("Username must be longer than 2 characters (no spaces)"));
+        assert(message.equals("Username must be longer than 1 characters (no spaces)"));
 
         assert(getShowing(2));
     }

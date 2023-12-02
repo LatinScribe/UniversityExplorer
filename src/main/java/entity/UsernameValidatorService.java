@@ -6,7 +6,7 @@ public class UsernameValidatorService implements UsernameValidator{
         return username != null && username.length() > 1;
     }
     @Override
-    public String minLength() {
-        return "2";
+    public String getRule() {
+        return "Username must be longer than 1 characters (no spaces)";
     }
 }
