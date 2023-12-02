@@ -2,34 +2,31 @@
 
 package app;
 
-import data_access.ApplyDataAccessObject;
-import data_access.FileTokenDataAccessObject;
-import data_access.ServerProfileDataAccessObject;
-import data_access.ServerUserDataAccessObject;
-import entity.CommonUniversityFactory;
-import entity.ExistingCommonUserFactory;
-import entity.UserPreferencesFactory;
-import entity.UniversityFactory;
-import entity.User;
+
+import data_access.*;
+import entity.*;
 import interface_adapter.ViewManagerModel;
-import interface_adapter.apply.ApplyController;
 import interface_adapter.apply.ApplyViewModel;
 import interface_adapter.logged_in.LoggedInViewModel;
 import interface_adapter.login.LoginViewModel;
 import interface_adapter.main_menu.MainMenuViewModel;
+import interface_adapter.prefapply.PrefApplyViewModel;
+import interface_adapter.results.ResultsViewModel;
 import interface_adapter.search.SearchViewModel;
 import interface_adapter.signup.SignupViewModel;
-import interface_adapter.user_profiles.UserProfileController;
-import interface_adapter.user_profiles.UserProfilePresenter;
-import interface_adapter.user_profiles.UserProfileViewModel;
 import interface_adapter.sub_menu.SubViewController;
 import interface_adapter.sub_menu.SubViewModel;
 import interface_adapter.sub_menu.SubViewPresenter;
+import interface_adapter.user_profiles.UserProfileController;
+import interface_adapter.user_profiles.UserProfilePresenter;
+import interface_adapter.user_profiles.UserProfileViewModel;
+import interface_adapter.zip_search.ZipSearchViewModel;
 import use_case.apply.ApplyDataAccessInterface;
-import use_case.apply.ApplyInputBoundary;
+import use_case.prefapply.PrefApplyDataAccessInterface;
+import use_case.results.ResultsUserDataAccessInterface;
+import use_case.search.SearchUserDataAccessInterface;
 import use_case.sub_menu.SubViewInputBoundary;
 import use_case.sub_menu.SubViewInteractor;
-
 import use_case.user_profile.UserProfileInteractor;
 import view.*;
 
@@ -38,7 +35,6 @@ import java.awt.*;
 
 public class Main {
     /**
-     *
      * Order views are added in:
      * 1) MainMenuView
      * 2) LoginView
@@ -47,6 +43,9 @@ public class Main {
      * 5) UserProfileView
      * 6) SubView
      * 7) ApplyView
+     * 8) SearchView
+     * 9) ResultsVIew
+     * 10) PrefApplyView
      */
     public static void main(String[] args) {
         JFrame application = new JFrame("Main Menu Test");
@@ -71,9 +70,12 @@ public class Main {
         LoggedInViewModel loggedInViewModel = new LoggedInViewModel();
         SignupViewModel signupViewModel = new SignupViewModel();
         MainMenuViewModel mainMenuViewModel1 = new MainMenuViewModel();
-        SearchViewModel searchViewModel = new SearchViewModel();
         SubViewModel subViewModel = new SubViewModel();
         ApplyViewModel applyViewModel = new ApplyViewModel();
+        SearchViewModel searchViewModel = new SearchViewModel();
+        ZipSearchViewModel zipSearchViewModel = new ZipSearchViewModel();
+        ResultsViewModel resultsViewModel = new ResultsViewModel();
+        PrefApplyViewModel prefapplyViewModel = new PrefApplyViewModel();
 
         // create the main menu view
         MainMenuView mainMenuView = MainMenuUseCaseFactory.create(mainMenuViewModel1, signupViewModel, loginViewModel, subViewModel, viewManagerModel);
@@ -84,11 +86,13 @@ public class Main {
         FileTokenDataAccessObject tokenDataAccessObject = new FileTokenDataAccessObject();
         UserPreferencesFactory userPreferencesFactory = new UserPreferencesFactory();
         ServerProfileDataAccessObject profileDataAccessObject = new ServerProfileDataAccessObject(tokenDataAccessObject, userPreferencesFactory);
+        PasswordValidatorService passwordValidatorService = new PasswordValidatorService();
+        UsernameValidatorService usernameValidatorService = new UsernameValidatorService();
 
         // add login, logged in and signup Views
-        SignupView signupView = SignupUseCaseFactory.create(viewManagerModel, loginViewModel, signupViewModel, userDataAccessObject, mainMenuViewModel1, tokenDataAccessObject);
+        SignupView signupView = SignupUseCaseFactory.create(viewManagerModel, loginViewModel, signupViewModel, userDataAccessObject, mainMenuViewModel1, tokenDataAccessObject, passwordValidatorService, usernameValidatorService);
 
-        LoginView loginView = LoginUseCaseFactory.create(viewManagerModel, loginViewModel, loggedInViewModel, mainMenuViewModel1,userDataAccessObject, tokenDataAccessObject);
+        LoginView loginView = LoginUseCaseFactory.create(viewManagerModel, loginViewModel, loggedInViewModel, mainMenuViewModel1, userDataAccessObject, tokenDataAccessObject);
         views.add(loginView, loginView.viewName);
         views.add(signupView, signupView.viewName);
 
@@ -100,13 +104,13 @@ public class Main {
         UserProfileView userProfileView = UserProfileUseCaseFactory.create(viewManagerModel, userProfileViewModel, profileDataAccessObject);
 
         // add loggedin view
-        LoggedInView loggedInView = LoggedInUseCaseFactory.create(viewManagerModel, loginViewModel, loggedInViewModel, userProfileViewModel, tokenDataAccessObject);
+        LoggedInView loggedInView = LoggedInUseCaseFactory.create(viewManagerModel, loginViewModel, loggedInViewModel, userProfileViewModel, prefapplyViewModel, tokenDataAccessObject);
         views.add(loggedInView, loggedInView.viewName);
         assert userProfileView != null;
         views.add(userProfileView, userProfileView.viewName);
 
         // add subview
-        SubViewPresenter subViewPresenter = new SubViewPresenter(searchViewModel, applyViewModel, viewManagerModel);
+        SubViewPresenter subViewPresenter = new SubViewPresenter(searchViewModel, applyViewModel, zipSearchViewModel, viewManagerModel);
 
         SubViewInputBoundary subViewInteractor = new SubViewInteractor(subViewPresenter);
         SubViewController subViewController = new SubViewController(subViewInteractor);
@@ -117,11 +121,31 @@ public class Main {
         // add apply view
         ApplyDataAccessInterface applyUserDataAccessObject = new ApplyDataAccessObject();
         UniversityFactory shortUniversityFactory = new CommonUniversityFactory();
-        Applyview applyView = ApplyUseCaseFactory.create(viewManagerModel,applyViewModel,applyUserDataAccessObject,shortUniversityFactory);
+        Applyview applyView = ApplyUseCaseFactory.create(viewManagerModel, applyViewModel, applyUserDataAccessObject, shortUniversityFactory, subViewModel);
         //ApplyController applyController = new ApplyController( applyUseCaseInteractor);
         //Applyview applyView = new Applyview(applyController, applyViewModel);
 
         views.add(applyView, applyView.viewName);
+
+        // add search view
+        SearchUserDataAccessInterface searchUserDataAccessInterface = new SearchDataAccessObject();
+        SearchView searchView = SearchUseCaseFactory.create(viewManagerModel, searchViewModel, subViewModel, resultsViewModel, searchUserDataAccessInterface);
+
+        views.add(searchView, searchView.viewName);
+
+        // add results view
+        ResultsUserDataAccessInterface resultsUserDataAccessInterface = new ResultsDataAccessObject();
+        ResultsView resultsView = ResultsUseCaseFactory.create(viewManagerModel, resultsViewModel, searchViewModel, zipSearchViewModel, resultsUserDataAccessInterface);
+
+        views.add(resultsView, resultsView.viewName);
+
+        // add prefapply view
+        PrefApplyDataAccessInterface prefapplyUserDataAccessObject = new PrefApplyDataAccessObject();
+        PrefApplyview prefapplyView = PrefApplyUseCaseFactory.create(viewManagerModel, prefapplyViewModel, prefapplyUserDataAccessObject, shortUniversityFactory, subViewModel);
+        //ApplyController applyController = new ApplyController( applyUseCaseInteractor);
+        //Applyview applyView = new Applyview(applyController, applyViewModel);
+
+        views.add(prefapplyView, prefapplyView.viewName);
 
         viewManagerModel.setActiveView(mainMenuView.viewName);
         viewManagerModel.firePropertyChanged();

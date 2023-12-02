@@ -8,6 +8,7 @@ import java.time.LocalDateTime;
 public class CreationCommonUserFactory implements CreationUserFactory {
     /**
      * Requires: password is valid.
+     *
      * @param name
      * @param password
      * @return

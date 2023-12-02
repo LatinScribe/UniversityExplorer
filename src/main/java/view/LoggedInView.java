@@ -23,6 +23,8 @@ public class LoggedInView extends JPanel implements ActionListener, PropertyChan
 
     final JButton logOut;
     final JButton viewProfile;
+    final JButton getPrefRec;
+
 
     /**
      * A window with a title and a JButton.
@@ -43,7 +45,7 @@ public class LoggedInView extends JPanel implements ActionListener, PropertyChan
         JPanel buttons = new JPanel();
         logOut = new JButton(LoggedInViewModel.LOGOUT_BUTTON_LABEL);
         buttons.add(logOut);
-        
+
         // add view profile button
         viewProfile = new JButton(LoggedInViewModel.PROFILE_BUTTON_LABEL);
         buttons.add(viewProfile);
@@ -56,6 +58,19 @@ public class LoggedInView extends JPanel implements ActionListener, PropertyChan
                         }
                     }
                 });
+
+        getPrefRec = new JButton(LoggedInViewModel.GETREC_BUTTON_LABEL);
+        buttons.add(getPrefRec);
+        getPrefRec.addActionListener(// This creates an anonymous subclass of ActionListener and instantiates it.
+                new ActionListener() {
+                    public void actionPerformed(ActionEvent evt) {
+                        if (evt.getSource().equals(getPrefRec)) {
+                            System.out.println("get rec pressed");
+                            loggedInController.prepareUserPrefApplyView();
+                        }
+                    }
+                });
+
 
         logOut.addActionListener(// This creates an anonymous subclass of ActionListener and instantiates it.
                 new ActionListener() {

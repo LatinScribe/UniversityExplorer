@@ -36,7 +36,7 @@ public class MainMenuTest {
 
 //        System.out.println(jp2.getUIClassID());
 
-        MainMenuView sv = ( MainMenuView) jp2.getComponent(0);
+        MainMenuView sv = (MainMenuView) jp2.getComponent(0);
 
         JPanel buttons = (JPanel) sv.getComponent(1);
 //
@@ -87,7 +87,6 @@ public class MainMenuTest {
     }
 
     /**
-     *
      * Test that the Signup button is present and where it is expected to be
      * And that pressing the button switches to SignUpView
      */
@@ -95,20 +94,20 @@ public class MainMenuTest {
     public void testSignUpButtonPresent() {
         Main.main(null);
         JButton button = getButton(0);
-        assert(button.getText().equals("Sign up"));
+        assert (button.getText().equals("Sign up"));
     }
 
     @org.junit.Test
     public void testSignUpButtonPressed() {
+
         Main.main(null);
         JButton button = getButton(0);
         button.doClick();
 
-        assert(getShowing(2));
+        assert (getShowing(2));
     }
 
     /**
-     *
      * Test that the guest button is present and where it is expected to be
      * And that pressing the button switches to subview
      */
@@ -116,7 +115,7 @@ public class MainMenuTest {
     public void testContinueAsGuestButtonPresent() {
         Main.main(null);
         JButton button = getButton(1);
-        assert(button.getText().equals("Continue as Guest"));
+        assert (button.getText().equals("Continue as Guest"));
     }
 
     @org.junit.Test
@@ -125,11 +124,10 @@ public class MainMenuTest {
         JButton button = getButton(1);
         button.doClick();
 
-        assert(getShowing(5));
+        assert (getShowing(5));
     }
 
     /**
-     *
      * Test that the signin button is present and where it is expected to be
      * And that pressing the buttons switches to the signin view
      */
@@ -137,7 +135,7 @@ public class MainMenuTest {
     public void testSignInButtonPresent() {
         Main.main(null);
         JButton button = getButton(2);
-        assert(button.getText().equals("Sign in"));
+        assert (button.getText().equals("Sign in"));
     }
 
     @org.junit.Test
@@ -146,17 +144,16 @@ public class MainMenuTest {
         JButton button = getButton(2);
         button.doClick();
 
-        assert(getShowing(1));
+        assert (getShowing(1));
     }
 
     /**
-     *
      * Test that the settings button is present and where it is expected to be
      */
     @org.junit.Test
     public void testSettingsButtonPresent() {
         Main.main(null);
         JButton button = getButton(3);
-        assert(button.getText().equals("Settings"));
+        assert (button.getText().equals("Settings"));
     }
 }

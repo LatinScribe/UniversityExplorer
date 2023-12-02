@@ -44,9 +44,9 @@ public class LoginView extends JPanel implements ActionListener, PropertyChangeL
                 new JLabel("Password"), passwordInputField);
 
         JPanel buttons = new JPanel();
-        logIn = new JButton(loginViewModel.LOGIN_BUTTON_LABEL);
+        logIn = new JButton(LoginViewModel.LOGIN_BUTTON_LABEL);
         buttons.add(logIn);
-        cancel = new JButton(loginViewModel.CANCEL_BUTTON_LABEL);
+        cancel = new JButton(LoginViewModel.CANCEL_BUTTON_LABEL);
         buttons.add(cancel);
 
         logIn.addActionListener(                // This creates an anonymous subclass of ActionListener and instantiates it.
@@ -77,7 +77,9 @@ public class LoginView extends JPanel implements ActionListener, PropertyChangeL
             @Override
             public void keyTyped(KeyEvent e) {
                 LoginState currentState = loginViewModel.getState();
-                currentState.setUsername(usernameInputField.getText() + e.getKeyChar());
+                String newUsername = usernameInputField.getText() + e.getKeyChar();
+                newUsername = newUsername.trim();
+                currentState.setUsername(newUsername);
                 loginViewModel.setState(currentState);
             }
 
@@ -96,7 +98,9 @@ public class LoginView extends JPanel implements ActionListener, PropertyChangeL
                     @Override
                     public void keyTyped(KeyEvent e) {
                         LoginState currentState = loginViewModel.getState();
-                        currentState.setPassword(passwordInputField.getText() + e.getKeyChar());
+                        String newPass = passwordInputField.getText() + e.getKeyChar();
+                        newPass = newPass.trim();
+                        currentState.setPassword(newPass);
                         loginViewModel.setState(currentState);
                     }
 
@@ -128,6 +132,13 @@ public class LoginView extends JPanel implements ActionListener, PropertyChangeL
     public void propertyChange(PropertyChangeEvent evt) {
         LoginState state = (LoginState) evt.getNewValue();
         setFields(state);
+
+        if (state.getUsernameError() != null) {
+            JOptionPane.showMessageDialog(this, state.getUsernameError());
+            state.setUsernameError(null);
+            state.setPassword("");
+            setFields(state);
+        }
     }
 
     private void setFields(LoginState state) {

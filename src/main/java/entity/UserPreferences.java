@@ -1,18 +1,18 @@
 package entity;
 
-public class UserPreferences implements UserProfile{
+public class UserPreferences implements UserProfile {
 
     // Refer to the API documentation for the meaning of these fields.
 
-    private Integer finAidRequirement;
+    private final Integer finAidRequirement;
 
-    private String preferredProgram;
+    private final String preferredProgram;
 
-    private Integer avgSalary;
+    private final Integer avgSalary;
 
-    private int[] universityRankingRange;
+    private final int[] universityRankingRange;
 
-    private String locationPreference;
+    private final String locationPreference;
 
 
     public UserPreferences(Integer finAidRequirement, String preferredProgram, Integer avgSalary,
@@ -24,40 +24,26 @@ public class UserPreferences implements UserProfile{
         this.locationPreference = locationPreference;
     }
 
-// <<<<<<< KanishV2
-//     public Integer getFinAidRequirement() {
-//         return finAidRequirement;
-//     }
-
-//     public String getPreferredProgram() {
-//         return preferredProgram;
-//     }
-
-//     public Integer getAvgSalary() {
-//         return avgSalary;
-//     }
-
-//     public int[] getUniversityRankingRange() {
-//         return universityRankingRange;
-//     }
-
-// =======
     @Override
     public Integer getFinAidRequirement() {
         return finAidRequirement;
     }
+
     @Override
     public String getPreferredProgram() {
         return preferredProgram;
     }
+
     @Override
     public Integer getAvgSalary() {
         return avgSalary;
     }
+
     @Override
     public int[] getUniversityRankingRange() {
         return universityRankingRange;
     }
+
     @Override
     public String getLocationPreference() {
         return locationPreference;

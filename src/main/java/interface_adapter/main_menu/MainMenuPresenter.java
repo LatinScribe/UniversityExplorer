@@ -15,7 +15,7 @@ public class MainMenuPresenter implements MainMenuOutputBoundary {
     private final SignupViewModel signupViewModel;
     private final LoginViewModel loginViewModel;
     private final SubViewModel subViewModel;
-    private ViewManagerModel viewManagerModel;
+    private final ViewManagerModel viewManagerModel;
 
     public MainMenuPresenter(SignupViewModel signupViewModel, LoginViewModel loginViewModel, SubViewModel subViewModel, ViewManagerModel viewManagerModel) {
         this.signupViewModel = signupViewModel;
@@ -34,6 +34,7 @@ public class MainMenuPresenter implements MainMenuOutputBoundary {
         viewManagerModel.setActiveView(loginViewModel.getViewName());
         viewManagerModel.firePropertyChanged();
     }
+
     @Override
     public void prepareSignUpView() {
         // On success, switch to the login view.
@@ -46,6 +47,7 @@ public class MainMenuPresenter implements MainMenuOutputBoundary {
         viewManagerModel.setActiveView(signupViewModel.getViewName());
         viewManagerModel.firePropertyChanged();
     }
+
     @Override
     public void prepareSubView() {
         // On success, switch to the login view.

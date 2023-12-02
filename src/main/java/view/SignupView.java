@@ -2,24 +2,10 @@
 package view;
 
 //import interface_adapter.clear_users.ClearController;
-import app.LoggedInUseCaseFactory;
-import app.LoginUseCaseFactory;
-import app.MainMenuUseCaseFactory;
-import app.SignupUseCaseFactory;
-import data_access.FileTokenDataAccessObject;
-import data_access.ServerUserDataAccessObject;
-import entity.ExistingCommonUserFactory;
-import interface_adapter.ViewManagerModel;
-import interface_adapter.logged_in.LoggedInController;
-import interface_adapter.logged_in.LoggedInPresenter;
-import interface_adapter.logged_in.LoggedInViewModel;
-import interface_adapter.login.LoginViewModel;
-import interface_adapter.main_menu.MainMenuViewModel;
+
 import interface_adapter.signup.SignupController;
 import interface_adapter.signup.SignupState;
 import interface_adapter.signup.SignupViewModel;
-import interface_adapter.sub_menu.SubViewModel;
-import interface_adapter.user_profiles.UserProfileViewModel;
 
 import javax.swing.*;
 import java.awt.*;
@@ -48,7 +34,7 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
     // Note: this is the new JButton for clearing the users file
 //    private final JButton clear;
 
-//    public SignupView(SignupController controller, SignupViewModel signupViewModel, ClearController clearController) {
+    //    public SignupView(SignupController controller, SignupViewModel signupViewModel, ClearController clearController) {
     public SignupView(SignupController controller, SignupViewModel signupViewModel) {
 
         this.signupController = controller;
@@ -72,19 +58,13 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
         cancel = new JButton(SignupViewModel.CANCEL_BUTTON_LABEL);
         buttons.add(cancel);
 
-        // Note: the following line instantiates the "clear" button; it uses
-        //      a CLEAR_BUTTON_LABEL constant which is defined in the SignupViewModel class.
-        //      You need to add this "clear" button to the "buttons" panel.
-//        clear = new JButton(SignupViewModel.CLEAR_BUTTON_LABEL);
-//        buttons.add(clear);
-
         signUp.addActionListener(
                 // This creates an anonymous subclass of ActionListener and instantiates it.
                 new ActionListener() {
                     public void actionPerformed(ActionEvent evt) {
                         if (evt.getSource().equals(signUp)) {
                             SignupState currentState = signupViewModel.getState();
-
+                            System.out.println(currentState.getUsername());
                             signupController.execute(
                                     currentState.getUsername(),
                                     currentState.getPassword(),
@@ -94,20 +74,6 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
                     }
                 }
         );
-
-        // Add the body to the actionPerformed method of the action listener below
-        //      for the "clear" button. You'll need to write the controller before
-        //      you can complete this. Done???
-//        clear.addActionListener(
-//                new ActionListener() {
-//                    @Override
-//                    public void actionPerformed(ActionEvent e) {
-//                        if (e.getSource().equals(clear)) {
-//                            clearController.execute();
-//                        }
-//                    }
-//                }
-//        );
 
         cancel.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
@@ -127,8 +93,10 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
                     @Override
                     public void keyTyped(KeyEvent e) {
                         SignupState currentState = signupViewModel.getState();
-                        String text = usernameInputField.getText() + e.getKeyChar();
-                        currentState.setUsername(text);
+                        String newUsername = usernameInputField.getText() + e.getKeyChar();
+                        String newUsername2 = newUsername.trim();
+                        newUsername2 = newUsername2.replaceAll("\\s", "");
+                        currentState.setUsername(newUsername2);
                         signupViewModel.setState(currentState);
                     }
 
@@ -146,7 +114,11 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
                     @Override
                     public void keyTyped(KeyEvent e) {
                         SignupState currentState = signupViewModel.getState();
-                        currentState.setPassword(passwordInputField.getText() + e.getKeyChar());
+
+                        String newPass = passwordInputField.getText() + e.getKeyChar();
+                        newPass = newPass.trim();
+                        newPass = newPass.replaceAll("\\s", "");
+                        currentState.setPassword(newPass);
                         signupViewModel.setState(currentState);
                     }
 
@@ -167,7 +139,10 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
                     @Override
                     public void keyTyped(KeyEvent e) {
                         SignupState currentState = signupViewModel.getState();
-                        currentState.setRepeatPassword(repeatPasswordInputField.getText() + e.getKeyChar());
+                        String newPass2 = repeatPasswordInputField.getText() + e.getKeyChar();
+                        newPass2 = newPass2.trim();
+                        newPass2 = newPass2.replaceAll("\\s", "");
+                        currentState.setRepeatPassword(newPass2);
                         signupViewModel.setState(currentState); // Hmm, is this necessary?
                     }
 
@@ -201,81 +176,19 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
 
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
+
         SignupState state = (SignupState) evt.getNewValue();
+        setFields(state);
+
         if (state.getUsernameError() != null) {
             JOptionPane.showMessageDialog(this, state.getUsernameError());
-        }
-        if (state.getClearStatus() != null) {
-            JOptionPane.showMessageDialog(this, state.getClearStatus());
-            state.setClearStatus(null);
+            state.setUsernameError(null);
         }
     }
 
-    public static void main(String[] args) {
-        JFrame application = new JFrame("Login Example");
-        application.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-
-        CardLayout cardLayout = new CardLayout();
-
-        // The various View objects. Only one view is visible at a time.
-        JPanel views = new JPanel(cardLayout);
-        application.add(views);
-
-        // This keeps track of and manages which view is currently showing.
-        ViewManagerModel viewManagerModel = new ViewManagerModel();
-        new ViewManager(views, cardLayout, viewManagerModel);
-
-        // The data for the views, such as username and password, are in the ViewModels.
-        // This information will be changed by a presenter object that is reporting the
-        // results from the use case. The ViewModels are observable, and will
-        // be observed by the Views.
-//        LoginViewModel loginViewModel = new LoginViewModel();
-//        LoggedInViewModel loggedInViewModel = new LoggedInViewModel();
-//        SignupViewModel signupViewModel = new SignupViewModel();
-//        MainMenuViewModel mainMenuViewModel = new MainMenuViewModel();
-//        MainMenuPresenter mainMenuPresenter = new MainMenuPresenter(signupViewModel,loginViewModel,viewManagerModel);
-
-//        FileUserDataAccessObject userDataAccessObject;
-//        try {
-//            userDataAccessObject = new FileUserDataAccessObject("./users.csv", new CommonUserFactory());
-//        } catch (IOException e) {
-//            throw new RuntimeException(e);
-//        }
-        // create the view models
-        LoginViewModel loginViewModel = new LoginViewModel();
-        LoggedInViewModel loggedInViewModel = new LoggedInViewModel();
-        SignupViewModel signupViewModel = new SignupViewModel();
-        MainMenuViewModel mainMenuViewModel1 = new MainMenuViewModel();
-        SubViewModel subViewModel = new SubViewModel();
-
-        // create the main menu view
-        MainMenuView mainMenuView = MainMenuUseCaseFactory.create(mainMenuViewModel1, signupViewModel, loginViewModel, subViewModel,viewManagerModel);
-        views.add(mainMenuView, mainMenuView.viewName);
-
-        // create data access objects for this particular implementation
-        ServerUserDataAccessObject userDataAccessObject = new ServerUserDataAccessObject(new ExistingCommonUserFactory());
-        FileTokenDataAccessObject tokenDataAccessObject = new FileTokenDataAccessObject();
-
-        // add login, logged in and signup Views
-        SignupView signupView = SignupUseCaseFactory.create(viewManagerModel, loginViewModel, signupViewModel, userDataAccessObject, mainMenuViewModel1, tokenDataAccessObject);
-        views.add(signupView, signupView.viewName);
-
-        LoginView loginView = LoginUseCaseFactory.create(viewManagerModel, loginViewModel, loggedInViewModel, mainMenuViewModel1,userDataAccessObject, tokenDataAccessObject);
-        views.add(loginView, loginView.viewName);
-      
-        // create a UserProfileViewModel and view
-        UserProfileViewModel userProfileViewModel = new UserProfileViewModel("userProfileView");
-//        UserProfileView userProfileView = new UserProfileView()
-
-        // add loggedin view
-        LoggedInView loggedInView = LoggedInUseCaseFactory.create(viewManagerModel, loginViewModel, loggedInViewModel, userProfileViewModel, tokenDataAccessObject);
-        views.add(loggedInView, loggedInView.viewName);
-
-        viewManagerModel.setActiveView(mainMenuView.viewName);
-        viewManagerModel.firePropertyChanged();
-
-        application.pack();
-        application.setVisible(true);
-
+    private void setFields(SignupState state) {
+        usernameInputField.setText(state.getUsername().trim());
+        passwordInputField.setText(state.getPassword().trim());
+        repeatPasswordInputField.setText(state.getRepeatPassword().trim());
     }
 }
