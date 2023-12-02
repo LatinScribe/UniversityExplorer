@@ -5,31 +5,22 @@ import entity.UniversityFactory;
 import interface_adapter.ViewManagerModel;
 import interface_adapter.results.ResultsController;
 import interface_adapter.results.ResultsPresenter;
-import interface_adapter.results.ResultsState;
 import interface_adapter.results.ResultsViewModel;
-import interface_adapter.search.SearchController;
-import interface_adapter.search.SearchPresenter;
 import interface_adapter.search.SearchViewModel;
-import interface_adapter.sub_menu.SubViewModel;
 import interface_adapter.zip_search.ZipSearchViewModel;
 import use_case.results.ResultsInputBoundary;
 import use_case.results.ResultsInteractor;
 import use_case.results.ResultsOutputBoundary;
 import use_case.results.ResultsUserDataAccessInterface;
-import use_case.search.SearchInputBoundary;
-import use_case.search.SearchInteractor;
-import use_case.search.SearchOutputBoundary;
-import use_case.search.SearchUserDataAccessInterface;
 import view.ResultsView;
-import view.SearchView;
 
 import javax.swing.*;
-import javax.xml.transform.Result;
 import java.io.IOException;
 import java.util.Collections;
 
 public class ResultsUseCaseFactory {
-    private ResultsUseCaseFactory() {}
+    private ResultsUseCaseFactory() {
+    }
 
     public static ResultsView create(
             ViewManagerModel viewManagerModel, ResultsViewModel resultsViewModel, SearchViewModel searchViewModel, ZipSearchViewModel zipSearchViewModel, ResultsUserDataAccessInterface resultsUserDataAccessInterface) {
@@ -43,7 +34,7 @@ public class ResultsUseCaseFactory {
         }
     }
 
-    private static ResultsController createResultsUseCase (ViewManagerModel viewManagerModel, ResultsViewModel resultsViewModel, SearchViewModel searchViewModel, ZipSearchViewModel zipSearchViewModel, ResultsUserDataAccessInterface resultsUserDataAccessInterface) throws IOException {
+    private static ResultsController createResultsUseCase(ViewManagerModel viewManagerModel, ResultsViewModel resultsViewModel, SearchViewModel searchViewModel, ZipSearchViewModel zipSearchViewModel, ResultsUserDataAccessInterface resultsUserDataAccessInterface) throws IOException {
 
         // Notice how we pass this method's parameters to the Presenter.
         // Creating a new factory.

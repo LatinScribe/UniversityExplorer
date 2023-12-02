@@ -19,8 +19,11 @@ import javax.swing.*;
 import java.io.IOException;
 
 public class LoggedInUseCaseFactory {
-    /** Prevent instantiation. */
-    private LoggedInUseCaseFactory(){}
+    /**
+     * Prevent instantiation.
+     */
+    private LoggedInUseCaseFactory() {
+    }
 
 
     public static LoggedInView create(
@@ -32,7 +35,7 @@ public class LoggedInUseCaseFactory {
             TokenDataAccessInterface tokenDataAccessInterface) {
 
         try {
-            LoggedInController loginController = createLoginUseCase(viewManagerModel, loginViewModel,userProfileViewModel, prefApplyViewModel,tokenDataAccessInterface);
+            LoggedInController loginController = createLoginUseCase(viewManagerModel, loginViewModel, userProfileViewModel, prefApplyViewModel, tokenDataAccessInterface);
             return new LoggedInView(loggedInViewModel, userProfileViewModel, loginController);
         } catch (IOException e) {
             JOptionPane.showMessageDialog(null, "Could not open user data file.");
@@ -51,7 +54,7 @@ public class LoggedInUseCaseFactory {
             TokenDataAccessInterface tokenDataAccessInterface) throws IOException {
 
         // Notice how we pass this method's parameters to the Presenter.
-        LoggedInOutputBoundary loggedInPresenter = new LoggedInPresenter(userProfileViewModel, viewManagerModel, loginViewModel,prefApplyViewModel);
+        LoggedInOutputBoundary loggedInPresenter = new LoggedInPresenter(userProfileViewModel, viewManagerModel, loginViewModel, prefApplyViewModel);
 
         CreationUserFactory userFactory = new CreationCommonUserFactory();
 

@@ -14,7 +14,9 @@ public class LoggedInController {
         loggedInInputBoundary.showUserProfileView();
     }
 
-    public void prepareUserPrefApplyView(){loggedInInputBoundary.prepareUserPrefApplyView();}
+    public void prepareUserPrefApplyView() {
+        loggedInInputBoundary.prepareUserPrefApplyView();
+    }
 
     public void logOutUser() {
         loggedInInputBoundary.logOut();

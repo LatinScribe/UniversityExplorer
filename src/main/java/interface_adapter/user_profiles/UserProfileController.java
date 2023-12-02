@@ -1,12 +1,7 @@
 package interface_adapter.user_profiles;
 
-import interface_adapter.ViewManagerModel;
-import use_case.user_profile.MockUserProfileInputBoundary;
 import use_case.user_profile.UserProfileInputBoundary;
 import use_case.user_profile.UserProfileOutputData;
-import view.ViewManager;
-
-import java.lang.reflect.Array;
 
 public class UserProfileController {
 
@@ -18,7 +13,6 @@ public class UserProfileController {
     }
 
     public void execute(String searchCriteria) {
-        return;
     }
 
     public void updateUserProfile(int finAidRequirement, int avgSalary, String locationPreference,

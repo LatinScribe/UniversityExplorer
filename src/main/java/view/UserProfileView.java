@@ -5,19 +5,14 @@ import interface_adapter.user_profiles.UserProfileController;
 import interface_adapter.user_profiles.UserProfileState;
 import interface_adapter.user_profiles.UserProfileViewModel;
 
-import java.awt.event.ActionListener;
-import java.beans.PropertyChangeListener;
-
-import javax.lang.model.type.ArrayType;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
-import java.lang.reflect.Array;
 import java.util.Arrays;
 import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 
 
 public class UserProfileView extends JPanel implements ActionListener, PropertyChangeListener {
@@ -190,7 +185,7 @@ public class UserProfileView extends JPanel implements ActionListener, PropertyC
             preferredProgramField.setText(state.getPreferredProgram() != null ? state.getPreferredProgram() : "");
             // Set universityRankingRangeField by parsing the array and representing it as a string
             int[] universityRankingRange = state.getUniversityRankingRange();
-          
+
             if (universityRankingRange != null && universityRankingRange.length > 0) {
                 universityRankingRangeField.setText(Arrays.stream(universityRankingRange)
                         .mapToObj(String::valueOf) // Convert each int to String
@@ -232,7 +227,7 @@ public class UserProfileView extends JPanel implements ActionListener, PropertyC
                 int[] universityRankingRange = Arrays.stream(universityRankingRangeField.getText().split(","))
                         .map(String::trim)
                         .filter(str -> !str.isEmpty())
-                  
+
                         .mapToInt(Integer::parseInt) // Convert to int
 
                         .toArray();

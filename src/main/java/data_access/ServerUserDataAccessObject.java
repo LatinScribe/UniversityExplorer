@@ -2,7 +2,9 @@
 // Note: NEEDS INTERNET ACCESS
 package data_access;
 
-import entity.*;
+import entity.CreationUser;
+import entity.ExistingUser;
+import entity.ExistingUserFactory;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
@@ -15,11 +17,12 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 
 public class ServerUserDataAccessObject implements SignupUserDataAccessInterface, LoginUserDataAccessInterface {
-    private ExistingUserFactory userFactory;
+    private final ExistingUserFactory userFactory;
 
     public ServerUserDataAccessObject(ExistingUserFactory factory) {
         this.userFactory = factory;
     }
+
     @Override
     public ExistingUser get(String username, String password) {
         OkHttpClient client = new OkHttpClient().newBuilder()
@@ -35,8 +38,7 @@ public class ServerUserDataAccessObject implements SignupUserDataAccessInterface
 
             if (responseBody.getInt("status_code") == 200) {
                 LocalDateTime curr = LocalDateTime.now();
-                ExistingUser user = this.userFactory.create(username, responseBody.getInt("id"), password, curr, responseBody.getString("token"));
-                return user;
+                return this.userFactory.create(username, responseBody.getInt("id"), password, curr, responseBody.getString("token"));
 
             } else {
                 throw new RuntimeException(responseBody.getString("message"));
@@ -62,12 +64,7 @@ public class ServerUserDataAccessObject implements SignupUserDataAccessInterface
             if (responseBody.getInt("status_code") == 200) {
 
                 String result = responseBody.getString("message");
-                if (result.equals("USER EXISTS")) {
-                    return true;
-                }
-                else {
-                    return false;
-                }
+                return result.equals("USER EXISTS");
 
             } else {
                 throw new RuntimeException(responseBody.getString("message"));
