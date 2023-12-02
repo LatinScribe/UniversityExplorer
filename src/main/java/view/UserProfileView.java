@@ -28,6 +28,7 @@ public class UserProfileView extends JPanel implements ActionListener, PropertyC
     private final JPanel cards;
 
     final JButton profile;
+    final JButton newProfile;
     final JButton editProfile;
     final JButton save;
 
@@ -76,6 +77,9 @@ public class UserProfileView extends JPanel implements ActionListener, PropertyC
         buttons.add(save);
         editProfile = new JButton(UserProfileViewModel.EDIT_BUTTON_LABEL);
         buttons.add(editProfile);
+        newProfile = new JButton("Create New Profile");
+        buttons.add(newProfile);
+
 
         this.cards = new JPanel(new CardLayout());
         JPanel viewPanel = new JPanel(); // Panel for non-editable view
@@ -103,7 +107,7 @@ public class UserProfileView extends JPanel implements ActionListener, PropertyC
         viewPanel.add(profile);
         viewPanel.add(editProfile);
 
-        // TODO - implement the view so that users can see what they've already input or blank if they haven't
+
 
         // Add fields for editing
         editPanel.add(finAidRequirementField);
@@ -146,6 +150,8 @@ public class UserProfileView extends JPanel implements ActionListener, PropertyC
             }
         });
 
+
+
         save.addActionListener(e -> {
             if (e.getSource().equals(save)) {
                 try {
@@ -174,6 +180,14 @@ public class UserProfileView extends JPanel implements ActionListener, PropertyC
             }
         });
 
+        newProfile.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // Switch to the new profile creation view
+                showNewProfileForm();
+            }
+        });
+
 
         this.add(title);
         this.add(buttons);
@@ -196,15 +210,6 @@ public class UserProfileView extends JPanel implements ActionListener, PropertyC
                         .mapToObj(String::valueOf) // Convert each int to String
                         .collect(Collectors.joining(", ")));
             } else {
-// =======
-//             if (universityRankingRange != null && universityRankingRange.length == 1) {
-//                 universityRankingRangeField.setText(String.valueOf(universityRankingRange[0]));
-//             } if(universityRankingRange != null && universityRankingRange.length == 2) {
-//                 universityRankingRangeField.setText(universityRankingRange[0] + ", " + universityRankingRange[1]);
-//             }
-
-//             else {
-// >>>>>>> main
                 universityRankingRangeField.setText("");
             }
             cardLayout.show(this.cards, "Edit");
@@ -214,6 +219,108 @@ public class UserProfileView extends JPanel implements ActionListener, PropertyC
         this.revalidate();
         this.repaint();
     }
+
+    // Method to parse university ranking range from a string input
+    private int[] parseUniversityRankingRange(String rangeText) throws IllegalArgumentException {
+        // Check if the rangeText is null or empty
+        if (rangeText == null || rangeText.trim().isEmpty()) {
+            throw new IllegalArgumentException("University ranking range cannot be empty.");
+        }
+
+        // Split the input text by '-'
+        String[] parts = rangeText.split("-");
+        if (parts.length != 2) {
+            throw new IllegalArgumentException("University ranking range must be in the format 'start-end'.");
+        }
+
+        try {
+            // Parse start and end values from the string parts
+            int start = Integer.parseInt(parts[0].trim());
+            int end = Integer.parseInt(parts[1].trim());
+
+            // Check if start is less than end
+            if (start >= end) {
+                throw new IllegalArgumentException("Start of the range must be less than the end.");
+            }
+
+            // Return the parsed range as an array
+            return new int[] {start, end};
+        } catch (NumberFormatException e) {
+            throw new IllegalArgumentException("University ranking range must contain valid numbers.");
+        }
+    }
+
+    // Method to show the new profile creation form
+    private void showNewProfileForm() {
+        // Create a new panel with a form layout for the profile data
+        JPanel newProfilePanel = new JPanel(new GridLayout(0, 2, 5, 5)); // Rows, Cols, Hgap, Vgap
+
+        // Create labels and text fields for the profile data
+        JLabel finAidLabel = new JLabel("Financial Aid Requirement:");
+        JTextField newFinAidRequirementField = new JTextField(10);
+        JLabel avgSalaryLabel = new JLabel("Average Salary:");
+        JTextField newAvgSalaryField = new JTextField(10);
+        JLabel locationPrefLabel = new JLabel("Location Preference:");
+        JTextField newLocationPreferenceField = new JTextField(10);
+        JLabel preferredProgramLabel = new JLabel("Preferred Program:");
+        JTextField newPreferredProgramField = new JTextField(10);
+        JLabel rankingRangeLabel = new JLabel("University Ranking Range (start-end):");
+        JTextField newUniversityRankingRangeField = new JTextField(10);
+
+        // Button to save the new profile
+        JButton saveNewProfileButton = new JButton("Save New Profile");
+        saveNewProfileButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    // Collect the data from text fields
+                    int finAidRequirement = Integer.parseInt(newFinAidRequirementField.getText());
+                    int avgSalary = Integer.parseInt(newAvgSalaryField.getText());
+                    String locationPreference = newLocationPreferenceField.getText();
+                    String preferredProgram = newPreferredProgramField.getText();
+                    int[] universityRankingRange = parseUniversityRankingRange(newUniversityRankingRangeField.getText());
+
+                    // Call the controller method to create a new profile
+                    userProfileController.createNewUserProfile(
+                            finAidRequirement, avgSalary, locationPreference, preferredProgram, universityRankingRange
+                    );
+
+                    // Switch back to the profile view
+                    CardLayout cardLayout = (CardLayout) (cards.getLayout());
+                    cardLayout.show(cards, "View");
+
+                } catch (NumberFormatException ex) {
+                    JOptionPane.showMessageDialog(null, "Please enter valid numbers for financial aid and average salary.", "Input Error", JOptionPane.ERROR_MESSAGE);
+                } catch (IllegalArgumentException ex) {
+                    JOptionPane.showMessageDialog(null, ex.getMessage(), "Input Error", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        });
+
+        // Add components to panel
+        newProfilePanel.add(finAidLabel);
+        newProfilePanel.add(newFinAidRequirementField);
+        newProfilePanel.add(avgSalaryLabel);
+        newProfilePanel.add(newAvgSalaryField);
+        newProfilePanel.add(locationPrefLabel);
+        newProfilePanel.add(newLocationPreferenceField);
+        newProfilePanel.add(preferredProgramLabel);
+        newProfilePanel.add(newPreferredProgramField);
+        newProfilePanel.add(rankingRangeLabel);
+        newProfilePanel.add(newUniversityRankingRangeField);
+
+        // Add save button
+        newProfilePanel.add(saveNewProfileButton);
+
+        // Add the new profile panel to the cards
+        cards.add(newProfilePanel, "NewProfile");
+
+        // Switch to the new profile form view
+        CardLayout cl = (CardLayout) (cards.getLayout());
+        cl.show(cards, "NewProfile");
+    }
+
+
 
     @Override
     public void actionPerformed(ActionEvent e) {
