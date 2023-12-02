@@ -17,6 +17,12 @@ public class LoggedInInteractor implements LoggedInInputBoundary{
         loggedInOutputBoundary.prepareUserProfileView();
     }
     @Override
+    public void prepareUserPrefApplyView() {
+        loggedInOutputBoundary.prepareUserPrefApplyView();
+    }
+
+
+    @Override
     public void logOut() {
         tokenDataAccessInterface.remove_token();
         loggedInOutputBoundary.prepareLoginView();

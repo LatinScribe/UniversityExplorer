@@ -14,6 +14,7 @@ public class LoggedInViewModel extends ViewModel {
 
     public static final String LOGOUT_BUTTON_LABEL = "Log out";
     public static final String PROFILE_BUTTON_LABEL = "View your Profile";
+    public static final String GETREC_BUTTON_LABEL = "Get uni recommendation with preference";
     private String loggedInUser;
 
     public LoggedInViewModel() {

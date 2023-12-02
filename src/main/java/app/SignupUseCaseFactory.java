@@ -2,8 +2,7 @@
 package app;
 
 import data_access.TokenDataAccessInterface;
-import entity.CreationCommonUserFactory;
-import entity.CreationUserFactory;
+import entity.*;
 import interface_adapter.ViewManagerModel;
 import interface_adapter.login.LoginViewModel;
 import interface_adapter.main_menu.MainMenuViewModel;
@@ -25,20 +24,20 @@ public class SignupUseCaseFactory {
     private SignupUseCaseFactory() {}
 
     public static SignupView create(
-            ViewManagerModel viewManagerModel, LoginViewModel loginViewModel, SignupViewModel signupViewModel, SignupUserDataAccessInterface userDataAccessObject, MainMenuViewModel mainMenuViewModel, TokenDataAccessInterface tokenDataAccessInterface) {
+            ViewManagerModel viewManagerModel, LoginViewModel loginViewModel, SignupViewModel signupViewModel, SignupUserDataAccessInterface userDataAccessObject, MainMenuViewModel mainMenuViewModel, TokenDataAccessInterface tokenDataAccessInterface, PasswordValidator passwordValidator, UsernameValidator usernameValidator) {
 
         try {
-            SignupController signupController = createUserSignupUseCase(viewManagerModel, signupViewModel, loginViewModel, userDataAccessObject, mainMenuViewModel, tokenDataAccessInterface);
+            SignupController signupController = createUserSignupUseCase(viewManagerModel, signupViewModel, loginViewModel, userDataAccessObject, mainMenuViewModel, tokenDataAccessInterface, passwordValidator, usernameValidator);
 //            ClearController clearController = createClearUseCase(viewManagerModel, signupViewModel, loginViewModel, userDataAccessObject);
             return new SignupView(signupController, signupViewModel);
         } catch (IOException e) {
-            JOptionPane.showMessageDialog(null, "Could not open user data file.");
+            JOptionPane.showMessageDialog(null, "Error creating login model. This could be because there was a user DAO issue");
         }
 
         return null;
     }
 
-    private static SignupController createUserSignupUseCase(ViewManagerModel viewManagerModel, SignupViewModel signupViewModel, LoginViewModel loginViewModel, SignupUserDataAccessInterface userDataAccessObject, MainMenuViewModel mainMenuViewModel, TokenDataAccessInterface tokenDataAccessInterface) throws IOException {
+    private static SignupController createUserSignupUseCase(ViewManagerModel viewManagerModel, SignupViewModel signupViewModel, LoginViewModel loginViewModel, SignupUserDataAccessInterface userDataAccessObject, MainMenuViewModel mainMenuViewModel, TokenDataAccessInterface tokenDataAccessInterface, PasswordValidator passwordValidator, UsernameValidator usernameValidator) throws IOException {
 
         // Notice how we pass this method's parameters to the Presenter.
         SignupOutputBoundary signupOutputBoundary = new SignupPresenter(viewManagerModel, signupViewModel, loginViewModel, mainMenuViewModel);
@@ -46,7 +45,7 @@ public class SignupUseCaseFactory {
         CreationUserFactory userFactory = new CreationCommonUserFactory();
 
         SignupInputBoundary userSignupInteractor = new SignupInteractor(
-                userDataAccessObject, signupOutputBoundary, userFactory, tokenDataAccessInterface);
+                userDataAccessObject, signupOutputBoundary, userFactory, tokenDataAccessInterface, passwordValidator, usernameValidator);
 
         return new SignupController(userSignupInteractor);
     }
