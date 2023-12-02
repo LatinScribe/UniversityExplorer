@@ -75,7 +75,7 @@ public class JsonCollegeScorecardDB implements CollegeScorecardDB{
         // query a radius around a zip code for institutions
         // NOTE: Make sure to add "mi" at the end of radius!
         // create the query url
-        String url = API_ADDRESS+ "schools.json?" + "zip=" + zipcode + "&" + "distance=" +radius + "&fields=id,school.name,2013.student.size"+ "&api_key=" + API_TOKEN;
+        String url = API_ADDRESS+ "schools.json?" + "zip=" + zipcode + "&" + "distance=" +radius + "&fields=id,school.name,2013.student.size"+ "&fields=id,school.name,school.state,school.city,admissions.admission_rate.overall,cost.tuition.in_state,cost.tuition.out_of_state,admissions.sat_scores.average.overall,admissions.act_scores.midpoint.cumulative,school.school_url" + "&api_key=" + API_TOKEN;
         return getJsonObject(url);
     }
 }

@@ -17,6 +17,8 @@ public class SubViewInteractor implements SubViewInputBoundary{
             userPresenter.prepareSearchView();
         } else if (Objects.equals(subViewInputData.getNext_panel(), "recommendation")) {
             userPresenter.prepareApplyView();
+        } else if (Objects.equals(subViewInputData.getNext_panel(), "zip_search")) {
+            userPresenter.prepareZipSearchView();
         }
     }
 }
