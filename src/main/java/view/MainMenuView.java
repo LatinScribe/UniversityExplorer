@@ -97,7 +97,7 @@ public class MainMenuView extends JPanel implements ActionListener, PropertyChan
 
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
-        MainMenuState state = (MainMenuState) evt.getNewValue();
+//        MainMenuState state = (MainMenuState) evt.getNewValue();
     }
 
 }

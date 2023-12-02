@@ -319,8 +319,7 @@ public class LoginViewTest {
 
         JPanel jp = (JPanel) cp;
 
-        JPanel jp2 = (JPanel) jp.getComponent(0);
-        return jp2;
+        return (JPanel) jp.getComponent(0);
     }
 
     @Nullable

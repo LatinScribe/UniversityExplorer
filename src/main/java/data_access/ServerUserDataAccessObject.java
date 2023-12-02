@@ -38,8 +38,7 @@ public class ServerUserDataAccessObject implements SignupUserDataAccessInterface
 
             if (responseBody.getInt("status_code") == 200) {
                 LocalDateTime curr = LocalDateTime.now();
-                ExistingUser user = this.userFactory.create(username, responseBody.getInt("id"), password, curr, responseBody.getString("token"));
-                return user;
+                return this.userFactory.create(username, responseBody.getInt("id"), password, curr, responseBody.getString("token"));
 
             } else {
                 throw new RuntimeException(responseBody.getString("message"));
