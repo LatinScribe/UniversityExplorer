@@ -138,9 +138,6 @@ public class SubView extends JPanel implements ActionListener, PropertyChangeLis
         UniversityFactory universityFactory = new CommonUniversityFactory();
         ApplyInputBoundary applyUseCaseInteractor = new ApplyInteractor(applyDataAccessInterface, applyPresenter, universityFactory);
         ApplyController applyController = new ApplyController(applyUseCaseInteractor);
-        // Applyview applyView = new Applyview(applyController, applyViewModel);
-        ApplyDataAccessInterface applyDataAccessInterface1 = new ApplyDataAccessObject();
-        Applyview applyView1 = ApplyUseCaseFactory.create(viewManagerModel, applyViewModel, applyDataAccessInterface1, universityFactory, subViewModel);
 //        UniversityFactory universityFactory = new CommonUniversityFactory();
 //        ApplyDataAccessInterface applyDataAccessInterface = new ApplyDataAccessObject();
         Applyview applyView = ApplyUseCaseFactory.create(viewManagerModel, applyViewModel, applyDataAccessInterface, universityFactory, subViewModel);
