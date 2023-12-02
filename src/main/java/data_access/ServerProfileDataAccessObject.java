@@ -1,7 +1,5 @@
 package data_access;
 
-import entity.UserPreferences;
-import entity.UserPreferencesFactory;
 import entity.UserProfile;
 import entity.UserProfileFactory;
 import okhttp3.*;
@@ -9,9 +7,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
-import java.util.Arrays;
 
-public class ServerProfileDataAccessObject implements ProfileDataAccessInterface{
+public class ServerProfileDataAccessObject implements ProfileDataAccessInterface {
     private final TokenDataAccessInterface tokenDataAccessInterface;
 
     private final UserProfileFactory userProfileFactory;
@@ -56,8 +53,7 @@ public class ServerProfileDataAccessObject implements ProfileDataAccessInterface
             } else {
                 throw new RuntimeException(responseBody.getString("message"));
             }
-        }
-        catch (IOException | JSONException e) {
+        } catch (IOException | JSONException e) {
             throw new RuntimeException(e);
         }
     }
@@ -97,11 +93,11 @@ public class ServerProfileDataAccessObject implements ProfileDataAccessInterface
             } else {
                 throw new RuntimeException(responseBody.getString("message"));
             }
-        }
-        catch (IOException | JSONException e) {
+        } catch (IOException | JSONException e) {
             throw new RuntimeException(e);
         }
     }
+
     @Override
     public UserProfile getProfile() throws IOException {
         OkHttpClient client = new OkHttpClient().newBuilder()
@@ -119,7 +115,7 @@ public class ServerProfileDataAccessObject implements ProfileDataAccessInterface
             if (responseBody.getInt("status_code") == 200) {
                 int[] uniRankingRange = {responseBody.getInt("uniRankingRangeStart"), responseBody.getInt("uniRankingRangeEnd")};
 
-                return userProfileFactory.create(responseBody.getInt("finAidReq"), responseBody.getString("prefProg"), responseBody.getInt("avgSalary"), uniRankingRange,responseBody.getString("locationPref"));
+                return userProfileFactory.create(responseBody.getInt("finAidReq"), responseBody.getString("prefProg"), responseBody.getInt("avgSalary"), uniRankingRange, responseBody.getString("locationPref"));
             } else {
                 throw new RuntimeException(responseBody.getString("message"));
             }

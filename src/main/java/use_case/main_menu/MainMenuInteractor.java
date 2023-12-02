@@ -1,7 +1,7 @@
 // Author: Henry
 package use_case.main_menu;
 
-public class MainMenuInteractor implements MainMenuInputBoundary{
+public class MainMenuInteractor implements MainMenuInputBoundary {
 
     final MainMenuOutputBoundary mainMenuOutputBoundary;
 
