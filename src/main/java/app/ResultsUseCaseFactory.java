@@ -11,6 +11,7 @@ import interface_adapter.search.SearchController;
 import interface_adapter.search.SearchPresenter;
 import interface_adapter.search.SearchViewModel;
 import interface_adapter.sub_menu.SubViewModel;
+import interface_adapter.zip_search.ZipSearchViewModel;
 import use_case.results.ResultsInputBoundary;
 import use_case.results.ResultsInteractor;
 import use_case.results.ResultsOutputBoundary;
@@ -31,10 +32,10 @@ public class ResultsUseCaseFactory {
     private ResultsUseCaseFactory() {}
 
     public static ResultsView create(
-            ViewManagerModel viewManagerModel, ResultsViewModel resultsViewModel, SearchViewModel searchViewModel, ResultsUserDataAccessInterface resultsUserDataAccessInterface) {
+            ViewManagerModel viewManagerModel, ResultsViewModel resultsViewModel, SearchViewModel searchViewModel, ZipSearchViewModel zipSearchViewModel, ResultsUserDataAccessInterface resultsUserDataAccessInterface) {
 
         try {
-            ResultsController resultsController = createResultsUseCase(viewManagerModel, resultsViewModel, searchViewModel, resultsUserDataAccessInterface);
+            ResultsController resultsController = createResultsUseCase(viewManagerModel, resultsViewModel, searchViewModel, zipSearchViewModel, resultsUserDataAccessInterface);
             return new ResultsView(resultsController, resultsViewModel, Collections.emptyList());
         } catch (IOException e) {
             JOptionPane.showMessageDialog(null, "API unable to be accessed.");
@@ -42,12 +43,12 @@ public class ResultsUseCaseFactory {
         }
     }
 
-    private static ResultsController createResultsUseCase (ViewManagerModel viewManagerModel, ResultsViewModel resultsViewModel, SearchViewModel searchViewModel, ResultsUserDataAccessInterface resultsUserDataAccessInterface) throws IOException {
+    private static ResultsController createResultsUseCase (ViewManagerModel viewManagerModel, ResultsViewModel resultsViewModel, SearchViewModel searchViewModel, ZipSearchViewModel zipSearchViewModel, ResultsUserDataAccessInterface resultsUserDataAccessInterface) throws IOException {
 
         // Notice how we pass this method's parameters to the Presenter.
         // Creating a new factory.
         UniversityFactory universityFactory = new CommonUniversityFactory();
-        ResultsOutputBoundary resultsOutputBoundary = new ResultsPresenter(viewManagerModel, resultsViewModel, searchViewModel);
+        ResultsOutputBoundary resultsOutputBoundary = new ResultsPresenter(viewManagerModel, resultsViewModel, searchViewModel, zipSearchViewModel);
 
         ResultsInputBoundary resultsInteractor = new ResultsInteractor(
                 resultsUserDataAccessInterface, resultsOutputBoundary, universityFactory);
