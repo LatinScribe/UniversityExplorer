@@ -8,11 +8,7 @@ import data_access.ApplyDataAccessObject;
 import data_access.FileTokenDataAccessObject;
 import data_access.ServerProfileDataAccessObject;
 import data_access.ServerUserDataAccessObject;
-import entity.CommonUniversityFactory;
-import entity.ExistingCommonUserFactory;
-import entity.UserPreferencesFactory;
-import entity.UniversityFactory;
-import entity.User;
+import entity.*;
 import interface_adapter.ViewManagerModel;
 import interface_adapter.apply.ApplyController;
 import interface_adapter.apply.ApplyViewModel;
@@ -29,6 +25,7 @@ import interface_adapter.user_profiles.UserProfileViewModel;
 import interface_adapter.sub_menu.SubViewController;
 import interface_adapter.sub_menu.SubViewModel;
 import interface_adapter.sub_menu.SubViewPresenter;
+import interface_adapter.zip_search.ZipSearchViewModel;
 import use_case.apply.ApplyDataAccessInterface;
 import use_case.apply.ApplyInputBoundary;
 import use_case.prefapply.PrefApplyDataAccessInterface;
@@ -84,6 +81,7 @@ public class Main {
         SubViewModel subViewModel = new SubViewModel();
         ApplyViewModel applyViewModel = new ApplyViewModel();
         SearchViewModel searchViewModel = new SearchViewModel();
+        ZipSearchViewModel zipSearchViewModel = new ZipSearchViewModel();
         ResultsViewModel resultsViewModel = new ResultsViewModel();
         PrefApplyViewModel prefapplyViewModel = new PrefApplyViewModel();
 
@@ -96,9 +94,11 @@ public class Main {
         FileTokenDataAccessObject tokenDataAccessObject = new FileTokenDataAccessObject();
         UserPreferencesFactory userPreferencesFactory = new UserPreferencesFactory();
         ServerProfileDataAccessObject profileDataAccessObject = new ServerProfileDataAccessObject(tokenDataAccessObject, userPreferencesFactory);
+        PasswordValidatorService passwordValidatorService = new PasswordValidatorService();
+        UsernameValidatorService usernameValidatorService = new UsernameValidatorService();
 
         // add login, logged in and signup Views
-        SignupView signupView = SignupUseCaseFactory.create(viewManagerModel, loginViewModel, signupViewModel, userDataAccessObject, mainMenuViewModel1, tokenDataAccessObject);
+        SignupView signupView = SignupUseCaseFactory.create(viewManagerModel, loginViewModel, signupViewModel, userDataAccessObject, mainMenuViewModel1, tokenDataAccessObject, passwordValidatorService, usernameValidatorService);
 
         LoginView loginView = LoginUseCaseFactory.create(viewManagerModel, loginViewModel, loggedInViewModel, mainMenuViewModel1,userDataAccessObject, tokenDataAccessObject);
         views.add(loginView, loginView.viewName);
@@ -119,7 +119,7 @@ public class Main {
         views.add(userProfileView, userProfileView.viewName);
 
         // add subview
-        SubViewPresenter subViewPresenter = new SubViewPresenter(searchViewModel, applyViewModel, viewManagerModel);
+        SubViewPresenter subViewPresenter = new SubViewPresenter(searchViewModel, applyViewModel, zipSearchViewModel, viewManagerModel);
 
         SubViewInputBoundary subViewInteractor = new SubViewInteractor(subViewPresenter);
         SubViewController subViewController = new SubViewController(subViewInteractor);
@@ -144,7 +144,7 @@ public class Main {
 
         // add results view
         ResultsUserDataAccessInterface resultsUserDataAccessInterface = new ResultsDataAccessObject();
-        ResultsView resultsView = ResultsUseCaseFactory.create(viewManagerModel, resultsViewModel, searchViewModel, resultsUserDataAccessInterface);
+        ResultsView resultsView = ResultsUseCaseFactory.create(viewManagerModel, resultsViewModel, searchViewModel, zipSearchViewModel, resultsUserDataAccessInterface);
 
         views.add(resultsView, resultsView.viewName);
 

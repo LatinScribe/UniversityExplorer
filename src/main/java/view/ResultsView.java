@@ -31,6 +31,7 @@ import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
+import interface_adapter.zip_search.ZipSearchViewModel;
 import use_case.results.ResultsUserDataAccessInterface;
 import use_case.search.SearchUserDataAccessInterface;
 import use_case.sub_menu.SubViewInputBoundary;
@@ -165,8 +166,9 @@ public class ResultsView extends JPanel implements ActionListener, PropertyChang
         ResultsViewModel resultsViewModel = new ResultsViewModel();
         SearchView searchView = SearchUseCaseFactory.create(viewManagerModel, searchViewModel, subViewModel, resultsViewModel, searchDataAccessObject);
 
+        ZipSearchViewModel zipSearchViewModel = new ZipSearchViewModel();
         ResultsUserDataAccessInterface resultsUserDataAccessInterface = new ResultsDataAccessObject();
-        ResultsView resultsView = ResultsUseCaseFactory.create(viewManagerModel, resultsViewModel, searchViewModel, resultsUserDataAccessInterface);
+        ResultsView resultsView = ResultsUseCaseFactory.create(viewManagerModel, resultsViewModel, searchViewModel, zipSearchViewModel, resultsUserDataAccessInterface);
 
         views.add(searchView, searchView.viewName);
         views.add(resultsView, resultsView.viewName);

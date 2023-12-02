@@ -13,13 +13,18 @@ public class SignupInteractor implements SignupInputBoundary {
 
     final TokenDataAccessInterface tokenDataAccessInterface;
 
+    final PasswordValidator passwordValidator;
+    final UsernameValidator usernameValidator;
+
     public SignupInteractor(SignupUserDataAccessInterface signupDataAccessInterface,
                             SignupOutputBoundary signupOutputBoundary,
-                            CreationUserFactory userFactory, TokenDataAccessInterface tokenDataAccessInterface) {
+                            CreationUserFactory userFactory, TokenDataAccessInterface tokenDataAccessInterface, PasswordValidator passwordValidator, UsernameValidator usernameValidator) {
         this.userDataAccessObject = signupDataAccessInterface;
         this.userPresenter = signupOutputBoundary;
         this.userFactory = userFactory;
         this.tokenDataAccessInterface = tokenDataAccessInterface;
+        this.passwordValidator = passwordValidator;
+        this.usernameValidator = usernameValidator;
     }
 
     @Override
@@ -29,7 +34,11 @@ public class SignupInteractor implements SignupInputBoundary {
             userPresenter.prepareFailView("Passwords don't match.");
         } else if (userDataAccessObject.existsByName(signupInputData.getUsername())){
                 userPresenter.prepareFailView("User already exists.");
-        } else {
+        } else if (!passwordValidator.passwordIsValid(signupInputData.getPassword())) {
+            userPresenter.prepareFailView(passwordValidator.getRule());
+        }else if (!usernameValidator.usernameIsValid(signupInputData.getUsername())) {
+            userPresenter.prepareFailView(usernameValidator.getRule());
+        }else {
 
             LocalDateTime now = LocalDateTime.now();
             CreationUser user = userFactory.create(signupInputData.getUsername(), signupInputData.getPassword(), now);

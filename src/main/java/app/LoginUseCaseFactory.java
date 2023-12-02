@@ -35,7 +35,7 @@ public class LoginUseCaseFactory {
             LoginController loginController = createLoginUseCase(viewManagerModel, loginViewModel, loggedInViewModel, mainMenuViewModel, userDataAccessObject, tokenDataAccessInterface);
             return new LoginView(loginViewModel, loginController);
         } catch (IOException e) {
-            JOptionPane.showMessageDialog(null, "Could not open user data file.");
+            JOptionPane.showMessageDialog(null, "Error creating login model. This could be because there was a user DAO issue");
         }
 
         return null;
