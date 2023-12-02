@@ -11,7 +11,7 @@ import java.util.concurrent.ThreadLocalRandom;
 
 import static org.junit.jupiter.api.Assertions.fail;
 
-class ServerUserDataAccessObjectTest {
+class   ServerUserDataAccessObjectTest {
     ServerUserDataAccessObject db = new ServerUserDataAccessObject(new ExistingCommonUserFactory());
     CreationCommonUserFactory fact = new CreationCommonUserFactory();
     LocalDateTime time = LocalDateTime.now();

@@ -12,6 +12,9 @@ import use_case.user_profile.UserProfileOutputData;
 
 import javax.swing.*;
 
+import java.io.IOException;
+
+import static org.junit.Assert.*;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
@@ -129,6 +132,11 @@ public class UserProfileViewTest {
                     userProfile.getPreferredProgram(),
                     userProfile.getUniversityRankingRange());
             System.out.println(outputData);
+        }
+
+        @Override
+        public void saveNewUserProfile(int finAidRequirement, int avgSalary, String locationPreference, String preferredProgram, int[] universityRankingRange) throws IOException {
+            // TODO - add this part to testing
         }
 
     }

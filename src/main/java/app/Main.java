@@ -101,7 +101,6 @@ public class Main {
         UserProfilePresenter userProfilePresenter = new UserProfilePresenter(viewManagerModel, userProfileViewModel);
         UserProfileInteractor userProfileInteractor = new UserProfileInteractor(userProfilePresenter, profileDataAccessObject); // TODO: Determine if this casting is appropriate
         UserProfileController userProfileController = new UserProfileController(userProfileInteractor);
-//        UserProfileView userProfileView = new UserProfileView(userProfileViewModel, userProfileController);
         UserProfileView userProfileView = UserProfileUseCaseFactory.create(viewManagerModel, userProfileViewModel, profileDataAccessObject);
 
         // add loggedin view
