@@ -98,13 +98,8 @@ public class UserProfileViewTest {
         view.save.doClick();
 
         // Here we would assert that the controller has been invoked to save the profile
-        // Since we're not using mocks from Mockito, we can't verify the interaction directly
-        // Instead, we might check the viewModel or other components to see if they reflect the saved state
-        // Note that in a real test, you would need to access the state of the application
-        // to ensure the data has been saved correctly
     }
 
-    // Additional test cases...
 
     public static class UserProfileInteractorStub implements UserProfileInputBoundary {
 
@@ -138,27 +133,21 @@ public class UserProfileViewTest {
             System.out.println(outputData);;
         }
 
-        // Other methods...
     }
     private static class ProfileDataAccessStub {
         public String saveProfile(UserProfile userProfile) {
-            // Simulated behavior
             System.out.println("saveProfile called with: " + userProfile);
-            // You would include the actual logic here if necessary
             return "Simulated saveProfile success"; // or return null to indicate success
         }
 
         public String updateProfile(UserProfile userProfile) {
             // Simulated behavior
             System.out.println("updateProfile called with: " + userProfile);
-            // You would include the actual logic here if necessary
             return "Simulated updateProfile success"; // or return null to indicate success
         }
 
         public UserProfile getProfile() {
-            // Simulated behavior
             System.out.println("getProfile called");
-            // Return a simulated profile for testing
             return new UserPreferences(10000, "Test Program", 50000, new int[]{1, 100}, "Test Location");
         }
     }

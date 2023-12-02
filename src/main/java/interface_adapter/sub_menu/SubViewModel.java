@@ -11,7 +11,9 @@ public class SubViewModel extends ViewModel {
     public static final String TITLE_LABEL = "I Want To...";
     public static final String RECOMMENDATION_BUTTON_LABEL = "Get University Recommendations";
 
-    public static final String SEARCH_BUTTON_LABEL = "Search for Universities";
+    public static final String SEARCH_BUTTON_LABEL = "Search Universities by Name";
+
+    public static final String ZIP_SEARCH_BUTTON_LABEL = "Search Universities by ZIP Code";
 
     private SubViewState state = new SubViewState();
 

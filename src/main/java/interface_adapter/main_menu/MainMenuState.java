@@ -29,55 +29,55 @@ public class MainMenuState {
         return username;
     }
 
-    public String getUsernameError() {
-        return usernameError;
-    }
+//    public String getUsernameError() {
+//        return usernameError;
+//    }
 
     public String getPassword() {
         return password;
     }
 
-    public String getPasswordError() {
-        return passwordError;
-    }
-
-    public String getRepeatPassword() {
-        return repeatPassword;
-    }
-
-    public String getRepeatPasswordError() {
-        return repeatPasswordError;
-    }
-
-    public String getClearStatus(){return clearStatus;}
+//    public String getPasswordError() {
+//        return passwordError;
+//    }
+//
+//    public String getRepeatPassword() {
+//        return repeatPassword;
+//    }
+//
+//    public String getRepeatPasswordError() {
+//        return repeatPasswordError;
+//    }
+//
+//    public String getClearStatus(){return clearStatus;}
 
     public void setUsername(String username) {
         this.username = username;
     }
 
-    public void setUsernameError(String usernameError) {
-        this.usernameError = usernameError;
-    }
+//    public void setUsernameError(String usernameError) {
+//        this.usernameError = usernameError;
+//    }
 
     public void setPassword(String password) {
         this.password = password;
     }
 
-    public void setPasswordError(String passwordError) {
-        this.passwordError = passwordError;
-    }
-
-    public void setRepeatPassword(String repeatPassword) {
-        this.repeatPassword = repeatPassword;
-    }
-
-    public void setRepeatPasswordError(String repeatPasswordError) {
-        this.repeatPasswordError = repeatPasswordError;
-    }
-
-    public void setClearStatus(String clearStatus) {
-        this.clearStatus = clearStatus;
-    }
+//    public void setPasswordError(String passwordError) {
+//        this.passwordError = passwordError;
+//    }
+//
+//    public void setRepeatPassword(String repeatPassword) {
+//        this.repeatPassword = repeatPassword;
+//    }
+//
+//    public void setRepeatPasswordError(String repeatPasswordError) {
+//        this.repeatPasswordError = repeatPasswordError;
+//    }
+//
+//    public void setClearStatus(String clearStatus) {
+//        this.clearStatus = clearStatus;
+//    }
 
     @Override
     public String toString() {

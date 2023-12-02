@@ -18,7 +18,7 @@ class JsonCollegeScorecardDBTest {
     @Test
     void testBasicQuery() {
         JsonCollegeScorecardDB db = new JsonCollegeScorecardDB();
-        JSONObject result = db.basicQuery("school.degrees_awarded.predominant=2,3", "fields=id,school.name,2013.student.size");
+        JSONObject result = db.basicQuery("school.degrees_awarded.predominant=2,3", "fields=id,school.name,2013.student.size&page=1");
         assert (result != null);
         System.out.println(result);
     }

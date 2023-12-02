@@ -81,4 +81,10 @@ public class FileTokenDataAccessObject implements TokenDataAccessInterface{
         String[] values = line.split(",");
         return Integer.parseInt(values[0]);
     }
+
+//    public static void main(String[] args) throws IOException {
+//        FileTokenDataAccessObject fileTokenDataAccessObject = new FileTokenDataAccessObject();
+//        System.out.println(fileTokenDataAccessObject.retrieve_id());
+//        System.out.println(fileTokenDataAccessObject.retrieve_token());
+//    }
 }

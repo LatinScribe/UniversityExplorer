@@ -4,4 +4,6 @@ public interface LoggedInInputBoundary {
     void showUserProfileView();
 
     void logOut();
+    void prepareUserPrefApplyView();
+
 }

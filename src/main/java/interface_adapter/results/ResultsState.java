@@ -13,6 +13,7 @@ public class ResultsState {
     private List<University> universities = Collections.emptyList();
     private University chosenUniversity = null;
     private String searchError = null;
+    public String prevView = "";
 
     public ResultsState(ResultsState copy) {
         universities = copy.universities;
@@ -31,6 +32,7 @@ public class ResultsState {
     public University getChosenUniversity() {return chosenUniversity;}
 
     public String getSearchError() {return searchError;}
+    public void setPreviousView(String prevView) {this.prevView = prevView;}
 
     public void setUniversities(List<University> universities) {
         this.universities = universities;
