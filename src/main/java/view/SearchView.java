@@ -17,6 +17,7 @@ import interface_adapter.search.SearchState;
 import interface_adapter.sub_menu.SubViewController;
 import interface_adapter.sub_menu.SubViewModel;
 import interface_adapter.sub_menu.SubViewPresenter;
+import interface_adapter.zip_search.ZipSearchViewModel;
 import org.json.JSONObject;
 import use_case.results.ResultsUserDataAccessInterface;
 import use_case.search.SearchUserDataAccessInterface;
@@ -156,13 +157,14 @@ public class SearchView extends JPanel implements ActionListener, PropertyChange
         SearchView searchView = SearchUseCaseFactory.create(viewManagerModel, searchViewModel, subViewModel, resultsViewModel, searchDataAccessObject);
 
         ApplyViewModel applyViewModel = new ApplyViewModel();
-        SubViewPresenter subViewPresenter = new SubViewPresenter(searchViewModel, applyViewModel, viewManagerModel);
+        ZipSearchViewModel zipSearchViewModel = new ZipSearchViewModel();
+        SubViewPresenter subViewPresenter = new SubViewPresenter(searchViewModel, applyViewModel, zipSearchViewModel, viewManagerModel);
         SubViewInputBoundary subViewInteractor = new SubViewInteractor(subViewPresenter);
         SubViewController subViewController = new SubViewController(subViewInteractor);
         SubView subView = new SubView(subViewModel, subViewController);
 
         ResultsUserDataAccessInterface resultsUserDataAccessInterface = new ResultsDataAccessObject();
-        ResultsView resultsView = ResultsUseCaseFactory.create(viewManagerModel, resultsViewModel, searchViewModel, resultsUserDataAccessInterface);
+        ResultsView resultsView = ResultsUseCaseFactory.create(viewManagerModel, resultsViewModel, searchViewModel, zipSearchViewModel, resultsUserDataAccessInterface);
 
         views.add(searchView, searchView.viewName);
         views.add(subView, subView.viewName);

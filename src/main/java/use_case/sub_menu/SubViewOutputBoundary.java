@@ -7,5 +7,5 @@ public interface SubViewOutputBoundary {
 
     void prepareApplyView();
 
-    // void prepareMainMenuView();
+    void prepareZipSearchView();
 }
