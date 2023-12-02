@@ -6,12 +6,10 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 import org.jetbrains.annotations.NotNull;
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
-import java.util.ArrayList;
 
 // This file contains the methods for accessing data through the College Scorecard API
 // All methods return a JSON object
@@ -21,7 +19,7 @@ import java.util.ArrayList;
 // Author: Henry
 // Version: 1.1
 
-public class JsonCollegeScorecardDB implements CollegeScorecardDB{
+public class JsonCollegeScorecardDB implements CollegeScorecardDB {
 
     // Starting constants
     String API_TOKEN = "AwypPp5bIHx6H4EevsB5sFs4gw5NK1M7SNc4eXwl";
@@ -66,7 +64,7 @@ public class JsonCollegeScorecardDB implements CollegeScorecardDB{
         // less customisable query, assumes you are querying for schools and returning a json
         // recommend to use this
         // create the query url
-        String url = API_ADDRESS+ "schools.json?" + queryParameters + "&" + optionalParameters + "&api_key=" + API_TOKEN;
+        String url = API_ADDRESS + "schools.json?" + queryParameters + "&" + optionalParameters + "&api_key=" + API_TOKEN;
         return getJsonObject(url);
     }
 
@@ -75,7 +73,7 @@ public class JsonCollegeScorecardDB implements CollegeScorecardDB{
         // query a radius around a zip code for institutions
         // NOTE: Make sure to add "mi" at the end of radius!
         // create the query url
-        String url = API_ADDRESS+ "schools.json?" + "zip=" + zipcode + "&" + "distance=" +radius + "&fields=id,school.name,2013.student.size"+ "&fields=id,school.name,school.state,school.city,admissions.admission_rate.overall,cost.tuition.in_state,cost.tuition.out_of_state,admissions.sat_scores.average.overall,admissions.act_scores.midpoint.cumulative,school.school_url" + "&api_key=" + API_TOKEN;
+        String url = API_ADDRESS + "schools.json?" + "zip=" + zipcode + "&" + "distance=" + radius + "&fields=id,school.name,2013.student.size" + "&fields=id,school.name,school.state,school.city,admissions.admission_rate.overall,cost.tuition.in_state,cost.tuition.out_of_state,admissions.sat_scores.average.overall,admissions.act_scores.midpoint.cumulative,school.school_url" + "&api_key=" + API_TOKEN;
         return getJsonObject(url);
     }
 }

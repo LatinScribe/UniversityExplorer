@@ -3,7 +3,6 @@ package use_case.login;
 
 import data_access.TokenDataAccessInterface;
 import entity.ExistingUser;
-import entity.User;
 
 public class LoginInteractor implements LoginInputBoundary {
     final LoginUserDataAccessInterface userDataAccessObject;
@@ -37,6 +36,7 @@ public class LoginInteractor implements LoginInputBoundary {
             }
         }
     }
+
     @Override
     // added return to main menu (to be changed)
     public void returnMainMenu() {

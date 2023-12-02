@@ -2,25 +2,10 @@
 package view;
 
 //import interface_adapter.clear_users.ClearController;
-import app.LoggedInUseCaseFactory;
-import app.LoginUseCaseFactory;
-import app.MainMenuUseCaseFactory;
-import app.SignupUseCaseFactory;
-import data_access.FileTokenDataAccessObject;
-import data_access.ServerUserDataAccessObject;
-import entity.ExistingCommonUserFactory;
-import interface_adapter.ViewManagerModel;
-import interface_adapter.logged_in.LoggedInController;
-import interface_adapter.logged_in.LoggedInPresenter;
-import interface_adapter.logged_in.LoggedInViewModel;
-import interface_adapter.login.LoginState;
-import interface_adapter.login.LoginViewModel;
-import interface_adapter.main_menu.MainMenuViewModel;
+
 import interface_adapter.signup.SignupController;
 import interface_adapter.signup.SignupState;
 import interface_adapter.signup.SignupViewModel;
-import interface_adapter.sub_menu.SubViewModel;
-import interface_adapter.user_profiles.UserProfileViewModel;
 
 import javax.swing.*;
 import java.awt.*;
@@ -49,7 +34,7 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
     // Note: this is the new JButton for clearing the users file
 //    private final JButton clear;
 
-//    public SignupView(SignupController controller, SignupViewModel signupViewModel, ClearController clearController) {
+    //    public SignupView(SignupController controller, SignupViewModel signupViewModel, ClearController clearController) {
     public SignupView(SignupController controller, SignupViewModel signupViewModel) {
 
         this.signupController = controller;

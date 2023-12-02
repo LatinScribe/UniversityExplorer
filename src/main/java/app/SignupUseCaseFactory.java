@@ -2,7 +2,10 @@
 package app;
 
 import data_access.TokenDataAccessInterface;
-import entity.*;
+import entity.CreationCommonUserFactory;
+import entity.CreationUserFactory;
+import entity.PasswordValidator;
+import entity.UsernameValidator;
 import interface_adapter.ViewManagerModel;
 import interface_adapter.login.LoginViewModel;
 import interface_adapter.main_menu.MainMenuViewModel;
@@ -20,8 +23,11 @@ import java.io.IOException;
 
 public class SignupUseCaseFactory {
 
-    /** Prevent instantiation. */
-    private SignupUseCaseFactory() {}
+    /**
+     * Prevent instantiation.
+     */
+    private SignupUseCaseFactory() {
+    }
 
     public static SignupView create(
             ViewManagerModel viewManagerModel, LoginViewModel loginViewModel, SignupViewModel signupViewModel, SignupUserDataAccessInterface userDataAccessObject, MainMenuViewModel mainMenuViewModel, TokenDataAccessInterface tokenDataAccessInterface, PasswordValidator passwordValidator, UsernameValidator usernameValidator) {

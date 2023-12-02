@@ -1,6 +1,5 @@
 package data_access;
 
-import entity.UserPreferences;
 import entity.UserProfile;
 
 import java.io.IOException;

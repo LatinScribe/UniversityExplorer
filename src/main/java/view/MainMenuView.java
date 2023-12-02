@@ -1,24 +1,9 @@
 // Author: Henry
 package view;
 
-import app.LoggedInUseCaseFactory;
-import app.LoginUseCaseFactory;
-import app.MainMenuUseCaseFactory;
-import app.SignupUseCaseFactory;
-import data_access.FileTokenDataAccessObject;
-import data_access.ServerUserDataAccessObject;
-import entity.ExistingCommonUserFactory;
-import interface_adapter.ViewManagerModel;
-import interface_adapter.logged_in.LoggedInController;
-import interface_adapter.logged_in.LoggedInPresenter;
-import interface_adapter.logged_in.LoggedInViewModel;
-import interface_adapter.login.LoginViewModel;
 import interface_adapter.main_menu.MainMenuController;
-import interface_adapter.main_menu.MainMenuViewModel;
 import interface_adapter.main_menu.MainMenuState;
-import interface_adapter.signup.SignupViewModel;
-import interface_adapter.user_profiles.UserProfileViewModel;
-import interface_adapter.sub_menu.SubViewModel;
+import interface_adapter.main_menu.MainMenuViewModel;
 
 import javax.swing.*;
 import java.awt.*;
@@ -37,8 +22,8 @@ public class MainMenuView extends JPanel implements ActionListener, PropertyChan
     final JButton settings;
     private final MainMenuController mainMenuController;
 
-    public MainMenuView(MainMenuViewModel mainMenuViewModel, MainMenuController     mainMenuController) {
-        this.mainMenuController = mainMenuController;;
+    public MainMenuView(MainMenuViewModel mainMenuViewModel, MainMenuController mainMenuController) {
+        this.mainMenuController = mainMenuController;
         this.mainMenuViewModel = mainMenuViewModel;
         this.mainMenuViewModel.addPropertyChangeListener(this);
 
@@ -97,7 +82,6 @@ public class MainMenuView extends JPanel implements ActionListener, PropertyChan
 //        );
         // Other way of doing it, which is using the default action performed in the class
         settings.addActionListener(this);
-
 
 
         this.add(title);

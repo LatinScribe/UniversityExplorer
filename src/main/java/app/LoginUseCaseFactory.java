@@ -20,8 +20,11 @@ import java.io.IOException;
 
 public class LoginUseCaseFactory {
 
-    /** Prevent instantiation. */
-    private LoginUseCaseFactory() {}
+    /**
+     * Prevent instantiation.
+     */
+    private LoginUseCaseFactory() {
+    }
 
     public static LoginView create(
             ViewManagerModel viewManagerModel,

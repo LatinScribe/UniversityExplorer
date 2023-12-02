@@ -28,7 +28,9 @@ public class CommonUniversity implements University {
     }
 
     @Override
-    public Integer getSchoolID() {return schoolID;}
+    public Integer getSchoolID() {
+        return schoolID;
+    }
 
     @Override
     public String getSchoolName() {
@@ -114,6 +116,6 @@ public class CommonUniversity implements University {
     }
 
     private Object[] toStringHelper() {
-        return new Object[] {schoolName, city, state, admissionRate, averageInStateTuition, averageOutOfStateTuition, averageSATScore, averageACTScore, url};
+        return new Object[]{schoolName, city, state, admissionRate, averageInStateTuition, averageOutOfStateTuition, averageSATScore, averageACTScore, url};
     }
 }

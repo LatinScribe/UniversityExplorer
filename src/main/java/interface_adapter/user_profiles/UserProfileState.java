@@ -1,9 +1,6 @@
 // Author: Kanish
 package interface_adapter.user_profiles;
 
-import java.lang.reflect.Array;
-import java.util.ArrayList;
-
 public class UserProfileState {
 
     private String confirmEditMessage;
@@ -17,15 +14,25 @@ public class UserProfileState {
     private String preferredProgram;
     private int[] universityRankingRange; // Assuming it's Integer[]
 
-    public String getConfirmEditMessage() {return confirmEditMessage;}
+    public String getConfirmEditMessage() {
+        return confirmEditMessage;
+    }
 
-    public String getFailedEditMessage() {return failedEditMessage;}
+    public String getFailedEditMessage() {
+        return failedEditMessage;
+    }
 
-    public String getConfirmPublishMessage() {return confirmPublishMessage;}
+    public String getConfirmPublishMessage() {
+        return confirmPublishMessage;
+    }
 
-    public String getFailPublishMessage() {return failPublishMessage;}
+    public String getFailPublishMessage() {
+        return failPublishMessage;
+    }
 
-    public void setConfirmEditMessage(String s) {this.confirmEditMessage = s;}
+    public void setConfirmEditMessage(String s) {
+        this.confirmEditMessage = s;
+    }
 
     public void setFailedEditMessage(String failedEditMessage) {
         this.failedEditMessage = failedEditMessage;

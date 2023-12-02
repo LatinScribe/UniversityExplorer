@@ -16,7 +16,6 @@ public class LoginPresenter implements LoginOutputBoundary {
     private final ViewManagerModel viewManagerModel;
 
 
-
     public LoginPresenter(ViewManagerModel viewManagerModel,
                           LoggedInViewModel loggedInViewModel,
                           LoginViewModel loginViewModel,
@@ -46,6 +45,7 @@ public class LoginPresenter implements LoginOutputBoundary {
         loginState.setUsernameError(error);
         loginViewModel.firePropertyChanged();
     }
+
     @Override
     public void prepareMainMenuView() {
         viewManagerModel.setActiveView(mainMenuViewModel.getViewName());
