@@ -133,7 +133,7 @@ public class SignupViewTest {
     @org.junit.Test
     public void testSignUpButtonPasswordNotMatch() {
 
-        int randomNum = ThreadLocalRandom.current().nextInt(10, 1000);
+        int randomNum = ThreadLocalRandom.current().nextInt(10, 1000000);
         String userName = "Test" + randomNum;
         String pass1 = "1234";
         String pass2 = "123";
@@ -228,6 +228,122 @@ public class SignupViewTest {
         assert(popUpDiscovered);
         System.out.println("popup was detected successfully.");
         assert(message.equals("User already exists."));
+
+        assert(getShowing(2));
+    }
+
+    @org.junit.Test
+    public void testSignUpButtonPasswordNotValid() {
+
+        int randomNum = ThreadLocalRandom.current().nextInt(10, 1000000);
+        String userName = "Test" + randomNum;
+        String pass1 = "12345";
+        String pass2 = "12345";
+
+        Main.main(null);
+
+        JButton button1 = getMainButton(0);
+        button1.doClick();
+
+        assert(getShowing(2));
+
+
+        JButton button = getButton(0);
+        assert (button.getText().equals("Sign up"));
+
+        // get a reference to the first username field
+        LabelTextPanel panel = getTextPanel();
+
+        JTextField jTextField = (JTextField) panel.getComponent(1);
+
+        writeTextField(userName, jTextField, panel);
+
+        // get a reference to the first username field
+        LabelTextPanel panel2 = getPasswordPanel1();
+
+        JPasswordField pwdField = (JPasswordField) panel2.getComponent(1);
+
+        writeTextField(pass1, pwdField, panel);
+
+        // get a reference to the second password field
+        LabelTextPanel panel3 = getPasswordPanel2();
+        JPasswordField pwdField2 = (JPasswordField) panel3.getComponent(1);
+
+        writeTextField(pass2, pwdField2, panel);
+
+        popUpDiscovered = false;
+        message = "";
+
+        // since clicking the button should end up displaying a JDialog to the user to report the
+        // result, we set a timer, which will execute code necessary to complete the testing.
+        createCloseTimer().start();
+
+        //click the button
+        button.doClick();
+
+        // will continue execution here after the JDialog is closed
+
+        // confirm a popUp was discovered
+        assert(popUpDiscovered);
+        System.out.println("popup was detected successfully.");
+        assert(message.equals("Password must be longer than 5 characters (no spaces)"));
+
+        assert(getShowing(2));
+    }
+
+    @org.junit.Test
+    public void testSignUpButtonUsernameNotValid() {
+        String userName = "a ";
+        String pass1 = "123456";
+        String pass2 = "123456";
+
+        Main.main(null);
+
+        JButton button1 = getMainButton(0);
+        button1.doClick();
+
+        assert(getShowing(2));
+
+
+        JButton button = getButton(0);
+        assert (button.getText().equals("Sign up"));
+
+        // get a reference to the first username field
+        LabelTextPanel panel = getTextPanel();
+
+        JTextField jTextField = (JTextField) panel.getComponent(1);
+
+        writeTextField(userName, jTextField, panel);
+
+        // get a reference to the first username field
+        LabelTextPanel panel2 = getPasswordPanel1();
+
+        JPasswordField pwdField = (JPasswordField) panel2.getComponent(1);
+
+        writeTextField(pass1, pwdField, panel);
+
+        // get a reference to the second password field
+        LabelTextPanel panel3 = getPasswordPanel2();
+        JPasswordField pwdField2 = (JPasswordField) panel3.getComponent(1);
+
+        writeTextField(pass2, pwdField2, panel);
+
+        popUpDiscovered = false;
+        message = "";
+
+        // since clicking the button should end up displaying a JDialog to the user to report the
+        // result, we set a timer, which will execute code necessary to complete the testing.
+        createCloseTimer().start();
+
+        //click the button
+        button.doClick();
+
+        // will continue execution here after the JDialog is closed
+
+        // confirm a popUp was discovered
+        assert(popUpDiscovered);
+        System.out.println("popup was detected successfully.");
+        assert(message.equals("Username must be longer than 1 characters (no spaces)"));
 
         assert(getShowing(2));
     }
