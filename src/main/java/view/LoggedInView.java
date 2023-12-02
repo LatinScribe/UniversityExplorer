@@ -45,7 +45,7 @@ public class LoggedInView extends JPanel implements ActionListener, PropertyChan
         JPanel buttons = new JPanel();
         logOut = new JButton(LoggedInViewModel.LOGOUT_BUTTON_LABEL);
         buttons.add(logOut);
-        
+
         // add view profile button
         viewProfile = new JButton(LoggedInViewModel.PROFILE_BUTTON_LABEL);
         buttons.add(viewProfile);
@@ -70,7 +70,6 @@ public class LoggedInView extends JPanel implements ActionListener, PropertyChan
                         }
                     }
                 });
-
 
 
         logOut.addActionListener(// This creates an anonymous subclass of ActionListener and instantiates it.

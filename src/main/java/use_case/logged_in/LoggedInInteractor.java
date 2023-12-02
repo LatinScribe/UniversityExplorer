@@ -2,7 +2,7 @@ package use_case.logged_in;
 
 import data_access.TokenDataAccessInterface;
 
-public class LoggedInInteractor implements LoggedInInputBoundary{
+public class LoggedInInteractor implements LoggedInInputBoundary {
 
     private final TokenDataAccessInterface tokenDataAccessInterface;
     private final LoggedInOutputBoundary loggedInOutputBoundary;
@@ -16,6 +16,7 @@ public class LoggedInInteractor implements LoggedInInputBoundary{
     public void showUserProfileView() {
         loggedInOutputBoundary.prepareUserProfileView();
     }
+
     @Override
     public void prepareUserPrefApplyView() {
         loggedInOutputBoundary.prepareUserPrefApplyView();

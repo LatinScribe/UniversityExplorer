@@ -4,7 +4,7 @@ import java.io.*;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-public class FileTokenDataAccessObject implements TokenDataAccessInterface{
+public class FileTokenDataAccessObject implements TokenDataAccessInterface {
     private final File csvFile;
     private final Map<String, Integer> headers = new LinkedHashMap<>();
 
@@ -23,6 +23,7 @@ public class FileTokenDataAccessObject implements TokenDataAccessInterface{
         headers.put("token", 1);
 
     }
+
     @Override
     public void save_token(int id, String token) {
         BufferedWriter writer;
@@ -42,6 +43,7 @@ public class FileTokenDataAccessObject implements TokenDataAccessInterface{
             throw new RuntimeException(e);
         }
     }
+
     @Override
     public void remove_token() {
         BufferedWriter writer;
@@ -64,7 +66,7 @@ public class FileTokenDataAccessObject implements TokenDataAccessInterface{
 
     @Override
     // note, this could throw a file not found error
-    public String retrieve_token() throws IOException{
+    public String retrieve_token() throws IOException {
         BufferedReader br = new BufferedReader(new FileReader(csvFile));
         br.readLine();
         String line = br.readLine();
@@ -74,7 +76,7 @@ public class FileTokenDataAccessObject implements TokenDataAccessInterface{
 
     @Override
     // note, this could throw a file not found error
-    public int retrieve_id() throws IOException, NumberFormatException{
+    public int retrieve_id() throws IOException, NumberFormatException {
         BufferedReader br = new BufferedReader(new FileReader(csvFile));
         br.readLine();
         String line = br.readLine();

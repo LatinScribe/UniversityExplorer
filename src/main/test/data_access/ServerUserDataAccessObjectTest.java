@@ -9,12 +9,13 @@ import org.junit.jupiter.api.Test;
 import java.time.LocalDateTime;
 import java.util.concurrent.ThreadLocalRandom;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.fail;
 
-class ServerUserDataAccessObjectTest {
+class   ServerUserDataAccessObjectTest {
     ServerUserDataAccessObject db = new ServerUserDataAccessObject(new ExistingCommonUserFactory());
     CreationCommonUserFactory fact = new CreationCommonUserFactory();
     LocalDateTime time = LocalDateTime.now();
+
     @Test
     void get() {
         int randomNum = ThreadLocalRandom.current().nextInt(100, 123344 + 1);
@@ -44,7 +45,7 @@ class ServerUserDataAccessObjectTest {
         boolean result = db.existsByName("johny");
         System.out.println("This should return true");
         System.out.println(result);
-        assert(result);
+        assert (result);
 
         boolean result2 = db.existsByName("somerandomuser");
         System.out.println("This should return false");
@@ -59,19 +60,17 @@ class ServerUserDataAccessObjectTest {
             CreationUser user = fact.create("abcd", "1234", time);
             ExistingUser user4 = db.save(user);
             fail("We should get a username already exists error");
-        }
-        catch (RuntimeException e) {
+        } catch (RuntimeException e) {
             System.out.println(e.getMessage());
             System.out.println("This should be because user already exists");
             assert (e.getMessage().equals("USERNAME ALREADY EXISTS"));
         }
 
         try {
-            CreationUser user = fact.create("Test"+randomNum, "1234654", time);
+            CreationUser user = fact.create("Test" + randomNum, "1234654", time);
             ExistingUser user4 = db.save(user);
             assert (!user4.getToken().isEmpty());
-        }
-        catch (RuntimeException e) {
+        } catch (RuntimeException e) {
             fail("We shouldn't get a user already exists error. Try running the test again, maybe unlucky?");
         }
     }
