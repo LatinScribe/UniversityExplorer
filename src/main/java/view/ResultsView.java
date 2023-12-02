@@ -134,12 +134,15 @@ public class ResultsView extends JPanel implements ActionListener, PropertyChang
                     }
                 });
 
-        this.remove(this.back);
+        this.remove(back);
+        this.remove(confirm);
+        JPanel buttons = new JPanel();
         jScrollPane = new JScrollPane(myList);
         jScrollPane.setPreferredSize(new Dimension(300, 200));
         this.add(jScrollPane);
-        this.add(back);
-        this.add(confirm);
+        buttons.add(confirm);
+        buttons.add(back);
+        this.add(buttons);
     }
 
     private void removeButtons() {
