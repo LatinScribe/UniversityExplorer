@@ -11,12 +11,12 @@ import use_case.logged_in.LoggedInOutputBoundary;
 
 public class LoggedInPresenter implements LoggedInOutputBoundary {
 
-    private ViewManagerModel viewManagerModel;
+    private final ViewManagerModel viewManagerModel;
     private final UserProfileViewModel userProfileViewModel;
-//    private final LoginViewModel loginViewModel;
+    //    private final LoginViewModel loginViewModel;
     private final LoginViewModel loginViewModel;
 
-    private  final PrefApplyViewModel prefApplyViewModel;
+    private final PrefApplyViewModel prefApplyViewModel;
 
     public LoggedInPresenter(UserProfileViewModel userProfileViewModel, ViewManagerModel viewManagerModel, LoginViewModel logInViewModel, PrefApplyViewModel prefApplyViewModel) {
         this.userProfileViewModel = userProfileViewModel;
@@ -36,6 +36,7 @@ public class LoggedInPresenter implements LoggedInOutputBoundary {
         viewManagerModel.firePropertyChanged();
         System.out.println("We swapped to UserProfileView" + userProfileViewModel.getViewName());
     }
+
     @Override
     public void prepareLoginView() {
         // On success, switch to the login view.
@@ -47,6 +48,7 @@ public class LoggedInPresenter implements LoggedInOutputBoundary {
         viewManagerModel.setActiveView(loginViewModel.getViewName());
         viewManagerModel.firePropertyChanged();
     }
+
     @Override
     public void prepareUserPrefApplyView() {
         // On success, switch to the login view.

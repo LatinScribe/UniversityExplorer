@@ -2,7 +2,7 @@ package entity;
 
 import java.time.LocalDateTime;
 
-public class ExistingCommonUser implements ExistingUser{
+public class ExistingCommonUser implements ExistingUser {
 
     private final String name;
     private final int id;

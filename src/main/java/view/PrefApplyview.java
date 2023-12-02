@@ -1,23 +1,15 @@
 package view;
 
-import data_access.ApplyDataAccessObject;
 import data_access.PrefApplyDataAccessObject;
 import entity.CommonUniversityFactory;
 import entity.UniversityFactory;
 import interface_adapter.ViewManagerModel;
-import interface_adapter.apply.ApplyController;
-import interface_adapter.apply.ApplyPresenter;
-import interface_adapter.apply.ApplyState;
 import interface_adapter.apply.ApplyViewModel;
 import interface_adapter.prefapply.PrefApplyController;
 import interface_adapter.prefapply.PrefApplyPresenter;
 import interface_adapter.prefapply.PrefApplyState;
 import interface_adapter.prefapply.PrefApplyViewModel;
 import interface_adapter.sub_menu.SubViewModel;
-import use_case.apply.ApplyDataAccessInterface;
-import use_case.apply.ApplyInputBoundary;
-import use_case.apply.ApplyInteractor;
-import use_case.apply.ApplyOutputBoundary;
 import use_case.prefapply.PrefApplyDataAccessInterface;
 import use_case.prefapply.PrefApplyInputBoundary;
 import use_case.prefapply.PrefApplyInteractor;
@@ -83,9 +75,9 @@ public class PrefApplyview extends JPanel implements ActionListener, PropertyCha
                     System.out.println("submit Button pressed");
                     PrefApplyState prefapplyState = prefapplyViewModel.getState();
 
-                    prefapplyController.execute(prefapplyState.getSat(),prefapplyState.getAct());
+                    prefapplyController.execute(prefapplyState.getSat(), prefapplyState.getAct());
 
-                }catch (IllegalArgumentException ex){
+                } catch (IllegalArgumentException ex) {
                     JOptionPane.showMessageDialog(this, "invalid input format", "error", JOptionPane.ERROR_MESSAGE);
                 }
 
@@ -132,7 +124,6 @@ public class PrefApplyview extends JPanel implements ActionListener, PropertyCha
         );
 
 
-
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
         this.add(title);
@@ -163,18 +154,19 @@ public class PrefApplyview extends JPanel implements ActionListener, PropertyCha
             state.setUniversityError(null);
         }
     }
+
     public static void main(String[] args) {
         JFrame application = new JFrame("ApplyView Test");
         application.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         ViewManagerModel viewManagerModel = new ViewManagerModel();
         PrefApplyViewModel prefapplyViewModel = new PrefApplyViewModel();
         SubViewModel mainMenuViewModel = new SubViewModel();
-        PrefApplyOutputBoundary prefapplyPresenter = new PrefApplyPresenter(prefapplyViewModel,viewManagerModel,mainMenuViewModel);
+        PrefApplyOutputBoundary prefapplyPresenter = new PrefApplyPresenter(prefapplyViewModel, viewManagerModel, mainMenuViewModel);
         //ApplyInputData applyInputData = new ApplyInputData();
         PrefApplyDataAccessInterface prefapplyDataAccessInterface = new PrefApplyDataAccessObject();
         UniversityFactory universityFactory = new CommonUniversityFactory();
-        PrefApplyInputBoundary prefapplyUseCaseInteractor = new PrefApplyInteractor(prefapplyDataAccessInterface,prefapplyPresenter,universityFactory);
-        PrefApplyController prefapplyController = new PrefApplyController( prefapplyUseCaseInteractor);
+        PrefApplyInputBoundary prefapplyUseCaseInteractor = new PrefApplyInteractor(prefapplyDataAccessInterface, prefapplyPresenter, universityFactory);
+        PrefApplyController prefapplyController = new PrefApplyController(prefapplyUseCaseInteractor);
         PrefApplyview prefapplyView = new PrefApplyview(prefapplyController, prefapplyViewModel);
 
         JPanel testPanel = new JPanel();

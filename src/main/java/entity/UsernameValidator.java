@@ -1,7 +1,7 @@
 package entity;
 
 public interface UsernameValidator {
-    public boolean usernameIsValid(String username);
+    boolean usernameIsValid(String username);
 
     String getRule();
 }

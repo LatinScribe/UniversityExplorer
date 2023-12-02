@@ -18,8 +18,11 @@ import javax.swing.*;
 import java.io.IOException;
 
 public class ZipSearchUseCaseFactory {
-    /** Prevent instantiation. */
-    private ZipSearchUseCaseFactory() {}
+    /**
+     * Prevent instantiation.
+     */
+    private ZipSearchUseCaseFactory() {
+    }
 
     public static ZipSearchView create(
             ViewManagerModel viewManagerModel, ZipSearchViewModel zipSearchViewModel, SubViewModel subViewModel, ResultsViewModel resultsViewModel, ZipSearchUserDataAccessInterface zipSearchUserDataAccessObject) {

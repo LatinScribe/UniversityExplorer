@@ -10,7 +10,6 @@ import interface_adapter.search.SearchController;
 import interface_adapter.search.SearchPresenter;
 import interface_adapter.search.SearchViewModel;
 import interface_adapter.sub_menu.SubViewModel;
-import okhttp3.Call;
 import use_case.search.SearchInputBoundary;
 import use_case.search.SearchInteractor;
 import use_case.search.SearchOutputBoundary;
@@ -21,8 +20,11 @@ import javax.swing.*;
 import java.io.IOException;
 
 public class SearchUseCaseFactory {
-    /** Prevent instantiation. */
-    private SearchUseCaseFactory() {}
+    /**
+     * Prevent instantiation.
+     */
+    private SearchUseCaseFactory() {
+    }
 
     public static SearchView create(
             ViewManagerModel viewManagerModel, SearchViewModel searchViewModel, SubViewModel subViewModel, ResultsViewModel resultsViewModel, SearchUserDataAccessInterface searchUserDataAccessObject) {

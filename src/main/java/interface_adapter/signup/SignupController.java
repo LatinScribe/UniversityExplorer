@@ -6,6 +6,7 @@ import use_case.signup.SignupInputData;
 public class SignupController {
 
     final SignupInputBoundary userSignupUseCaseInteractor;
+
     public SignupController(SignupInputBoundary userSignupUseCaseInteractor) {
         this.userSignupUseCaseInteractor = userSignupUseCaseInteractor;
     }
@@ -16,6 +17,7 @@ public class SignupController {
 
         userSignupUseCaseInteractor.execute(signupInputData);
     }
+
     public void returnMainMenu() {
         userSignupUseCaseInteractor.returnMainMenu();
     }
