@@ -7,8 +7,8 @@ public class CommonUniversityTest {
 
     @Test
     public void testUniSimple() {
-       University university = new CommonUniversity(1, "tester", "NY", "New York", 50.3, 5000, 10000, 750.0, 250.0, "test.com");
-       assert (university instanceof CommonUniversity);
+        University university = new CommonUniversity(1, "tester", "NY", "New York", 50.3, 5000, 10000, 750.0, 250.0, "test.com");
+        assert (university instanceof CommonUniversity);
     }
 
     @Test

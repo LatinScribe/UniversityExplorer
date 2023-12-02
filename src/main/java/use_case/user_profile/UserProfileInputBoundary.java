@@ -1,5 +1,9 @@
 package use_case.user_profile;
 
+import entity.UserProfile;
+
+import java.io.IOException;
+
 public interface UserProfileInputBoundary {
 
     void showPersonalProfileView(UserProfileOutputData userProfileOutputData);
@@ -8,4 +12,6 @@ public interface UserProfileInputBoundary {
                            int[] universityRankingRange);
 
     void fetchUserProfileData();
+
+    void saveNewUserProfile(int finAidRequirement, int avgSalary, String locationPreference, String preferredProgram, int[] universityRankingRange) throws IOException;
 }

@@ -12,7 +12,6 @@ import interface_adapter.results.ResultsViewModel;
 import interface_adapter.search.SearchViewModel;
 import interface_adapter.sub_menu.SubViewModel;
 import interface_adapter.zip_search.ZipSearchController;
-
 import interface_adapter.zip_search.ZipSearchState;
 import interface_adapter.zip_search.ZipSearchViewModel;
 import use_case.results.ResultsUserDataAccessInterface;
@@ -148,7 +147,7 @@ public class ZipSearchView extends JPanel implements ActionListener, PropertyCha
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
         String y = evt.getPropertyName();
-        if (y.equals("failure")){
+        if (y.equals("failure")) {
             ZipSearchState state = (ZipSearchState) evt.getNewValue();
             JOptionPane.showMessageDialog(this, state.getZipSearchError());
             state.setZipSearchError(null);

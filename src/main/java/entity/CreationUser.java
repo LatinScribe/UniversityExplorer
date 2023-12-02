@@ -2,7 +2,7 @@ package entity;
 
 import java.time.LocalDateTime;
 
-public interface CreationUser extends User{
+public interface CreationUser extends User {
     String getName();
 
     String getPassword();

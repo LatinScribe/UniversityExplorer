@@ -6,19 +6,16 @@ import app.ResultsUseCaseFactory;
 import app.SearchUseCaseFactory;
 import data_access.ResultsDataAccessObject;
 import data_access.SearchDataAccessObject;
-import entity.CommonUniversityFactory;
-import entity.UniversityFactory;
 import interface_adapter.ViewManagerModel;
 import interface_adapter.apply.ApplyViewModel;
 import interface_adapter.results.ResultsViewModel;
 import interface_adapter.search.SearchController;
-import interface_adapter.search.SearchViewModel;
 import interface_adapter.search.SearchState;
+import interface_adapter.search.SearchViewModel;
 import interface_adapter.sub_menu.SubViewController;
 import interface_adapter.sub_menu.SubViewModel;
 import interface_adapter.sub_menu.SubViewPresenter;
 import interface_adapter.zip_search.ZipSearchViewModel;
-import org.json.JSONObject;
 import use_case.results.ResultsUserDataAccessInterface;
 import use_case.search.SearchUserDataAccessInterface;
 import use_case.sub_menu.SubViewInputBoundary;
@@ -133,7 +130,7 @@ public class SearchView extends JPanel implements ActionListener, PropertyChange
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
         String y = evt.getPropertyName();
-        if (y.equals("failure")){
+        if (y.equals("failure")) {
             SearchState state = (SearchState) evt.getNewValue();
             JOptionPane.showMessageDialog(this, state.getSearchError());
             state.setSearchError(null);

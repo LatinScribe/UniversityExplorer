@@ -13,6 +13,7 @@ class CreationCommonUser implements CreationUser {
 
     /**
      * Requires: password is valid.
+     *
      * @param name
      * @param password
      */

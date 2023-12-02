@@ -32,20 +32,20 @@ public class SignupInteractor implements SignupInputBoundary {
 
         if (!signupInputData.getPassword().equals(signupInputData.getRepeatPassword())) {
             userPresenter.prepareFailView("Passwords don't match.");
-        } else if (userDataAccessObject.existsByName(signupInputData.getUsername())){
-                userPresenter.prepareFailView("User already exists.");
+        } else if (userDataAccessObject.existsByName(signupInputData.getUsername())) {
+            userPresenter.prepareFailView("User already exists.");
         } else if (!passwordValidator.passwordIsValid(signupInputData.getPassword())) {
             userPresenter.prepareFailView(passwordValidator.getRule());
-        }else if (!usernameValidator.usernameIsValid(signupInputData.getUsername())) {
+        } else if (!usernameValidator.usernameIsValid(signupInputData.getUsername())) {
             userPresenter.prepareFailView(usernameValidator.getRule());
-        }else {
+        } else {
 
             LocalDateTime now = LocalDateTime.now();
             CreationUser user = userFactory.create(signupInputData.getUsername(), signupInputData.getPassword(), now);
             ExistingUser user1 = userDataAccessObject.save(user);
 
             // save the token and id somewhere
-            tokenDataAccessInterface.save_token(user1.getID(),user1.getToken());
+            tokenDataAccessInterface.save_token(user1.getID(), user1.getToken());
 
             SignupOutputData signupOutputData = new SignupOutputData(user.getName(), now.toString(), false);
             userPresenter.prepareSuccessView(signupOutputData);

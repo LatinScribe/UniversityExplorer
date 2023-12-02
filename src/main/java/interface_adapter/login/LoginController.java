@@ -7,6 +7,7 @@ import use_case.login.LoginInputData;
 public class LoginController {
 
     final LoginInputBoundary loginUseCaseInteractor;
+
     public LoginController(LoginInputBoundary loginUseCaseInteractor) {
         this.loginUseCaseInteractor = loginUseCaseInteractor;
     }
@@ -20,6 +21,6 @@ public class LoginController {
     }
 
     public void returnMainMenu() {
-       loginUseCaseInteractor.returnMainMenu();
+        loginUseCaseInteractor.returnMainMenu();
     }
 }

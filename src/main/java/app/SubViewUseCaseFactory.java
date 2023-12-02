@@ -19,8 +19,11 @@ import java.io.IOException;
 
 public class SubViewUseCaseFactory {
 
-    /** Prevent instantiation. */
-    private SubViewUseCaseFactory() {}
+    /**
+     * Prevent instantiation.
+     */
+    private SubViewUseCaseFactory() {
+    }
 
     public static SubView create(
             ViewManagerModel viewManagerModel, SearchViewModel searchViewModel, ApplyViewModel applyViewModel, ZipSearchViewModel zipSearchViewModel, SubViewModel subViewModel) {
