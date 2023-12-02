@@ -28,6 +28,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Objects;
 import javax.swing.*;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 
 import use_case.results.ResultsUserDataAccessInterface;
 import use_case.search.SearchUserDataAccessInterface;
@@ -41,8 +43,11 @@ public class ResultsView extends JPanel implements ActionListener, PropertyChang
     private List<University> universityList;
     private final ResultsButtonFactory resultsButtonFactory;
     private JButton back;
-    private List<JButton> uniButtons;
+    private JButton confirm;
+    private JList<String> myList;
+    private DefaultListModel<String> listModel;
     private JScrollPane jScrollPane;
+    private String selectedValue;
 
     public ResultsView(ResultsController resultsController, ResultsViewModel resultsViewModel, List<University> universityList) {
         this.resultsController = resultsController;
@@ -53,9 +58,10 @@ public class ResultsView extends JPanel implements ActionListener, PropertyChang
 
         JLabel title = new JLabel("Results View");
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
-        JLabel instructions = new JLabel("For more information on a university, click a university below!");
+        JLabel instructions = new JLabel("For more information on a university, select a university in the list, then press confirm!");
         JPanel buttons = new JPanel();
-        back = new JButton(SearchViewModel.BACK_BUTTON_LABEL);
+        back = new JButton(ResultsViewModel.BACK_BUTTON_LABEL);
+        confirm = new JButton(ResultsViewModel.CONFIRM_BUTTON_LABEL);
 
         back.addActionListener(
                 // This creates an anonymous subclass of ActionListener and instantiates it.
@@ -65,6 +71,18 @@ public class ResultsView extends JPanel implements ActionListener, PropertyChang
                             System.out.println("Back pressed");
                             removeButtons();
                             resultsController.executeBack();
+                        }
+                    }
+                }
+        );
+
+        confirm.addActionListener(
+                new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent evt) {
+                        if (evt.getSource().equals(confirm)) {
+                            System.out.println("Confirm pressed");
+                            resultsController.executeUniPress(selectedValue);
                         }
                     }
                 }
@@ -86,7 +104,7 @@ public class ResultsView extends JPanel implements ActionListener, PropertyChang
         String y = evt.getPropertyName();
         if (y.equals("uni selected")) {
             ResultsState state = (ResultsState) evt.getNewValue();
-            JOptionPane.showMessageDialog(this,state.getChosenUniversity().toString());
+            JOptionPane.showMessageDialog(this, state.getChosenUniversity().toString());
         } else if (y.equals("error")) {
             ResultsState state = (ResultsState) evt.getNewValue();
             JOptionPane.showMessageDialog(this, state.getSearchError());
@@ -98,33 +116,32 @@ public class ResultsView extends JPanel implements ActionListener, PropertyChang
     }
 
     private void updateButtons(List<University> uniList) {
-        this.uniButtons = new ArrayList<JButton>();
-        JPanel verticalPanel = new JPanel();
-        verticalPanel.setLayout(new BoxLayout(verticalPanel, BoxLayout.Y_AXIS));
-
-        for (University uni : uniList) {
-            String name = uni.getSchoolName();
-            JButton button = this.resultsButtonFactory.create(name);
-            button.addActionListener(
-                    // This creates an anonymous subclass of ActionListener and instantiates it.
-                    new ActionListener() {
-                        public void actionPerformed(ActionEvent evt) {
-                            if (evt.getSource().equals(name)) {
-                                System.out.println(name + " pressed");
-                                resultsController.executeUniPress(name);
-                            }
-                        }
-                    }
-            );
-            uniButtons.add(button);
-            verticalPanel.add(button);
+        listModel = new DefaultListModel<>();
+        for (University uni: uniList) {
+            listModel.addElement(uni.getSchoolName());
         }
+        myList = new JList<>(listModel);
 
-        this.remove(this.back);
-        this.jScrollPane = new JScrollPane(verticalPanel);
+        myList.addListSelectionListener(
+
+                new ListSelectionListener() {
+                    @Override
+                    public void valueChanged(ListSelectionEvent e) {
+                        Object[] chosen = myList.getSelectedValues();
+                        String universityName = (String) chosen[0]; // UNsure if this returns the right university yet: will check
+                        selectedValue = universityName;
+                    }
+                });
+
+        this.remove(back);
+        this.remove(confirm);
+        JPanel buttons = new JPanel();
+        jScrollPane = new JScrollPane(myList);
         jScrollPane.setPreferredSize(new Dimension(300, 200));
         this.add(jScrollPane);
-        this.add(back);
+        buttons.add(confirm);
+        buttons.add(back);
+        this.add(buttons);
     }
 
     private void removeButtons() {

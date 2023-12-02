@@ -2,6 +2,7 @@
 
 package interface_adapter.results;
 
+import entity.University;
 import interface_adapter.ViewManagerModel;
 import interface_adapter.search.SearchState;
 import interface_adapter.search.SearchViewModel;
@@ -28,7 +29,8 @@ public class ResultsPresenter implements ResultsOutputBoundary {
     @Override
     public void prepareUniPopup(ResultsOutputData response) {
         ResultsState resultsState = resultsViewModel.getState();
-        resultsState.setChosenUniversity(response.getUniversity());
+        University university = response.getUniversity();
+        resultsState.setChosenUniversity(university);
         this.resultsViewModel.setState(resultsState);
         this.resultsViewModel.fireUniChanged();
     }
