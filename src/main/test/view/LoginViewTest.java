@@ -23,7 +23,7 @@ public class LoginViewTest {
 
         JPanel jp2 = getPrimaryJpanel(app);
 
-        MainMenuView sv = ( MainMenuView) jp2.getComponent(0);
+        MainMenuView sv = (MainMenuView) jp2.getComponent(0);
 
         JPanel buttons = (JPanel) sv.getComponent(1);
         return (JButton) buttons.getComponent(i);
@@ -39,6 +39,7 @@ public class LoginViewTest {
         JPanel buttons = (JPanel) sv.getComponent(5);
         return (JButton) buttons.getComponent(i);
     }
+
     public LabelTextPanel getTextPanel() {
         JFrame app = getApp();
 
@@ -79,7 +80,7 @@ public class LoginViewTest {
         JButton button1 = getMainButton(2);
         button1.doClick();
 
-        assert(getShowing(1));
+        assert (getShowing(1));
 
 
         JButton button = getButton(0);
@@ -102,7 +103,7 @@ public class LoginViewTest {
 
         button.doClick();
 
-        assert(getShowing(3));
+        assert (getShowing(3));
     }
 
     @org.junit.Test
@@ -116,7 +117,7 @@ public class LoginViewTest {
         JButton button1 = getMainButton(2);
         button1.doClick();
 
-        assert(getShowing(1));
+        assert (getShowing(1));
 
         JButton button = getButton(0);
         System.out.println(button.getText());
@@ -149,18 +150,18 @@ public class LoginViewTest {
         // will continue execution here after the JDialog is closed
 
         // confirm a popUp was discovered
-        assert(popUpDiscovered);
+        assert (popUpDiscovered);
         System.out.println("popup was detected successfully.");
         System.out.println(message);
-        assert(message.equals("PASSWORD OR USERNAME INCORRECT"));
+        assert (message.equals("PASSWORD OR USERNAME INCORRECT"));
 
-        assert(getShowing(1));
+        assert (getShowing(1));
     }
 
     @org.junit.Test
     public void testLoginButtonAccountNotExist() {
         int randomNum = ThreadLocalRandom.current().nextInt(10000000, 100000000);
-        String userName = "abcd"+randomNum;
+        String userName = "abcd" + randomNum;
         String userPass = "12345";
 
         Main.main(null);
@@ -168,7 +169,7 @@ public class LoginViewTest {
         JButton button1 = getMainButton(2);
         button1.doClick();
 
-        assert(getShowing(1));
+        assert (getShowing(1));
 
         JButton button = getButton(0);
         System.out.println(button.getText());
@@ -201,16 +202,15 @@ public class LoginViewTest {
         // will continue execution here after the JDialog is closed
 
         // confirm a popUp was discovered
-        assert(popUpDiscovered);
+        assert (popUpDiscovered);
         System.out.println("popup was detected successfully.");
         System.out.println(message);
-        assert(message.equals(userName + ": Account does not exist."));
+        assert (message.equals(userName + ": Account does not exist."));
 
-        assert(getShowing(1));
+        assert (getShowing(1));
     }
 
     /**
-     *
      * Test that the Cancel button is present and where it is expected to be
      * And that pressing the button switches to mainMenu
      */
@@ -218,7 +218,7 @@ public class LoginViewTest {
     public void testCancelButton() {
         Main.main(null);
         JButton button = getButton(1);
-        assert(button.getText().equals("Cancel"));
+        assert (button.getText().equals("Cancel"));
 
         button.doClick();
 
@@ -239,7 +239,7 @@ public class LoginViewTest {
                     if (window instanceof JDialog) {
                         System.out.println("found jdialogue");
 
-                        JDialog dialog = (JDialog)window;
+                        JDialog dialog = (JDialog) window;
 
                         // this ignores old dialogs
                         if (dialog.isVisible()) {
@@ -269,7 +269,7 @@ public class LoginViewTest {
      * private helper functions
      */
     private static void writeTextField(String userPass, JTextField jTextField, LabelTextPanel panel) {
-        for (int i = 0; i < userPass.length(); i++){
+        for (int i = 0; i < userPass.length(); i++) {
             char c = userPass.charAt(i);
             // create and dispatch KeyEvents to the UI
             KeyEvent event = new KeyEvent(

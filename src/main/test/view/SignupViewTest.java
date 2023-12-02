@@ -4,7 +4,6 @@ import app.Main;
 import interface_adapter.signup.SignupController;
 import interface_adapter.signup.SignupViewModel;
 import org.jetbrains.annotations.Nullable;
-import org.junit.Before;
 import use_case.signup.SignupInputBoundary;
 
 import javax.swing.*;
@@ -16,7 +15,7 @@ import java.util.concurrent.ThreadLocalRandom;
 
 import static java.lang.Thread.sleep;
 import static org.junit.Assert.assertEquals;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 public class SignupViewTest {
     static String message = "";
@@ -27,7 +26,7 @@ public class SignupViewTest {
 
         JPanel jp2 = getPrimaryJpanel(app);
 
-        MainMenuView sv = ( MainMenuView) jp2.getComponent(0);
+        MainMenuView sv = (MainMenuView) jp2.getComponent(0);
 
         JPanel buttons = (JPanel) sv.getComponent(1);
         return (JButton) buttons.getComponent(i); // this should be the clear button
@@ -38,7 +37,7 @@ public class SignupViewTest {
 
         JPanel jp2 = getPrimaryJpanel(app);
 
-        SignupView sv = ( SignupView) jp2.getComponent(2);
+        SignupView sv = (SignupView) jp2.getComponent(2);
 
         JPanel buttons = (JPanel) sv.getComponent(4);
         return (JButton) buttons.getComponent(i); // this should be the clear button
@@ -49,7 +48,7 @@ public class SignupViewTest {
 
         JPanel jp2 = getPrimaryJpanel(app);
 
-        SignupView sv = ( SignupView) jp2.getComponent(2);
+        SignupView sv = (SignupView) jp2.getComponent(2);
 
         return (LabelTextPanel) sv.getComponent(2);
     }
@@ -59,7 +58,7 @@ public class SignupViewTest {
 
         JPanel jp2 = getPrimaryJpanel(app);
 
-        SignupView sv = ( SignupView) jp2.getComponent(2);
+        SignupView sv = (SignupView) jp2.getComponent(2);
 
         return (LabelTextPanel) sv.getComponent(3);
     }
@@ -69,7 +68,7 @@ public class SignupViewTest {
 
         JPanel jp2 = getPrimaryJpanel(app);
 
-        SignupView sv = ( SignupView) jp2.getComponent(2);
+        SignupView sv = (SignupView) jp2.getComponent(2);
 
         // i can be 1 or 2
         return (LabelTextPanel) sv.getComponent(1);
@@ -84,7 +83,6 @@ public class SignupViewTest {
     }
 
     /**
-     *
      * Test that the Signup button is present and where it is expected to be
      * And that pressing the button switches to SignInView
      */
@@ -99,7 +97,7 @@ public class SignupViewTest {
         JButton button1 = getMainButton(0);
         button1.doClick();
 
-        assert(getShowing(2));
+        assert (getShowing(2));
 
 
         JButton button = getButton(0);
@@ -127,7 +125,7 @@ public class SignupViewTest {
 
         button.doClick();
 
-        assert(getShowing(1));
+        assert (getShowing(1));
     }
 
     @org.junit.Test
@@ -144,7 +142,7 @@ public class SignupViewTest {
         JButton button1 = getMainButton(0);
         button1.doClick();
 
-        assert(getShowing(2));
+        assert (getShowing(2));
 
 
         JButton button = getButton(0);
@@ -183,11 +181,11 @@ public class SignupViewTest {
         // will continue execution here after the JDialog is closed
 
         // confirm a popUp was discovered
-        assert(popUpDiscovered);
+        assert (popUpDiscovered);
         System.out.println("popup was detected successfully.");
-        assert(message.equals("Passwords don't match."));
+        assert (message.equals("Passwords don't match."));
 
-        assert(getShowing(2));
+        assert (getShowing(2));
     }
 
     @org.junit.Test
@@ -200,7 +198,7 @@ public class SignupViewTest {
         JButton button1 = getMainButton(0);
         button1.doClick();
 
-        assert(getShowing(2));
+        assert (getShowing(2));
 
 
         JButton button = getButton(0);
@@ -222,14 +220,14 @@ public class SignupViewTest {
         //click the button
         button.doClick();
 
-       // will continue execution here after the JDialog is closed
+        // will continue execution here after the JDialog is closed
 
         // confirm a popUp was discovered
-        assert(popUpDiscovered);
+        assert (popUpDiscovered);
         System.out.println("popup was detected successfully.");
-        assert(message.equals("User already exists."));
+        assert (message.equals("User already exists."));
 
-        assert(getShowing(2));
+        assert (getShowing(2));
     }
 
     @org.junit.Test
@@ -245,7 +243,7 @@ public class SignupViewTest {
         JButton button1 = getMainButton(0);
         button1.doClick();
 
-        assert(getShowing(2));
+        assert (getShowing(2));
 
 
         JButton button = getButton(0);
@@ -284,11 +282,11 @@ public class SignupViewTest {
         // will continue execution here after the JDialog is closed
 
         // confirm a popUp was discovered
-        assert(popUpDiscovered);
+        assert (popUpDiscovered);
         System.out.println("popup was detected successfully.");
-        assert(message.equals("Password must be longer than 5 characters (no spaces)"));
+        assert (message.equals("Password must be longer than 5 characters (no spaces)"));
 
-        assert(getShowing(2));
+        assert (getShowing(2));
     }
 
     @org.junit.Test
@@ -302,7 +300,7 @@ public class SignupViewTest {
         JButton button1 = getMainButton(0);
         button1.doClick();
 
-        assert(getShowing(2));
+        assert (getShowing(2));
 
 
         JButton button = getButton(0);
@@ -341,11 +339,11 @@ public class SignupViewTest {
         // will continue execution here after the JDialog is closed
 
         // confirm a popUp was discovered
-        assert(popUpDiscovered);
+        assert (popUpDiscovered);
         System.out.println("popup was detected successfully.");
-        assert(message.equals("Username must be longer than 1 characters (no spaces)"));
+        assert (message.equals("Username must be longer than 1 characters (no spaces)"));
 
-        assert(getShowing(2));
+        assert (getShowing(2));
     }
 
     @org.junit.Test
@@ -436,7 +434,6 @@ public class SignupViewTest {
     }
 
     /**
-     *
      * Test that the Cancel button is present and where it is expected to be
      * And that pressing the button switches to mainMenu
      */
@@ -444,7 +441,7 @@ public class SignupViewTest {
     public void testCancelButton() {
         Main.main(null);
         JButton button = getButton(1);
-        assert(button.getText().equals("Cancel"));
+        assert (button.getText().equals("Cancel"));
 
         button.doClick();
 
@@ -462,7 +459,7 @@ public class SignupViewTest {
 
                     if (window instanceof JDialog) {
 
-                        JDialog dialog = (JDialog)window;
+                        JDialog dialog = (JDialog) window;
 
                         // this ignores old dialogs
                         if (dialog.isVisible()) {
@@ -490,7 +487,7 @@ public class SignupViewTest {
     }
 
     private static void writeTextField(String userPass, JTextField jTextField, LabelTextPanel panel) {
-        for (int i = 0; i < userPass.length(); i++){
+        for (int i = 0; i < userPass.length(); i++) {
             char c = userPass.charAt(i);
             // create and dispatch KeyEvents to the UI
             KeyEvent event = new KeyEvent(

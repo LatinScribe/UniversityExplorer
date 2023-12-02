@@ -1,6 +1,5 @@
 package view;
 
-import data_access.ProfileDataAccessInterface;
 import entity.UserPreferences;
 import entity.UserProfile;
 import interface_adapter.user_profiles.UserProfileController;
@@ -9,13 +8,12 @@ import interface_adapter.user_profiles.UserProfileViewModel;
 import org.junit.Before;
 import org.junit.Test;
 import use_case.user_profile.UserProfileInputBoundary;
-import use_case.user_profile.UserProfileInteractor;
-import use_case.user_profile.UserProfileOutputBoundary;
 import use_case.user_profile.UserProfileOutputData;
 
 import javax.swing.*;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 public class UserProfileViewTest {
 
@@ -103,7 +101,7 @@ public class UserProfileViewTest {
 
     public static class UserProfileInteractorStub implements UserProfileInputBoundary {
 
-        private UserProfile userProfile; // This should be set to the expected profile for the test
+        private final UserProfile userProfile; // This should be set to the expected profile for the test
 
         public UserProfileInteractorStub() {
             // Initialize userProfile with expected test data
@@ -130,10 +128,11 @@ public class UserProfileViewTest {
                     userProfile.getLocationPreference(),
                     userProfile.getPreferredProgram(),
                     userProfile.getUniversityRankingRange());
-            System.out.println(outputData);;
+            System.out.println(outputData);
         }
 
     }
+
     private static class ProfileDataAccessStub {
         public String saveProfile(UserProfile userProfile) {
             System.out.println("saveProfile called with: " + userProfile);
