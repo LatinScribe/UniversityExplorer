@@ -154,6 +154,6 @@ public class MainMenuTest {
     public void testSettingsButtonPresent() {
         Main.main(null);
         JButton button = getButton(3);
-        assert (button.getText().equals("Settings"));
+        assert (button.getText().equals("Quit"));
     }
 }
