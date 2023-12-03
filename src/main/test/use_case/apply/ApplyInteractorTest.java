@@ -42,15 +42,77 @@ public class ApplyInteractorTest {
     public void whenExecuteSearchReturnsNull_thenResultsNotFoundShouldBeCalled() {
         ApplyInputData inputData = new ApplyInputData("0", "0");
         interactor.execute(inputData);
-        assert (applyPresenter.presentBackCalled);
+        assert (applyPresenter.presentFailCalled);
     }
 
     @Test
-    public void whenExecuteSearchReturnsUniversities_thenSuccessViewShouldBeCalled() {
-        ApplyInputData inputData = new ApplyInputData("1200", "26");
+    public void whenExecuteSearchReturnsUniversities_thenSuccessShouldBeCalled() {
+        ApplyInputData inputData = new ApplyInputData("1200", "28");
         interactor.execute(inputData);
         assert (applyPresenter.presentSuccessCalled);
-        assert (applyPresenter.applyOutputData.getUniversity().getSchoolName().equals("The University of Alabama"));
+        assert (applyPresenter.applyOutputData.getUniversity().getSchoolName().equals("John Brown University"));
+    }
+
+    @Test (expected = NumberFormatException.class)
+    public void whenSATIsNotNumerical_thenNumberFormatExceptionCalled() {
+        ApplyInputData inputData = new ApplyInputData("this", "20");
+        interactor.execute(inputData);
+    }
+
+    @Test (expected = NumberFormatException.class)
+    public void whenACTIsNotNumerical_thenNumberFormatExceptionCalled() {
+        ApplyInputData inputData = new ApplyInputData("1000", "this");
+        interactor.execute(inputData);
+    }
+
+    @Test (expected = IllegalArgumentException.class)
+    public void whenNoSATProvided_thenIllegalArgumentExceptionCalled() {
+        ApplyInputData inputData = new ApplyInputData("", "28");
+        interactor.execute(inputData);
+    }
+
+    @Test (expected = IllegalArgumentException.class)
+    public void whenSATTooLow_thenIllegalArgumentExceptionCalled() {
+        ApplyInputData inputData = new ApplyInputData("-5", "28");
+        interactor.execute(inputData);
+    }
+
+    @Test (expected = IllegalArgumentException.class)
+    public void whenSATTooHigh_thenIllegalArgumentExceptionCalled() {
+        ApplyInputData inputData = new ApplyInputData("2000", "28");
+        interactor.execute(inputData);
+    }
+
+    @Test (expected = IllegalArgumentException.class)
+    public void whenACTNotProvided_thenIllegalArgumentExceptionCalled() {
+        ApplyInputData inputData = new ApplyInputData("1000", "");
+        interactor.execute(inputData);
+    }
+
+    @Test (expected = IllegalArgumentException.class)
+    public void whenACTTooLow_thenIllegalArgumentExceptionCalled() {
+        ApplyInputData inputData = new ApplyInputData("1000", "-5");
+        interactor.execute(inputData);
+    }
+
+    @Test (expected = IllegalArgumentException.class)
+    public void whenACTTooHigh_thenIllegalArgumentExceptionCalled() {
+        ApplyInputData inputData = new ApplyInputData("1000", "50");
+        interactor.execute(inputData);
+    }
+
+    @Test
+    public void whenSATOnlyValid_thenUniversityGiven() {
+        ApplyInputData inputData = new ApplyInputData("1200", "0");
+        interactor.execute(inputData);
+        assert (applyPresenter.presentSuccessCalled);
+    }
+
+    @Test
+    public void whenACTOnlyValid_thenUniversityGiven() {
+        ApplyInputData inputData = new ApplyInputData("0", "28");
+        interactor.execute(inputData);
+        assert (applyPresenter.presentSuccessCalled);
     }
 
     private static class ApplyDataAccessStub implements ApplyDataAccessInterface {
@@ -64,7 +126,7 @@ public class ApplyInteractorTest {
     private static class ApplyPresenterStub implements ApplyOutputBoundary {
         private boolean presentBackCalled = false;
         private boolean presentSuccessCalled = false;
-        private boolean prepareFailView = false;
+        private boolean presentFailCalled = false;
         private ApplyOutputData applyOutputData;
 
         @Override
@@ -75,14 +137,12 @@ public class ApplyInteractorTest {
 
         @Override
         public void prepareFailView(String error) {
-            prepareFailView = true;
+            presentFailCalled = true;
         }
 
         @Override
         public void prepareBackView() {
             presentBackCalled = true;
         }
-
-        ;
     }
 }

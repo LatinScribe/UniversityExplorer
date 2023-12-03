@@ -21,44 +21,63 @@ public class ApplyInteractor implements ApplyInputBoundary {
     @Override
     public void execute(ApplyInputData applyInputData) {
         String actScore = applyInputData.getActScore();
+        actChecker(actScore);
         String satScore = applyInputData.getSatScore();
+        satChecker(satScore);
         int intsatScore = Integer.parseInt(satScore);
         int intactScore = Integer.parseInt(actScore);
-        String queryParameters1 = "2018.admissions.sat_scores.average.overall__range="+Integer.toString(intsatScore-50)+"..."+Integer.toString(intsatScore+50);
-        String queryParameters3 = "2018.admissions.sat_scores.average.overall="+Integer.toString(intsatScore);
+        String queryParameters1 = "2018.admissions.sat_scores.average.overall__range=" + Integer.toString(intsatScore - 50) + "..." + Integer.toString(intsatScore + 50);
+        String queryParameters3 = "2018.admissions.sat_scores.average.overall=" + Integer.toString(intsatScore);
 
         String optionalParameters = "fields=id,school.name,school.state,school.city,admissions.admission_rate.overall,cost.tuition.in_state,cost.tuition.out_of_state,2018.admissions.sat_scores.average.overall,2018.admissions.act_scores.midpoint.cumulative,school.school_url&per_page=200";
-        JSONObject query1= applyDataAccessObject.basicQuery(queryParameters1,optionalParameters);
-        String queryParameters2 = "2018.admissions.act_scores.midpoint.cumulative__range="+Integer.toString(intactScore-2)+"..."+Integer.toString(intactScore+2);
-        JSONObject query2 = applyDataAccessObject.basicQuery(queryParameters2,optionalParameters);
-        University uni1 = executeHelper(query1.getJSONArray("results"));
-        University uni2 = executeHelper(query2.getJSONArray("results"));
-        University chosenUni = null;
-        if (uni1.getAverageSATScore() == null && uni2.getAverageSATScore() == null){ applyPresenter.prepareFailView("Error");}
-        else if (uni2.getAverageSATScore() == null) { chosenUni = uni1;}
-        else if (uni1.getAverageSATScore() == null) { chosenUni = uni2;}
-        else {
-        if (uni1.getAverageSATScore() >= uni2.getAverageSATScore()){
-            chosenUni = uni1;
-        }
-        else {
-            chosenUni = uni2;
-        }}
+        JSONObject query1 = applyDataAccessObject.basicQuery(queryParameters1, optionalParameters);
+        String queryParameters2 = "2018.admissions.act_scores.midpoint.cumulative__range=" + Integer.toString(intactScore - 2) + "..." + Integer.toString(intactScore + 2);
+        JSONObject query2 = applyDataAccessObject.basicQuery(queryParameters2, optionalParameters);
         JSONObject metadata1 = query1.getJSONObject("metadata");
         JSONObject metadata2 = query2.getJSONObject("metadata");
 
-        if (metadata1.getInt("total") == 0 && metadata2.getInt("total") == 0) {
-            applyPresenter.prepareFailView("Error");
+        boolean metadata1Fail = false;
+        boolean metadata2Fail = false;
+        if (metadata1.getInt("total") == 0) {
+            metadata1Fail = true;
         }
-        else {
-            ApplyOutputData applyOutputData = new ApplyOutputData(chosenUni);
+        if (metadata2.getInt("total") == 0) {
+            metadata2Fail = true;
+        }
+        if (metadata1Fail && metadata2Fail) {
+            applyPresenter.prepareFailView("Error: No universities found");
+            return;
+        } else if (metadata2Fail) {
+            University uni1 = executeHelper(query1.getJSONArray("results"));
+            ApplyOutputData applyOutputData = new ApplyOutputData(uni1);
             applyPresenter.prepareSuccessView(applyOutputData);
+            return;
+        } else if (metadata1Fail) {
+            University uni2 = executeHelper(query2.getJSONArray("results"));
+            ApplyOutputData applyOutputData = new ApplyOutputData(uni2);
+            applyPresenter.prepareSuccessView(applyOutputData);
+            return;
+        }
+        University uni1 = executeHelper(query1.getJSONArray("results"));
+        University uni2 = executeHelper(query2.getJSONArray("results"));
+
+        University chosenUni = null;
+        if (uni1.getAverageSATScore() == null && uni2.getAverageSATScore() == null) {
+            applyPresenter.prepareFailView("Error");
+        } else if (uni2.getAverageSATScore() == null) {
+            chosenUni = uni1;
+        } else if (uni1.getAverageSATScore() == null) {
+            chosenUni = uni2;
+        } else {
+            if (uni1.getAverageSATScore() >= uni2.getAverageSATScore()) {
+                chosenUni = uni1;
+            } else {
+                chosenUni = uni2;
+            }
         }
 
-
-
-
-
+        ApplyOutputData applyOutputData = new ApplyOutputData(chosenUni);
+        applyPresenter.prepareSuccessView(applyOutputData);
     }
 
     @Override
@@ -102,6 +121,24 @@ public class ApplyInteractor implements ApplyInputBoundary {
         String url = stringChecker(urlCheck);
         University newUniversity = universityFactory.create(id, name, state, city, admRate, inTuit, outTuit, Double.valueOf(avgSAT), Double.valueOf(avgACT), url);
         return newUniversity;}
+
+    private void satChecker(String satScore) {
+        if (satScore == "") {
+            throw new IllegalArgumentException("sat score cant be empty");
+        }
+        if (Integer.parseInt(satScore) >= 1600 || Integer.parseInt(satScore) < 0) {
+            throw new IllegalArgumentException("Sat Score has to be between 0-1600");
+        }
+    }
+
+    private void actChecker(String actScore) {
+        if (actScore == "") {
+            throw new IllegalArgumentException("act score cant be empty");
+        }
+        if ( Integer.parseInt(actScore) >= 36 || Integer.parseInt(actScore) < 0 ) {
+            throw new IllegalArgumentException("Act score should be between 0- 36");
+        }
+    }
     private Double doubleChecker(Object object) {
         String checker = object.toString();
         if (checker.equals("null")) {
