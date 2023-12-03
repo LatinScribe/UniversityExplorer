@@ -2,7 +2,10 @@
 // Note: USE THIS FOR TESTING ONLY
 package data_access;
 
-import entity.*;
+import entity.CreationUser;
+import entity.ExistingCommonUserFactory;
+import entity.ExistingUser;
+import entity.User;
 import use_case.signup.SignupUserDataAccessInterface;
 
 import java.util.HashMap;

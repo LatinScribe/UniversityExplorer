@@ -1,10 +1,14 @@
-// Author: Henry
 package use_case.login;
 
 import data_access.TokenDataAccessInterface;
 import entity.ExistingUser;
-import entity.User;
 
+/**
+ * Interactor of the login/sign in use case
+ * Should take the given input data and attempt to log in the user
+ *
+ * @author Henry
+ */
 public class LoginInteractor implements LoginInputBoundary {
     final LoginUserDataAccessInterface userDataAccessObject;
     final TokenDataAccessInterface tokenDataAccessInterface;
@@ -17,6 +21,11 @@ public class LoginInteractor implements LoginInputBoundary {
         this.loginPresenter = loginOutputBoundary;
     }
 
+    /**
+     * Method to attempt to log the user in using the input data
+     *
+     * @param loginInputData Data used to log the user in
+     */
     @Override
     public void execute(LoginInputData loginInputData) {
         String username = loginInputData.getUsername();
@@ -37,6 +46,10 @@ public class LoginInteractor implements LoginInputBoundary {
             }
         }
     }
+
+    /**
+     * Method to switch view back to main menu
+     */
     @Override
     // added return to main menu (to be changed)
     public void returnMainMenu() {

@@ -1,12 +1,9 @@
 package interface_adapter.user_profiles;
 
-import interface_adapter.ViewManagerModel;
-import use_case.user_profile.MockUserProfileInputBoundary;
 import use_case.user_profile.UserProfileInputBoundary;
 import use_case.user_profile.UserProfileOutputData;
-import view.ViewManager;
-
-import java.lang.reflect.Array;
+import javax.swing.*;
+import java.io.IOException;
 
 public class UserProfileController {
 
@@ -18,7 +15,6 @@ public class UserProfileController {
     }
 
     public void execute(String searchCriteria) {
-        return;
     }
 
     public void updateUserProfile(int finAidRequirement, int avgSalary, String locationPreference,
@@ -51,6 +47,47 @@ public class UserProfileController {
         UserProfileOutputData userProfileOutputData = new UserProfileOutputData(finAidRequirement, avgSalary, locationPreference,
                 preferredProgram, universityRankingRange);
         this.userProfileInputBoundary.showPersonalProfileView(userProfileOutputData);
+    }
+
+    public void createNewUserProfile(int finAidRequirement, int avgSalary, String locationPreference, String preferredProgram, int[] universityRankingRange) {
+        try {
+            // Validate financial aid requirement
+            if (finAidRequirement < 0) {
+                throw new IllegalArgumentException("Financial aid requirement cannot be negative.");
+            }
+
+            // Validate average salary
+            if (avgSalary < 0) {
+                throw new IllegalArgumentException("Average salary cannot be negative.");
+            }
+
+            // Validate location preference
+            if (locationPreference == null || locationPreference.trim().isEmpty()) {
+                throw new IllegalArgumentException("Location preference cannot be null or empty.");
+            }
+
+            // Validate preferred program
+            if (preferredProgram == null || preferredProgram.trim().isEmpty()) {
+                throw new IllegalArgumentException("Preferred program cannot be null or empty.");
+            }
+
+            // Validate university ranking range
+            if (universityRankingRange == null || universityRankingRange.length != 2) {
+                throw new IllegalArgumentException("University ranking range must have exactly two elements.");
+            }
+            if (universityRankingRange[0] >= universityRankingRange[1]) {
+                throw new IllegalArgumentException("The start of the university ranking range must be less than the end.");
+            }
+
+            // If all validations pass, call the interactor to save the new profile
+            userProfileInputBoundary.saveNewUserProfile(finAidRequirement, avgSalary, locationPreference, preferredProgram, universityRankingRange);
+
+        } catch (IllegalArgumentException e) {
+            // Handle validation errors
+            JOptionPane.showMessageDialog(null, e.getMessage(), "Validation Error", JOptionPane.ERROR_MESSAGE);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public void updateUserProfile(int finAidRequirement, int avgSalary) {

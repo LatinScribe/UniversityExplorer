@@ -6,7 +6,7 @@ import entity.UserProfile;
 
 import java.io.IOException;
 
-public class UserProfileInteractor implements UserProfileInputBoundary{
+public class UserProfileInteractor implements UserProfileInputBoundary {
 
     final UserProfileOutputBoundary userProfileOutputBoundary;
     // UserProfilePresenter implements this and will be the primary function called
@@ -17,10 +17,7 @@ public class UserProfileInteractor implements UserProfileInputBoundary{
 
     public UserProfileInteractor(UserProfileOutputBoundary userProfilePresenter, ProfileDataAccessInterface profileDataAccessInterface){
         this.userProfileOutputBoundary = userProfilePresenter;
-        // this.userPreferenceFactory = userPreferenceFactory;
         this.profileDataAccessInterface = profileDataAccessInterface;
-
-        // TODO: See if you even need the userPreferenceFactory here
 
     }
 
@@ -37,6 +34,17 @@ public class UserProfileInteractor implements UserProfileInputBoundary{
             throw new RuntimeException(e);
             // TODO: Make this error more descriptive
         }
+    }
+
+    public void saveNewUserProfile(int finAidRequirement, int avgSalary, String locationPreference, String preferredProgram, int[] universityRankingRange) throws IOException {
+        try {
+            UserPreferences userPreferences = new UserPreferences(finAidRequirement, preferredProgram, avgSalary, universityRankingRange, locationPreference);
+            this.profileDataAccessInterface.saveProfile(userPreferences);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+            // TODO: Make this error more descriptive
+        }
+
     }
 
     @Override

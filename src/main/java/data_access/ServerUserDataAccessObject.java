@@ -1,8 +1,8 @@
-// Author: Henry
-// Note: NEEDS INTERNET ACCESS
 package data_access;
 
-import entity.*;
+import entity.CreationUser;
+import entity.ExistingUser;
+import entity.ExistingUserFactory;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
@@ -14,12 +14,27 @@ import use_case.signup.SignupUserDataAccessInterface;
 import java.io.IOException;
 import java.time.LocalDateTime;
 
+/**
+ * A class that contains the data access object to store and retrieve user data from
+ * the server
+ *
+ * @author Henry
+ */
 public class ServerUserDataAccessObject implements SignupUserDataAccessInterface, LoginUserDataAccessInterface {
-    private ExistingUserFactory userFactory;
+    private final ExistingUserFactory userFactory;
 
     public ServerUserDataAccessObject(ExistingUserFactory factory) {
         this.userFactory = factory;
     }
+
+    /**
+     * Use this method to retrieve a user from the server
+     * User must already exist in the database, otherwise error is returned
+     *
+     * @param username
+     * @param password
+     * @return Selected user's data packaged as an ExistingUser Data entity
+     */
     @Override
     public ExistingUser get(String username, String password) {
         OkHttpClient client = new OkHttpClient().newBuilder()
@@ -35,8 +50,7 @@ public class ServerUserDataAccessObject implements SignupUserDataAccessInterface
 
             if (responseBody.getInt("status_code") == 200) {
                 LocalDateTime curr = LocalDateTime.now();
-                ExistingUser user = this.userFactory.create(username, responseBody.getInt("id"), password, curr, responseBody.getString("token"));
-                return user;
+                return this.userFactory.create(username, responseBody.getInt("id"), password, curr, responseBody.getString("token"));
 
             } else {
                 throw new RuntimeException(responseBody.getString("message"));
@@ -46,6 +60,13 @@ public class ServerUserDataAccessObject implements SignupUserDataAccessInterface
         }
     }
 
+    /**
+     * Use this method to check if the user is already on the server database
+     * Checks the username
+     *
+     * @param identifier
+     * @return boolean value representing whether the user is in the database or not
+     */
     @Override
     public boolean existsByName(String identifier) {
         OkHttpClient client = new OkHttpClient().newBuilder()
@@ -62,12 +83,7 @@ public class ServerUserDataAccessObject implements SignupUserDataAccessInterface
             if (responseBody.getInt("status_code") == 200) {
 
                 String result = responseBody.getString("message");
-                if (result.equals("USER EXISTS")) {
-                    return true;
-                }
-                else {
-                    return false;
-                }
+                return result.equals("USER EXISTS");
 
             } else {
                 throw new RuntimeException(responseBody.getString("message"));
@@ -77,6 +93,12 @@ public class ServerUserDataAccessObject implements SignupUserDataAccessInterface
         }
     }
 
+    /**
+     * Use this method to save a user to the server
+     *
+     * @param user populated Creation user to save
+     * @return The existing user, with the new id and token values.
+     */
     @Override
     public ExistingUser save(CreationUser user) {
         OkHttpClient client = new OkHttpClient().newBuilder()

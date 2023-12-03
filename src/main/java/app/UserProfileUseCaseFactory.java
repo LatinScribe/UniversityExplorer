@@ -2,9 +2,9 @@ package app;
 
 import data_access.ProfileDataAccessInterface;
 import interface_adapter.ViewManagerModel;
+import interface_adapter.user_profiles.UserProfileController;
 import interface_adapter.user_profiles.UserProfilePresenter;
 import interface_adapter.user_profiles.UserProfileViewModel;
-import interface_adapter.user_profiles.UserProfileController;
 import use_case.user_profile.UserProfileInteractor;
 import view.UserProfileView;
 
@@ -13,7 +13,8 @@ import java.io.IOException;
 
 public class UserProfileUseCaseFactory {
 
-    private UserProfileUseCaseFactory() {}
+    private UserProfileUseCaseFactory() {
+    }
 
     private static UserProfileController createUserProfileUseCase(
             ViewManagerModel viewManager,

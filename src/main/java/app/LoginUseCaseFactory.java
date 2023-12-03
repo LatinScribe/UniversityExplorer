@@ -1,8 +1,6 @@
 package app;
 
 import data_access.TokenDataAccessInterface;
-import entity.CreationCommonUserFactory;
-import entity.CreationUserFactory;
 import interface_adapter.ViewManagerModel;
 import interface_adapter.logged_in.LoggedInViewModel;
 import interface_adapter.login.LoginController;
@@ -20,9 +18,23 @@ import java.io.IOException;
 
 public class LoginUseCaseFactory {
 
-    /** Prevent instantiation. */
-    private LoginUseCaseFactory() {}
+    /**
+     * Prevent instantiation.
+     */
+    private LoginUseCaseFactory() {
+    }
 
+    /**
+     * Create an instance of the login use case
+     *
+     * @param viewManagerModel
+     * @param loginViewModel
+     * @param loggedInViewModel
+     * @param mainMenuViewModel
+     * @param userDataAccessObject
+     * @param tokenDataAccessInterface
+     * @return A LoginView fully populated and ready for use
+     */
     public static LoginView create(
             ViewManagerModel viewManagerModel,
             LoginViewModel loginViewModel,
@@ -51,7 +63,7 @@ public class LoginUseCaseFactory {
         // Notice how we pass this method's parameters to the Presenter.
         LoginOutputBoundary loginOutputBoundary = new LoginPresenter(viewManagerModel, loggedInViewModel, loginViewModel, mainMenuViewModel);
 
-        CreationUserFactory userFactory = new CreationCommonUserFactory();
+//        CreationUserFactory userFactory = new CreationCommonUserFactory();
 
         LoginInputBoundary loginInteractor = new LoginInteractor(
                 userDataAccessObject, tokenDataAccessInterface, loginOutputBoundary);

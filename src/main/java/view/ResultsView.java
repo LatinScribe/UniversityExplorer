@@ -9,42 +9,33 @@ import data_access.ResultsDataAccessObject;
 import data_access.SearchDataAccessObject;
 import entity.University;
 import interface_adapter.ViewManagerModel;
-import interface_adapter.apply.ApplyViewModel;
 import interface_adapter.results.ResultsController;
 import interface_adapter.results.ResultsState;
 import interface_adapter.results.ResultsViewModel;
 import interface_adapter.search.SearchViewModel;
-import interface_adapter.sub_menu.SubViewController;
 import interface_adapter.sub_menu.SubViewModel;
-import interface_adapter.sub_menu.SubViewPresenter;
+import interface_adapter.zip_search.ZipSearchViewModel;
+import use_case.results.ResultsUserDataAccessInterface;
+import use_case.search.SearchUserDataAccessInterface;
 
+import javax.swing.*;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
-import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Objects;
-import javax.swing.*;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
-
-import interface_adapter.zip_search.ZipSearchViewModel;
-import use_case.results.ResultsUserDataAccessInterface;
-import use_case.search.SearchUserDataAccessInterface;
-import use_case.sub_menu.SubViewInputBoundary;
-import use_case.sub_menu.SubViewInteractor;
 
 public class ResultsView extends JPanel implements ActionListener, PropertyChangeListener {
     public final String viewName = "results";
     private final ResultsViewModel resultsViewModel;
     private final ResultsController resultsController;
-    private List<University> universityList;
+    private final List<University> universityList;
     private final ResultsButtonFactory resultsButtonFactory;
-    private JButton back;
-    private JButton confirm;
+    private final JButton back;
+    private final JButton confirm;
     private JList<String> myList;
     private DefaultListModel<String> listModel;
     private JScrollPane jScrollPane;
@@ -118,7 +109,7 @@ public class ResultsView extends JPanel implements ActionListener, PropertyChang
 
     private void updateButtons(List<University> uniList) {
         listModel = new DefaultListModel<>();
-        for (University uni: uniList) {
+        for (University uni : uniList) {
             listModel.addElement(uni.getSchoolName());
         }
         myList = new JList<>(listModel);

@@ -1,24 +1,7 @@
-// Author: Henry
 package view;
 
-import app.LoggedInUseCaseFactory;
-import app.LoginUseCaseFactory;
-import app.MainMenuUseCaseFactory;
-import app.SignupUseCaseFactory;
-import data_access.FileTokenDataAccessObject;
-import data_access.ServerUserDataAccessObject;
-import entity.ExistingCommonUserFactory;
-import interface_adapter.ViewManagerModel;
-import interface_adapter.logged_in.LoggedInController;
-import interface_adapter.logged_in.LoggedInPresenter;
-import interface_adapter.logged_in.LoggedInViewModel;
-import interface_adapter.login.LoginViewModel;
 import interface_adapter.main_menu.MainMenuController;
 import interface_adapter.main_menu.MainMenuViewModel;
-import interface_adapter.main_menu.MainMenuState;
-import interface_adapter.signup.SignupViewModel;
-import interface_adapter.user_profiles.UserProfileViewModel;
-import interface_adapter.sub_menu.SubViewModel;
 
 import javax.swing.*;
 import java.awt.*;
@@ -27,6 +10,12 @@ import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
+/**
+ * View shown to the user as the main menu of the program
+ * This should be the first view the user sees when the program is run
+ *
+ * @author Henry
+ */
 public class MainMenuView extends JPanel implements ActionListener, PropertyChangeListener {
 
     public final String viewName = "Main Menu";
@@ -37,8 +26,8 @@ public class MainMenuView extends JPanel implements ActionListener, PropertyChan
     final JButton settings;
     private final MainMenuController mainMenuController;
 
-    public MainMenuView(MainMenuViewModel mainMenuViewModel, MainMenuController     mainMenuController) {
-        this.mainMenuController = mainMenuController;;
+    public MainMenuView(MainMenuViewModel mainMenuViewModel, MainMenuController mainMenuController) {
+        this.mainMenuController = mainMenuController;
         this.mainMenuViewModel = mainMenuViewModel;
         this.mainMenuViewModel.addPropertyChangeListener(this);
 
@@ -99,7 +88,6 @@ public class MainMenuView extends JPanel implements ActionListener, PropertyChan
         settings.addActionListener(this);
 
 
-
         this.add(title);
         this.add(buttons);
     }
@@ -113,7 +101,7 @@ public class MainMenuView extends JPanel implements ActionListener, PropertyChan
 
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
-        MainMenuState state = (MainMenuState) evt.getNewValue();
+//        MainMenuState state = (MainMenuState) evt.getNewValue();
     }
 
 }

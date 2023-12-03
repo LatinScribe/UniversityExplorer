@@ -1,7 +1,12 @@
-// Author: Henry
 package use_case.main_menu;
 
-public class MainMenuInteractor implements MainMenuInputBoundary{
+/**
+ * Interactor of the main menu.
+ * Contains the methods to switch views on button press
+ *
+ * @author Henry
+ */
+public class MainMenuInteractor implements MainMenuInputBoundary {
 
     final MainMenuOutputBoundary mainMenuOutputBoundary;
 

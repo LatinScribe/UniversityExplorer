@@ -2,7 +2,9 @@
 
 package data_access;
 
-import entity.*;
+import entity.CreationUser;
+import entity.ExistingUser;
+import entity.ExistingUserFactory;
 import use_case.login.LoginUserDataAccessInterface;
 import use_case.signup.SignupUserDataAccessInterface;
 
@@ -20,7 +22,7 @@ public class FileUserDataAccessObject implements SignupUserDataAccessInterface, 
 
     private final Map<String, ExistingUser> accounts = new HashMap<>();
 
-    private ExistingUserFactory userFactory;
+    private final ExistingUserFactory userFactory;
 
     public FileUserDataAccessObject(String csvPath, ExistingUserFactory userFactory) throws IOException {
         this.userFactory = userFactory;
@@ -51,12 +53,13 @@ public class FileUserDataAccessObject implements SignupUserDataAccessInterface, 
                     String creationTimeText = String.valueOf(col[headers.get("creation_time")]);
                     String token = String.valueOf(col[headers.get("token")]);
                     LocalDateTime ldt = LocalDateTime.parse(creationTimeText);
-                    ExistingUser user = userFactory.create(username,id,password, ldt,token);
+                    ExistingUser user = userFactory.create(username, id, password, ldt, token);
                     accounts.put(username, user);
                 }
             }
         }
     }
+
     @Override
     public ExistingUser get(String username, String password) {
         return accounts.get(username);
@@ -109,6 +112,7 @@ public class FileUserDataAccessObject implements SignupUserDataAccessInterface, 
 
     /**
      * Return whether a user exists with username identifier.
+     *
      * @param identifier the username to check.
      * @return whether a user exists with username identifier
      */

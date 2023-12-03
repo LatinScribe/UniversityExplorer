@@ -2,7 +2,6 @@
 package interface_adapter.user_profiles;
 
 import interface_adapter.ViewModel;
-import interface_adapter.main_menu.MainMenuState;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
@@ -21,11 +20,14 @@ public class UserProfileViewModel extends ViewModel {
     public static final String SAVE_BUTTON_LABEL = "Save";
 
     private UserProfileState state = new UserProfileState();
+
     public UserProfileViewModel(String viewName) {
         super("userProfileView");
     }
 
-    public void setState(UserProfileState state) {this.state = state;}
+    public void setState(UserProfileState state) {
+        this.state = state;
+    }
 
     private final PropertyChangeSupport support = new PropertyChangeSupport(this);
 

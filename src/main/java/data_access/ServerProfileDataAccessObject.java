@@ -1,7 +1,5 @@
 package data_access;
 
-import entity.UserPreferences;
-import entity.UserPreferencesFactory;
 import entity.UserProfile;
 import entity.UserProfileFactory;
 import okhttp3.*;
@@ -9,9 +7,15 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
-import java.util.Arrays;
 
-public class ServerProfileDataAccessObject implements ProfileDataAccessInterface{
+/**
+ * A class for the Data Access Object to store and retrieve profiles
+ * form our server.
+ * For example:
+ *
+ * @author Henry
+ */
+public class ServerProfileDataAccessObject implements ProfileDataAccessInterface {
     private final TokenDataAccessInterface tokenDataAccessInterface;
 
     private final UserProfileFactory userProfileFactory;
@@ -21,6 +25,15 @@ public class ServerProfileDataAccessObject implements ProfileDataAccessInterface
         this.userProfileFactory = userProfileFactory;
     }
 
+    /**
+     * Use this method to save a user profile to the server
+     * Note: User must NOT already have an associated profile
+     * Otherwise, updateProfile should be used
+     *
+     * @param userProfile
+     * @return Returns nothing if success received from server
+     * @throws IOException
+     */
     @Override
     public String saveProfile(UserProfile userProfile) throws IOException {
         if (userProfile.getUniversityRankingRange().length != 2) {
@@ -56,12 +69,20 @@ public class ServerProfileDataAccessObject implements ProfileDataAccessInterface
             } else {
                 throw new RuntimeException(responseBody.getString("message"));
             }
-        }
-        catch (IOException | JSONException e) {
+        } catch (IOException | JSONException e) {
             throw new RuntimeException(e);
         }
     }
 
+    /**
+     * Use this method to update a profile in the server
+     * Note: User must already have an associated profile
+     * Otherwise, saveProfile should be used
+     *
+     * @param userProfile
+     * @return Returns nothing if success received from server
+     * @throws IOException
+     */
     @Override
     public String updateProfile(UserProfile userProfile) throws IOException {
         if (userProfile.getUniversityRankingRange().length != 2) {
@@ -97,11 +118,17 @@ public class ServerProfileDataAccessObject implements ProfileDataAccessInterface
             } else {
                 throw new RuntimeException(responseBody.getString("message"));
             }
-        }
-        catch (IOException | JSONException e) {
+        } catch (IOException | JSONException e) {
             throw new RuntimeException(e);
         }
     }
+
+    /**
+     * Use this method to retrieve a user profile from the server
+     *
+     * @return A userProfile data entity containing the user's profile data
+     * @throws IOException
+     */
     @Override
     public UserProfile getProfile() throws IOException {
         OkHttpClient client = new OkHttpClient().newBuilder()
@@ -119,7 +146,7 @@ public class ServerProfileDataAccessObject implements ProfileDataAccessInterface
             if (responseBody.getInt("status_code") == 200) {
                 int[] uniRankingRange = {responseBody.getInt("uniRankingRangeStart"), responseBody.getInt("uniRankingRangeEnd")};
 
-                return userProfileFactory.create(responseBody.getInt("finAidReq"), responseBody.getString("prefProg"), responseBody.getInt("avgSalary"), uniRankingRange,responseBody.getString("locationPref"));
+                return userProfileFactory.create(responseBody.getInt("finAidReq"), responseBody.getString("prefProg"), responseBody.getInt("avgSalary"), uniRankingRange, responseBody.getString("locationPref"));
             } else {
                 throw new RuntimeException(responseBody.getString("message"));
             }

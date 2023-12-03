@@ -17,7 +17,6 @@ import interface_adapter.results.ResultsViewModel;
 import interface_adapter.search.SearchViewModel;
 import interface_adapter.sub_menu.SubViewController;
 import interface_adapter.sub_menu.SubViewModel;
-import interface_adapter.sub_menu.SubViewPresenter;
 import interface_adapter.sub_menu.SubViewState;
 import interface_adapter.zip_search.ZipSearchViewModel;
 import use_case.apply.ApplyDataAccessInterface;
@@ -26,8 +25,6 @@ import use_case.apply.ApplyInteractor;
 import use_case.apply.ApplyOutputBoundary;
 import use_case.results.ResultsUserDataAccessInterface;
 import use_case.search.SearchUserDataAccessInterface;
-import use_case.sub_menu.SubViewInputBoundary;
-import use_case.sub_menu.SubViewInteractor;
 import use_case.zip_search.ZipSearchUserDataAccessInterface;
 
 import javax.swing.*;
@@ -43,6 +40,8 @@ public class SubView extends JPanel implements ActionListener, PropertyChangeLis
     private final JButton recommendation;
     private final JButton search;
     private final JButton zip_search;
+
+    private final JButton back;
     private final SubViewModel subViewModel;
     private final SubViewController subViewController;
 
@@ -62,6 +61,8 @@ public class SubView extends JPanel implements ActionListener, PropertyChangeLis
         buttons.add(search);
         zip_search = new JButton(SubViewModel.ZIP_SEARCH_BUTTON_LABEL);
         buttons.add(zip_search);
+        back = new JButton("Back to Main Menu");
+        buttons.add(back);
 
 
         recommendation.addActionListener(
@@ -97,6 +98,12 @@ public class SubView extends JPanel implements ActionListener, PropertyChangeLis
                 }
         );
 
+        back.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
+                subViewController.execute("loggedInViewName"); // Replace with your logged-in view name
+            }
+        });
+
         this.add(title);
         this.add(buttons);
     }
@@ -125,9 +132,11 @@ public class SubView extends JPanel implements ActionListener, PropertyChangeLis
         SearchViewModel searchViewModel = new SearchViewModel();
         ApplyViewModel applyViewModel = new ApplyViewModel();
         ZipSearchViewModel zipSearchViewModel = new ZipSearchViewModel();
+        MainMenuViewModel mainMenuViewModel = new MainMenuViewModel();
 
         SubViewModel subViewModel = new SubViewModel();
-        SubView subView = SubViewUseCaseFactory.create(viewManagerModel, searchViewModel, applyViewModel, zipSearchViewModel, subViewModel);
+        SubView subView = SubViewUseCaseFactory.create(viewManagerModel, searchViewModel, applyViewModel, zipSearchViewModel,
+                mainMenuViewModel, subViewModel);
 
         views.add(subView, subView.viewName);
 
@@ -137,16 +146,13 @@ public class SubView extends JPanel implements ActionListener, PropertyChangeLis
         ResultsViewModel resultsViewModel = new ResultsViewModel();
         SearchView searchView = SearchUseCaseFactory.create(viewManagerModel, searchViewModel, subViewModel, resultsViewModel, searchUserDataAccessInterface);
         views.add(searchView, searchView.viewName);
-        ApplyOutputBoundary applyPresenter = new ApplyPresenter(applyViewModel,viewManagerModel, subViewModel);
+        ApplyOutputBoundary applyPresenter = new ApplyPresenter(applyViewModel, viewManagerModel, subViewModel);
         ApplyDataAccessInterface applyDataAccessInterface = new ApplyDataAccessObject();
         UniversityFactory universityFactory = new CommonUniversityFactory();
-        ApplyInputBoundary applyUseCaseInteractor = new ApplyInteractor(applyDataAccessInterface,applyPresenter,universityFactory);
+        ApplyInputBoundary applyUseCaseInteractor = new ApplyInteractor(applyDataAccessInterface, applyPresenter, universityFactory);
         ApplyController applyController = new ApplyController(applyUseCaseInteractor);
-        // Applyview applyView = new Applyview(applyController, applyViewModel);
-        ApplyDataAccessInterface applyDataAccessInterface1 = new ApplyDataAccessObject();
-        Applyview applyView1 = ApplyUseCaseFactory.create(viewManagerModel, applyViewModel, applyDataAccessInterface1, universityFactory, subViewModel);
-        UniversityFactory universityFactory = new CommonUniversityFactory();
-        ApplyDataAccessInterface applyDataAccessInterface = new ApplyDataAccessObject();
+//        UniversityFactory universityFactory = new CommonUniversityFactory();
+//        ApplyDataAccessInterface applyDataAccessInterface = new ApplyDataAccessObject();
         Applyview applyView = ApplyUseCaseFactory.create(viewManagerModel, applyViewModel, applyDataAccessInterface, universityFactory, subViewModel);
         views.add(applyView, applyView.viewName);
 
