@@ -4,46 +4,39 @@ package entity;
 import org.junit.Test;
 
 public class CommonUniversityTest {
-
+    University university = new CommonUniversity(1, "tester", "NY", "New York", 50.3, 5000, 10000, 750.0, 250.0, "test.com");
     @Test
     public void testUniSimple() {
-       University university = new CommonUniversity(1, "tester", "NY", "New York", 50.3, 5000, 10000, 750.0, 250.0, "test.com");
        assert (university instanceof CommonUniversity);
     }
 
     @Test
     public void testGetSchoolID() {
-        University university = new CommonUniversity(1, "tester", "NY", "New York", 50.3, 5000, 10000, 750.0, 250.0, "test.com");
         assert (university.getSchoolID() == 1);
     }
 
     @Test
     public void testGetSchoolName() {
-        University university = new CommonUniversity(1, "tester", "NY", "New York", 50.3, 5000, 10000, 750.0, 250.0, "test.com");
         assert (university.getSchoolName().equals("tester"));
     }
 
     @Test
     public void testGetState() {
-        University university = new CommonUniversity(1, "tester", "NY", "New York", 50.3, 5000, 10000, 750.0, 250.0, "test.com");
         assert (university.getState().equals("NY"));
     }
 
     @Test
     public void testGetCity() {
-        University university = new CommonUniversity(1, "tester", "NY", "New York", 50.3, 5000, 10000, 750.0, 250.0, "test.com");
         assert (university.getCity().equals("New York"));
     }
 
     @Test
     public void testGetAdmissionRate() {
-        University university = new CommonUniversity(1, "tester", "NY", "New York", 50.3, 5000, 10000, 750.0, 250.0, "test.com");
         assert (university.getAdmissionRate() == 50.3);
     }
 
     @Test
     public void testAverageInStateTuition() {
-        University university = new CommonUniversity(1, "tester", "NY", "New York", 50.3, 5000, 10000, 750.0, 250.0, "test.com");
         assert (university.getAverageInStateTuition() == 5000);
     }
 
@@ -55,7 +48,6 @@ public class CommonUniversityTest {
 
     @Test
     public void testSATScore() {
-        University university = new CommonUniversity(1, "tester", "NY", "New York", 50.3, 5000, 10000, 750.0, 250.0, "test.com");
         assert (university.getAverageSATScore() == 750.0);
     }
 
