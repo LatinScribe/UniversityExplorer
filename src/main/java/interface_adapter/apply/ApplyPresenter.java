@@ -11,12 +11,12 @@ import use_case.apply.ApplyOutputData;
 public class ApplyPresenter implements ApplyOutputBoundary {
     private ApplyViewModel applyViewModel;
     private ViewManagerModel viewManagerModel;
-    private SubViewModel mainMenuViewModel;
+    private SubViewModel subViewModel;
 
     public ApplyPresenter(ApplyViewModel applyViewModel, ViewManagerModel viewManagerModel,SubViewModel mainMenuViewModel){
         this.applyViewModel = applyViewModel;
         this.viewManagerModel = viewManagerModel;
-        this.mainMenuViewModel = mainMenuViewModel;
+        this.subViewModel = mainMenuViewModel;
     }
 
 
@@ -44,11 +44,11 @@ public class ApplyPresenter implements ApplyOutputBoundary {
     }
     @Override
     public void prepareBackView() {
-        SubViewState mainMenuState = mainMenuViewModel.getState();
-        this.mainMenuViewModel.setState(mainMenuState);
-        this.mainMenuViewModel.firePropertyChanged();
+        SubViewState mainMenuState = subViewModel.getState();
+        this.subViewModel.setState(mainMenuState);
+        this.subViewModel.firePropertyChanged();
 
-        viewManagerModel.setActiveView(mainMenuViewModel.getViewName());
+        viewManagerModel.setActiveView(subViewModel.getViewName());
         viewManagerModel.firePropertyChanged();
     }
 }

@@ -77,6 +77,8 @@ public class Applyview extends JPanel implements ActionListener, PropertyChangeL
 
                     applyController.execute(applyState.getSat(), applyState.getAct());
 
+                } catch (NumberFormatException ex) {
+                    JOptionPane.showMessageDialog(this, "Invalid input format", "error", JOptionPane.ERROR_MESSAGE);
                 } catch (IllegalArgumentException ex) {
                     JOptionPane.showMessageDialog(this, "invalid input format", "error", JOptionPane.ERROR_MESSAGE);
                 }
