@@ -29,6 +29,7 @@ public class LoggedInView extends JPanel implements ActionListener, PropertyChan
     final JButton logOut;
     final JButton viewProfile;
     final JButton getPrefRec;
+    final JButton search;
 
 
     /**
@@ -76,6 +77,18 @@ public class LoggedInView extends JPanel implements ActionListener, PropertyChan
                     }
                 });
 
+        search = new JButton(LoggedInViewModel.SEARCH_BUTTON_LABEL);
+        buttons.add(search);
+        search.addActionListener(
+                new ActionListener() {
+                    public void actionPerformed(ActionEvent evt) {
+                        if (evt.getSource().equals(search)) {
+                            // System.out.println("Search Button pressed");
+                            // loggedInController.execute("search"); // create search method
+                        }
+                    }
+                }
+        );
 
         logOut.addActionListener(// This creates an anonymous subclass of ActionListener and instantiates it.
                 new ActionListener() {
