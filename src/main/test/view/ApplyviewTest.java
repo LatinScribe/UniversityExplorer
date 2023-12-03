@@ -13,7 +13,7 @@ import java.util.concurrent.ThreadLocalRandom;
 import static java.lang.Thread.sleep;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-public class ApplyViewTest {
+public class ApplyviewTest {
     static String message = "";
     static boolean popUpDiscovered = false;
 
