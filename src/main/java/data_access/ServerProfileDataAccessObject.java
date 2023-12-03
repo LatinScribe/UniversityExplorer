@@ -8,6 +8,13 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 
+/**
+ * A class for the Data Access Object to store and retrieve profiles
+ * form our server.
+ * For example:
+ *
+ * @author Henry
+ */
 public class ServerProfileDataAccessObject implements ProfileDataAccessInterface {
     private final TokenDataAccessInterface tokenDataAccessInterface;
 
@@ -18,6 +25,15 @@ public class ServerProfileDataAccessObject implements ProfileDataAccessInterface
         this.userProfileFactory = userProfileFactory;
     }
 
+    /**
+     * Use this method to save a user profile to the server
+     * Note: User must NOT already have an associated profile
+     * Otherwise, updateProfile should be used
+     *
+     * @param userProfile
+     * @return Returns nothing if success received from server
+     * @throws IOException
+     */
     @Override
     public String saveProfile(UserProfile userProfile) throws IOException {
         if (userProfile.getUniversityRankingRange().length != 2) {
@@ -58,6 +74,15 @@ public class ServerProfileDataAccessObject implements ProfileDataAccessInterface
         }
     }
 
+    /**
+     * Use this method to update a profile in the server
+     * Note: User must already have an associated profile
+     * Otherwise, saveProfile should be used
+     *
+     * @param userProfile
+     * @return Returns nothing if success received from server
+     * @throws IOException
+     */
     @Override
     public String updateProfile(UserProfile userProfile) throws IOException {
         if (userProfile.getUniversityRankingRange().length != 2) {
@@ -98,6 +123,12 @@ public class ServerProfileDataAccessObject implements ProfileDataAccessInterface
         }
     }
 
+    /**
+     * Use this method to retrieve a user profile from the server
+     *
+     * @return A userProfile data entity containing the user's profile data
+     * @throws IOException
+     */
     @Override
     public UserProfile getProfile() throws IOException {
         OkHttpClient client = new OkHttpClient().newBuilder()

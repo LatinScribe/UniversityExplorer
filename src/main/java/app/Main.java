@@ -36,6 +36,9 @@ import java.awt.*;
 
 public class Main {
     /**
+     * Run this file to run our program!
+     * No parameters needed.
+     * <p>
      * Order views are added in:
      * 1) MainMenuView
      * 2) LoginView
