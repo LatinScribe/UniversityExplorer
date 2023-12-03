@@ -28,6 +28,7 @@ import use_case.search.SearchUserDataAccessInterface;
 import use_case.sub_menu.SubViewInputBoundary;
 import use_case.sub_menu.SubViewInteractor;
 import use_case.user_profile.UserProfileInteractor;
+import use_case.zip_search.ZipSearchUserDataAccessInterface;
 import view.*;
 
 import javax.swing.*;
@@ -35,6 +36,9 @@ import java.awt.*;
 
 public class Main {
     /**
+     * Run this file to run our program!
+     * No parameters needed.
+     * <p>
      * Order views are added in:
      * 1) MainMenuView
      * 2) LoginView
@@ -44,8 +48,9 @@ public class Main {
      * 6) SubView
      * 7) ApplyView
      * 8) SearchView
-     * 9) ResultsVIew
-     * 10) PrefApplyView
+     * 9) ZipSearchView
+     * 10) ResultsView
+     * 11) PrefApplyView
      */
     public static void main(String[] args) {
         JFrame application = new JFrame("Main Menu Test");
@@ -110,7 +115,7 @@ public class Main {
         views.add(userProfileView, userProfileView.viewName);
 
         // add subview
-        SubViewPresenter subViewPresenter = new SubViewPresenter(searchViewModel, applyViewModel, zipSearchViewModel, viewManagerModel);
+        SubViewPresenter subViewPresenter = new SubViewPresenter(searchViewModel, applyViewModel, zipSearchViewModel, mainMenuViewModel1, viewManagerModel);
 
         SubViewInputBoundary subViewInteractor = new SubViewInteractor(subViewPresenter);
         SubViewController subViewController = new SubViewController(subViewInteractor);
@@ -132,6 +137,12 @@ public class Main {
         SearchView searchView = SearchUseCaseFactory.create(viewManagerModel, searchViewModel, subViewModel, resultsViewModel, searchUserDataAccessInterface);
 
         views.add(searchView, searchView.viewName);
+
+        // add zip search view
+        ZipSearchUserDataAccessInterface zipSearchDataAccessObject = new ZipSearchDataAccessObject();
+        ZipSearchView zipSearchView = ZipSearchUseCaseFactory.create(viewManagerModel, zipSearchViewModel, subViewModel, resultsViewModel, zipSearchDataAccessObject);
+
+        views.add(zipSearchView, zipSearchView.viewName);
 
         // add results view
         ResultsUserDataAccessInterface resultsUserDataAccessInterface = new ResultsDataAccessObject();

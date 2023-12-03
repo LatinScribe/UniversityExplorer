@@ -1,7 +1,4 @@
-// Author: Henry
 package view;
-
-//import interface_adapter.clear_users.ClearController;
 
 import interface_adapter.signup.SignupController;
 import interface_adapter.signup.SignupState;
@@ -16,7 +13,11 @@ import java.awt.event.KeyListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
-
+/**
+ * View shown to the user to sign up for an account in our program
+ *
+ * @author Henry
+ */
 public class SignupView extends JPanel implements ActionListener, PropertyChangeListener {
     public final String viewName = "sign up";
 

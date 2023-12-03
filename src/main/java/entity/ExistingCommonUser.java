@@ -2,6 +2,12 @@ package entity;
 
 import java.time.LocalDateTime;
 
+/**
+ * This is the data entity for EXISTING users (they have an actual id and token). It should NOT be used
+ * for initial user creation.
+ *
+ * @author Henry
+ */
 public class ExistingCommonUser implements ExistingUser {
 
     private final String name;
