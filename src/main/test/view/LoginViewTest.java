@@ -75,13 +75,15 @@ public class LoginViewTest {
         String userName = "abcd";
         String userPass = "1234";
 
+        // Gets main menu
         Main.main(null);
 
+        // Clicks a button
         JButton button1 = getMainButton(2);
         button1.doClick();
 
+        // Checks view showing
         assert (getShowing(1));
-
 
         JButton button = getButton(0);
         System.out.println(button.getText());
