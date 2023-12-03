@@ -15,7 +15,7 @@ public class MainMenuViewModel extends ViewModel {
     public static final String SIGNUP_BUTTON_LABEL = "Sign up";
     public static final String GUEST_BUTTON_LABEL = "Continue as Guest";
     public static final String SIGNIN_BUTTON_LABEL = "Sign in";
-    public static final String SETTINGS_BUTTON_LABEL = "Settings";
+    public static final String QUIT_BUTTON_LABEL = "Quit";
 
     private MainMenuState state = new MainMenuState();
 
