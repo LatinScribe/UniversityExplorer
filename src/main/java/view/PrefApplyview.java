@@ -156,24 +156,24 @@ public class PrefApplyview extends JPanel implements ActionListener, PropertyCha
     }
 
     public static void main(String[] args) {
-        JFrame application = new JFrame("ApplyView Test");
-        application.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        ViewManagerModel viewManagerModel = new ViewManagerModel();
-        PrefApplyViewModel prefapplyViewModel = new PrefApplyViewModel();
-        SubViewModel mainMenuViewModel = new SubViewModel();
-        PrefApplyOutputBoundary prefapplyPresenter = new PrefApplyPresenter(prefapplyViewModel, viewManagerModel, mainMenuViewModel);
-        //ApplyInputData applyInputData = new ApplyInputData();
-        PrefApplyDataAccessInterface prefapplyDataAccessInterface = new PrefApplyDataAccessObject();
-        UniversityFactory universityFactory = new CommonUniversityFactory();
-        PrefApplyInputBoundary prefapplyUseCaseInteractor = new PrefApplyInteractor(prefapplyDataAccessInterface, prefapplyPresenter, universityFactory);
-        PrefApplyController prefapplyController = new PrefApplyController(prefapplyUseCaseInteractor);
-        PrefApplyview prefapplyView = new PrefApplyview(prefapplyController, prefapplyViewModel);
-
-        JPanel testPanel = new JPanel();
-        testPanel.add(prefapplyView);
-
-        application.add(testPanel);
-        application.pack();
-        application.setVisible(true);
+//        JFrame application = new JFrame("ApplyView Test");
+//        application.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+//        ViewManagerModel viewManagerModel = new ViewManagerModel();
+//        PrefApplyViewModel prefapplyViewModel = new PrefApplyViewModel();
+//        SubViewModel mainMenuViewModel = new SubViewModel();
+//        PrefApplyOutputBoundary prefapplyPresenter = new PrefApplyPresenter(prefapplyViewModel, viewManagerModel, mainMenuViewModel);
+//        //ApplyInputData applyInputData = new ApplyInputData();
+//        PrefApplyDataAccessInterface prefapplyDataAccessInterface = new PrefApplyDataAccessObject();
+//        UniversityFactory universityFactory = new CommonUniversityFactory();
+//        PrefApplyInputBoundary prefapplyUseCaseInteractor = new PrefApplyInteractor(prefapplyDataAccessInterface, prefapplyPresenter, universityFactory);
+//        PrefApplyController prefapplyController = new PrefApplyController(prefapplyUseCaseInteractor);
+//        PrefApplyview prefapplyView = new PrefApplyview(prefapplyController, prefapplyViewModel);
+//
+//        JPanel testPanel = new JPanel();
+//        testPanel.add(prefapplyView);
+//
+//        application.add(testPanel);
+//        application.pack();
+//        application.setVisible(true);
     }
 }
