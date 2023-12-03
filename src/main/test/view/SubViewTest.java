@@ -92,6 +92,27 @@ public class SubViewTest {
         assert (getShowing(8));
     }
 
+    /**
+     * Test that the Back button is present and where it is expected to be
+     * And that pressing the button switches to MainView
+     */
+    @org.junit.Test
+    public void testBackButtonPresent() {
+        Main.main(null);
+        JButton button = getButton(3);
+        assert (button.getText().equals("Back to Main Menu"));
+    }
+
+    @org.junit.Test
+    public void testBackButtonPressed() {
+
+        Main.main(null);
+        JButton button = getButton(3);
+        button.doClick();
+
+        assert (getShowing(0));
+    }
+
     private static JPanel getPrimaryJpanel(JFrame app) {
         assertNotNull(app); // found the window?
 
