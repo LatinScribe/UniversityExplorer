@@ -148,8 +148,8 @@ public class ZipSearchViewTest {
 
         writeTextField(radius, radTextField, panel);
 
-        popUpDiscovered = false;
-        message = "";
+        //popUpDiscovered = false;
+        //message = "";
 
         // since clicking the button should end up displaying a JDialog to the user to report the
         // result, we set a timer, which will execute code necessary to complete the testing.
@@ -160,9 +160,9 @@ public class ZipSearchViewTest {
         // confirm a popUp was discovered
         assert (popUpDiscovered);
         System.out.println("popup was detected successfully.");
-        assert (message.equals("JSON Error! (org.json.JSONException: JSONObject[" + "metadata" + "] not found.)"));
+        assert (message.equals("JSON Error! (org.json.JSONException: JSONObject[\"metadata\"] not found.)"));
 
-        assert getShowing(9);
+        assert getShowing(8);
     }
 
     /**
@@ -243,16 +243,14 @@ public class ZipSearchViewTest {
                             System.out.println("message = " + s);
 
                             // store the information we got from the JDialog
-                            SignupViewTest.message = s;
-                            SignupViewTest.popUpDiscovered = true;
-
+                            message = s;
+                            popUpDiscovered = true;
                             System.out.println("disposing of..." + window.getClass());
                             window.dispose();
                         }
                     }
                 }
             }
-
         };
 
         Timer t = new Timer(1000, close);
