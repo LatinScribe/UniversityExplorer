@@ -42,6 +42,7 @@ public class CommonUniversityTest {
 
     @Test
     public void testAverageOutOfStateTuition() {
+        University university = new CommonUniversity(1, "tester", "NY", "New York", 50.3, 5000, 10000, 750.0, 250.0, "test.com");
         assert (university.getAverageOutOfStateTuition() == 10000);
     }
 
@@ -52,11 +53,13 @@ public class CommonUniversityTest {
 
     @Test
     public void testACTScore() {
+        University university = new CommonUniversity(1, "tester", "NY", "New York", 50.3, 5000, 10000, 750.0, 250.0, "test.com");
         assert (university.getAverageACTScore() == 250.0);
     }
 
     @Test
     public void testURL() {
+        University university = new CommonUniversity(1, "tester", "NY", "New York", 50.3, 5000, 10000, 750.0, 250.0, "test.com");
         assert (university.getUrl().equals("test.com"));
     }
 
