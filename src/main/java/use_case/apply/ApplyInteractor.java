@@ -24,8 +24,10 @@ public class ApplyInteractor implements ApplyInputBoundary {
         String satScore = applyInputData.getSatScore();
         int intsatScore = Integer.parseInt(satScore);
         int intactScore = Integer.parseInt(actScore);
-        String queryParameters1 = "2018.admissions.sat_scores.average.overall__range="+Integer.toString(intsatScore-100)+"..."+Integer.toString(intsatScore+50);
-        String optionalParameters = "fields=id,school.name,school.state,school.city,admissions.admission_rate.overall,cost.tuition.in_state,cost.tuition.out_of_state,2018.admissions.sat_scores.average.overall,admissions.act_scores.midpoint.cumulative,school.school_url";
+        String queryParameters1 = "2018.admissions.sat_scores.average.overall__range="+Integer.toString(intsatScore-50)+"..."+Integer.toString(intsatScore+50);
+        String queryParameters3 = "2018.admissions.sat_scores.average.overall="+Integer.toString(intsatScore);
+
+        String optionalParameters = "fields=id,school.name,school.state,school.city,admissions.admission_rate.overall,cost.tuition.in_state,cost.tuition.out_of_state,2018.admissions.sat_scores.average.overall,2018.admissions.act_scores.midpoint.cumulative,school.school_url&per_page=200";
         JSONObject query1= applyDataAccessObject.basicQuery(queryParameters1,optionalParameters);
         String queryParameters2 = "2018.admissions.act_scores.midpoint.cumulative__range="+Integer.toString(intactScore-2)+"..."+Integer.toString(intactScore+2);
         JSONObject query2 = applyDataAccessObject.basicQuery(queryParameters2,optionalParameters);
@@ -94,11 +96,11 @@ public class ApplyInteractor implements ApplyInputBoundary {
         Integer inTuit = integerChecker(inTuitCheck);
         Object avgSATCheck = university.get("2018.admissions.sat_scores.average.overall");
         Integer avgSAT = integerChecker(avgSATCheck) ;
-        Object avgACTCheck = university.get("admissions.act_scores.midpoint.cumulative");
-        Double avgACT = doubleChecker(avgACTCheck);
+        Object avgACTCheck = university.get("2018.admissions.act_scores.midpoint.cumulative");
+        Integer avgACT = integerChecker(avgACTCheck);
         Object urlCheck = university.get("school.school_url");
         String url = stringChecker(urlCheck);
-        University newUniversity = universityFactory.create(id, name, state, city, admRate, inTuit, outTuit, Double.valueOf(avgSAT), avgACT, url);
+        University newUniversity = universityFactory.create(id, name, state, city, admRate, inTuit, outTuit, Double.valueOf(avgSAT), Double.valueOf(avgACT), url);
         return newUniversity;}
     private Double doubleChecker(Object object) {
         String checker = object.toString();
