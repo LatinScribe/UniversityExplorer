@@ -46,13 +46,6 @@ public class JsonCollegeScorecardDB implements CollegeScorecardDB {
             System.out.println(response);
             assert response.body() != null;
             return new JSONObject(response.body().string());
-
-//            if (responseBody.getInt("status_code") == 200) {
-//                JSONObject grade = responseBody.getJSONObject("grade");
-//                return grade;
-//            } else {
-//                throw new RuntimeException(responseBody.getString("message"));
-//            }
         } catch (IOException | JSONException e) {
             throw new RuntimeException(e);
         }
