@@ -1,5 +1,3 @@
-// Author: Common
-
 package app;
 
 
@@ -51,6 +49,8 @@ public class Main {
      * 9) ZipSearchView
      * 10) ResultsView
      * 11) PrefApplyView
+     * 
+     * @author Common
      */
     public static void main(String[] args) {
         JFrame application = new JFrame("Main Menu Test");
