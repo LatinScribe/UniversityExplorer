@@ -36,6 +36,9 @@ import java.awt.*;
 
 public class Main {
     /**
+     * Run this file to run our program!
+     * No parameters needed.
+     * <p>
      * Order views are added in:
      * 1) MainMenuView
      * 2) LoginView
@@ -112,7 +115,7 @@ public class Main {
         views.add(userProfileView, userProfileView.viewName);
 
         // add subview
-        SubViewPresenter subViewPresenter = new SubViewPresenter(searchViewModel, applyViewModel, zipSearchViewModel, viewManagerModel);
+        SubViewPresenter subViewPresenter = new SubViewPresenter(searchViewModel, applyViewModel, zipSearchViewModel, mainMenuViewModel1, viewManagerModel);
 
         SubViewInputBoundary subViewInteractor = new SubViewInteractor(subViewPresenter);
         SubViewController subViewController = new SubViewController(subViewInteractor);

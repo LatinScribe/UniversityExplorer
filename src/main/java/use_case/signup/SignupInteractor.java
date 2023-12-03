@@ -1,4 +1,3 @@
-// Author: Henry
 package use_case.signup;
 
 import data_access.TokenDataAccessInterface;
@@ -6,6 +5,12 @@ import entity.*;
 
 import java.time.LocalDateTime;
 
+/**
+ * Interactor of the signup use case
+ * Should take the given input data and attempt to sign the user up
+ *
+ * @author Henry
+ */
 public class SignupInteractor implements SignupInputBoundary {
     final SignupUserDataAccessInterface userDataAccessObject;
     final SignupOutputBoundary userPresenter;
@@ -27,6 +32,11 @@ public class SignupInteractor implements SignupInputBoundary {
         this.usernameValidator = usernameValidator;
     }
 
+    /**
+     * This method attempts to sign the user up with the given data
+     *
+     * @param signupInputData Given data to use to sign up the user
+     */
     @Override
     public void execute(SignupInputData signupInputData) {
 
@@ -52,6 +62,9 @@ public class SignupInteractor implements SignupInputBoundary {
         }
     }
 
+    /**
+     * Method for switching view back to main menu
+     */
     @Override
     // added return to main menu (to be changed)
     public void returnMainMenu() {

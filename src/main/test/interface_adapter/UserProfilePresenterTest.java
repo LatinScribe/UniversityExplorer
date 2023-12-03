@@ -47,5 +47,5 @@ public class UserProfilePresenterTest {
         assertArrayEquals("University ranking range did not match", new int[]{1, 10}, state.getUniversityRankingRange());
     }
 
-    // Additional test cases can be added here...
+
 }
