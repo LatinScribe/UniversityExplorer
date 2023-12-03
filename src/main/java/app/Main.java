@@ -112,7 +112,7 @@ public class Main {
         views.add(userProfileView, userProfileView.viewName);
 
         // add subview
-        SubViewPresenter subViewPresenter = new SubViewPresenter(searchViewModel, applyViewModel, zipSearchViewModel, viewManagerModel);
+        SubViewPresenter subViewPresenter = new SubViewPresenter(searchViewModel, applyViewModel, zipSearchViewModel, mainMenuViewModel1, viewManagerModel);
 
         SubViewInputBoundary subViewInteractor = new SubViewInteractor(subViewPresenter);
         SubViewController subViewController = new SubViewController(subViewInteractor);

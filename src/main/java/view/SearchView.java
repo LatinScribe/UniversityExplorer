@@ -8,6 +8,7 @@ import data_access.ResultsDataAccessObject;
 import data_access.SearchDataAccessObject;
 import interface_adapter.ViewManagerModel;
 import interface_adapter.apply.ApplyViewModel;
+import interface_adapter.main_menu.MainMenuViewModel;
 import interface_adapter.results.ResultsViewModel;
 import interface_adapter.search.SearchController;
 import interface_adapter.search.SearchState;
@@ -155,7 +156,8 @@ public class SearchView extends JPanel implements ActionListener, PropertyChange
 
         ApplyViewModel applyViewModel = new ApplyViewModel();
         ZipSearchViewModel zipSearchViewModel = new ZipSearchViewModel();
-        SubViewPresenter subViewPresenter = new SubViewPresenter(searchViewModel, applyViewModel, zipSearchViewModel, viewManagerModel);
+        MainMenuViewModel mainMenuViewModel = new MainMenuViewModel();
+        SubViewPresenter subViewPresenter = new SubViewPresenter(searchViewModel, applyViewModel, zipSearchViewModel, mainMenuViewModel, viewManagerModel);
         SubViewInputBoundary subViewInteractor = new SubViewInteractor(subViewPresenter);
         SubViewController subViewController = new SubViewController(subViewInteractor);
         SubView subView = new SubView(subViewModel, subViewController);

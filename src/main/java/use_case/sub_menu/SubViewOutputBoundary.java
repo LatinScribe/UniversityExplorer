@@ -8,4 +8,6 @@ public interface SubViewOutputBoundary {
     void prepareApplyView();
 
     void prepareZipSearchView();
+
+    void prepareMainMenuView();
 }

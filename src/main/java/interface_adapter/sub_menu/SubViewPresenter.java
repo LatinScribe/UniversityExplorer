@@ -4,6 +4,8 @@ package interface_adapter.sub_menu;
 import interface_adapter.ViewManagerModel;
 import interface_adapter.apply.ApplyState;
 import interface_adapter.apply.ApplyViewModel;
+import interface_adapter.main_menu.MainMenuState;
+import interface_adapter.main_menu.MainMenuViewModel;
 import interface_adapter.search.SearchState;
 import interface_adapter.search.SearchViewModel;
 import interface_adapter.zip_search.ZipSearchState;
@@ -15,12 +17,16 @@ public class SubViewPresenter implements SubViewOutputBoundary {
     private final ApplyViewModel applyViewModel;
     private final ZipSearchViewModel zipSearchViewModel;
 
+    private final MainMenuViewModel mainMenuViewModel;
+
     private ViewManagerModel viewManagerModel;
 
-    public SubViewPresenter(SearchViewModel searchViewModel, ApplyViewModel applyViewModel, ZipSearchViewModel zipSearchViewModel, ViewManagerModel viewManagerModel) {
+    public SubViewPresenter(SearchViewModel searchViewModel, ApplyViewModel applyViewModel, ZipSearchViewModel zipSearchViewModel,
+                            MainMenuViewModel mainMenuViewModel, ViewManagerModel viewManagerModel) {
         this.searchViewModel = searchViewModel;
         this.applyViewModel = applyViewModel;
         this.zipSearchViewModel = zipSearchViewModel;
+        this.mainMenuViewModel = mainMenuViewModel;
         this.viewManagerModel = viewManagerModel;
     }
 
@@ -51,5 +57,16 @@ public class SubViewPresenter implements SubViewOutputBoundary {
 
         this.viewManagerModel.setActiveView(zipSearchViewModel.getViewName());
         this.viewManagerModel.firePropertyChanged();
+    }
+
+    public void prepareMainMenuView() {
+        // On success, go back to the main menu
+        MainMenuState mainMenuState = mainMenuViewModel.getState();
+        this.mainMenuViewModel.setState(mainMenuState);
+        this.mainMenuViewModel.firePropertyChanged();
+
+        this.viewManagerModel.setActiveView(mainMenuViewModel.getViewName());
+        this.viewManagerModel.firePropertyChanged();
+
     }
 }
