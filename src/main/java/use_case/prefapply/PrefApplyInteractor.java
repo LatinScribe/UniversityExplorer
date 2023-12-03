@@ -1,19 +1,24 @@
 package use_case.prefapply;
 
+import data_access.ProfileDataAccessInterface;
 import entity.University;
 import entity.UniversityFactory;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.io.IOException;
+
 public class PrefApplyInteractor implements PrefApplyInputBoundary{
     final PrefApplyDataAccessInterface prefapplyDataAccessObject;
     final PrefApplyOutputBoundary prefapplyPresenter;
     final UniversityFactory universityFactory;
+    final ProfileDataAccessInterface profileDataAccessInterface;
 
-    public PrefApplyInteractor(PrefApplyDataAccessInterface prefapplyDataAccessObject, PrefApplyOutputBoundary prefapplyOutputBoundary, UniversityFactory universityFactory) {
+    public PrefApplyInteractor(PrefApplyDataAccessInterface prefapplyDataAccessObject, PrefApplyOutputBoundary prefapplyOutputBoundary, UniversityFactory universityFactory, ProfileDataAccessInterface profileDataAccessInterface) {
         this.prefapplyDataAccessObject = prefapplyDataAccessObject;
         this.prefapplyPresenter = prefapplyOutputBoundary;
         this.universityFactory = universityFactory;
+        this.profileDataAccessInterface = profileDataAccessInterface;
 
     }
 
@@ -21,6 +26,23 @@ public class PrefApplyInteractor implements PrefApplyInputBoundary{
     public void execute(PrefApplyInputData prefapplyInputData) {
         String actScore = prefapplyInputData.getActScore();
         String satScore = prefapplyInputData.getSatScore();
+        int intsatScore = Integer.parseInt(satScore);
+        int intactScore = Integer.parseInt(actScore);
+        try {
+            Integer avgSal = profileDataAccessInterface.getProfile().getAvgSalary();
+            String loc = profileDataAccessInterface.getProfile().getLocationPreference();
+
+            String queryParameters1 = "earnings.1_yr_after_completion.median="+Integer.toString(avgSal);
+            String optionalParameters = "fields=id,school.name,school.state,school.city,admissions.admission_rate.overall,cost.tuition.in_state,cost.tuition.out_of_state,2018.admissions.sat_scores.average.overall,admissions.act_scores.midpoint.cumulative,school.school_url";
+            JSONObject results = prefapplyDataAccessObject.basicQuery(queryParameters1,optionalParameters);
+
+        } catch (IOException e){
+            prefapplyPresenter.prepareFailView("User doesnt have avg salary or we cant access it");
+        }
+
+
+
+
 //
 //
 //

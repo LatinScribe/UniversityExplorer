@@ -152,7 +152,7 @@ public class Main {
 
         // add prefapply view
         PrefApplyDataAccessInterface prefapplyUserDataAccessObject = new PrefApplyDataAccessObject();
-        PrefApplyview prefapplyView = PrefApplyUseCaseFactory.create(viewManagerModel, prefapplyViewModel, prefapplyUserDataAccessObject, shortUniversityFactory, subViewModel);
+        PrefApplyview prefapplyView = PrefApplyUseCaseFactory.create(viewManagerModel, prefapplyViewModel, prefapplyUserDataAccessObject, shortUniversityFactory, loggedInViewModel,profileDataAccessObject);
         //ApplyController applyController = new ApplyController( applyUseCaseInteractor);
         //Applyview applyView = new Applyview(applyController, applyViewModel);
 
