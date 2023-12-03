@@ -29,6 +29,19 @@ public class SignupUseCaseFactory {
     private SignupUseCaseFactory() {
     }
 
+    /**
+     * Factory to create an instance of the signup use case
+     *
+     * @param viewManagerModel
+     * @param loginViewModel
+     * @param signupViewModel
+     * @param userDataAccessObject
+     * @param mainMenuViewModel
+     * @param tokenDataAccessInterface
+     * @param passwordValidator
+     * @param usernameValidator
+     * @return Signup view fully populated and ready for use!
+     */
     public static SignupView create(
             ViewManagerModel viewManagerModel, LoginViewModel loginViewModel, SignupViewModel signupViewModel, SignupUserDataAccessInterface userDataAccessObject, MainMenuViewModel mainMenuViewModel, TokenDataAccessInterface tokenDataAccessInterface, PasswordValidator passwordValidator, UsernameValidator usernameValidator) {
 

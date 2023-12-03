@@ -103,7 +103,6 @@ public class UserProfileView extends JPanel implements ActionListener, PropertyC
         viewPanel.add(editProfile);
 
 
-
         // Add fields for editing
         editPanel.add(finAidRequirementField);
         editPanel.add(finAidRequirementLabel);
@@ -144,7 +143,6 @@ public class UserProfileView extends JPanel implements ActionListener, PropertyC
                 setEditMode(true);
             }
         });
-
 
 
         save.addActionListener(e -> {
@@ -239,7 +237,7 @@ public class UserProfileView extends JPanel implements ActionListener, PropertyC
             }
 
             // Return the parsed range as an array
-            return new int[] {start, end};
+            return new int[]{start, end};
         } catch (NumberFormatException e) {
             throw new IllegalArgumentException("University ranking range must contain valid numbers.");
         }
@@ -314,7 +312,6 @@ public class UserProfileView extends JPanel implements ActionListener, PropertyC
         CardLayout cl = (CardLayout) (cards.getLayout());
         cl.show(cards, "NewProfile");
     }
-
 
 
     @Override

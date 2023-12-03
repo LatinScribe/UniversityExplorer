@@ -1,8 +1,6 @@
-// Author: Henry
 package view;
 
 import interface_adapter.main_menu.MainMenuController;
-import interface_adapter.main_menu.MainMenuState;
 import interface_adapter.main_menu.MainMenuViewModel;
 
 import javax.swing.*;
@@ -12,6 +10,12 @@ import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
+/**
+ * View shown to the user as the main menu of the program
+ * This should be the first view the user sees when the program is run
+ *
+ * @author Henry
+ */
 public class MainMenuView extends JPanel implements ActionListener, PropertyChangeListener {
 
     public final String viewName = "Main Menu";

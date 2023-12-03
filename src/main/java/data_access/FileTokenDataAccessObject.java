@@ -4,6 +4,12 @@ import java.io.*;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+/**
+ * A class that contains the data access object to store and retrieve user tokens and id
+ * Used to keep track of whether a user is already logged in or not
+ *
+ * @author Henry
+ */
 public class FileTokenDataAccessObject implements TokenDataAccessInterface {
     private final File csvFile;
     private final Map<String, Integer> headers = new LinkedHashMap<>();
@@ -24,6 +30,13 @@ public class FileTokenDataAccessObject implements TokenDataAccessInterface {
 
     }
 
+    /**
+     * Use this method to save a token and id to file
+     * Should be executed on successful login
+     *
+     * @param id
+     * @param token
+     */
     @Override
     public void save_token(int id, String token) {
         BufferedWriter writer;
@@ -44,6 +57,10 @@ public class FileTokenDataAccessObject implements TokenDataAccessInterface {
         }
     }
 
+    /**
+     * Use this method to reset the token in the save file
+     * Should be used on logout
+     */
     @Override
     public void remove_token() {
         BufferedWriter writer;
@@ -64,6 +81,12 @@ public class FileTokenDataAccessObject implements TokenDataAccessInterface {
         }
     }
 
+    /**
+     * Use this method to retrieve the current token in the save file
+     *
+     * @return token in the save file
+     * @throws IOException
+     */
     @Override
     // note, this could throw a file not found error
     public String retrieve_token() throws IOException {
@@ -74,6 +97,13 @@ public class FileTokenDataAccessObject implements TokenDataAccessInterface {
         return values[1];
     }
 
+    /**
+     * Use this method to retrieve the id currently in the save file
+     *
+     * @return the id currently in the save file
+     * @throws IOException
+     * @throws NumberFormatException
+     */
     @Override
     // note, this could throw a file not found error
     public int retrieve_id() throws IOException, NumberFormatException {
