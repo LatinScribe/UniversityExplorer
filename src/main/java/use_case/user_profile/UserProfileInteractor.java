@@ -30,19 +30,17 @@ public class UserProfileInteractor implements UserProfileInputBoundary {
         try {
             UserPreferences userPreferences = new UserPreferences(finAidRequirement, preferredProgram, avgSalary, universityRankingRange, locationPreference);
             this.profileDataAccessInterface.updateProfile(userPreferences);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-            // TODO: Make this error more descriptive
+        } catch (Exception e) {
+            userProfileOutputBoundary.presentProfileViewError(e.getMessage());
         }
     }
 
-    public void saveNewUserProfile(int finAidRequirement, int avgSalary, String locationPreference, String preferredProgram, int[] universityRankingRange) throws IOException {
+    public void saveNewUserProfile(int finAidRequirement, int avgSalary, String locationPreference, String preferredProgram, int[] universityRankingRange) {
         try {
             UserPreferences userPreferences = new UserPreferences(finAidRequirement, preferredProgram, avgSalary, universityRankingRange, locationPreference);
             this.profileDataAccessInterface.saveProfile(userPreferences);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-            // TODO: Make this error more descriptive
+        } catch (Exception e) {
+            userProfileOutputBoundary.presentProfileViewError(e.getMessage());
         }
 
     }
@@ -53,8 +51,8 @@ public class UserProfileInteractor implements UserProfileInputBoundary {
             UserProfile userProfilePreferences = profileDataAccessInterface.getProfile();
             UserProfileOutputData userProfileData = new UserProfileOutputData(userProfilePreferences.getFinAidRequirement(), userProfilePreferences.getAvgSalary(), userProfilePreferences.getLocationPreference(), userProfilePreferences.getPreferredProgram(), userProfilePreferences.getUniversityRankingRange());
             userProfileOutputBoundary.presentUserProfile(userProfileData);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
+        } catch (Exception e) {
+            userProfileOutputBoundary.presentProfileViewError(e.getMessage());
         }
 
     }
