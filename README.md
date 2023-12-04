@@ -33,21 +33,21 @@ For advanced users, feel free to compile all the java files yourself, and simply
 1. Who is this for:
 	- Users of our program are students looking to browse universities. They can search for post-secondary instituions in the United States based on their preferences and get recommendations based on their inputed information.
 2. University search:
-        - This will allow users to search for universities in our [institution database](https://collegescorecard.ed.gov/data/documentation/).
-4. Recommendation system:
+	- This will allow users to search for universities in our [institution database](https://collegescorecard.ed.gov/data/documentation/).
+3. Recommendation system:
   	 - Based on the information provided by the user (in particular, SAT/ACT scores), provide recommendations of best fitting institutions.
-6. Zip-code Search:
+4. Zip-code Search:
 	- Convienient for finding insitutions close to home. Provide a zip code and find institutions within a set radius.
-7. Login/Account system:
+5. Login/Account system:
         - This allows users to signup/create an account.
 	- It allows users to login using their credentials (a username and a password).
 	- Allows users to save their preferences/info into a profile, so that they can enter their information just one time, and recieve more tailored recommendations.
  	- All user related data is stored on our server via our own [API](https://github.com/LatinScribe/Custom-Server-API).
-8. Databases:
+6. Databases:
 	- Database of users.
  	- Database of user profiles.
   	- Database of education institutions (see College Scorecard API).
-9. APIs
+7. APIs
 	- College Scorecard API: https://collegescorecard.ed.gov/data/documentation/
 	- Our own custom API developed by Henry to handle traffic to our server: https://github.com/LatinScribe/Custom-Server-API
 
