@@ -1,6 +1,6 @@
 # UniversityExplorer
 
-A basic Java based program that provides users with the ability to search for and get recommendations on their dream university!
+A simple Java based program that provides users with the ability to search for and get recommendations on their dream university!
 
 This project was developed by Students at the University of Toronto. It leverages the U.S. Departement of Education's College Scorecard API to provide accurate data on a large variety of American post-secondary education institutions.
 
@@ -11,6 +11,8 @@ This project was developed by Students at the University of Toronto. It leverage
 Finding the right post-secondary institution for you can be challenging, there are just so many to choose from! It is one of the most life defining decisions to be made, so it is important to get it right. 
 
 We hope to help our users narrow down their decisions, while being able to explore a wide variety of different institutions. To accomplish this, our application allows users to search a vast catalogue post-secondary institutions (currently only in The United States) based on parameters such as instituional name, or distance from a given zip-code. Users can also recieve recommendations on potential universities to consider based on their academic standing (SAT/ACT score). For more personalised recommendations, users can create their own account and profile, which will take in to account a variety of factors such as desired post-graduation salaries. 
+
+The project was developed following the Clean Architecture framework/engine. SOLID principles were always kept in mind, and design patterns such as Dependency Inversion, Factories, and Strategy were used throughout the project. All this means that extending our project in the future is easy and naturally accommodated by the modularity of the program (maybe you should give it a try). 
 
 **Program Usage Instructions:**
 1) Download the source code of our project (be sure to extract it)!
