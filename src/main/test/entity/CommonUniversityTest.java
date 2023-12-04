@@ -4,7 +4,7 @@ package entity;
 import org.junit.Test;
 
 public class CommonUniversityTest {
-    University university = new CommonUniversity(1, "tester", "NY", "New York", 50.3, 5000, 10000, 750.0, 250.0, "test.com");
+    University university = new CommonUniversity(1, "tester", "NY", "New York", 50.3, 5000, 10000, 750, 250, "test.com");
     @Test
     public void testUniSimple() {
        assert (university instanceof CommonUniversity);
@@ -42,7 +42,7 @@ public class CommonUniversityTest {
 
     @Test
     public void testAverageOutOfStateTuition() {
-        University university = new CommonUniversity(1, "tester", "NY", "New York", 50.3, 5000, 10000, 750.0, 250.0, "test.com");
+        University university = new CommonUniversity(1, "tester", "NY", "New York", 50.3, 5000, 10000, 750, 250, "test.com");
         assert (university.getAverageOutOfStateTuition() == 10000);
     }
 
@@ -53,19 +53,19 @@ public class CommonUniversityTest {
 
     @Test
     public void testACTScore() {
-        University university = new CommonUniversity(1, "tester", "NY", "New York", 50.3, 5000, 10000, 750.0, 250.0, "test.com");
+        University university = new CommonUniversity(1, "tester", "NY", "New York", 50.3, 5000, 10000, 750, 250, "test.com");
         assert (university.getAverageACTScore() == 250.0);
     }
 
     @Test
     public void testURL() {
-        University university = new CommonUniversity(1, "tester", "NY", "New York", 50.3, 5000, 10000, 750.0, 250.0, "test.com");
+        University university = new CommonUniversity(1, "tester", "NY", "New York", 50.3, 5000, 10000, 750, 250, "test.com");
         assert (university.getUrl().equals("test.com"));
     }
 
     @Test
     public void testToString() {
-        University university = new CommonUniversity(1, "tester", "NY", "New York", 50.3, 5000, 10000, 750.0, 250.0, "test.com");
+        University university = new CommonUniversity(1, "tester", "NY", "New York", 50.3, 5000, 10000, 750, 250, "test.com");
         assert (university.toString().equals("Institution Name: tester\nLocation: New York, NY\nAdmission Rate: 50.3\nAverage Tuition (In State): $5000\nAverage Tuition (Out of State): $10000\nAverage SAT Score: 750.0\nAverage ACT Score: 250.0\nURL: test.com"));
     }
 
