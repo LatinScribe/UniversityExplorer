@@ -1,6 +1,7 @@
 // Author: Diego
 package interface_adapter.zip_search;
 
+import entity.University;
 import interface_adapter.ViewManagerModel;
 import interface_adapter.results.ResultsState;
 import interface_adapter.results.ResultsViewModel;
@@ -8,6 +9,9 @@ import interface_adapter.sub_menu.SubViewModel;
 import interface_adapter.sub_menu.SubViewState;
 import use_case.zip_search.ZipSearchOutputBoundary;
 import use_case.zip_search.ZipSearchOutputData;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class ZipSearchPresenter implements ZipSearchOutputBoundary {
     private ZipSearchViewModel zipSearchViewModel;
@@ -26,7 +30,11 @@ public class ZipSearchPresenter implements ZipSearchOutputBoundary {
     public void prepareSuccessView(ZipSearchOutputData response) {
         ResultsState resultsState = resultsViewModel.getState();
         resultsState.setPreviousView("zip_search");
-        resultsState.setUniversities(response.getUniversities());
+        List<String> names = new ArrayList<String>();
+        for (University uni : response.getUniversities()) {
+            names.add(uni.getSchoolName());
+        }
+        resultsState.setUniversityNames(names);
         this.resultsViewModel.setState(resultsState);
         this.resultsViewModel.firePropertyChanged();
 

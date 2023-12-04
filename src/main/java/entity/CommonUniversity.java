@@ -10,11 +10,11 @@ public class CommonUniversity implements University {
     private final Double admissionRate;
     private final Integer averageInStateTuition;
     private final Integer averageOutOfStateTuition;
-    private final Double averageSATScore;
-    private final Double averageACTScore;
+    private final Integer averageSATScore;
+    private final Integer averageACTScore;
     private final String url;
 
-    public CommonUniversity(Integer schoolID, String schoolName, String state, String city, Double admissionRate, Integer averageInStateTuition, Integer averageOutOfStateTuition, Double averageSATScore, Double averageACTScore, String url) {
+    public CommonUniversity(Integer schoolID, String schoolName, String state, String city, Double admissionRate, Integer averageInStateTuition, Integer averageOutOfStateTuition, Integer averageSATScore, Integer averageACTScore, String url) {
         this.schoolID = schoolID;
         this.schoolName = schoolName;
         this.state = state;
@@ -63,12 +63,12 @@ public class CommonUniversity implements University {
     }
 
     @Override
-    public Double getAverageSATScore() {
+    public Integer getAverageSATScore() {
         return averageSATScore;
     }
 
     @Override
-    public Double getAverageACTScore() {
+    public Integer getAverageACTScore() {
         return averageACTScore;
     }
 
