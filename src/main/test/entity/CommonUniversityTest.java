@@ -66,7 +66,7 @@ public class CommonUniversityTest {
     @Test
     public void testToString() {
         University university = new CommonUniversity(1, "tester", "NY", "New York", 50.3, 5000, 10000, 750, 250, "test.com");
-        assert (university.toString().equals("Institution Name: tester\nLocation: New York, NY\nAdmission Rate: 50.3\nAverage Tuition (In State): $5000\nAverage Tuition (Out of State): $10000\nAverage SAT Score: 750.0\nAverage ACT Score: 250.0\nURL: test.com"));
+        assert (university.toString().equals("Institution Name: tester\nLocation: New York, NY\nAdmission Rate: 50.3\nAverage Tuition (In State): $5000\nAverage Tuition (Out of State): $10000\nAverage SAT Score: 750\nAverage ACT Score: 250\nURL: test.com"));
     }
 
     @Test
