@@ -1,10 +1,10 @@
 package view;
 
-import data_access.PrefApplyDataAccessObject;
-import entity.CommonUniversityFactory;
-import entity.UniversityFactory;
+import data_access.*;
+import entity.*;
 import interface_adapter.ViewManagerModel;
 import interface_adapter.apply.ApplyViewModel;
+import interface_adapter.logged_in.LoggedInViewModel;
 import interface_adapter.prefapply.PrefApplyController;
 import interface_adapter.prefapply.PrefApplyPresenter;
 import interface_adapter.prefapply.PrefApplyState;
@@ -146,7 +146,7 @@ public class PrefApplyview extends JPanel implements ActionListener, PropertyCha
         if (y.equals("success")) {
             // Results View Not implemented yet, will be implemented soon.
             PrefApplyState state = (PrefApplyState) evt.getNewValue();
-            JOptionPane.showMessageDialog(this, state.getUni());
+            JOptionPane.showMessageDialog(this, state.getUni().getSchoolName());
             //System.out.println(state.getUni().getSchoolName());
         } else if (y.equals("Error")) {
             PrefApplyState state = (PrefApplyState) evt.getNewValue();
@@ -160,12 +160,15 @@ public class PrefApplyview extends JPanel implements ActionListener, PropertyCha
 //        application.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 //        ViewManagerModel viewManagerModel = new ViewManagerModel();
 //        PrefApplyViewModel prefapplyViewModel = new PrefApplyViewModel();
-//        SubViewModel mainMenuViewModel = new SubViewModel();
+//        LoggedInViewModel mainMenuViewModel = new LoggedInViewModel();
 //        PrefApplyOutputBoundary prefapplyPresenter = new PrefApplyPresenter(prefapplyViewModel, viewManagerModel, mainMenuViewModel);
 //        //ApplyInputData applyInputData = new ApplyInputData();
 //        PrefApplyDataAccessInterface prefapplyDataAccessInterface = new PrefApplyDataAccessObject();
+//        //UserProfileFactory userFactory = new ExistingCommonUserFactory();
+//        //ProfileDataAccessInterface serverUserDataAccessObject = new ServerProfileDataAccessObject();
 //        UniversityFactory universityFactory = new CommonUniversityFactory();
-//        PrefApplyInputBoundary prefapplyUseCaseInteractor = new PrefApplyInteractor(prefapplyDataAccessInterface, prefapplyPresenter, universityFactory);
+//        ProfileDataAccessInterface profileDataAccessInterface = new Profiledataaccessmock1weird();
+//        PrefApplyInputBoundary prefapplyUseCaseInteractor = new PrefApplyInteractor(prefapplyDataAccessInterface, prefapplyPresenter, universityFactory,profileDataAccessInterface);
 //        PrefApplyController prefapplyController = new PrefApplyController(prefapplyUseCaseInteractor);
 //        PrefApplyview prefapplyView = new PrefApplyview(prefapplyController, prefapplyViewModel);
 //
