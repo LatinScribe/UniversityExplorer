@@ -9,8 +9,7 @@ import org.json.JSONObject;
 import org.junit.Before;
 import org.junit.Test;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 public class ZipSearchInteractorTest {
 
@@ -39,6 +38,42 @@ public class ZipSearchInteractorTest {
         // Assert
         assertTrue(zipSearchPresenterStub.successViewCalled);
         assertFalse(zipSearchPresenterStub.resultsNotFoundViewCalled);
+    }
+
+    @Test
+    public void testSearchForBostonArea_ShouldReturnListOfUniversities() {
+        // Arrange
+        ZipSearchInputData zipSearchInputData = new ZipSearchInputData("02139", "1mi");
+
+        // Act
+        zipSearchInteractor.executeSearch(zipSearchInputData);
+
+        // Verify that the presenter was called with a university list of length 2
+        // Since the given zipcode and radius should only return Boston University and MIT
+        assertEquals(2, zipSearchPresenterStub.lastSuccessViewData.getUniversities().size());
+    }
+
+    @Test
+    public void executeSearch_WithError_ShouldCallResultsNotFoundView() {
+        // Arrange
+        ZipSearchInputData zipSearchInputData = new ZipSearchInputData("Nonexistent", "NoRad");
+        zipSearchDataAccessStub.setSearchResults(createMockSearchResults(0));
+
+        // Act
+        zipSearchInteractor.executeSearch(zipSearchInputData);
+
+        // Assert
+        assertFalse(zipSearchPresenterStub.successViewCalled);
+        assertTrue(zipSearchPresenterStub.resultsNotFoundViewCalled);
+    }
+
+    @Test
+    public void executeBack_ShouldCallBackView() {
+        // Act
+        zipSearchInteractor.executeBack();
+
+        // Assert
+        assertTrue(zipSearchPresenterStub.backViewCalled);
     }
 
     private JSONObject createMockSearchResults(int totalResults) {
