@@ -1,6 +1,10 @@
 package interface_adapter.user_profiles;
 
 import interface_adapter.ViewManagerModel;
+import interface_adapter.logged_in.LoggedInState;
+import interface_adapter.logged_in.LoggedInViewModel;
+import interface_adapter.main_menu.MainMenuState;
+import interface_adapter.main_menu.MainMenuViewModel;
 import use_case.user_profile.UserProfileOutputBoundary;
 import use_case.user_profile.UserProfileOutputData;
 
@@ -10,21 +14,19 @@ public class UserProfilePresenter implements UserProfileOutputBoundary {
 
     private final UserProfileViewModel userProfileViewModel;
 
+    private final LoggedInViewModel loggedInViewModel;
 
-    // TODO: Need to add other views and viewmodels here
 
 
-    public UserProfilePresenter(ViewManagerModel viewManagerModel, UserProfileViewModel userProfileViewModel) {
+
+    public UserProfilePresenter(ViewManagerModel viewManagerModel, UserProfileViewModel userProfileViewModel, LoggedInViewModel loggedInViewModel) {
         this.viewManagerModel = viewManagerModel;
+        this.loggedInViewModel = loggedInViewModel;
         this.userProfileViewModel = userProfileViewModel;
 
     }
 
-//     private UserProfileOutputData getCurrentUserProfileData() {
-//         return null;
-//         // TODO: call the interactor here to get saved user data (maybe delete this)
 
-//     }
 
     @Override
     public void presentUserProfile(UserProfileOutputData userProfileOutputData) {
@@ -45,6 +47,17 @@ public class UserProfilePresenter implements UserProfileOutputBoundary {
         state.setPreferredProgram(outputData.getPreferredProgram());
         state.setUniversityRankingRange(outputData.getUniversityRankingRange());
         return state;
+    }
+
+    public void prepareMainMenuView() {
+        // On success, go back to the main menu
+        LoggedInState loggedInState = loggedInViewModel.getState();
+        this.loggedInViewModel.setState(loggedInState);
+        this.loggedInViewModel.firePropertyChanged();
+
+        this.viewManagerModel.setActiveView(loggedInViewModel.getViewName());
+        this.viewManagerModel.firePropertyChanged();
+
     }
 
     @Override
