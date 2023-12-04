@@ -119,7 +119,7 @@ public class ZipSearchInteractor implements ZipSearchInputBoundary {
     private String stringChecker(Object object) {
         String checker = object.toString();
         if (checker.equals("null")) {
-            return null;
+        //    return null;
         }
         return (String) object;
     }
