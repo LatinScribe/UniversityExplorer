@@ -138,34 +138,4 @@ public class ResultsView extends JPanel implements ActionListener, PropertyChang
         this.remove(jScrollPane);
         this.jScrollPane = null;
     }
-
-    public static void main(String[] args) {
-        JFrame application = new JFrame("Results Test");
-        application.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-
-        CardLayout cardLayout = new CardLayout();
-        JPanel views = new JPanel(cardLayout);
-        application.add(views);
-
-        ViewManagerModel viewManagerModel = new ViewManagerModel();
-        new ViewManager(views, cardLayout, viewManagerModel);
-        SearchViewModel searchViewModel = new SearchViewModel();
-        SearchUserDataAccessInterface searchDataAccessObject = new SearchDataAccessObject();
-        SubViewModel subViewModel = new SubViewModel();
-        ResultsViewModel resultsViewModel = new ResultsViewModel();
-        SearchView searchView = SearchUseCaseFactory.create(viewManagerModel, searchViewModel, subViewModel, resultsViewModel, searchDataAccessObject);
-
-        ZipSearchViewModel zipSearchViewModel = new ZipSearchViewModel();
-        ResultsUserDataAccessInterface resultsUserDataAccessInterface = new ResultsDataAccessObject();
-        ResultsView resultsView = ResultsUseCaseFactory.create(viewManagerModel, resultsViewModel, searchViewModel, zipSearchViewModel, resultsUserDataAccessInterface);
-
-        views.add(searchView, searchView.viewName);
-        views.add(resultsView, resultsView.viewName);
-
-        viewManagerModel.setActiveView(resultsView.viewName);
-        viewManagerModel.firePropertyChanged();
-
-        application.pack();
-        application.setVisible(true);
-    }
 }

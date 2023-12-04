@@ -4,6 +4,7 @@ import entity.CommonUniversity;
 import entity.University;
 import interface_adapter.ViewManagerModel;
 import interface_adapter.ViewModel;
+import interface_adapter.logged_in.LoggedInViewModel;
 import interface_adapter.results.ResultsState;
 import interface_adapter.results.ResultsViewModel;
 import interface_adapter.sub_menu.SubViewModel;
@@ -22,6 +23,7 @@ public class SearchPresenterTest {
     private ViewManagerModel viewManagerModel;
     private SearchViewModel searchViewModel;
     private ResultsViewModel resultsViewModel;
+    private LoggedInViewModel loggedInViewModel;
     private SubViewModel subViewModel;
 
     @Before
@@ -30,8 +32,9 @@ public class SearchPresenterTest {
         searchViewModel = new SearchViewModel();
         resultsViewModel = new ResultsViewModel();
         subViewModel = new SubViewModel();
+        loggedInViewModel = new LoggedInViewModel();
 
-        searchPresenter = new SearchPresenter(viewManagerModel, searchViewModel, resultsViewModel, subViewModel);
+        searchPresenter = new SearchPresenter(viewManagerModel, searchViewModel, resultsViewModel, subViewModel, loggedInViewModel);
     }
 
     @Test
