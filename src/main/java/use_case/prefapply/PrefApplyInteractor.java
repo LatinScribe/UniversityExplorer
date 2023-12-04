@@ -121,10 +121,10 @@ public class PrefApplyInteractor implements PrefApplyInputBoundary{
         Object avgSATCheck = university.get("2018.admissions.sat_scores.average.overall");
         Integer avgSAT = integerChecker(avgSATCheck) ;
         Object avgACTCheck = university.get("admissions.act_scores.midpoint.cumulative");
-        Double avgACT = doubleChecker(avgACTCheck);
+        Integer avgACT = integerChecker(avgACTCheck);
         Object urlCheck = university.get("school.school_url");
         String url = stringChecker(urlCheck);
-        University newUniversity = universityFactory.create(id, name, state, city, admRate, inTuit, outTuit, Double.valueOf(avgSAT), avgACT, url);
+        University newUniversity = universityFactory.create(id, name, state, city, admRate, inTuit, outTuit, avgSAT, avgACT, url);
         return newUniversity;}
     private Double doubleChecker(Object object) {
         String checker = object.toString();
