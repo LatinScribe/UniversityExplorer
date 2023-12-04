@@ -40,7 +40,7 @@ public class ApplyStateTest {
 
     @Test
     public void testGetUni() {
-        University university = new CommonUniversity(1, "tester", "NY", "New York", 50.3, 5000, 10000, 750.0, 250.0, "test.com");
+        University university = new CommonUniversity(1, "tester", "NY", "New York", 50.3, 5000, 10000, 750, 250, "test.com");
         applyState.setUni(university);
         assert (applyState.getUni().equals(university));
     }

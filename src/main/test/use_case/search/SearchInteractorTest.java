@@ -129,7 +129,7 @@ public class SearchInteractorTest {
 
         @Override
         public CommonUniversity create(Integer id, String name, String state, String city, Double admRate,
-                                       Integer inTuit, Integer outTuit, Double avgSAT, Double avgACT, String url) {
+                                       Integer inTuit, Integer outTuit, Integer avgSAT, Integer avgACT, String url) {
             return (CommonUniversity) university;
         }
     }
