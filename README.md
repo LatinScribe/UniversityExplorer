@@ -2,7 +2,7 @@
 
 A basic Java based program that provides users with the ability to search for and get recommendations on their dream university!
 
-This project was developed by Students at the University of Toronto. It leverages the U.S. Departement of Educations College Scorecard API to provide accurate data on a large variety of American post-secondary education institutions.
+This project was developed by Students at the University of Toronto. It leverages the U.S. Departement of Education's College Scorecard API to provide accurate data on a large variety of American post-secondary education institutions.
 
 ## Overview
 
