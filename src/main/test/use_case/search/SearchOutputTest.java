@@ -11,7 +11,7 @@ import java.util.List;
 public class SearchOutputTest {
     @Test
     public void testGetUniversity() {
-        University university = new CommonUniversity(1, "tester", "NY", "New York", 50.3, 5000, 10000, 750.0, 250.0, "test.com");
+        University university = new CommonUniversity(1, "tester", "NY", "New York", 50.3, 5000, 10000, 750, 250, "test.com");
         List<University> universities = new ArrayList<>();
         universities.add(university);
         SearchOutputData searchOutputData = new SearchOutputData(universities);
