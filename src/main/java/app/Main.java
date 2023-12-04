@@ -103,13 +103,13 @@ public class Main {
 
         // create a UserProfileViewModel and view
         UserProfileViewModel userProfileViewModel = new UserProfileViewModel("userProfileView");
-        UserProfilePresenter userProfilePresenter = new UserProfilePresenter(viewManagerModel, userProfileViewModel);
+        UserProfilePresenter userProfilePresenter = new UserProfilePresenter(viewManagerModel, userProfileViewModel, loggedInViewModel);
         UserProfileInteractor userProfileInteractor = new UserProfileInteractor(userProfilePresenter, profileDataAccessObject); // TODO: Determine if this casting is appropriate
         UserProfileController userProfileController = new UserProfileController(userProfileInteractor);
-        UserProfileView userProfileView = UserProfileUseCaseFactory.create(viewManagerModel, userProfileViewModel, profileDataAccessObject);
+        UserProfileView userProfileView = UserProfileUseCaseFactory.create(viewManagerModel, userProfileViewModel, profileDataAccessObject, loggedInViewModel);
 
         // add loggedin view
-        LoggedInView loggedInView = LoggedInUseCaseFactory.create(viewManagerModel, loginViewModel, loggedInViewModel, userProfileViewModel, prefapplyViewModel, tokenDataAccessObject);
+        LoggedInView loggedInView = LoggedInUseCaseFactory.create(viewManagerModel, loginViewModel, loggedInViewModel, userProfileViewModel, prefapplyViewModel, searchViewModel, tokenDataAccessObject);
         views.add(loggedInView, loggedInView.viewName);
         assert userProfileView != null;
         views.add(userProfileView, userProfileView.viewName);
@@ -134,7 +134,7 @@ public class Main {
 
         // add search view
         SearchUserDataAccessInterface searchUserDataAccessInterface = new SearchDataAccessObject();
-        SearchView searchView = SearchUseCaseFactory.create(viewManagerModel, searchViewModel, subViewModel, resultsViewModel, searchUserDataAccessInterface);
+        SearchView searchView = SearchUseCaseFactory.create(viewManagerModel, searchViewModel, subViewModel, resultsViewModel, loggedInViewModel, searchUserDataAccessInterface);
 
         views.add(searchView, searchView.viewName);
 

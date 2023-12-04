@@ -9,6 +9,7 @@ import interface_adapter.logged_in.LoggedInPresenter;
 import interface_adapter.logged_in.LoggedInViewModel;
 import interface_adapter.login.LoginViewModel;
 import interface_adapter.prefapply.PrefApplyViewModel;
+import interface_adapter.search.SearchViewModel;
 import interface_adapter.user_profiles.UserProfileViewModel;
 import use_case.logged_in.LoggedInInputBoundary;
 import use_case.logged_in.LoggedInInteractor;
@@ -32,10 +33,11 @@ public class LoggedInUseCaseFactory {
             LoggedInViewModel loggedInViewModel,
             UserProfileViewModel userProfileViewModel,
             PrefApplyViewModel prefApplyViewModel,
+            SearchViewModel searchViewModel,
             TokenDataAccessInterface tokenDataAccessInterface) {
 
         try {
-            LoggedInController loginController = createLoginUseCase(viewManagerModel, loginViewModel, userProfileViewModel, prefApplyViewModel, tokenDataAccessInterface);
+            LoggedInController loginController = createLoginUseCase(viewManagerModel, loginViewModel, userProfileViewModel, prefApplyViewModel, tokenDataAccessInterface, searchViewModel);
             return new LoggedInView(loggedInViewModel, userProfileViewModel, loginController);
         } catch (IOException e) {
             JOptionPane.showMessageDialog(null, "Could not open user data file.");
@@ -51,10 +53,11 @@ public class LoggedInUseCaseFactory {
 //            MainMenuViewModel mainMenuViewModel,
             UserProfileViewModel userProfileViewModel,
             PrefApplyViewModel prefApplyViewModel,
-            TokenDataAccessInterface tokenDataAccessInterface) throws IOException {
+            TokenDataAccessInterface tokenDataAccessInterface,
+            SearchViewModel searchViewModel) throws IOException {
 
         // Notice how we pass this method's parameters to the Presenter.
-        LoggedInOutputBoundary loggedInPresenter = new LoggedInPresenter(userProfileViewModel, viewManagerModel, loginViewModel, prefApplyViewModel);
+        LoggedInOutputBoundary loggedInPresenter = new LoggedInPresenter(userProfileViewModel, viewManagerModel, loginViewModel, prefApplyViewModel, searchViewModel);
 
         CreationUserFactory userFactory = new CreationCommonUserFactory();
 

@@ -83,8 +83,8 @@ public class LoggedInView extends JPanel implements ActionListener, PropertyChan
                 new ActionListener() {
                     public void actionPerformed(ActionEvent evt) {
                         if (evt.getSource().equals(search)) {
-                            // System.out.println("Search Button pressed");
-                            // loggedInController.execute("search"); // create search method
+                             System.out.println("Search Button pressed");
+                             loggedInController.swapToSearchView(); // create search method
                         }
                     }
                 }

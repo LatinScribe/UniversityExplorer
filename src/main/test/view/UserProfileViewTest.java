@@ -13,6 +13,7 @@ import use_case.user_profile.UserProfileOutputData;
 import javax.swing.*;
 
 import java.io.IOException;
+import java.util.Optional;
 
 import static org.junit.Assert.*;
 import static org.junit.Assert.assertEquals;
@@ -98,7 +99,12 @@ public class UserProfileViewTest {
         // Simulate clicking the save button
         view.save.doClick();
 
-        // Here we would assert that the controller has been invoked to save the profile
+        // Assert that the interactor stub was called with the correct data
+        assertEquals(Optional.of(35000), interactorStub.userProfile.getFinAidRequirement());
+        assertEquals(Optional.of(80000), interactorStub.userProfile.getAvgSalary());
+        assertEquals("Los Angeles", interactorStub.userProfile.getLocationPreference());
+        assertEquals("Mathematics", interactorStub.userProfile.getPreferredProgram());
+        assertArrayEquals(new int[]{2, 15}, interactorStub.userProfile.getUniversityRankingRange());
     }
 
 
@@ -119,7 +125,6 @@ public class UserProfileViewTest {
 
         public void updateUserProfile(int finAidRequirement, int avgSalary, String locationPreference,
                                       String preferredProgram, int[] universityRankingRange) {
-            // In a real stub, you might check the inputs against expected values
             // For now, we'll assume this method always succeeds
         }
 
@@ -132,6 +137,12 @@ public class UserProfileViewTest {
                     userProfile.getPreferredProgram(),
                     userProfile.getUniversityRankingRange());
             System.out.println(outputData);
+        }
+
+        @Override
+        public void prepareMainMenuView() {
+            // Will also assume that this always succeeds and won't be implemented for now
+            // TODO: Implement this part for testing
         }
 
         @Override

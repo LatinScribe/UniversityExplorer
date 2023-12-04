@@ -18,6 +18,7 @@ public class LoggedInController {
         loggedInInputBoundary.prepareUserPrefApplyView();
     }
 
+    public void swapToSearchView() {loggedInInputBoundary.showSearchView();}
     public void logOutUser() {
         loggedInInputBoundary.logOut();
     }
