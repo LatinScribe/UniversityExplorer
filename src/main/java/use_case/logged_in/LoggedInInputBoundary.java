@@ -7,4 +7,6 @@ public interface LoggedInInputBoundary {
 
     void prepareUserPrefApplyView();
 
+    void showSearchView();
+
 }

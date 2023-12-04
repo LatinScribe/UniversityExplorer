@@ -3,8 +3,10 @@ package use_case.logged_in;
 import data_access.FileTokenDataAccessObject;
 import interface_adapter.ViewManagerModel;
 import interface_adapter.logged_in.LoggedInPresenter;
+import interface_adapter.logged_in.LoggedInViewModel;
 import interface_adapter.login.LoginViewModel;
 import interface_adapter.prefapply.PrefApplyViewModel;
+import interface_adapter.search.SearchViewModel;
 import interface_adapter.user_profiles.UserProfileViewModel;
 import org.junit.jupiter.api.Test;
 
@@ -14,7 +16,8 @@ class LoggedInInteractorTest {
     ViewManagerModel viewManagerModel = new ViewManagerModel();
     LoginViewModel loginViewModel = new LoginViewModel();
     PrefApplyViewModel prefApplyViewModel = new PrefApplyViewModel();
-    LoggedInPresenter loggedInPresenter = new LoggedInPresenter(userProfileViewModel, viewManagerModel, loginViewModel, prefApplyViewModel);
+    SearchViewModel searchViewModel = new SearchViewModel();
+    LoggedInPresenter loggedInPresenter = new LoggedInPresenter(userProfileViewModel, viewManagerModel, loginViewModel, prefApplyViewModel, searchViewModel);
     LoggedInInteractor loggedInInteractor = new LoggedInInteractor(tokenDataAccessObject, loggedInPresenter);
 
     @Test
@@ -33,5 +36,11 @@ class LoggedInInteractorTest {
     void logOut() {
         loggedInInteractor.logOut();
         assert viewManagerModel.getActiveView().equals("log in");
+    }
+
+    @Test
+    void prepareSearchView() {
+        loggedInInteractor.showSearchView();
+        assert viewManagerModel.getActiveView().equals("search");
     }
 }

@@ -4,6 +4,8 @@ package interface_adapter.search;
 
 import entity.University;
 import interface_adapter.ViewManagerModel;
+import interface_adapter.logged_in.LoggedInState;
+import interface_adapter.logged_in.LoggedInViewModel;
 import interface_adapter.results.ResultsState;
 import interface_adapter.results.ResultsViewModel;
 import interface_adapter.sub_menu.SubViewModel;
@@ -21,12 +23,14 @@ public class SearchPresenter implements SearchOutputBoundary {
     private ViewManagerModel viewManagerModel;
     private ResultsViewModel resultsViewModel;
     private SubViewModel subViewModel;
+    private LoggedInViewModel loggedInViewModel;
 
-    public SearchPresenter(ViewManagerModel viewManagerModel, SearchViewModel searchViewModel, ResultsViewModel resultsViewModel, SubViewModel subViewModel) {
+    public SearchPresenter(ViewManagerModel viewManagerModel, SearchViewModel searchViewModel, ResultsViewModel resultsViewModel, SubViewModel subViewModel, LoggedInViewModel loggedInViewModel) {
         this.searchViewModel = searchViewModel;
         this.viewManagerModel = viewManagerModel;
         this.resultsViewModel = resultsViewModel;
         this.subViewModel = subViewModel;
+        this.loggedInViewModel = loggedInViewModel;
     }
 
     @Override
@@ -53,12 +57,23 @@ public class SearchPresenter implements SearchOutputBoundary {
 
     @Override
     public void prepareBackView() {
-        SubViewState subViewState = subViewModel.getState();
-        this.subViewModel.setState(subViewState);
-        this.subViewModel.firePropertyChanged();
+        SearchState searchState = searchViewModel.getState();
+        if (searchState.getPrevView().equals("Logged In")) {
+            searchState.setPrevView("");
+            LoggedInState loggedInState = loggedInViewModel.getState();
+            this.loggedInViewModel.setState(loggedInState);
+            this.loggedInViewModel.firePropertyChanged();;
 
-        viewManagerModel.setActiveView(subViewModel.getViewName());
-        viewManagerModel.firePropertyChanged();
+            viewManagerModel.setActiveView(loggedInViewModel.getViewName());
+            viewManagerModel.firePropertyChanged();
+        } else {
+            SubViewState subViewState = subViewModel.getState();
+            this.subViewModel.setState(subViewState);
+            this.subViewModel.firePropertyChanged();
+
+            viewManagerModel.setActiveView(subViewModel.getViewName());
+            viewManagerModel.firePropertyChanged();
+        }
     }
 
 }

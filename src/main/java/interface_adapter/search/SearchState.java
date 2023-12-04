@@ -10,6 +10,7 @@ import java.util.List;
 public class SearchState {
     private String searchCriteria = "";
     private String searchError = null;
+    private String prevView = "";
 
     public SearchState(SearchState copy) {
         searchCriteria = copy.searchCriteria;
@@ -28,6 +29,8 @@ public class SearchState {
         return searchError;
     }
 
+    public String getPrevView() {return prevView;}
+
     public void setSearchCriteria(String searchCriteria) {
         this.searchCriteria = searchCriteria;
     }
@@ -35,6 +38,8 @@ public class SearchState {
     public void setSearchError(String searchError) {
         this.searchError = searchError;
     }
+
+    public void setPrevView(String prevView) {this.prevView = prevView;}
 
     @Override
     public String toString() {
