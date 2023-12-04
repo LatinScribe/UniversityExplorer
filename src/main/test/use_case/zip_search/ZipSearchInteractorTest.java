@@ -28,7 +28,7 @@ public class ZipSearchInteractorTest {
     @Test
     public void executeSearch_WithResults_ShouldCallSuccessView() {
         // Arrange
-        ZipSearchInputData zipSearchInputData = new ZipSearchInputData("02138", "1mi");
+        ZipSearchInputData zipSearchInputData = new ZipSearchInputData("94720", "1mi");
         zipSearchDataAccessStub.setSearchResults(createMockSearchResults(1));
 
 
@@ -56,7 +56,21 @@ public class ZipSearchInteractorTest {
     @Test
     public void executeSearch_WithError_ShouldCallResultsNotFoundView() {
         // Arrange
-        ZipSearchInputData zipSearchInputData = new ZipSearchInputData("Nonexistent", "NoRad");
+        ZipSearchInputData zipSearchInputData = new ZipSearchInputData("0 2138", "1 mi");
+        zipSearchDataAccessStub.setSearchResults(createMockSearchResults(0));
+
+        // Act
+        zipSearchInteractor.executeSearch(zipSearchInputData);
+
+        // Assert
+        assertFalse(zipSearchPresenterStub.successViewCalled);
+        assertTrue(zipSearchPresenterStub.resultsNotFoundViewCalled);
+    }
+
+    @Test
+    public void executeSearch_WithNoResults_ShouldCallResultsNotFoundView() {
+        // Arrange
+        ZipSearchInputData zipSearchInputData = new ZipSearchInputData("02138", "mi1");
         zipSearchDataAccessStub.setSearchResults(createMockSearchResults(0));
 
         // Act
