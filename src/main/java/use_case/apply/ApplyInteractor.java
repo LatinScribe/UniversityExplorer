@@ -5,6 +5,7 @@ import entity.UniversityFactory;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 public class ApplyInteractor implements ApplyInputBoundary {
@@ -107,11 +108,11 @@ public class ApplyInteractor implements ApplyInputBoundary {
         String state = stringChecker(stateCheck);
         Object cityCheck = university.get("school.city");
         String city = stringChecker(cityCheck);
-        Object admRateCheck = university.get("admissions.admission_rate.overall");
+        Object admRateCheck = university.get("2018.admissions.admission_rate.overall");
         Double admRate = doubleChecker(admRateCheck);
-        Object outTuitCheck = university.get("cost.tuition.out_of_state");
+        Object outTuitCheck = university.get("2018.cost.tuition.out_of_state");
         Integer outTuit = integerChecker(outTuitCheck);
-        Object inTuitCheck = university.get("cost.tuition.in_state");
+        Object inTuitCheck = university.get("2018.cost.tuition.in_state");
         Integer inTuit = integerChecker(inTuitCheck);
         Object avgSATCheck = university.get("2018.admissions.sat_scores.average.overall");
         Integer avgSAT = integerChecker(avgSATCheck) ;
@@ -144,7 +145,7 @@ public class ApplyInteractor implements ApplyInputBoundary {
         if (checker.equals("null")) {
             return null;
         }
-        Float converter = (Float) object;
+        BigDecimal converter = (BigDecimal) object;
         return converter.doubleValue();
     }
     private Integer integerChecker(Object object) {
