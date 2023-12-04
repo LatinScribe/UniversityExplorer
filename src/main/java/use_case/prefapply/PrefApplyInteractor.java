@@ -59,41 +59,7 @@ public class PrefApplyInteractor implements PrefApplyInputBoundary{
 
 
 
-//
-//
-//
-//
-//
-//        int intsatScore = Integer.parseInt(satScore);
-//        int intactScore = Integer.parseInt(actScore);
-//        String queryParameters1 = "2018.admissions.sat_scores.average.overall__range="+Integer.toString(intsatScore-100)+"..."+Integer.toString(intsatScore+50);
-//        String optionalParameters = "fields=id,school.name,school.state,school.city,admissions.admission_rate.overall,cost.tuition.in_state,cost.tuition.out_of_state,2018.admissions.sat_scores.average.overall,admissions.act_scores.midpoint.cumulative,school.school_url";
-//        JSONObject query1= prefapplyDataAccessObject.basicQuery(queryParameters1,optionalParameters);
-//        String queryParameters2 = "2018.admissions.act_scores.midpoint.cumulative__range="+Integer.toString(intactScore-2)+"..."+Integer.toString(intactScore+2);
-//        JSONObject query2 = prefapplyDataAccessObject.basicQuery(queryParameters2,optionalParameters);
-//        University uni1 = executeHelper(query1.getJSONArray("results"));
-//        University uni2 = executeHelper(query2.getJSONArray("results"));
-//        University chosenUni = null;
-//        if (uni1.getAverageSATScore() == null && uni2.getAverageSATScore() == null){ prefapplyPresenter.prepareFailView("Error");}
-//        else if (uni2.getAverageSATScore() == null) { chosenUni = uni1;}
-//        else if (uni1.getAverageSATScore() == null) { chosenUni = uni2;}
-//        else {
-//            if (uni1.getAverageSATScore() >= uni2.getAverageSATScore()){
-//                chosenUni = uni1;
-//            }
-//            else {
-//                chosenUni = uni2;
-//            }}
-//        JSONObject metadata1 = query1.getJSONObject("metadata");
-//        JSONObject metadata2 = query2.getJSONObject("metadata");
-//
-//        if (metadata1.getInt("total") == 0 && metadata2.getInt("total") == 0) {
-//            prefapplyPresenter.prepareFailView("Error");
-//        }
-//        else {
-//            PrefApplyOutputData prefapplyOutputData = new PrefApplyOutputData(chosenUni);
-//            prefapplyPresenter.prepareSuccessView(prefapplyOutputData);
-//        }
+
 
 
 
