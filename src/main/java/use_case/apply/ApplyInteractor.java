@@ -109,7 +109,14 @@ public class ApplyInteractor implements ApplyInputBoundary {
         Object cityCheck = university.get("school.city");
         String city = stringChecker(cityCheck);
         Object admRateCheck = university.get("2018.admissions.admission_rate.overall");
-        Double admRate = doubleChecker(admRateCheck);
+        Double admRate = null;
+        if (admRateCheck.toString().equals("0") || admRateCheck.toString().equals("1")) {
+            Integer transition = integerChecker(admRateCheck);
+            admRate = transition.doubleValue();
+        }
+        else {
+            admRate = doubleChecker(admRateCheck);
+        }
         Object outTuitCheck = university.get("2018.cost.tuition.out_of_state");
         Integer outTuit = integerChecker(outTuitCheck);
         Object inTuitCheck = university.get("2018.cost.tuition.in_state");
