@@ -10,6 +10,6 @@ public class ResultsDataAccessObject implements ResultsUserDataAccessInterface {
 
     @Override
     public JSONObject searchQuery(String searchparameters) {
-        return database.basicQuery(searchparameters, "fields=id,school.name,school.state,school.city,admissions.admission_rate.overall,cost.tuition.in_state,cost.tuition.out_of_state,admissions.sat_scores.average.overall,admissions.act_scores.midpoint.cumulative,school.school_url");
+        return database.basicQuery(searchparameters, "fields=id,school.name,school.state,school.city,2018.admissions.admission_rate.overall,2018.cost.tuition.in_state,2018.cost.tuition.out_of_state,2018.admissions.sat_scores.average.overall,2018.admissions.act_scores.midpoint.cumulative,school.school_url");
     }
 }
