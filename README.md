@@ -72,8 +72,9 @@ For advanced users, feel free to compile all the java files yourself, and simply
 - Developed by Henry to provide better data persistence thoughout our program.
 ---
 
-**Original Project Planning:
-Link to our project UML: [Google Drawing](https://docs.google.com/drawings/d/11WJCj5-iBdr0djCl40v0F3NTEFxRZQwrKyZO_EVWw8s/edit?usp=sharing)
+#### **Original Project Planning**:
+
+##### Link to our project UML: [Google Drawing](https://docs.google.com/drawings/d/11WJCj5-iBdr0djCl40v0F3NTEFxRZQwrKyZO_EVWw8s/edit?usp=sharing)
 ---
 ### Authors:
 Henry "TJ" Chen, Andre Lin, Diego Pachas Ramos, Kanish Sharma, Bora Celebi
