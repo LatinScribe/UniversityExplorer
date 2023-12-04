@@ -375,6 +375,10 @@ public class UserProfileView extends JPanel implements ActionListener, PropertyC
             } else {
                 universityRankingRangeValue.setText("Not Set");
             }
+            if (state.getFailedEditMessage() != null) {
+                JOptionPane.showMessageDialog(this, state.getFailedEditMessage());
+                state.setFailedEditMessage(null);
+            }
         }
     }
 }

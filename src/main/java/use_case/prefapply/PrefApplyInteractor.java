@@ -7,6 +7,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.math.BigDecimal;
 
 public class PrefApplyInteractor implements PrefApplyInputBoundary{
     final PrefApplyDataAccessInterface prefapplyDataAccessObject;
@@ -112,7 +113,7 @@ public class PrefApplyInteractor implements PrefApplyInputBoundary{
         if (checker.equals("null")) {
             return null;
         }
-        Float converter = (Float) object;
+        BigDecimal converter = (BigDecimal) object;
         return converter.doubleValue();
     }
     private Integer integerChecker(Object object) {

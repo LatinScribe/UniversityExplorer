@@ -54,6 +54,8 @@ public class UserProfilePresenter implements UserProfileOutputBoundary {
 
     @Override
     public void presentProfileViewError(String message) {
-
+        UserProfileState userProfileState = userProfileViewModel.getState();
+        userProfileState.setFailedEditMessage(message);
+        userProfileViewModel.firePropertyChanged();
     }
 }

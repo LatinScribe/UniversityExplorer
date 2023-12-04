@@ -42,22 +42,19 @@ public class LoggedInViewModel extends ViewModel {
     public LoggedInState getState() {
         return state;
     }
-
-
-    public String getLoggedInUser() {
-        return loggedInUser;
-    }
-
-    private void setLoggedInUser(String loggedInUser) {
-        this.loggedInUser = loggedInUser;
-    }
-    // TODO: Check if this is nesscary, maybe set to private?
-//    public void setCurrentView(String currentView) {
-//        String oldView = this.currentView;
-//        this.currentView = currentView;
-//        System.out.println("setCurrentView called: It's called " + currentView);
-//        support.firePropertyChange("view", oldView, currentView);
-//
-//        // TODO: Potentially an issue with the property name of userProfileView
-//    }
 }
+// Defunct code
+//    public String getLoggedInUser() {
+//        return loggedInUser;
+//    }
+//
+//    private void setLoggedInUser(String loggedInUser) {
+//        this.loggedInUser = loggedInUser;
+//    }
+////    public void setCurrentView(String currentView) {
+////        String oldView = this.currentView;
+////        this.currentView = currentView;
+////        System.out.println("setCurrentView called: It's called " + currentView);
+////        support.firePropertyChange("view", oldView, currentView);
+////    }
+//}
