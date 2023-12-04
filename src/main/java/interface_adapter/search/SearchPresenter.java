@@ -2,6 +2,7 @@
 
 package interface_adapter.search;
 
+import entity.University;
 import interface_adapter.ViewManagerModel;
 import interface_adapter.results.ResultsState;
 import interface_adapter.results.ResultsViewModel;
@@ -10,6 +11,9 @@ import use_case.search.SearchOutputBoundary;
 import use_case.search.SearchOutputData;
 import interface_adapter.sub_menu.SubViewState;
 import view.SubView;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class SearchPresenter implements SearchOutputBoundary {
 
@@ -28,7 +32,11 @@ public class SearchPresenter implements SearchOutputBoundary {
     @Override
     public void prepareSuccessView(SearchOutputData response) {
         ResultsState resultsState = resultsViewModel.getState();
-        resultsState.setUniversities(response.getUniversities());
+        List<String> names = new ArrayList<String>();
+        for (University uni : response.getUniversities()) {
+            names.add(uni.getSchoolName());
+        }
+        resultsState.setUniversityNames(names);
         this.resultsViewModel.setState(resultsState);
         this.resultsViewModel.firePropertyChanged();
 

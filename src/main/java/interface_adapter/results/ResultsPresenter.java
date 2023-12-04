@@ -35,7 +35,8 @@ public class ResultsPresenter implements ResultsOutputBoundary {
     public void prepareUniPopup(ResultsOutputData response) {
         ResultsState resultsState = resultsViewModel.getState();
         University university = response.getUniversity();
-        resultsState.setChosenUniversity(university);
+        String uniString = university.toString();
+        resultsState.setChosenUniversityString(uniString);
         this.resultsViewModel.setState(resultsState);
         this.resultsViewModel.fireUniChanged();
     }
