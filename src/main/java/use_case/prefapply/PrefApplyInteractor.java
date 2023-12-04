@@ -7,7 +7,6 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.IOException;
-import java.math.BigDecimal;
 
 public class PrefApplyInteractor implements PrefApplyInputBoundary{
     final PrefApplyDataAccessInterface prefapplyDataAccessObject;
@@ -43,11 +42,11 @@ public class PrefApplyInteractor implements PrefApplyInputBoundary{
 
 
             if (metadata1.getInt("total") == 0)  {
-               prefapplyPresenter.prepareFailView("Error");
+                prefapplyPresenter.prepareFailView("Error");
             }
             else {
-               PrefApplyOutputData prefapplyOutputData = new PrefApplyOutputData(chosenUni);
-               prefapplyPresenter.prepareSuccessView(prefapplyOutputData);
+                PrefApplyOutputData prefapplyOutputData = new PrefApplyOutputData(chosenUni);
+                prefapplyPresenter.prepareSuccessView(prefapplyOutputData);
             }
 
 
@@ -136,23 +135,18 @@ public class PrefApplyInteractor implements PrefApplyInputBoundary{
 //        Integer inTuit = integerChecker(inTuitCheck);
         Object avgSATCheck = university.get("2013.admissions.sat_scores.average.overall");
         Integer avgSAT = integerChecker(avgSATCheck) ;
-        Object avgACTCheck = university.get("admissions.act_scores.midpoint.cumulative");
-        Integer avgACT = integerChecker(avgACTCheck);
-        Object urlCheck = university.get("school.school_url");
-        String url = stringChecker(urlCheck);
-        University newUniversity = universityFactory.create(id, name, state, city, admRate, inTuit, outTuit, avgSAT, avgACT, url);
 //        Object avgACTCheck = university.get("admissions.act_scores.midpoint.cumulative");
 //        Double avgACT = doubleChecker(avgACTCheck);
 //        Object urlCheck = university.get("school.school_url");
 //        String url = stringChecker(urlCheck);
-        University newUniversity = universityFactory.create(null, name, null, null, null, null, null, Double.valueOf(avgSAT), null, null);
+        University newUniversity = universityFactory.create(null, name, null, null, null, null, null, avgSAT, null, null);
         return newUniversity;}
     private Double doubleChecker(Object object) {
         String checker = object.toString();
         if (checker.equals("null")) {
             return null;
         }
-        BigDecimal converter = (BigDecimal) object;
+        Float converter = (Float) object;
         return converter.doubleValue();
     }
     private Integer integerChecker(Object object) {
