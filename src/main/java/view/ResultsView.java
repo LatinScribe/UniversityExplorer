@@ -32,7 +32,6 @@ public class ResultsView extends JPanel implements ActionListener, PropertyChang
     public final String viewName = "results";
     private final ResultsViewModel resultsViewModel;
     private final ResultsController resultsController;
-    private final List<University> universityList;
     private final ResultsButtonFactory resultsButtonFactory;
     private final JButton back;
     private final JButton confirm;
@@ -41,12 +40,11 @@ public class ResultsView extends JPanel implements ActionListener, PropertyChang
     private JScrollPane jScrollPane;
     private String selectedValue;
 
-    public ResultsView(ResultsController resultsController, ResultsViewModel resultsViewModel, List<University> universityList) {
+    public ResultsView(ResultsController resultsController, ResultsViewModel resultsViewModel) {
         this.resultsController = resultsController;
         this.resultsViewModel = resultsViewModel;
         resultsViewModel.addPropertyChangeListener(this);
         this.resultsButtonFactory = new ResultsButtonFactory();
-        this.universityList = universityList;
 
         JLabel title = new JLabel("Results View");
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -96,21 +94,21 @@ public class ResultsView extends JPanel implements ActionListener, PropertyChang
         String y = evt.getPropertyName();
         if (y.equals("uni selected")) {
             ResultsState state = (ResultsState) evt.getNewValue();
-            JOptionPane.showMessageDialog(this, state.getChosenUniversity().toString());
+            JOptionPane.showMessageDialog(this, state.getChosenUniversityString());
         } else if (y.equals("error")) {
             ResultsState state = (ResultsState) evt.getNewValue();
             JOptionPane.showMessageDialog(this, state.getSearchError());
         } else {
             ResultsState state = (ResultsState) evt.getNewValue();
-            this.updateButtons(state.getUniversities());
+            this.updateButtons(state.getUniversityNames());
         }
 
     }
 
-    private void updateButtons(List<University> uniList) {
+    private void updateButtons(List<String> uniList) {
         listModel = new DefaultListModel<>();
-        for (University uni : uniList) {
-            listModel.addElement(uni.getSchoolName());
+        for (String name : uniList) {
+            listModel.addElement(name);
         }
         myList = new JList<>(listModel);
 
@@ -120,7 +118,7 @@ public class ResultsView extends JPanel implements ActionListener, PropertyChang
                     @Override
                     public void valueChanged(ListSelectionEvent e) {
                         Object[] chosen = myList.getSelectedValues();
-                        String universityName = (String) chosen[0]; // UNsure if this returns the right university yet: will check
+                        String universityName = (String) chosen[0];
                         selectedValue = universityName;
                     }
                 });

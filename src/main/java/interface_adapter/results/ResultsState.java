@@ -10,14 +10,14 @@ import java.util.Collections;
 import java.util.List;
 
 public class ResultsState {
-    private List<University> universities = Collections.emptyList();
-    private University chosenUniversity = null;
+    private List<String> universities = Collections.emptyList();
+    private String chosenUniversityString = null;
     private String searchError = null;
     public String prevView = "";
 
     public ResultsState(ResultsState copy) {
         universities = copy.universities;
-        chosenUniversity = copy.chosenUniversity;
+        chosenUniversityString = copy.chosenUniversityString;
         searchError = copy.searchError;
     }
 
@@ -25,20 +25,20 @@ public class ResultsState {
     public ResultsState() {
     }
 
-    public List<University> getUniversities() {
+    public List<String> getUniversityNames() {
         return universities;
     }
 
-    public University getChosenUniversity() {return chosenUniversity;}
+    public String getChosenUniversityString() {return chosenUniversityString;}
 
     public String getSearchError() {return searchError;}
     public void setPreviousView(String prevView) {this.prevView = prevView;}
 
-    public void setUniversities(List<University> universities) {
+    public void setUniversityNames(List<String> universities) {
         this.universities = universities;
     }
 
-    public void setChosenUniversity(University university) {this.chosenUniversity = university;}
+    public void setChosenUniversityString(String string) {this.chosenUniversityString = string;}
 
     public void setSearchError(String searchError) {this.searchError = searchError;}
 
