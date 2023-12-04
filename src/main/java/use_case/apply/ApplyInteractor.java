@@ -21,6 +21,7 @@ public class ApplyInteractor implements ApplyInputBoundary {
 
     @Override
     public void execute(ApplyInputData applyInputData) {
+        // it uses the sat and act data to choose a university by using the api
         String actScore = applyInputData.getActScore();
         actChecker(actScore);
         String satScore = applyInputData.getSatScore();
@@ -87,6 +88,7 @@ public class ApplyInteractor implements ApplyInputBoundary {
     }
 
     private University executeHelper(JSONArray results) {
+        //this for loop finds the uni with the biggest sat score
         int largestindex = 0;
         Integer largestSat = 0;
         for (int i = 0; i < results.length(); i++) {

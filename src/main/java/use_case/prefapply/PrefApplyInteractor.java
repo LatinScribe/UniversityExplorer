@@ -108,14 +108,7 @@ public class PrefApplyInteractor implements PrefApplyInputBoundary{
 //        String url = stringChecker(urlCheck);
         University newUniversity = universityFactory.create(null, name, null, null, null, null, null, avgSAT, null, null);
         return newUniversity;}
-    private Double doubleChecker(Object object) {
-        String checker = object.toString();
-        if (checker.equals("null")) {
-            return null;
-        }
-        BigDecimal converter = (BigDecimal) object;
-        return converter.doubleValue();
-    }
+
     private Integer integerChecker(Object object) {
         String checker = object.toString();
         if (checker.equals("null")) {
