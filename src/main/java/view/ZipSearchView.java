@@ -8,6 +8,7 @@ import data_access.ResultsDataAccessObject;
 import data_access.ZipSearchDataAccessObject;
 import interface_adapter.ViewManagerModel;
 import interface_adapter.apply.ApplyViewModel;
+import interface_adapter.main_menu.MainMenuViewModel;
 import interface_adapter.results.ResultsViewModel;
 import interface_adapter.search.SearchViewModel;
 import interface_adapter.sub_menu.SubViewModel;
@@ -168,12 +169,13 @@ public class ZipSearchView extends JPanel implements ActionListener, PropertyCha
         ZipSearchUserDataAccessInterface zipSearchDataAccessObject = new ZipSearchDataAccessObject();
         SubViewModel subViewModel = new SubViewModel();
         ResultsViewModel resultsViewModel = new ResultsViewModel();
+        MainMenuViewModel mainMenuViewModel = new MainMenuViewModel();
         ZipSearchView zipSearchView = ZipSearchUseCaseFactory.create(viewManagerModel, zipSearchViewModel, subViewModel, resultsViewModel, zipSearchDataAccessObject);
 
         SearchViewModel searchViewModel = new SearchViewModel();
         ApplyViewModel applyViewModel = new ApplyViewModel();
 
-        SubView subView = SubViewUseCaseFactory.create(viewManagerModel, searchViewModel, applyViewModel, zipSearchViewModel, subViewModel);
+        SubView subView = SubViewUseCaseFactory.create(viewManagerModel, searchViewModel, applyViewModel, zipSearchViewModel, mainMenuViewModel, subViewModel);
 
 
         ResultsUserDataAccessInterface resultsUserDataAccessInterface = new ResultsDataAccessObject();

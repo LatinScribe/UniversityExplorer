@@ -26,6 +26,7 @@ public class UserProfileView extends JPanel implements ActionListener, PropertyC
     final JButton newProfile;
     final JButton editProfile;
     final JButton save;
+    final JButton back;
 
     JLabel finAidRequirementValue;
     JLabel avgSalaryValue;
@@ -74,7 +75,8 @@ public class UserProfileView extends JPanel implements ActionListener, PropertyC
         buttons.add(editProfile);
         newProfile = new JButton("Create New Profile");
         buttons.add(newProfile);
-
+        back = new JButton("Back to Main Menu"); // LoggedInView
+        buttons.add(back);
 
         this.cards = new JPanel(new CardLayout());
         JPanel viewPanel = new JPanel(); // Panel for non-editable view
@@ -165,8 +167,6 @@ public class UserProfileView extends JPanel implements ActionListener, PropertyC
                     userProfileController.updateUserProfile(
                             finAidRequirement, avgSalary, locationPreference, preferredProgram, universityRankingRange);
 
-                    // TODO - determine whether to use Array or Integer[]
-
                     setEditMode(false); // Switch back to view mode after saving
                 } catch (NumberFormatException ex) {
                     // Handle invalid input format
@@ -180,6 +180,12 @@ public class UserProfileView extends JPanel implements ActionListener, PropertyC
             public void actionPerformed(ActionEvent e) {
                 // Switch to the new profile creation view
                 showNewProfileForm();
+            }
+        });
+
+        back.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
+                userProfileController.switchToMainMenu(); // Replace with your logged-in view name
             }
         });
 
@@ -370,10 +376,6 @@ public class UserProfileView extends JPanel implements ActionListener, PropertyC
             if (universityRankingRange != null && universityRankingRange.length > 0) {
                 universityRankingRangeValue.setText(Arrays.stream(universityRankingRange)
                         .mapToObj(String::valueOf) // Convert each int to String
-// =======
-//                         //
-//                         .mapToObj(Integer::toString)
-// >>>>>>> main
                         .collect(Collectors.joining(", ")));
             } else {
                 universityRankingRangeValue.setText("Not Set");
@@ -383,22 +385,5 @@ public class UserProfileView extends JPanel implements ActionListener, PropertyC
 }
 
 
-/*    public static void main(String[] args) {
-        JFrame application = new JFrame("User Profile Test");
-        application.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
-        CardLayout cardLayout = new CardLayout();
-        JPanel views = new JPanel(cardLayout);
-        application.add(views);
-
-        UserProfileViewModel userProfileViewModel1 = new UserProfileViewModel("User Profile");
-        UserProfileController userProfileController1 = new UserProfileController();
-        UserProfileView userProfileView = new UserProfileView(userProfileViewModel1, userProfileController1);
-
-        views.add(userProfileView, userProfileView.viewName);
-
-        application.pack();
-        application.setVisible(true);
-
-    }*/
 

@@ -13,5 +13,7 @@ public interface UserProfileInputBoundary {
 
     void fetchUserProfileData();
 
+    void prepareMainMenuView();
+
     void saveNewUserProfile(int finAidRequirement, int avgSalary, String locationPreference, String preferredProgram, int[] universityRankingRange) throws IOException;
 }
