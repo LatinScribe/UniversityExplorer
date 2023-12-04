@@ -27,7 +27,7 @@ public class ResultsUseCaseFactory {
 
         try {
             ResultsController resultsController = createResultsUseCase(viewManagerModel, resultsViewModel, searchViewModel, zipSearchViewModel, resultsUserDataAccessInterface);
-            return new ResultsView(resultsController, resultsViewModel, Collections.emptyList());
+            return new ResultsView(resultsController, resultsViewModel);
         } catch (IOException e) {
             JOptionPane.showMessageDialog(null, "API unable to be accessed.");
             return null;

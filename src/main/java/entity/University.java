@@ -16,9 +16,9 @@ public interface University {
 
     Integer getAverageOutOfStateTuition();
 
-    Double getAverageSATScore();
+    Integer getAverageSATScore();
 
-    Double getAverageACTScore();
+    Integer getAverageACTScore();
 
     String getUrl();
 

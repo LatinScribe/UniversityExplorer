@@ -42,11 +42,11 @@ public class PrefApplyInteractor implements PrefApplyInputBoundary{
 
 
             if (metadata1.getInt("total") == 0)  {
-               prefapplyPresenter.prepareFailView("Error");
+                prefapplyPresenter.prepareFailView("Error");
             }
             else {
-               PrefApplyOutputData prefapplyOutputData = new PrefApplyOutputData(chosenUni);
-               prefapplyPresenter.prepareSuccessView(prefapplyOutputData);
+                PrefApplyOutputData prefapplyOutputData = new PrefApplyOutputData(chosenUni);
+                prefapplyPresenter.prepareSuccessView(prefapplyOutputData);
             }
 
 
@@ -139,7 +139,7 @@ public class PrefApplyInteractor implements PrefApplyInputBoundary{
 //        Double avgACT = doubleChecker(avgACTCheck);
 //        Object urlCheck = university.get("school.school_url");
 //        String url = stringChecker(urlCheck);
-        University newUniversity = universityFactory.create(null, name, null, null, null, null, null, Double.valueOf(avgSAT), null, null);
+        University newUniversity = universityFactory.create(null, name, null, null, null, null, null, avgSAT, null, null);
         return newUniversity;}
     private Double doubleChecker(Object object) {
         String checker = object.toString();
