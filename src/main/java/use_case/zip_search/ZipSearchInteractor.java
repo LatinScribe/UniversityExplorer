@@ -8,6 +8,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import use_case.search.*;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -71,16 +72,23 @@ public class ZipSearchInteractor implements ZipSearchInputBoundary {
             String state = stringChecker(stateCheck);
             Object cityCheck = university.get("school.city");
             String city = stringChecker(cityCheck);
-            Object admRateCheck = university.get("admissions.admission_rate.overall");
-            Double admRate = doubleChecker(admRateCheck);
-            Object outTuitCheck = university.get("cost.tuition.out_of_state");
+            Object admRateCheck = university.get("2018.admissions.admission_rate.overall");
+            Double admRate = null;
+            if (admRateCheck.toString().equals("0") || admRateCheck.toString().equals("1")) {
+                Integer transition = integerChecker(admRateCheck);
+                admRate = transition.doubleValue();
+            }
+            else {
+                admRate = doubleChecker(admRateCheck);
+            }
+            Object outTuitCheck = university.get("2018.cost.tuition.out_of_state");
             Integer outTuit = integerChecker(outTuitCheck);
-            Object inTuitCheck = university.get("cost.tuition.in_state");
+            Object inTuitCheck = university.get("2018.cost.tuition.in_state");
             Integer inTuit = integerChecker(inTuitCheck);
-            Object avgSATCheck = university.get("admissions.sat_scores.average.overall");
-            Double avgSAT = doubleChecker(avgSATCheck) ;
-            Object avgACTCheck = university.get("admissions.act_scores.midpoint.cumulative");
-            Double avgACT = doubleChecker(avgACTCheck);
+            Object avgSATCheck = university.get("2018.admissions.sat_scores.average.overall");
+            Integer avgSAT = integerChecker(avgSATCheck) ;
+            Object avgACTCheck = university.get("2018.admissions.act_scores.midpoint.cumulative");
+            Integer avgACT = integerChecker(avgACTCheck);
             Object urlCheck = university.get("school.school_url");
             String url = stringChecker(urlCheck);
             University newUniversity = universityFactory.create(id, name, state, city, admRate, inTuit, outTuit, avgSAT, avgACT, url);
@@ -96,7 +104,7 @@ public class ZipSearchInteractor implements ZipSearchInputBoundary {
         if (checker.equals("null")) {
             return null;
         }
-        Float converter = (Float) object;
+        BigDecimal converter = (BigDecimal) object;
         return converter.doubleValue();
     }
 

@@ -1,5 +1,3 @@
-// Author: Common
-
 package app;
 
 
@@ -28,6 +26,7 @@ import use_case.search.SearchUserDataAccessInterface;
 import use_case.sub_menu.SubViewInputBoundary;
 import use_case.sub_menu.SubViewInteractor;
 import use_case.user_profile.UserProfileInteractor;
+import use_case.zip_search.ZipSearchUserDataAccessInterface;
 import view.*;
 
 import javax.swing.*;
@@ -35,6 +34,9 @@ import java.awt.*;
 
 public class Main {
     /**
+     * Run this file to run our program!
+     * No parameters needed.
+     * <p>
      * Order views are added in:
      * 1) MainMenuView
      * 2) LoginView
@@ -44,11 +46,14 @@ public class Main {
      * 6) SubView
      * 7) ApplyView
      * 8) SearchView
-     * 9) ResultsVIew
-     * 10) PrefApplyView
+     * 9) ZipSearchView
+     * 10) ResultsView
+     * 11) PrefApplyView
+     *
+     * @author Common
      */
     public static void main(String[] args) {
-        JFrame application = new JFrame("Main Menu Test");
+        JFrame application = new JFrame("UniversityExplorer");
         application.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
         CardLayout cardLayout = new CardLayout();
@@ -104,7 +109,7 @@ public class Main {
         UserProfileView userProfileView = UserProfileUseCaseFactory.create(viewManagerModel, userProfileViewModel, profileDataAccessObject, loggedInViewModel);
 
         // add loggedin view
-        LoggedInView loggedInView = LoggedInUseCaseFactory.create(viewManagerModel, loginViewModel, loggedInViewModel, userProfileViewModel, prefapplyViewModel, tokenDataAccessObject);
+        LoggedInView loggedInView = LoggedInUseCaseFactory.create(viewManagerModel, loginViewModel, loggedInViewModel, userProfileViewModel, prefapplyViewModel, searchViewModel, tokenDataAccessObject);
         views.add(loggedInView, loggedInView.viewName);
         assert userProfileView != null;
         views.add(userProfileView, userProfileView.viewName);
@@ -129,9 +134,15 @@ public class Main {
 
         // add search view
         SearchUserDataAccessInterface searchUserDataAccessInterface = new SearchDataAccessObject();
-        SearchView searchView = SearchUseCaseFactory.create(viewManagerModel, searchViewModel, subViewModel, resultsViewModel, searchUserDataAccessInterface);
+        SearchView searchView = SearchUseCaseFactory.create(viewManagerModel, searchViewModel, subViewModel, resultsViewModel, loggedInViewModel, searchUserDataAccessInterface);
 
         views.add(searchView, searchView.viewName);
+
+        // add zip search view
+        ZipSearchUserDataAccessInterface zipSearchDataAccessObject = new ZipSearchDataAccessObject();
+        ZipSearchView zipSearchView = ZipSearchUseCaseFactory.create(viewManagerModel, zipSearchViewModel, subViewModel, resultsViewModel, zipSearchDataAccessObject);
+
+        views.add(zipSearchView, zipSearchView.viewName);
 
         // add results view
         ResultsUserDataAccessInterface resultsUserDataAccessInterface = new ResultsDataAccessObject();
@@ -141,7 +152,7 @@ public class Main {
 
         // add prefapply view
         PrefApplyDataAccessInterface prefapplyUserDataAccessObject = new PrefApplyDataAccessObject();
-        PrefApplyview prefapplyView = PrefApplyUseCaseFactory.create(viewManagerModel, prefapplyViewModel, prefapplyUserDataAccessObject, shortUniversityFactory, subViewModel);
+        PrefApplyview prefapplyView = PrefApplyUseCaseFactory.create(viewManagerModel, prefapplyViewModel, prefapplyUserDataAccessObject, shortUniversityFactory, loggedInViewModel,profileDataAccessObject);
         //ApplyController applyController = new ApplyController( applyUseCaseInteractor);
         //Applyview applyView = new Applyview(applyController, applyViewModel);
 

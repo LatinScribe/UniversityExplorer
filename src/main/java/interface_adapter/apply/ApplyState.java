@@ -57,7 +57,7 @@ public class ApplyState {
     }
 
     public void setActError(String usernameError) {
-        this.actError = actError;
+        this.actError = usernameError;
     }
 
     public void setSatError(String satError) {

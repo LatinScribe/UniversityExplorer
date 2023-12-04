@@ -9,8 +9,7 @@ import org.junit.Test;
 
 import java.util.List;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 public class SearchInteractorTest {
 
@@ -40,6 +39,43 @@ public class SearchInteractorTest {
         assertFalse(searchPresenterStub.resultsNotFoundViewCalled);
     }
     @Test
+    public void testSearchForNewYork_ShouldReturnListOfUniversities() {
+        // Arrange
+        SearchInputData searchInputData = new SearchInputData("New York");
+
+        // Create a mock JSON response with search results for New York
+//        JSONObject mockSearchResults = createMockSearchResultsWithLength(43);
+//        searchDataAccessStub.setSearchResults(mockSearchResults);
+
+        // Mock the creation of a University object
+//        University mockUniversity = new CommonUniversity(1, "Test University", "NY", "New York City", 0.80, 30000, 45000, 1300.0, 28.0, "http://test.edu");
+//        universityFactoryStub.setUniversity(mockUniversity);
+
+        // Act
+        searchInteractor.executeSearch(searchInputData);
+
+
+        // Verify that the presenter was called with a university list of length 43
+        assertEquals(20, searchPresenterStub.lastSuccessViewData.getUniversities().size());
+    }
+
+    // Helper method to create a mock JSON search result with a specified length
+    private JSONObject createMockSearchResultsWithLength(int length) {
+        JSONObject result = new JSONObject();
+        result.put("metadata", new JSONObject().put("total", length));
+
+        JSONArray resultsArray = new JSONArray();
+        for (int i = 0; i < length; i++) {
+            JSONObject university = new JSONObject();
+            university.put("school.name", "University " + (i + 1));
+            resultsArray.put(university);
+        }
+
+        result.put("results", resultsArray);
+
+        return result;
+    }
+    @Test
     public void executeSearch_WithNoResults_ShouldCallResultsNotFoundView() {
         // Arrange
         SearchInputData searchInputData = new SearchInputData("Nonexistent");
@@ -65,6 +101,7 @@ public class SearchInteractorTest {
 //        assertFalse(searchPresenterStub.successViewCalled);
 //        assertTrue(searchPresenterStub.resultsNotFoundViewCalled);
 //    }
+
     @Test
     public void executeBack_ShouldCallBackView() {
         // Act
@@ -92,7 +129,7 @@ public class SearchInteractorTest {
 
         @Override
         public CommonUniversity create(Integer id, String name, String state, String city, Double admRate,
-                                       Integer inTuit, Integer outTuit, Double avgSAT, Double avgACT, String url) {
+                                       Integer inTuit, Integer outTuit, Integer avgSAT, Integer avgACT, String url) {
             return (CommonUniversity) university;
         }
     }
@@ -116,7 +153,8 @@ public class SearchInteractorTest {
         public JSONObject searchQuery(String searchParameters) {
             System.out.println("searchQuery called with: " + searchParameters);
             SearchDataAccessObject searchDataAccessObject = new SearchDataAccessObject();
-            JSONObject query = searchDataAccessObject.searchQuery("school.name=" + searchParameters);
+            JSONObject query = searchDataAccessObject.searchQuery( searchParameters);
+            this.searchResults = query;
             return searchResults;
         }
 //        public String saveProfile(UserProfile userProfile) {
@@ -141,10 +179,12 @@ public class SearchInteractorTest {
         private boolean successViewCalled;
         private boolean resultsNotFoundViewCalled;
         private boolean backViewCalled;
+        private SearchOutputData lastSuccessViewData;
 
         @Override
         public void prepareSuccessView(SearchOutputData universities) {
             successViewCalled = true;
+            lastSuccessViewData = universities;
         }
 
         @Override

@@ -8,6 +8,7 @@ import data_access.ResultsDataAccessObject;
 import data_access.SearchDataAccessObject;
 import interface_adapter.ViewManagerModel;
 import interface_adapter.apply.ApplyViewModel;
+import interface_adapter.logged_in.LoggedInViewModel;
 import interface_adapter.main_menu.MainMenuViewModel;
 import interface_adapter.results.ResultsViewModel;
 import interface_adapter.search.SearchController;
@@ -138,41 +139,4 @@ public class SearchView extends JPanel implements ActionListener, PropertyChange
         }
     }
 
-    public static void main(String[] args) {
-        JFrame application = new JFrame("Search Test");
-        application.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-
-        CardLayout cardLayout = new CardLayout();
-        JPanel views = new JPanel(cardLayout);
-        application.add(views);
-
-        ViewManagerModel viewManagerModel = new ViewManagerModel();
-        new ViewManager(views, cardLayout, viewManagerModel);
-        SearchViewModel searchViewModel = new SearchViewModel();
-        SearchUserDataAccessInterface searchDataAccessObject = new SearchDataAccessObject();
-        SubViewModel subViewModel = new SubViewModel();
-        ResultsViewModel resultsViewModel = new ResultsViewModel();
-        SearchView searchView = SearchUseCaseFactory.create(viewManagerModel, searchViewModel, subViewModel, resultsViewModel, searchDataAccessObject);
-
-        ApplyViewModel applyViewModel = new ApplyViewModel();
-        ZipSearchViewModel zipSearchViewModel = new ZipSearchViewModel();
-        MainMenuViewModel mainMenuViewModel = new MainMenuViewModel();
-        SubViewPresenter subViewPresenter = new SubViewPresenter(searchViewModel, applyViewModel, zipSearchViewModel, mainMenuViewModel, viewManagerModel);
-        SubViewInputBoundary subViewInteractor = new SubViewInteractor(subViewPresenter);
-        SubViewController subViewController = new SubViewController(subViewInteractor);
-        SubView subView = new SubView(subViewModel, subViewController);
-
-        ResultsUserDataAccessInterface resultsUserDataAccessInterface = new ResultsDataAccessObject();
-        ResultsView resultsView = ResultsUseCaseFactory.create(viewManagerModel, resultsViewModel, searchViewModel, zipSearchViewModel, resultsUserDataAccessInterface);
-
-        views.add(searchView, searchView.viewName);
-        views.add(subView, subView.viewName);
-        views.add(resultsView, resultsView.viewName);
-
-        viewManagerModel.setActiveView(searchView.viewName);
-        viewManagerModel.firePropertyChanged();
-
-        application.pack();
-        application.setVisible(true);
-    }
 }

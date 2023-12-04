@@ -6,4 +6,6 @@ public interface LoggedInOutputBoundary {
     void prepareLoginView();
 
     void prepareUserPrefApplyView();
+
+    void prepareSearchView();
 }

@@ -1,8 +1,6 @@
-// Author: Henry
 package view;
 
 import interface_adapter.main_menu.MainMenuController;
-import interface_adapter.main_menu.MainMenuState;
 import interface_adapter.main_menu.MainMenuViewModel;
 
 import javax.swing.*;
@@ -12,6 +10,12 @@ import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
+/**
+ * View shown to the user as the main menu of the program
+ * This should be the first view the user sees when the program is run
+ *
+ * @author Henry
+ */
 public class MainMenuView extends JPanel implements ActionListener, PropertyChangeListener {
 
     public final String viewName = "Main Menu";
@@ -19,7 +23,7 @@ public class MainMenuView extends JPanel implements ActionListener, PropertyChan
     final JButton signUp;
     final JButton continueAsGuest;
     final JButton signIn;
-    final JButton settings;
+    final JButton quit;
     private final MainMenuController mainMenuController;
 
     public MainMenuView(MainMenuViewModel mainMenuViewModel, MainMenuController mainMenuController) {
@@ -38,8 +42,8 @@ public class MainMenuView extends JPanel implements ActionListener, PropertyChan
         buttons.add(continueAsGuest);
         signIn = new JButton(MainMenuViewModel.SIGNIN_BUTTON_LABEL);
         buttons.add(signIn);
-        settings = new JButton(MainMenuViewModel.SETTINGS_BUTTON_LABEL);
-        buttons.add(settings);
+        quit = new JButton(MainMenuViewModel.QUIT_BUTTON_LABEL);
+        buttons.add(quit);
 
         // add action listeners
         signUp.addActionListener(       // This creates an anonymous subclass of ActionListener and instantiates it.
@@ -81,7 +85,14 @@ public class MainMenuView extends JPanel implements ActionListener, PropertyChan
 //                }
 //        );
         // Other way of doing it, which is using the default action performed in the class
-        settings.addActionListener(this);
+        quit.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
+                if (evt.getSource().equals(quit)) {
+                    System.out.println("Closing program");
+                    System.exit(0);
+                }
+            }
+        });
 
 
         this.add(title);
