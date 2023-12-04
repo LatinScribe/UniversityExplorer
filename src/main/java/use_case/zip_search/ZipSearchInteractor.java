@@ -8,6 +8,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import use_case.search.*;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -96,7 +97,7 @@ public class ZipSearchInteractor implements ZipSearchInputBoundary {
         if (checker.equals("null")) {
             return null;
         }
-        Float converter = (Float) object;
+        BigDecimal converter = (BigDecimal) object;
         return converter.doubleValue();
     }
 

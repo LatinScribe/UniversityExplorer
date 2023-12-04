@@ -4,8 +4,13 @@ import data_access.ZipSearchDataAccessObject;
 import entity.CommonUniversity;
 import entity.University;
 import entity.UniversityFactory;
+import org.json.JSONArray;
 import org.json.JSONObject;
 import org.junit.Before;
+import org.junit.Test;
+
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 public class ZipSearchInteractorTest {
 
@@ -19,6 +24,28 @@ public class ZipSearchInteractorTest {
         zipSearchPresenterStub = new ZipSearchOutputBoundaryStub();
         universityFactoryStub = new UniversityFactoryStub();
         zipSearchInteractor = new ZipSearchInteractor(zipSearchDataAccessStub, zipSearchPresenterStub, universityFactoryStub);
+    }
+
+    @Test
+    public void executeSearch_WithResults_ShouldCallSuccessView() {
+        // Arrange
+        ZipSearchInputData zipSearchInputData = new ZipSearchInputData("02138", "1mi");
+        zipSearchDataAccessStub.setSearchResults(createMockSearchResults(1));
+
+
+        // Act
+        zipSearchInteractor.executeSearch(zipSearchInputData);
+
+        // Assert
+        assertTrue(zipSearchPresenterStub.successViewCalled);
+        assertFalse(zipSearchPresenterStub.resultsNotFoundViewCalled);
+    }
+
+    private JSONObject createMockSearchResults(int totalResults) {
+        JSONObject result = new JSONObject();
+        result.put("metadata", new JSONObject().put("total", totalResults));
+        result.put("results", new JSONArray());
+        return result;
     }
 
     private static class ZipSearchUserDataAccessStub implements ZipSearchUserDataAccessInterface {
@@ -69,8 +96,10 @@ public class ZipSearchInteractorTest {
         }
 
         @Override
-        public CommonUniversity create(Integer id, String name, String state, String city, Double admRate,
-                                       Integer inTuit, Integer outTuit, Double avgSAT, Double avgACT, String url) {
+        public CommonUniversity create(Integer schoolID, String schoolName, String state, String city,
+                                       Double admissionRate, Integer averageInStateTuition,
+                                       Integer averageOutOfStateTuition, Integer averageSATScore,
+                                       Integer averageACTScore, String url) {
             return (CommonUniversity) university;
         }
     }
