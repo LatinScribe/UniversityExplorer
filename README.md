@@ -12,7 +12,7 @@ Finding the right post-secondary institution for you can be challenging, there a
 
 We hope to help our users narrow down their decisions, while being able to explore a wide variety of different institutions. To accomplish this, our application allows users to search a vast catalogue post-secondary institutions (currently only in The United States) based on parameters such as instituional name, or distance from a given zip-code. Users can also recieve recommendations on potential universities to consider based on their academic standing (SAT/ACT score). For more personalised recommendations, users can create their own account and profile, which will take in to account a variety of factors such as desired post-graduation salaries. 
 
-The project was devloped following the Clean Architecture framework/engine. SOLID principles were always kept in mind, and design patterns such as Dependency Inversion, Factories, and Strategy were used throughout the project. All this means that extending on our project in the future is easy and naturally accomidated by the modularity of the program (maybe you should give it a try). 
+The project was developed following the Clean Architecture framework/engine. SOLID principles were always kept in mind, and design patterns such as Dependency Inversion, Factories, and Strategy were used throughout the project. All this means that extending our project in the future is easy and naturally accommodated by the modularity of the program (maybe you should give it a try). 
 
 **Program Usage Instructions:**
 1) Download the source code of our project (be sure to extract it)!
