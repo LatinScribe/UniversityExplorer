@@ -43,8 +43,8 @@ public class SearchPresenterTest {
         SearchOutputData searchOutputData = new SearchOutputData(universities);
 
         //Expected
-        List<University> expectedlist = new ArrayList<>();
-        expectedlist.add(university);
+        List<String> expectedlist = new ArrayList<>();
+        expectedlist.add("tester");
 
         // Act
         searchPresenter.prepareSuccessView(searchOutputData);
