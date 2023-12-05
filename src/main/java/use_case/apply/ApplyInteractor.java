@@ -103,6 +103,9 @@ public class ApplyInteractor implements ApplyInputBoundary {
         applyPresenter.prepareSuccessView(applyOutputData);
     }
 
+    /**
+     * Executes the back operation, preparing the presenter for a previous Sub view.
+     */
     @Override
     public void executeBack(){
         applyPresenter.prepareBackView();
