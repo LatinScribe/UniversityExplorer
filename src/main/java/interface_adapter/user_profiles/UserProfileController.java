@@ -49,6 +49,10 @@ public class UserProfileController {
         this.userProfileInputBoundary.showPersonalProfileView(userProfileOutputData);
     }
 
+    public void switchToMainMenu() {
+        this.userProfileInputBoundary.prepareMainMenuView();
+    }
+
     public void createNewUserProfile(int finAidRequirement, int avgSalary, String locationPreference, String preferredProgram, int[] universityRankingRange) {
         try {
             // Validate financial aid requirement

@@ -45,6 +45,10 @@ public class UserProfileInteractor implements UserProfileInputBoundary {
 
     }
 
+    public void prepareMainMenuView() {
+        this.userProfileOutputBoundary.prepareMainMenuView();
+    }
+
     @Override
     public void fetchUserProfileData() {
         try {
