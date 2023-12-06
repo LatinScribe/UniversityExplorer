@@ -27,6 +27,16 @@ public class SearchUseCaseFactory {
     private SearchUseCaseFactory() {
     }
 
+    /**
+     * Instantiates the SearchView, as well as calling a function to instantiate the SearchController.
+     * @param viewManagerModel
+     * @param searchViewModel
+     * @param subViewModel
+     * @param resultsViewModel
+     * @param loggedInViewModel
+     * @param searchUserDataAccessObject
+     * @return A SearchView object ready for usage in main.
+     */
     public static SearchView create(
             ViewManagerModel viewManagerModel, SearchViewModel searchViewModel, SubViewModel subViewModel, ResultsViewModel resultsViewModel, LoggedInViewModel loggedInViewModel, SearchUserDataAccessInterface searchUserDataAccessObject) {
 
@@ -39,6 +49,17 @@ public class SearchUseCaseFactory {
         }
     }
 
+    /**
+     * Instantiates a UniversityFactory, SearchPresenter, SearchInteractor and SearchController.
+     * @param viewManagerModel
+     * @param signupViewModel
+     * @param subViewModel
+     * @param resultsViewModel
+     * @param loggedInViewModel
+     * @param userDataAccessObject
+     * @return SearchController to be used for the SearchView.
+     * @throws IOException
+     */
     private static SearchController createSearchUseCase(ViewManagerModel viewManagerModel, SearchViewModel signupViewModel, SubViewModel subViewModel, ResultsViewModel resultsViewModel, LoggedInViewModel loggedInViewModel, SearchUserDataAccessInterface userDataAccessObject) throws IOException {
 
         // Notice how we pass this method's parameters to the Presenter.
