@@ -8,17 +8,38 @@ import org.json.JSONObject;
 import java.math.BigDecimal;
 import java.util.List;
 
+/**
+ * The ApplyInteractor class is responsible for recommending universities based on SAT and ACT scores.
+ * It interacts with the data access layer, performs queries on universities, and presents the recommended results through an output boundary.
+ * This class implements the ApplyInputBoundary interface to handle recommendation-related interactions.
+ *
+ * @author [Bora]
+ * @version 1.0
+ */
 public class ApplyInteractor implements ApplyInputBoundary {
     final ApplyDataAccessInterface applyDataAccessObject;
     final ApplyOutputBoundary applyPresenter;
     final UniversityFactory universityFactory;
 
+    /**
+     * Constructs an ApplyInteractor with the provided dependencies.
+     *
+     * @param applyDataAccessObject The data access object for querying university information.
+     * @param applyOutputBoundary  The presenter for displaying recommended university results.
+     * @param universityFactory    The factory for creating University objects.
+     */
     public ApplyInteractor(ApplyDataAccessInterface applyDataAccessObject, ApplyOutputBoundary applyOutputBoundary, UniversityFactory universityFactory) {
         this.applyDataAccessObject = applyDataAccessObject;
         this.applyPresenter = applyOutputBoundary;
         this.universityFactory = universityFactory;
     }
 
+    /**
+     * Executes the recommendation process based on the provided ApplyInputData.
+     * It queries universities using SAT and ACT scores, processes the recommended results, and presents the outcome.
+     *
+     * @param applyInputData The input data containing SAT and ACT scores for university recommendation.
+     */
     @Override
     public void execute(ApplyInputData applyInputData) {
         // it uses the sat and act data to choose a university by using the api
@@ -82,11 +103,15 @@ public class ApplyInteractor implements ApplyInputBoundary {
         applyPresenter.prepareSuccessView(applyOutputData);
     }
 
+    /**
+     * Executes the back operation, preparing the presenter for a previous Sub view.
+     */
     @Override
     public void executeBack(){
         applyPresenter.prepareBackView();
     }
 
+    //this for helper finds the uni with the biggest sat score in provided JSON Array and package that university into university object.
     private University executeHelper(JSONArray results) {
         //this for loop finds the uni with the biggest sat score
         int largestindex = 0;
@@ -132,6 +157,7 @@ public class ApplyInteractor implements ApplyInputBoundary {
         University newUniversity = universityFactory.create(id, name, state, city, admRate, inTuit, outTuit, avgSAT, avgACT, url);
         return newUniversity;}
 
+    //Other helper methods
     private void satChecker(String satScore) {
         if (satScore == "") {
             throw new IllegalArgumentException("sat score cant be empty");

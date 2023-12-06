@@ -9,6 +9,14 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.math.BigDecimal;
 
+/**
+ * The PrefApplyInteractor class is responsible for recommending universities based on SAT scores, considering user preferences.
+ * It interacts with the data access layer, performs queries on universities, and presents the recommended results through an output boundary.
+ * This class implements the PrefApplyInputBoundary interface to handle preference-based recommendation interactions.
+ *
+ * @author [Your Name]
+ * @version 1.0
+ */
 public class PrefApplyInteractor implements PrefApplyInputBoundary{
     final PrefApplyDataAccessInterface prefapplyDataAccessObject;
     final PrefApplyOutputBoundary prefapplyPresenter;
@@ -23,6 +31,12 @@ public class PrefApplyInteractor implements PrefApplyInputBoundary{
 
     }
 
+    /**
+     * Executes the recommendation process based on the provided PrefApplyInputData.
+     * It queries universities using user preference, processes the recommended results, and presents the outcome.
+     *
+     * @param prefapplyInputData The input data containing SAT scores for university recommendation.
+     */
     @Override
     public void execute(PrefApplyInputData prefapplyInputData) {
         String actScore = prefapplyInputData.getActScore();
@@ -51,27 +65,21 @@ public class PrefApplyInteractor implements PrefApplyInputBoundary{
             }
 
 
-
         } catch (IOException e){
             prefapplyPresenter.prepareFailView("User doesnt have avg salary or we cant access it");
         }
 
-
-
-
-
-
-
-
-
-
     }
 
+    /**
+     * Executes the back operation, preparing the presenter for a previous Sub view.
+     */
     @Override
     public void executeBack(){
         prefapplyPresenter.prepareBackView();
     }
 
+    //helper method return the university with the smallest difference between its average sat score and user sat score
     private University executeHelper(JSONArray results,int satscore) {
         int smallestdiffernceindex = 0;
         Integer smallestdifference = 400;

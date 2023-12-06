@@ -167,6 +167,11 @@ public class UserProfileInteractorTest {
             // Implementation for tests, if needed
         }
 
+        @Override
+        public void prepareMainMenuView() {
+            // Implementation for test if needed
+        }
+
         // Custom method to check if presentUserProfile was called with the expected data
         public boolean wasPresentUserProfileCalledWith(
                 int finAidRequirement,

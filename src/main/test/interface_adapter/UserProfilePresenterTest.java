@@ -1,6 +1,8 @@
 package interface_adapter;
 
 import interface_adapter.ViewManagerModel;
+import interface_adapter.logged_in.LoggedInViewModel;
+import interface_adapter.main_menu.MainMenuViewModel;
 import interface_adapter.user_profiles.UserProfilePresenter;
 import interface_adapter.user_profiles.UserProfileState;
 import interface_adapter.user_profiles.UserProfileViewModel;
@@ -14,14 +16,16 @@ public class UserProfilePresenterTest {
 
     private UserProfilePresenter presenter;
     private ViewManagerModel viewManagerModel;
+    private LoggedInViewModel loggedInViewModel;
     private UserProfileViewModel userProfileViewModel;
 
     @Before
     public void setUp() {
         // Initialize the viewManagerModel and userProfileViewModel with actual implementations
         viewManagerModel = new ViewManagerModel();
+
         userProfileViewModel = new UserProfileViewModel("userProfileView");
-        presenter = new UserProfilePresenter(viewManagerModel, userProfileViewModel);
+        presenter = new UserProfilePresenter(viewManagerModel, userProfileViewModel, loggedInViewModel);
     }
 
     @Test

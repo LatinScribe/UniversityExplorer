@@ -94,6 +94,11 @@ public class UserProfileInteractorTest {
         public void presentProfileViewError(String message) {
             presentProfileViewError = true;
         }
+
+        @Override
+        public void prepareMainMenuView() {
+            // implement if needed
+        }
     }
 
 }

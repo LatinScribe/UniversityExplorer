@@ -154,4 +154,41 @@ public class ZipSearchView extends JPanel implements ActionListener, PropertyCha
             state.setZipSearchError(null);
         }
     }
+
+//     public static void main(String[] args) {
+//         JFrame application = new JFrame("Zip Search Test");
+//         application.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+
+//         CardLayout cardLayout = new CardLayout();
+//         JPanel views = new JPanel(cardLayout);
+//         application.add(views);
+
+//         ViewManagerModel viewManagerModel = new ViewManagerModel();
+//         new ViewManager(views, cardLayout, viewManagerModel);
+//         ZipSearchViewModel zipSearchViewModel = new ZipSearchViewModel();
+//         ZipSearchUserDataAccessInterface zipSearchDataAccessObject = new ZipSearchDataAccessObject();
+//         SubViewModel subViewModel = new SubViewModel();
+//         ResultsViewModel resultsViewModel = new ResultsViewModel();
+//         MainMenuViewModel mainMenuViewModel = new MainMenuViewModel();
+//         ZipSearchView zipSearchView = ZipSearchUseCaseFactory.create(viewManagerModel, zipSearchViewModel, subViewModel, resultsViewModel, zipSearchDataAccessObject);
+
+//         SearchViewModel searchViewModel = new SearchViewModel();
+//         ApplyViewModel applyViewModel = new ApplyViewModel();
+
+//         SubView subView = SubViewUseCaseFactory.create(viewManagerModel, searchViewModel, applyViewModel, zipSearchViewModel, mainMenuViewModel, subViewModel);
+
+
+//         ResultsUserDataAccessInterface resultsUserDataAccessInterface = new ResultsDataAccessObject();
+//         ResultsView resultsView = ResultsUseCaseFactory.create(viewManagerModel, resultsViewModel, searchViewModel, zipSearchViewModel, resultsUserDataAccessInterface);
+
+//         views.add(zipSearchView, zipSearchView.viewName);
+//         views.add(subView, subView.viewName);
+//         views.add(resultsView, resultsView.viewName);
+
+//         viewManagerModel.setActiveView(zipSearchView.viewName);
+//         viewManagerModel.firePropertyChanged();
+
+//         application.pack();
+//         application.setVisible(true);
+//     }
 }
