@@ -1,31 +1,8 @@
-// Author: Diego
 package view;
 
-import app.*;
-import data_access.ApplyDataAccessObject;
-import data_access.ResultsDataAccessObject;
-import data_access.SearchDataAccessObject;
-import data_access.ZipSearchDataAccessObject;
-import entity.CommonUniversityFactory;
-import entity.UniversityFactory;
-import interface_adapter.ViewManagerModel;
-import interface_adapter.apply.ApplyController;
-import interface_adapter.apply.ApplyPresenter;
-import interface_adapter.apply.ApplyViewModel;
-import interface_adapter.main_menu.MainMenuViewModel;
-import interface_adapter.results.ResultsViewModel;
-import interface_adapter.search.SearchViewModel;
 import interface_adapter.sub_menu.SubViewController;
 import interface_adapter.sub_menu.SubViewModel;
 import interface_adapter.sub_menu.SubViewState;
-import interface_adapter.zip_search.ZipSearchViewModel;
-import use_case.apply.ApplyDataAccessInterface;
-import use_case.apply.ApplyInputBoundary;
-import use_case.apply.ApplyInteractor;
-import use_case.apply.ApplyOutputBoundary;
-import use_case.results.ResultsUserDataAccessInterface;
-import use_case.search.SearchUserDataAccessInterface;
-import use_case.zip_search.ZipSearchUserDataAccessInterface;
 
 import javax.swing.*;
 import java.awt.*;
@@ -34,6 +11,11 @@ import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
+/**
+ * The subview class that contains the recommendation, search, zip search,
+ * and the back button, allowing each use case to be performed.
+ * @author Diego
+ */
 public class SubView extends JPanel implements ActionListener, PropertyChangeListener {
 
     public final String viewName = "sub menu";
@@ -45,7 +27,11 @@ public class SubView extends JPanel implements ActionListener, PropertyChangeLis
     private final SubViewModel subViewModel;
     private final SubViewController subViewController;
 
-
+    /**
+     * Instantiates the SubView.
+     * @param subViewModel The View Model used for displaying the text in the view
+     * @param controller The Controller used for making the buttons work
+     */
     public SubView(SubViewModel subViewModel, SubViewController controller) {
         this.subViewController = controller;
         this.subViewModel = subViewModel;
@@ -67,6 +53,11 @@ public class SubView extends JPanel implements ActionListener, PropertyChangeLis
 
         recommendation.addActionListener(
                 new ActionListener() {
+                    /**
+                     * When the recommendation button is pressed, call the execute method
+                     * of the subviewController.
+                     * @param evt the event to be processed
+                     */
                     public void actionPerformed(ActionEvent evt) {
                         if (evt.getSource().equals(recommendation)) {
                             // System.out.println("Recommendation Button pressed");
@@ -78,6 +69,11 @@ public class SubView extends JPanel implements ActionListener, PropertyChangeLis
 
         search.addActionListener(
                 new ActionListener() {
+                    /**
+                     * When the search button is pressed, call the execute method
+                     * of the subviewController.
+                     * @param evt the event to be processed
+                     */
                     public void actionPerformed(ActionEvent evt) {
                         if (evt.getSource().equals(search)) {
                             // System.out.println("Search Button pressed");
@@ -89,6 +85,11 @@ public class SubView extends JPanel implements ActionListener, PropertyChangeLis
 
         zip_search.addActionListener(
                 new ActionListener() {
+                    /**
+                     * When the zip search button is pressed, call the execute method
+                     * of the subviewController.
+                     * @param evt the event to be processed
+                     */
                     public void actionPerformed(ActionEvent evt) {
                         if (evt.getSource().equals(zip_search)) {
                             // System.out.println("ZipSearch Button pressed");
@@ -99,6 +100,11 @@ public class SubView extends JPanel implements ActionListener, PropertyChangeLis
         );
 
         back.addActionListener(new ActionListener() {
+            /**
+             * When the back button is pressed, call the execute method
+             * of the subviewController.
+             * @param evt the event to be processed
+             */
             public void actionPerformed(ActionEvent evt) {
                 subViewController.execute("loggedInViewName"); // Replace with your logged-in view name
             }
@@ -108,10 +114,20 @@ public class SubView extends JPanel implements ActionListener, PropertyChangeLis
         this.add(buttons);
     }
 
+    /**
+     * The action performed meant to be overridden.
+     * @param evt the event to be processed
+     */
     public void actionPerformed(ActionEvent evt) {
         System.out.println("Click " + evt.getActionCommand());
     }
 
+    /**
+     * If there is an error in the subview, show a popup to
+     * the user regarding what has happened.
+     * @param evt A PropertyChangeEvent object describing the event source
+     *          and the property that has changed.
+     */
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
         SubViewState state = (SubViewState) evt.getNewValue();

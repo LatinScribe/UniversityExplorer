@@ -1,4 +1,3 @@
-// Author: Diego
 package app;
 
 
@@ -18,6 +17,10 @@ import view.SubView;
 import javax.swing.*;
 import java.io.IOException;
 
+/**
+ * Creates SubViews
+ * @author Diego
+ */
 public class SubViewUseCaseFactory {
 
     /**
@@ -26,6 +29,16 @@ public class SubViewUseCaseFactory {
     private SubViewUseCaseFactory() {
     }
 
+    /**
+     * This method creates the SubViews
+     * @param viewManagerModel
+     * @param searchViewModel
+     * @param applyViewModel
+     * @param zipSearchViewModel
+     * @param mainMenuViewModel
+     * @param subViewModel
+     * @return
+     */
     public static SubView create(
             ViewManagerModel viewManagerModel, SearchViewModel searchViewModel, ApplyViewModel applyViewModel, ZipSearchViewModel zipSearchViewModel,
             MainMenuViewModel mainMenuViewModel, SubViewModel subViewModel) {
@@ -40,6 +53,16 @@ public class SubViewUseCaseFactory {
         return null;
     }
 
+    /**
+     * Creates the SubViewController needed for the SubView
+     * @param viewManagerModel
+     * @param searchViewModel
+     * @param applyViewModel
+     * @param zipSearchViewModel
+     * @param mainMenuViewModel
+     * @return
+     * @throws IOException
+     */
     private static SubViewController createSubViewUseCase(
             ViewManagerModel viewManagerModel,
             SearchViewModel searchViewModel,
