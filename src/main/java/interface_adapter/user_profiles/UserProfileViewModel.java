@@ -21,26 +21,55 @@ public class UserProfileViewModel extends ViewModel {
 
     private UserProfileState state = new UserProfileState();
 
+
+    /**
+     * ViewModel for the User Profile View.
+     * This class holds the state and data necessary for displaying and interacting with the user profile in the UI.
+     * It extends the ViewModel class, allowing for property change support to update views when the state changes.
+     */
     public UserProfileViewModel(String viewName) {
         super("userProfileView");
     }
 
+    /**
+     * Sets the current state of the user profile.
+     *
+     * @param state The new state to be set for the user profile.
+     */
     public void setState(UserProfileState state) {
         this.state = state;
     }
 
+    /**
+     * Adds a PropertyChangeListener to the listener list.
+     *
+     * @param listener The PropertyChangeListener to be added.
+     */
     private final PropertyChangeSupport support = new PropertyChangeSupport(this);
 
+    /**
+     * Notifies all listeners about a change in the property 'state'.
+     */
     @Override
     public void firePropertyChanged() {
         support.firePropertyChange("state", null, this.state);
     }
 
+    /**
+     * Adds a PropertyChangeListener to the listener list.
+     *
+     * @param listener The PropertyChangeListener to be added.
+     */
     @Override
     public void addPropertyChangeListener(PropertyChangeListener listener) {
         support.addPropertyChangeListener(listener);
     }
 
+    /**
+     * Gets the current state of the user profile.
+     *
+     * @return The current UserProfileState.
+     */
     public UserProfileState getState() {
         return state;
     }
