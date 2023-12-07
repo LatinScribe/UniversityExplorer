@@ -1,22 +1,9 @@
-// Author: Diego
 package view;
 
-import app.ResultsUseCaseFactory;
-import app.SubViewUseCaseFactory;
-import app.ZipSearchUseCaseFactory;
-import data_access.ResultsDataAccessObject;
-import data_access.ZipSearchDataAccessObject;
-import interface_adapter.ViewManagerModel;
-import interface_adapter.apply.ApplyViewModel;
-import interface_adapter.main_menu.MainMenuViewModel;
-import interface_adapter.results.ResultsViewModel;
-import interface_adapter.search.SearchViewModel;
-import interface_adapter.sub_menu.SubViewModel;
+
 import interface_adapter.zip_search.ZipSearchController;
 import interface_adapter.zip_search.ZipSearchState;
 import interface_adapter.zip_search.ZipSearchViewModel;
-import use_case.results.ResultsUserDataAccessInterface;
-import use_case.zip_search.ZipSearchUserDataAccessInterface;
 
 import javax.swing.*;
 import java.awt.*;
@@ -27,6 +14,11 @@ import java.awt.event.KeyListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
+/**
+ * The zip search class that contains the input fields and the zip search buttons
+ * for the Zip Search use case
+ * @author Diego
+ */
 public class ZipSearchView extends JPanel implements ActionListener, PropertyChangeListener {
     public final String viewName = "zip_search";
     private final ZipSearchViewModel zipSearchViewModel;
@@ -37,6 +29,11 @@ public class ZipSearchView extends JPanel implements ActionListener, PropertyCha
     private final JButton search;
     private final JButton back;
 
+    /**
+     * Instantiates the ZipSearchView.
+     * @param zipSearchController The View Model used for displaying the text in the view
+     * @param zipSearchViewModel The Controller used for making the search work
+     */
     public ZipSearchView(ZipSearchController zipSearchController, ZipSearchViewModel zipSearchViewModel) {
 
         this.zipSearchController = zipSearchController;
@@ -61,6 +58,11 @@ public class ZipSearchView extends JPanel implements ActionListener, PropertyCha
         search.addActionListener(
                 // This creates an anonymous subclass of ActionListener and instantiates it.
                 new ActionListener() {
+                    /**
+                     * When the search button is pressed, call the executeZipSearch method
+                     * of the searchController, providing the content of the searchInputField.
+                     * @param evt the event to be processed
+                     */
                     public void actionPerformed(ActionEvent evt) {
                         if (evt.getSource().equals(search)) {
                             System.out.println("Search pressed!");
@@ -79,6 +81,11 @@ public class ZipSearchView extends JPanel implements ActionListener, PropertyCha
         back.addActionListener(
                 // This creates an anonymous subclass of ActionListener and instantiates it.
                 new ActionListener() {
+                    /**
+                     * When the back button is pressed, call the executeBack method
+                     * of the zipSearchController.
+                     * @param evt the event to be processed
+                     */
                     public void actionPerformed(ActionEvent evt) {
                         if (evt.getSource().equals(back)) {
                             System.out.println("Back pressed");
@@ -145,6 +152,12 @@ public class ZipSearchView extends JPanel implements ActionListener, PropertyCha
         JOptionPane.showConfirmDialog(this, "ZipSearch not implemented yet.");
     }
 
+    /**
+     * If there is an error in the search query or a lack of results, show a popup to
+     * the user regarding what has happened.
+     * @param evt A PropertyChangeEvent object describing the event source
+     *          and the property that has changed.
+     */
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
         String y = evt.getPropertyName();
