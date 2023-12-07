@@ -32,7 +32,7 @@ public class SearchController {
     }
 
     /**
-     * Calls on the SearchInteractor to instantiate the back use case. As this only involves the switching of views,
+     * Calls on the SearchInteractor to instantiate the back action. As this only involves the switching of views,
      * no SearchInputData is passed in.
      */
     public void executeBack() {

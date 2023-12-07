@@ -13,7 +13,7 @@ import java.util.List;
 /**
  * A class which provides the main execution of the actions inputted by the user. This involves calling on data
  * access objects to query the JsonCollegeScorecardDB and creation of University entities to be displayed back
- * to the user later on in the ResultsView.
+ * to the user later on in the ResultsView, as well as alerting the SearchPresenter to return to the previous view.
  * @author Andre
  */
 public class SearchInteractor implements SearchInputBoundary {
@@ -38,7 +38,7 @@ public class SearchInteractor implements SearchInputBoundary {
      * A msthod of the SearchInteractor, which provides SearchOutputData in the form of a list of
      * Universities to send to the SearchPresenter. The list of Universities is done based on
      * whether the institution's name matches part of the String provided by the searchInputData.
-     * @param searchInputData (containing a String used for the database query)
+     * @param searchInputData (containing a string used for the database query)
      */
     @Override
     public void executeSearch(SearchInputData searchInputData) {
@@ -113,8 +113,11 @@ public class SearchInteractor implements SearchInputBoundary {
 
     }
 
+    // The following 3 new methods are meant to check if the object returns a null type (JSONObject.null) or the proper
+    // type (Double, String, Integer).
+
     /**
-     * A helper function that helps to determine the type of the object returned from a specific query result. If this
+     * A helper method that helps to determine the type of the object returned from a specific query result. If this
      * object is not null, return the value of the BigDecimal value passed in as a Double.
      * @param object
      * @return Double
@@ -129,7 +132,7 @@ public class SearchInteractor implements SearchInputBoundary {
     }
 
     /**
-     * A helper function that helps to determine the type of the object returned from a specific query result. If this
+     * A helper method that helps to determine the type of the object returned from a specific query result. If this
      * object is not null, return the value of the Integer passed in.
      * @param object
      * @return Integer
@@ -143,7 +146,7 @@ public class SearchInteractor implements SearchInputBoundary {
     }
 
     /**
-     * A helper function that helps to determine the type of the object returned from a specific query result. If this
+     * A helper method that helps to determine the type of the object returned from a specific query result. If this
      * object is not null, return the value of the String passed in.
      * @param object
      * @return String
@@ -157,7 +160,7 @@ public class SearchInteractor implements SearchInputBoundary {
     }
 
     /**
-     * A use case interactor of the Search use case. Calls the presenter to switch the active view to the previous view.
+     * A method of the Search use case. Calls the presenter to switch the active view back to the previous view.
      */
     public void executeBack(){
         searchPresenter.prepareBackView();

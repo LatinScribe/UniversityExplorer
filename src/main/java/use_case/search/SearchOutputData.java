@@ -22,7 +22,7 @@ public class SearchOutputData {
 
     /**
      * Returns the universities attribute of the SearchOutputData object.
-     * @return String
+     * @return universities
      */
     public List<University> getUniversities() {
         return universities;

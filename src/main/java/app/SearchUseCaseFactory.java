@@ -20,6 +20,11 @@ import view.SearchView;
 import javax.swing.*;
 import java.io.IOException;
 
+/**
+ * A usage of the factory design pattern, in which a SearchController, UniversityFactory, SearchPresenter,
+ * SearchInteractor and SearchView are initialized.
+ * @author Andre, Henry
+ */
 public class SearchUseCaseFactory {
     /**
      * Prevent instantiation.
@@ -28,7 +33,7 @@ public class SearchUseCaseFactory {
     }
 
     /**
-     * Instantiates the SearchView, as well as calling a function to instantiate the SearchController.
+     * Instantiates the SearchView, as well as calling a method to instantiate the SearchController.
      * @param viewManagerModel
      * @param searchViewModel
      * @param subViewModel

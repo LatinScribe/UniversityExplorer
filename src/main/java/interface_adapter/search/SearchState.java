@@ -1,9 +1,10 @@
 package interface_adapter.search;
 
 /**
- * The SearchState class provides attributes that will be accessed by the SearchView and SearchViewModel later on. This
- * allows access to the searchCriteria used for the search query, the searchError used to report any errors by either
- * the API or user input and the prevView used to return to the previous view when back is pressed.
+ * The SearchState class provides attributes that will be accessed by the SearchViewModel and SearchView (via the
+ * SearchViewModel) later on. This allows access to the searchCriteria used for the search query, the searchError used
+ * to report any errors by either the API or user input and the prevView used to return to the previous view when back
+ * is pressed.
  * @author Andre
  */
 public class SearchState {
@@ -50,6 +51,7 @@ public class SearchState {
 
     /**
      * Sets the searchCriteria attribute of the SearchState object.
+     * @param searchCriteria
      */
     public void setSearchCriteria(String searchCriteria) {
         this.searchCriteria = searchCriteria;
@@ -57,6 +59,7 @@ public class SearchState {
 
     /**
      * Sets the searchError attribute of the SearchState object.
+     * @param searchError
      */
     public void setSearchError(String searchError) {
         this.searchError = searchError;
@@ -64,6 +67,7 @@ public class SearchState {
 
     /**
      * Sets the prevView attribute of the SearchState object.
+     * @param prevView
      */
     public void setPrevView(String prevView) {this.prevView = prevView;}
 

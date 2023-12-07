@@ -6,8 +6,8 @@ import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
 /**
- * A class which contains a SearchState (with attributes needed to alert the View) as well as methods that alert the
- * SearchView on any changes to the active views and the SearchState.
+ * A class which contains a SearchState (with attributes used by the SearchView) as well as methods that alert
+ * the SearchView on any changes to the active views and the SearchState.
  * @author Andre
  */
 public class SearchViewModel extends ViewModel {
@@ -60,7 +60,7 @@ public class SearchViewModel extends ViewModel {
     }
 
     /**
-     * Returns the SearchState attribute of the SearchViewModel object.
+     * Returns the state attribute of the SearchViewModel object.
      * @return SearchState
      */
     public SearchState getState() {

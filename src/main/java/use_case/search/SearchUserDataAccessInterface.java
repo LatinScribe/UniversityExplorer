@@ -1,5 +1,3 @@
-// Author: André
-
 package use_case.search;
 
 import org.json.JSONObject;

@@ -18,7 +18,7 @@ public class SearchInputData {
 
     /**
      * Returns the searchCriteria attribute of the SearchInputData object.
-     * @return String
+     * @return searchCriteria
      */
     public String getSearchCriteria() {
         return searchCriteria;

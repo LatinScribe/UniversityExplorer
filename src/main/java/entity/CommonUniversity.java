@@ -169,7 +169,12 @@ public class CommonUniversity implements University {
         return start + middle1 + middle2 + end;
     }
 
+    /**
+     * A helper method in which all the attributes (excluding schoolID) are placed into an object array.
+     * @return An array of objects
+     */
     private Object[] toStringHelper() {
-        return new Object[]{schoolName, city, state, admissionRate, averageInStateTuition, averageOutOfStateTuition, averageSATScore, averageACTScore, url};
+        return new Object[]{schoolName, city, state, admissionRate, averageInStateTuition, averageOutOfStateTuition,
+                averageSATScore, averageACTScore, url};
     }
 }

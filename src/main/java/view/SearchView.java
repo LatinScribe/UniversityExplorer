@@ -28,7 +28,7 @@ public class SearchView extends JPanel implements ActionListener, PropertyChange
     private final JButton back;
 
     /**
-     * Instantiates a SearchView.
+     * Instantiates the SearchView.
      * @param searchController
      * @param searchViewModel
      */
