@@ -18,10 +18,27 @@ import javax.swing.*;
 import java.io.IOException;
 import java.util.Collections;
 
+/**
+ * A usage of the factory design pattern, in which a ResultsController, UniversityFactory, ResultsPresenter,
+ * ResultsInteractor and ResultsView are initialized.
+ * @author Andre, Diego, Henry
+ */
 public class ResultsUseCaseFactory {
+    /**
+     * Prevent instantiation.
+     */
     private ResultsUseCaseFactory() {
     }
 
+    /**
+     * Initiates the ResultsView, as well as calling a helper method used to instantiate the ResultsController.
+     * @param viewManagerModel
+     * @param resultsViewModel
+     * @param searchViewModel
+     * @param zipSearchViewModel
+     * @param resultsUserDataAccessInterface
+     * @return A ResultsView object ready for usage in main.
+     */
     public static ResultsView create(
             ViewManagerModel viewManagerModel, ResultsViewModel resultsViewModel, SearchViewModel searchViewModel, ZipSearchViewModel zipSearchViewModel, ResultsUserDataAccessInterface resultsUserDataAccessInterface) {
 
@@ -34,6 +51,16 @@ public class ResultsUseCaseFactory {
         }
     }
 
+    /**
+     * Instantiates a UniversityFactory, ResultsPresenter, ResultsInteractor and ResultsController.
+     * @param viewManagerModel
+     * @param resultsViewModel
+     * @param searchViewModel
+     * @param zipSearchViewModel
+     * @param resultsUserDataAccessInterface
+     * @return ResultsController to be used for the ResultsView.
+     * @throws IOException
+     */
     private static ResultsController createResultsUseCase(ViewManagerModel viewManagerModel, ResultsViewModel resultsViewModel, SearchViewModel searchViewModel, ZipSearchViewModel zipSearchViewModel, ResultsUserDataAccessInterface resultsUserDataAccessInterface) throws IOException {
 
         // Notice how we pass this method's parameters to the Presenter.

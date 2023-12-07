@@ -1,8 +1,5 @@
-// Author: André
-
 package use_case.search;
 
-import interface_adapter.search.SearchPresenter;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -13,11 +10,23 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * A class which provides the main execution of the actions inputted by the user. This involves calling on data
+ * access objects to query the JsonCollegeScorecardDB and creation of University entities to be displayed back
+ * to the user later on in the ResultsView, as well as alerting the SearchPresenter to return to the previous view.
+ * @author Andre
+ */
 public class SearchInteractor implements SearchInputBoundary {
     final SearchUserDataAccessInterface searchDataAccessObject;
     final SearchOutputBoundary searchPresenter;
     final UniversityFactory universityFactory;
 
+    /**
+     * The contructor for the SearchInteractor.
+     * @param searchUserDataAccessInterface
+     * @param searchPresenter
+     * @param universityFactory
+     */
     public SearchInteractor(SearchUserDataAccessInterface searchUserDataAccessInterface,
                             SearchOutputBoundary searchPresenter, UniversityFactory universityFactory) {
         this.searchDataAccessObject = searchUserDataAccessInterface;
@@ -25,6 +34,12 @@ public class SearchInteractor implements SearchInputBoundary {
         this.universityFactory = universityFactory;
     }
 
+    /**
+     * A msthod of the SearchInteractor, which provides SearchOutputData in the form of a list of
+     * Universities to send to the SearchPresenter. The list of Universities is done based on
+     * whether the institution's name matches part of the String provided by the searchInputData.
+     * @param searchInputData (containing a string used for the database query)
+     */
     @Override
     public void executeSearch(SearchInputData searchInputData) {
         String stringAccumulator = "";
@@ -53,6 +68,11 @@ public class SearchInteractor implements SearchInputBoundary {
             }
     }
 
+    /**
+     * Takes in a JsonArray and reformats it to a list of University objects.
+     * @param results
+     * @return List<University>
+     */
     private List<University> executeHelper(JSONArray results) {
         List<University> universities = new ArrayList<University>();
         for (int i = 0; i < results.length(); i++) {
@@ -93,7 +113,15 @@ public class SearchInteractor implements SearchInputBoundary {
 
     }
 
-    // The following 3 new methods are meant to check if the object returns a null type (JSONObject.null) or the proper type (Double, String, Integer).
+    // The following 3 new methods are meant to check if the object returns a null type (JSONObject.null) or the proper
+    // type (Double, String, Integer).
+
+    /**
+     * A helper method that helps to determine the type of the object returned from a specific query result. If this
+     * object is not null, return the value of the BigDecimal value passed in as a Double.
+     * @param object
+     * @return Double
+     */
     private Double doubleChecker(Object object) {
         String checker = object.toString();
         if (checker.equals("null")) {
@@ -103,6 +131,12 @@ public class SearchInteractor implements SearchInputBoundary {
         return converter.doubleValue();
     }
 
+    /**
+     * A helper method that helps to determine the type of the object returned from a specific query result. If this
+     * object is not null, return the value of the Integer passed in.
+     * @param object
+     * @return Integer
+     */
     private Integer integerChecker(Object object) {
         String checker = object.toString();
         if (checker.equals("null")) {
@@ -111,6 +145,12 @@ public class SearchInteractor implements SearchInputBoundary {
         return (Integer) object;
     }
 
+    /**
+     * A helper method that helps to determine the type of the object returned from a specific query result. If this
+     * object is not null, return the value of the String passed in.
+     * @param object
+     * @return String
+     */
     private String stringChecker(Object object) {
         String checker = object.toString();
         if (checker.equals("null")) {
@@ -119,6 +159,9 @@ public class SearchInteractor implements SearchInputBoundary {
         return (String) object;
     }
 
+    /**
+     * A method of the Search use case. Calls the presenter to switch the active view back to the previous view.
+     */
     public void executeBack(){
         searchPresenter.prepareBackView();
     }

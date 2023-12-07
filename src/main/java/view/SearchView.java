@@ -1,27 +1,8 @@
-// Author: Andre, a test
-
 package view;
 
-import app.ResultsUseCaseFactory;
-import app.SearchUseCaseFactory;
-import data_access.ResultsDataAccessObject;
-import data_access.SearchDataAccessObject;
-import interface_adapter.ViewManagerModel;
-import interface_adapter.apply.ApplyViewModel;
-import interface_adapter.logged_in.LoggedInViewModel;
-import interface_adapter.main_menu.MainMenuViewModel;
-import interface_adapter.results.ResultsViewModel;
 import interface_adapter.search.SearchController;
 import interface_adapter.search.SearchState;
 import interface_adapter.search.SearchViewModel;
-import interface_adapter.sub_menu.SubViewController;
-import interface_adapter.sub_menu.SubViewModel;
-import interface_adapter.sub_menu.SubViewPresenter;
-import interface_adapter.zip_search.ZipSearchViewModel;
-import use_case.results.ResultsUserDataAccessInterface;
-import use_case.search.SearchUserDataAccessInterface;
-import use_case.sub_menu.SubViewInputBoundary;
-import use_case.sub_menu.SubViewInteractor;
 
 import javax.swing.*;
 import java.awt.*;
@@ -32,6 +13,10 @@ import java.awt.event.KeyListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
+/**
+ * A view with an input field and 2 buttons which allows for the Search use case to be performed.
+ * @author Andre
+ */
 public class SearchView extends JPanel implements ActionListener, PropertyChangeListener {
     public final String viewName = "search";
 
@@ -42,6 +27,11 @@ public class SearchView extends JPanel implements ActionListener, PropertyChange
     private final JButton search;
     private final JButton back;
 
+    /**
+     * Instantiates the SearchView.
+     * @param searchController
+     * @param searchViewModel
+     */
     public SearchView(SearchController searchController, SearchViewModel searchViewModel) {
 
         this.searchController = searchController;
@@ -63,6 +53,11 @@ public class SearchView extends JPanel implements ActionListener, PropertyChange
         search.addActionListener(
                 // This creates an anonymous subclass of ActionListener and instantiates it.
                 new ActionListener() {
+                    /**
+                     * When the search button is pressed, call the executeSearch method of the searchController,
+                     * providing the content of the searchInputField.
+                     * @param evt the event to be processed
+                     */
                     public void actionPerformed(ActionEvent evt) {
                         if (evt.getSource().equals(search)) {
                             System.out.println("Search pressed!");
@@ -79,6 +74,10 @@ public class SearchView extends JPanel implements ActionListener, PropertyChange
         back.addActionListener(
                 // This creates an anonymous subclass of ActionListener and instantiates it.
                 new ActionListener() {
+                    /**
+                     * When the back button is pressed, call the executeBack method of the searchController.
+                     * @param evt the event to be processed
+                     */
                     public void actionPerformed(ActionEvent evt) {
                         if (evt.getSource().equals(back)) {
                             System.out.println("Back pressed");
@@ -129,6 +128,12 @@ public class SearchView extends JPanel implements ActionListener, PropertyChange
         JOptionPane.showConfirmDialog(this, "Search not implemented yet.");
     }
 
+    /**
+     * If there is an error in the search query or a lack of results, show a popup to the user regarding what has
+     * happened.
+     * @param evt A PropertyChangeEvent object describing the event source
+     *          and the property that has changed.
+     */
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
         String y = evt.getPropertyName();
