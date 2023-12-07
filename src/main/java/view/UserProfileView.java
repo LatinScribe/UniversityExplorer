@@ -14,7 +14,11 @@ import java.beans.PropertyChangeListener;
 import java.util.Arrays;
 import java.util.stream.Collectors;
 
-
+/**
+ * A view class for displaying and editing user profiles in a Swing-based user interface.
+ * This class is responsible for presenting user profile information to the user and handling
+ * user interactions for profile operations such as viewing, editing, and saving profiles.
+ */
 public class UserProfileView extends JPanel implements ActionListener, PropertyChangeListener {
     public final String viewName = "userProfileView";
 
@@ -50,6 +54,12 @@ public class UserProfileView extends JPanel implements ActionListener, PropertyC
 
     private final UserProfileController userProfileController;
 
+    /**
+     * Constructs a new UserProfileView with the specified view model and controller.
+     *
+     * @param userProfileViewModel The view model containing the data and state of the user profile.
+     * @param controller The controller responsible for handling user actions and interactions.
+     */
     public UserProfileView(UserProfileViewModel userProfileViewModel, UserProfileController controller) {
 
         this.userProfileController = controller;
@@ -105,6 +115,7 @@ public class UserProfileView extends JPanel implements ActionListener, PropertyC
         viewPanel.add(editProfile);
 
 
+
         // Add fields for editing
         editPanel.add(finAidRequirementField);
         editPanel.add(finAidRequirementLabel);
@@ -145,6 +156,7 @@ public class UserProfileView extends JPanel implements ActionListener, PropertyC
                 setEditMode(true);
             }
         });
+
 
 
         save.addActionListener(e -> {
@@ -192,7 +204,11 @@ public class UserProfileView extends JPanel implements ActionListener, PropertyC
         this.add(buttons);
     }
 
-
+    /**
+     * Sets the edit mode of the user profile view.
+     *
+     * @param editable A boolean indicating whether the view should be in edit mode.
+     */
     private void setEditMode(boolean editable) {
         CardLayout cardLayout = (CardLayout) (this.cards.getLayout());
         if (editable) {
@@ -219,7 +235,13 @@ public class UserProfileView extends JPanel implements ActionListener, PropertyC
         this.repaint();
     }
 
-    // Method to parse university ranking range from a string input
+    /**
+     * Parses the university ranking range from a string input.
+     *
+     * @param rangeText The text representing the university ranking range.
+     * @return An array of two integers representing the start and end of the ranking range.
+     * @throws IllegalArgumentException If the rangeText is invalid or incorrectly formatted.
+     */
     private int[] parseUniversityRankingRange(String rangeText) throws IllegalArgumentException {
         // Check if the rangeText is null or empty
         if (rangeText == null || rangeText.trim().isEmpty()) {
@@ -243,16 +265,18 @@ public class UserProfileView extends JPanel implements ActionListener, PropertyC
             }
 
             // Return the parsed range as an array
-            return new int[]{start, end};
+            return new int[] {start, end};
         } catch (NumberFormatException e) {
             throw new IllegalArgumentException("University ranking range must contain valid numbers.");
         }
     }
 
-    // Method to show the new profile creation form
+    /**
+     * Shows the form for creating a new user profile.
+     */
     private void showNewProfileForm() {
         // Create a new panel with a form layout for the profile data
-        JPanel newProfilePanel = new JPanel(new GridLayout(0, 2, 5, 5)); // Rows, Cols, Hgap, Vgap
+        JPanel newProfilePanel = new JPanel(new GridLayout(0, 2, 5, 5));
 
         // Create labels and text fields for the profile data
         JLabel finAidLabel = new JLabel("Financial Aid Requirement:");
@@ -320,6 +344,11 @@ public class UserProfileView extends JPanel implements ActionListener, PropertyC
     }
 
 
+    /**
+     * Handles action events triggered by user interactions with the view.
+     *
+     * @param e The action event that occurred.
+     */
     @Override
     public void actionPerformed(ActionEvent e) {
         System.out.println("Button Clicked" + e.getActionCommand());
@@ -354,7 +383,11 @@ public class UserProfileView extends JPanel implements ActionListener, PropertyC
         }
     }
 
-
+    /**
+     * Responds to property change events, particularly changes in the user profile state.
+     *
+     * @param evt The property change event.
+     */
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
         // Check if the property change event is for the state of the user profile
@@ -376,10 +409,6 @@ public class UserProfileView extends JPanel implements ActionListener, PropertyC
                         .collect(Collectors.joining(", ")));
             } else {
                 universityRankingRangeValue.setText("Not Set");
-            }
-            if (state.getFailedEditMessage() != null) {
-                JOptionPane.showMessageDialog(this, state.getFailedEditMessage());
-                state.setFailedEditMessage(null);
             }
         }
     }

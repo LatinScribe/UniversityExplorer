@@ -15,9 +15,24 @@ import java.io.IOException;
 
 public class UserProfileUseCaseFactory {
 
+    /**
+     * Factory class for creating user profile use cases.
+     * This class is responsible for setting up and initializing the components needed for the user profile use case,
+     * including the controller, presenter, interactor, and view.
+     */
     private UserProfileUseCaseFactory() {
     }
 
+    /**
+     * Creates and initializes a UserProfileController.
+     *
+     * @param viewManager The view manager model to manage different views.
+     * @param userProfileViewModel The view model for user profile-related data and operations.
+     * @param loggedInViewModel The view model for the logged-in user state and operations.
+     * @param profileDataAccessInterface The data access interface for user profile operations.
+     * @return A UserProfileController instance, ready to be used in the application.
+     * @throws IOException If an I/O error occurs during the setup.
+     */
     private static UserProfileController createUserProfileUseCase(
             ViewManagerModel viewManager,
             UserProfileViewModel userProfileViewModel,
@@ -30,6 +45,18 @@ public class UserProfileUseCaseFactory {
         return new UserProfileController(userProfileInteractor);
     }
 
+    /**
+     * Factory method to create a complete UserProfileView with its required components.
+     * This method encapsulates the creation and wiring of UserProfileController,
+     * UserProfileViewModel, and other necessary components to create a fully functional
+     * UserProfileView.
+     *
+     * @param viewManager The view manager model.
+     * @param userProfileViewModel The user profile view model.
+     * @param profileDataAccessInterface The data access interface for user profiles.
+     * @param loggedInViewModel The logged-in view model.
+     * @return A UserProfileView instance, ready to be used in the application.
+     */
     public static UserProfileView create(
             ViewManagerModel viewManager,
             UserProfileViewModel userProfileViewModel,
