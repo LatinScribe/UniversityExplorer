@@ -77,6 +77,8 @@ public class Applyview extends JPanel implements ActionListener, PropertyChangeL
 
                     applyController.execute(applyState.getSat(), applyState.getAct());
 
+                } catch (NumberFormatException ex) {
+                    JOptionPane.showMessageDialog(this, "Invalid input format", "error", JOptionPane.ERROR_MESSAGE);
                 } catch (IllegalArgumentException ex) {
                     JOptionPane.showMessageDialog(this, "invalid input format", "error", JOptionPane.ERROR_MESSAGE);
                 }
@@ -146,7 +148,7 @@ public class Applyview extends JPanel implements ActionListener, PropertyChangeL
         if (y.equals("success")) {
             // Results View Not implemented yet, will be implemented soon.
             ApplyState state = (ApplyState) evt.getNewValue();
-            JOptionPane.showMessageDialog(this, state.getUni());
+            JOptionPane.showMessageDialog(this, state.getUni().getSchoolName() + " SAT:"+ state.getUni().getAverageSATScore()+ " ACT:"+ state.getUni().getAverageACTScore());
             //System.out.println(state.getUni().getSchoolName());
         } else if (y.equals("Error")) {
             ApplyState state = (ApplyState) evt.getNewValue();

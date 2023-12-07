@@ -5,6 +5,7 @@ package app;
 import entity.CommonUniversityFactory;
 import entity.UniversityFactory;
 import interface_adapter.ViewManagerModel;
+import interface_adapter.logged_in.LoggedInViewModel;
 import interface_adapter.results.ResultsViewModel;
 import interface_adapter.search.SearchController;
 import interface_adapter.search.SearchPresenter;
@@ -27,10 +28,10 @@ public class SearchUseCaseFactory {
     }
 
     public static SearchView create(
-            ViewManagerModel viewManagerModel, SearchViewModel searchViewModel, SubViewModel subViewModel, ResultsViewModel resultsViewModel, SearchUserDataAccessInterface searchUserDataAccessObject) {
+            ViewManagerModel viewManagerModel, SearchViewModel searchViewModel, SubViewModel subViewModel, ResultsViewModel resultsViewModel, LoggedInViewModel loggedInViewModel, SearchUserDataAccessInterface searchUserDataAccessObject) {
 
         try {
-            SearchController searchController = createSearchUseCase(viewManagerModel, searchViewModel, subViewModel, resultsViewModel, searchUserDataAccessObject);
+            SearchController searchController = createSearchUseCase(viewManagerModel, searchViewModel, subViewModel, resultsViewModel, loggedInViewModel, searchUserDataAccessObject);
             return new SearchView(searchController, searchViewModel);
         } catch (IOException e) {
             JOptionPane.showMessageDialog(null, "API unable to be accessed.");
@@ -38,12 +39,12 @@ public class SearchUseCaseFactory {
         }
     }
 
-    private static SearchController createSearchUseCase(ViewManagerModel viewManagerModel, SearchViewModel signupViewModel, SubViewModel subViewModel, ResultsViewModel resultsViewModel, SearchUserDataAccessInterface userDataAccessObject) throws IOException {
+    private static SearchController createSearchUseCase(ViewManagerModel viewManagerModel, SearchViewModel signupViewModel, SubViewModel subViewModel, ResultsViewModel resultsViewModel, LoggedInViewModel loggedInViewModel, SearchUserDataAccessInterface userDataAccessObject) throws IOException {
 
         // Notice how we pass this method's parameters to the Presenter.
         // Creating a new factory.
         UniversityFactory universityFactory = new CommonUniversityFactory();
-        SearchOutputBoundary searchOutputBoundary = new SearchPresenter(viewManagerModel, signupViewModel, resultsViewModel, subViewModel);
+        SearchOutputBoundary searchOutputBoundary = new SearchPresenter(viewManagerModel, signupViewModel, resultsViewModel, subViewModel, loggedInViewModel);
 
         SearchInputBoundary searchInteractor = new SearchInteractor(
                 userDataAccessObject, searchOutputBoundary, universityFactory);

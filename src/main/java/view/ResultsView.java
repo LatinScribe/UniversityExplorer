@@ -2,21 +2,9 @@
 
 package view;
 
-import app.ResultsButtonFactory;
-import app.ResultsUseCaseFactory;
-import app.SearchUseCaseFactory;
-import data_access.ResultsDataAccessObject;
-import data_access.SearchDataAccessObject;
-import entity.University;
-import interface_adapter.ViewManagerModel;
 import interface_adapter.results.ResultsController;
 import interface_adapter.results.ResultsState;
 import interface_adapter.results.ResultsViewModel;
-import interface_adapter.search.SearchViewModel;
-import interface_adapter.sub_menu.SubViewModel;
-import interface_adapter.zip_search.ZipSearchViewModel;
-import use_case.results.ResultsUserDataAccessInterface;
-import use_case.search.SearchUserDataAccessInterface;
 
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
@@ -32,8 +20,6 @@ public class ResultsView extends JPanel implements ActionListener, PropertyChang
     public final String viewName = "results";
     private final ResultsViewModel resultsViewModel;
     private final ResultsController resultsController;
-    private final List<University> universityList;
-    private final ResultsButtonFactory resultsButtonFactory;
     private final JButton back;
     private final JButton confirm;
     private JList<String> myList;
@@ -41,12 +27,10 @@ public class ResultsView extends JPanel implements ActionListener, PropertyChang
     private JScrollPane jScrollPane;
     private String selectedValue;
 
-    public ResultsView(ResultsController resultsController, ResultsViewModel resultsViewModel, List<University> universityList) {
+    public ResultsView(ResultsController resultsController, ResultsViewModel resultsViewModel) {
         this.resultsController = resultsController;
         this.resultsViewModel = resultsViewModel;
         resultsViewModel.addPropertyChangeListener(this);
-        this.resultsButtonFactory = new ResultsButtonFactory();
-        this.universityList = universityList;
 
         JLabel title = new JLabel("Results View");
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -96,21 +80,21 @@ public class ResultsView extends JPanel implements ActionListener, PropertyChang
         String y = evt.getPropertyName();
         if (y.equals("uni selected")) {
             ResultsState state = (ResultsState) evt.getNewValue();
-            JOptionPane.showMessageDialog(this, state.getChosenUniversity().toString());
+            JOptionPane.showMessageDialog(this, state.getChosenUniversityString());
         } else if (y.equals("error")) {
             ResultsState state = (ResultsState) evt.getNewValue();
             JOptionPane.showMessageDialog(this, state.getSearchError());
         } else {
             ResultsState state = (ResultsState) evt.getNewValue();
-            this.updateButtons(state.getUniversities());
+            this.updateButtons(state.getUniversityNames());
         }
 
     }
 
-    private void updateButtons(List<University> uniList) {
+    private void updateButtons(List<String> uniList) {
         listModel = new DefaultListModel<>();
-        for (University uni : uniList) {
-            listModel.addElement(uni.getSchoolName());
+        for (String name : uniList) {
+            listModel.addElement(name);
         }
         myList = new JList<>(listModel);
 
@@ -120,7 +104,7 @@ public class ResultsView extends JPanel implements ActionListener, PropertyChang
                     @Override
                     public void valueChanged(ListSelectionEvent e) {
                         Object[] chosen = myList.getSelectedValues();
-                        String universityName = (String) chosen[0]; // UNsure if this returns the right university yet: will check
+                        String universityName = (String) chosen[0];
                         selectedValue = universityName;
                     }
                 });
@@ -139,35 +123,5 @@ public class ResultsView extends JPanel implements ActionListener, PropertyChang
     private void removeButtons() {
         this.remove(jScrollPane);
         this.jScrollPane = null;
-    }
-
-    public static void main(String[] args) {
-        JFrame application = new JFrame("Results Test");
-        application.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-
-        CardLayout cardLayout = new CardLayout();
-        JPanel views = new JPanel(cardLayout);
-        application.add(views);
-
-        ViewManagerModel viewManagerModel = new ViewManagerModel();
-        new ViewManager(views, cardLayout, viewManagerModel);
-        SearchViewModel searchViewModel = new SearchViewModel();
-        SearchUserDataAccessInterface searchDataAccessObject = new SearchDataAccessObject();
-        SubViewModel subViewModel = new SubViewModel();
-        ResultsViewModel resultsViewModel = new ResultsViewModel();
-        SearchView searchView = SearchUseCaseFactory.create(viewManagerModel, searchViewModel, subViewModel, resultsViewModel, searchDataAccessObject);
-
-        ZipSearchViewModel zipSearchViewModel = new ZipSearchViewModel();
-        ResultsUserDataAccessInterface resultsUserDataAccessInterface = new ResultsDataAccessObject();
-        ResultsView resultsView = ResultsUseCaseFactory.create(viewManagerModel, resultsViewModel, searchViewModel, zipSearchViewModel, resultsUserDataAccessInterface);
-
-        views.add(searchView, searchView.viewName);
-        views.add(resultsView, resultsView.viewName);
-
-        viewManagerModel.setActiveView(resultsView.viewName);
-        viewManagerModel.firePropertyChanged();
-
-        application.pack();
-        application.setVisible(true);
     }
 }

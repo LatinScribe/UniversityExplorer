@@ -13,7 +13,7 @@ import java.util.concurrent.ThreadLocalRandom;
 import static java.lang.Thread.sleep;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-public class ApplyViewTest {
+public class ApplyviewTest {
     static String message = "";
     static boolean popUpDiscovered = false;
 
@@ -22,20 +22,31 @@ public class ApplyViewTest {
 
         JPanel jp2 = getPrimaryJpanel(app);
 
-        Applyview sv = (Applyview) jp2.getComponent(0);
+        MainMenuView sv = (MainMenuView) jp2.getComponent(0);
 
         JPanel buttons = (JPanel) sv.getComponent(1);
         return (JButton) buttons.getComponent(i);
     }
 
-    public JButton getButton(int i) {
+    public JButton getSubButton(int i) {
         JFrame app = getApp();
 
         JPanel jp2 = getPrimaryJpanel(app);
 
-        Applyview sv = (Applyview) jp2.getComponent(1);
+        SubView sv = (SubView) jp2.getComponent(5);
 
-        JPanel buttons = (JPanel) sv.getComponent(5);
+        JPanel buttons = (JPanel) sv.getComponent(1);
+        return (JButton) buttons.getComponent(i);
+    }
+
+    public JButton getApplyButton(int i) {
+        JFrame app = getApp();
+
+        JPanel jp2 = getPrimaryJpanel(app);
+
+        Applyview sv = (Applyview) jp2.getComponent(6);
+
+        JPanel buttons = (JPanel) sv.getComponent(3);
         return (JButton) buttons.getComponent(i);
     }
 
@@ -44,20 +55,20 @@ public class ApplyViewTest {
 
         JPanel jp2 = getPrimaryJpanel(app);
 
-        Applyview sv = (Applyview) jp2.getComponent(1);
+        Applyview sv = (Applyview) jp2.getComponent(6);
 
         // i can be 1 or 2
         return (LabelTextPanel) sv.getComponent(1);
     }
 
-    public LabelTextPanel getPasswordPanel1() {
+    public LabelTextPanel getTextPanel2() {
         JFrame app = getApp();
 
         JPanel jp2 = getPrimaryJpanel(app);
 
-        LoginView sv = (LoginView) jp2.getComponent(1);
+        Applyview sv = (Applyview) jp2.getComponent(6);
 
-        return (LabelTextPanel) sv.getComponent(3);
+        return (LabelTextPanel) sv.getComponent(2);
     }
 
     public boolean getShowing(int i) {
@@ -69,159 +80,124 @@ public class ApplyViewTest {
     }
 
     @org.junit.Test
-    public void testLoginButtonSuccess() {
-
-        String userName = "abcd";
-        String userPass = "1234";
+    public void testApplySuccess() {
 
         Main.main(null);
 
-        JButton button1 = getMainButton(2);
+        JButton button1 = getMainButton(1);
         button1.doClick();
 
-        assert (getShowing(1));
+        assert (getShowing(5));
 
 
-        JButton button = getButton(0);
-        System.out.println(button.getText());
-        assert (button.getText().equals("Log in"));
+        JButton button2 = getSubButton(0);
+        System.out.println(button2.getText());
+        assert (button2.getText().equals("Get University Recommendations"));
+        button2.doClick();
+
+        assert (getShowing(6));
 
         // get a reference to the first username field
         LabelTextPanel panel = getTextPanel();
 
         JTextField jTextField = (JTextField) panel.getComponent(1);
 
-        writeTextField(userName, jTextField, panel);
+        String act = "28";
+
+        writeTextField(act, jTextField, panel);
 
         // get a reference to the first password field
-        LabelTextPanel panel2 = getPasswordPanel1();
+        LabelTextPanel panel2 = getTextPanel2();
 
-        JPasswordField pwdField = (JPasswordField) panel2.getComponent(1);
+        JTextField pwdField = (JTextField) panel2.getComponent(1);
 
-        writeTextField(userPass, pwdField, panel);
+        String sat = "1200";
 
-        button.doClick();
-
-        assert (getShowing(3));
-    }
-
-    @org.junit.Test
-    public void testLoginButtonIncorrect() {
-
-        String userName = "abcd";
-        String userPass = "12345";
-
-        Main.main(null);
-
-        JButton button1 = getMainButton(2);
-        button1.doClick();
-
-        assert (getShowing(1));
-
-        JButton button = getButton(0);
-        System.out.println(button.getText());
-        assert (button.getText().equals("Log in"));
-
-        // get a reference to the first username field
-        LabelTextPanel panel = getTextPanel();
-
-        JTextField jTextField = (JTextField) panel.getComponent(1);
-
-        writeTextField(userName, jTextField, panel);
-
-        // get a reference to the first password field
-        LabelTextPanel panel2 = getPasswordPanel1();
-
-        JPasswordField pwdField = (JPasswordField) panel2.getComponent(1);
-
-        writeTextField(userPass, pwdField, panel);
+        writeTextField(sat, pwdField, panel);
 
         popUpDiscovered = false;
-        message = "";
 
-        // since clicking the button should end up displaying a JDialog to the user to report the
-        // result, we set a timer, which will execute code necessary to complete the testing.
+        JButton button = getApplyButton(0);
+        System.out.println(button.getText());
+
         createCloseTimer().start();
 
-        //click the button
         button.doClick();
-
-        // will continue execution here after the JDialog is closed
-
-        // confirm a popUp was discovered
-        assert (popUpDiscovered);
-        System.out.println("popup was detected successfully.");
-        System.out.println(message);
-        assert (message.equals("PASSWORD OR USERNAME INCORRECT"));
-
-        assert (getShowing(1));
+        System.out.println("Popup was detected successfully");
+        assert (message.equals("John Brown University SAT:1257 ACT:27"));
     }
 
     @org.junit.Test
-    public void testLoginButtonAccountNotExist() {
-        int randomNum = ThreadLocalRandom.current().nextInt(10000000, 100000000);
-        String userName = "abcd" + randomNum;
-        String userPass = "12345";
+    public void testApplyFail() {
 
         Main.main(null);
 
-        JButton button1 = getMainButton(2);
+        JButton button1 = getMainButton(1);
         button1.doClick();
 
-        assert (getShowing(1));
+        assert (getShowing(5));
 
-        JButton button = getButton(0);
-        System.out.println(button.getText());
-        assert (button.getText().equals("Log in"));
+
+        JButton button2 = getSubButton(0);
+        System.out.println(button2.getText());
+        assert (button2.getText().equals("Get University Recommendations"));
+        button2.doClick();
+
+        assert (getShowing(6));
 
         // get a reference to the first username field
         LabelTextPanel panel = getTextPanel();
 
         JTextField jTextField = (JTextField) panel.getComponent(1);
 
-        writeTextField(userName, jTextField, panel);
+        String act = "0";
+
+        writeTextField(act, jTextField, panel);
 
         // get a reference to the first password field
-        LabelTextPanel panel2 = getPasswordPanel1();
+        LabelTextPanel panel2 = getTextPanel2();
 
-        JPasswordField pwdField = (JPasswordField) panel2.getComponent(1);
+        JTextField pwdField = (JTextField) panel2.getComponent(1);
 
-        writeTextField(userPass, pwdField, panel);
+        String sat = "0";
+
+        writeTextField(sat, pwdField, panel);
 
         popUpDiscovered = false;
-        message = "";
 
-        // since clicking the button should end up displaying a JDialog to the user to report the
-        // result, we set a timer, which will execute code necessary to complete the testing.
+        JButton button = getApplyButton(0);
+        System.out.println(button.getText());
+
         createCloseTimer().start();
 
-        //click the button
         button.doClick();
-
-        // will continue execution here after the JDialog is closed
-
-        // confirm a popUp was discovered
-        assert (popUpDiscovered);
-        System.out.println("popup was detected successfully.");
-        System.out.println(message);
-        assert (message.equals(userName + ": Account does not exist."));
-
-        assert (getShowing(1));
+        System.out.println("Popup was detected successfully");
+        assert (message.equals("Error: No universities found"));
     }
 
-    /**
-     * Test that the Cancel button is present and where it is expected to be
-     * And that pressing the button switches to mainMenu
-     */
     @org.junit.Test
-    public void testCancelButton() {
+    public void testApplyBack() {
+
         Main.main(null);
-        JButton button = getButton(1);
-        assert (button.getText().equals("Cancel"));
+
+        JButton button1 = getMainButton(1);
+        button1.doClick();
+
+        assert (getShowing(5));
+
+
+        JButton button2 = getSubButton(0);
+        System.out.println(button2.getText());
+        assert (button2.getText().equals("Get University Recommendations"));
+        button2.doClick();
+
+        assert (getShowing(6));
+
+        JButton button = getApplyButton(1);
+        System.out.println(button.getText());
 
         button.doClick();
-
-        assert getShowing(0);
+        assert (getShowing(5));
     }
 
     private Timer createCloseTimer() {
@@ -247,8 +223,8 @@ public class ApplyViewTest {
                             System.out.println("message = " + s);
 
                             // store the information we got from the JDialog
-                            LoginViewTest.message = s;
-                            LoginViewTest.popUpDiscovered = true;
+                            ApplyviewTest.message = s;
+                            ApplyviewTest.popUpDiscovered = true;
 
                             System.out.println("disposing of..." + window.getClass());
                             window.dispose();

@@ -3,6 +3,8 @@ package interface_adapter.prefapply;
 import interface_adapter.ViewManagerModel;
 import interface_adapter.apply.ApplyState;
 import interface_adapter.apply.ApplyViewModel;
+import interface_adapter.logged_in.LoggedInState;
+import interface_adapter.logged_in.LoggedInViewModel;
 import interface_adapter.sub_menu.SubViewModel;
 import interface_adapter.sub_menu.SubViewState;
 import use_case.apply.ApplyOutputData;
@@ -12,9 +14,9 @@ import use_case.prefapply.PrefApplyOutputData;
 public class PrefApplyPresenter implements PrefApplyOutputBoundary {
     private PrefApplyViewModel prefapplyViewModel;
     private ViewManagerModel viewManagerModel;
-    private SubViewModel mainMenuViewModel;
+    private LoggedInViewModel mainMenuViewModel;
 
-    public PrefApplyPresenter(PrefApplyViewModel prefapplyViewModel, ViewManagerModel viewManagerModel,SubViewModel mainMenuViewModel){
+    public PrefApplyPresenter(PrefApplyViewModel prefapplyViewModel, ViewManagerModel viewManagerModel,LoggedInViewModel mainMenuViewModel){
         this.prefapplyViewModel = prefapplyViewModel;
         this.viewManagerModel = viewManagerModel;
         this.mainMenuViewModel = mainMenuViewModel;
@@ -45,7 +47,7 @@ public class PrefApplyPresenter implements PrefApplyOutputBoundary {
     }
     @Override
     public void prepareBackView() {
-        SubViewState mainMenuState = mainMenuViewModel.getState();
+        LoggedInState mainMenuState = mainMenuViewModel.getState();
         this.mainMenuViewModel.setState(mainMenuState);
         this.mainMenuViewModel.firePropertyChanged();
 

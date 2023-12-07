@@ -1,3 +1,4 @@
+// Author: Common
 package use_case.logged_in;
 
 import data_access.TokenDataAccessInterface;
@@ -22,6 +23,8 @@ public class LoggedInInteractor implements LoggedInInputBoundary {
         loggedInOutputBoundary.prepareUserPrefApplyView();
     }
 
+    @Override
+    public void showSearchView() {loggedInOutputBoundary.prepareSearchView();}
 
     @Override
     public void logOut() {
