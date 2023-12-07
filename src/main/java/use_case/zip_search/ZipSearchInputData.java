@@ -1,7 +1,7 @@
 package use_case.zip_search;
 
 /**
- * A class that turns the ZipSearchCriteria strings (inputs by the user) into a ZipSearchInputData object.
+ * A class that returns the ZipSearchCriteria strings (inputs by the user) into a ZipSearchInputData object.
  * @author Diego
  */
 public class ZipSearchInputData {

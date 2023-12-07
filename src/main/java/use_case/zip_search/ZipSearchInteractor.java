@@ -165,7 +165,8 @@ public class ZipSearchInteractor implements ZipSearchInputBoundary {
         return (String) object;
     }
     /**
-     * A use case interactor of the ZipSearch use case. Calls the presenter to switch the active view to the previous view.
+     * A use case interactor of the ZipSearch use case. Calls the presenter to
+     * switch the active view to the previous view.
      */
     public void executeBack(){
         zipSearchPresenter.prepareBackView();

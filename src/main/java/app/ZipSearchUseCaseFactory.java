@@ -17,6 +17,10 @@ import view.ZipSearchView;
 import javax.swing.*;
 import java.io.IOException;
 
+/**
+ * Creates ZipSearchViews
+ * @author Diego
+ */
 public class ZipSearchUseCaseFactory {
     /**
      * Prevent instantiation.
@@ -24,6 +28,15 @@ public class ZipSearchUseCaseFactory {
     private ZipSearchUseCaseFactory() {
     }
 
+    /**
+     * This method creates the ZipSearchView
+     * @param viewManagerModel
+     * @param zipSearchViewModel
+     * @param subViewModel
+     * @param resultsViewModel
+     * @param zipSearchUserDataAccessObject
+     * @return
+     */
     public static ZipSearchView create(
             ViewManagerModel viewManagerModel, ZipSearchViewModel zipSearchViewModel, SubViewModel subViewModel, ResultsViewModel resultsViewModel, ZipSearchUserDataAccessInterface zipSearchUserDataAccessObject) {
 
@@ -36,6 +49,16 @@ public class ZipSearchUseCaseFactory {
         }
     }
 
+    /**
+     * Creates the ZipSearchController needed for the ZipSearchView
+     * @param viewManagerModel
+     * @param zipSearchViewModel
+     * @param subViewModel
+     * @param resultsViewModel
+     * @param zipSearchUserDataAccessObject
+     * @return
+     * @throws IOException
+     */
     private static ZipSearchController createZipSearchUseCase(ViewManagerModel viewManagerModel, ZipSearchViewModel zipSearchViewModel, SubViewModel subViewModel, ResultsViewModel resultsViewModel, ZipSearchUserDataAccessInterface zipSearchUserDataAccessObject) throws IOException {
 
         // Notice how we pass this method's parameters to the Presenter.
